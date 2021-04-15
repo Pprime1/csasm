@@ -22,7 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 const connectionString = process.env.DATABASE_URL
 
 const postgrator = new Postgrator({
-  validateChecksums: true, // Set to false to skip validation
+  validateChecksums: true, // Set to false to skip validation,
+  newline: 'CRLF', // Force using 'CRLF' (windows) or 'LF' (unix/mac)
   migrationDirectory: path.join(__dirname, 'postgrator'),
   driver: 'pg',
   ssl: { rejectUnauthorized: false },
