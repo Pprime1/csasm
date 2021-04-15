@@ -42,8 +42,9 @@
 		}
 	}
 	
-
-	let socket = new WebSocket("ws://" + document.location.hostname + ":5010?name=" + faker.name.findName());
+	var host = location.origin.replace(/^http/, 'ws')
+    var socket = new WebSocket(host + "?name=" + faker.name.findName());
+	//var socket = new WebSocket("ws://" + document.location.hostname + ":5010?name=" + faker.name.findName());
 	
 	function updatePosition(position) {
 	  var latitude = position.coords.latitude;

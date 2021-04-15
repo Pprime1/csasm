@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const Postgrator = require('postgrator')
 const bodyParser = require('body-parser');
+
+var http = require("http")
 const PORT = process.env.PORT || 5000
 
 // Express HTTP Server Start
@@ -32,6 +34,8 @@ const postgrator = new Postgrator({
 
 console.log('Starting Database Migration.')
 
+var server = http.createServer(app)
+
 postgrator
   .migrate()
   .then((appliedMigrations) => {
@@ -47,7 +51,7 @@ postgrator
 		console.error(error.stack)
 	}); 
 	
-    app.listen(PORT, () => console.log(`Server listening at ${ PORT }`))
+	server.listen(PORT, () => console.log(`Server listening at ${ PORT }`))
   })
   .catch((error) => {
     console.error('Database migration failed!')
@@ -133,10 +137,13 @@ app.use('/api', router);
 
 ///// WEB SOCKET EXAMPLE
 
-const WebSocket = require('ws');
+var WebSocket = require("ws")
+var WebSocketServer = require("ws").Server
+
 const url = require('url');
 const querystring = require('querystring');
-const wss = new WebSocket.Server({ port: 5010 });
+
+var wss = new WebSocketServer({server: server})
 
 const map = new Map();
 
