@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 const connectionString = process.env.DATABASE_URL
 
 const postgrator = new Postgrator({
+  validateChecksums: true, // Set to false to skip validation
   migrationDirectory: path.join(__dirname, 'postgrator'),
   driver: 'pg',
   ssl: { rejectUnauthorized: false },
@@ -165,7 +166,7 @@ wss.on('connection', function connection(ws, request) {
 				console.error(error.stack)
 			});
 			
-			// show places listed in geocache table as long as they're within 50000 metres of my current location.
+			// show places listed in geocache table as long as they're within 50,000 metres of my current location.
 			let metres = 50000;
 			
 			let qry = `
