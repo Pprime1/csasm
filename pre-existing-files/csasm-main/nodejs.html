@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<div id="dout">Customer info will be listed here...</div>
+<script>
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "sql12.freemysqlhosting.net",
+  user: "sql12395856",
+  password: "mPewIJqsib"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+</body>
+</html>

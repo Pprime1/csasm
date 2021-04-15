@@ -24,10 +24,12 @@ window.onload = getLocation();
   user: "sql12395856",
   password: "mPewIJqsib"
 });
+
 conn.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
+
 var sql = "SELECT * FROM MTABLE WHERE CODE=?";
 var result = conn.query(sql,UCODE);
 if (!result.isValid) {
@@ -50,6 +52,8 @@ if (!result.isValid) {
 	ccode.TxtOut=result.value("TxtOut");
 }
 conn.close();
+
+
 */
 var x = document.getElementById("mobstate");
 var wp0 = document.getElementById("WP0");

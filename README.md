@@ -9,6 +9,30 @@ Options to be included once base code is working
 1. Allow a three-location ASM
 2. Allow multiple different ASMs called by a 'GCCODE' as to which one is being attempted
 
+# TODO
+
+1. Clean Up Code -
+1.1 - Make application start with a "Login button" and allow user to input their own name before proceeding
+1.2 - Make application start without websocket automatically connecting.
+1.3 - Give players information on when their last location update was...
+1.4 - Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
+1.5 - Move javascript code into a .js file, and attempt minimise global variable usage (other than websocket) 
+1.6 - Remove api logic if it isn't going to be used
+1.7 - Websocket - Implement Heartbreak to prevent it from expiring. Heroku expired my websocket connection for some reason..? H15 error??
+1.8 - Websocket - Decide whether to keep chat, if chat remains we need to add scrolling ---- Probably not best format for Mobile environment... 
+1.9 - Performance - Location update every 60s for every player - it would be a performance drain when too many people have connected 
+
+2. Implement Vision
+2.1 - geocache table contains information about points of interest - e.g "Andrews Place"... if we wanted we could add a third table to link them to a "GCCODE"
+		then look for all players updated in last 5 minutes and see whether they're near any of the places for our GCCODE, 
+			if any are send that as an update to all users for same GCCODE
+2.2 - When all players occupy the correct locations send further information in the "distance" update to congratulate them?
+
+3. Budget Concerns
+3.1 - Postgres allows for 10k rows, we store player information in the database whilst they're connected. 
+		This means we are allowed to have (10k - geocache.rows - othertables.rows) players
+		This should be tracked to whether it is still appropriate 
+
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
