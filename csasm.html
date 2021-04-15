@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+ <head>
+ <meta charset = "UTF-8">
+ <title>COVID-Safe Mob Caching</title>
+ </head>
+<body>
+
+<p id="WP0"></p>
+<p id="WP1"></p>
+<p id="WP2"></p>
+<br>
+<p id="mobstate"></p>
+	<br/>
+
+<script>
+window.onload = getLocation();
+/*
+ var mysql = require('mysql');
+  var conn = mysql.createConnection({
+  driver: "MySQL",
+  host: "sql12.freemysqlhosting.net",
+  port: "3306",
+  user: "sql12395856",
+  password: "mPewIJqsib"
+});
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+var sql = "SELECT * FROM MTABLE WHERE CODE=?";
+var result = conn.query(sql,UCODE);
+if (!result.isValid) {
+    test.fail("Entry not found.");
+} else {
+    ccode.code=result.value("code");
+	ccode.Lat1=result.value("Lat1");
+	ccode.Lon1=result.value("Lon1");
+	ccode.Rad1=result.value("Rad1");
+	ccode.Time1=result.value("Time1");
+	ccode.Lat2=result.value("Lat2");
+	ccode.Lon2=result.value("Lon2");
+	ccode.Rad2=result.value("Rad2");
+	ccode.Time2=result.value("Time2");
+	ccode.Lat3=result.value("Lat3");
+	ccode.Lon3=result.value("Lon3");
+	ccode.Rad3=result.value("Rad3");
+	ccode.Time3=result.value("Time3");
+	ccode.TxtSolo=result.value("TxtSolo");
+	ccode.TxtOut=result.value("TxtOut");
+}
+conn.close();
+*/
+var x = document.getElementById("mobstate");
+var wp0 = document.getElementById("WP0");
+var wp1 = document.getElementById("WP1");
+var wp2 = document.getElementById("WP2");
+
+var dt = new Date();
+var dt2 = new Date(dt.getTime()+(30*1000));
+var dout = "You are too far away";
+var win = 0;
+
+const UCODE = "GCTEST" /* urlParams.get('code');  /* Get from URL call */
+var dt0 = new Date(0);
+var ccode = {CODE:UCODE, Lat1:-27.34511, Lon1:153.03048, Rad1:10, Lat2:-27.34296, Lon2:153.01237, Rad2:2000, Lat3:0, Lon3:0, Rad3:0, Time1:dt0, Time2:dt0, Time3:dt0, TxtSolo:"You are here, where is everyone else?", TxtOut:"You have reached Nirvana"};
+/* Replace this with a secure call to MySQL dbase to obtain values */
+
+
+/* THE PRIMARY WORKFLOW FUNCTION - called by GetLocation() */
+function showPosition(position) {
+   var d1 = getDistanceFromLatLng(position.coords.latitude, position.coords.longitude, ccode.Lat1, ccode.Lon1);
+   if (d1 < ccode.Rad1) {
+      dout = ccode.TxtSolo;
+      ccode.Time1 = dt2;
+   }
+
+   var d2 = getDistanceFromLatLng(position.coords.latitude, position.coords.longitude, ccode.Lat2, ccode.Lon2);
+   if (d2 < ccode.Rad2) {
+      dout = ccode.TxtSolo;
+      ccode.Time2 = dt2;
+   }
+
+/*   
+   if (ccode.Rad3 != 0) {
+     var d3 = getDistanceFromLatLng(position.coords.latitude, position.coords.longitude, ccode.Lat3, ccode.Lon3);
+     if (d3 < ccode.Rad3) {
+       dout = ccode.TxtSolo;
+       ccode.Time3 = dt2;
+     }
+   } 
+        && (Rad3!=0 && dt<ccode.Time3)
+*/
+   
+  if (dt<ccode.Time1 && dt<ccode.Time2) {
+    win = 1;
+    dout = ccode.TxtOut;
+  }
+    
+
+/* CREATE OUTPUT HERE */     
+  x.innerHTML = "Success state is  " + Boolean(win) + "<br>" + dout;
+  
+  WP0.innerHTML = "For CODE: <b>"+ ccode.CODE + "</b>. I am at: " + position.coords.latitude + ", " + position.coords.longitude + " as at " + dt.toLocaleDateString() + " " + dt.toLocaleTimeString();
+  WP1.innerHTML = "<b>WP1: </b>" + ccode.Lat1 + ", " + ccode.Lon1 + " within " + ccode.Rad1 + "m. I am " + d1 + "m away. Occupied until " + ccode.Time1.toLocaleDateString() + " " + ccode.Time1.toLocaleTimeString();
+  WP2.innerHTML = "<b>WP2: </b>" + ccode.Lat2 + ", " + ccode.Lon2 + " within " + ccode.Rad2 + "m. I am " + d2 + "m away. Occupied until " + ccode.Time2.toLocaleDateString() + " " + ccode.Time2.toLocaleTimeString();
+  
+  if (win != 1) {
+     /* setTimeout("location.reload();", 10000); */
+  }
+}
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation.";
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable.";
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out.";
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred.";
+      break;
+  }
+}
+
+
+/* Distance between two lat/lng coordinates in metres using the Haversine formula
+ Copyright 2016, Chris Youderian, SimpleMaps, http://simplemaps.com/resources/location-distance
+ Released under MIT license - https://opensource.org/licenses/MIT */ 
+function getDistanceFromLatLng(lat1, lng1, lat2, lng2) {
+  function deg2rad(deg){return deg * (Math.PI/180);}
+  function square(x){return Math.pow(x, 2);}
+  var r=6371; // radius of the earth in kms
+  lat1=deg2rad(lat1);
+  lat2=deg2rad(lat2);
+  var lat_dif=lat2-lat1;
+  var lng_dif=deg2rad(lng2-lng1);
+  var a=square(Math.sin(lat_dif/2))+Math.cos(lat1)*Math.cos(lat2)*square(Math.sin(lng_dif/2));
+  var d=2000*r*Math.asin(Math.sqrt(a));
+  var dd=Math.round(d);
+  return dd; //return metres
+}
+
+
+/* Coding needed:-
+* Function to get ccode data from MySQL TABLE
+* Function to update ccode.time data to MySQL TABLE
+* protect and hide code / secure access
+* incorporate Third Location (as optional)
+*/
+
+</script>
+</body>
+</html>

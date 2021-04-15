@@ -1,5 +1,5 @@
 {
-  "name": "node-js-getting-started",
+  "name": "csasm-nodejs",
   "version": "0.3.0",
   "description": "A sample Node.js app using Express 4",
   "engines": {
@@ -11,8 +11,12 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "ejs": "^3.1.5",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "pg": "^8.5.1",
+    "postgrator": "^4.1.1",
+    "ws": "^7.4.4"
   },
   "devDependencies": {
     "got": "^11.3.0",
@@ -20,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/Pprime1/csasm"
   },
   "keywords": [
     "node",
