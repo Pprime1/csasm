@@ -12,14 +12,14 @@ Options to be included once base code is working
 # TODO
 
 1. Clean Up Code -
-1.1 - Make application start with a "Login button" and allow user to input their own name before proceeding
+X1.1 - Make application start with a "Login button" and allow user to input their own name before proceeding
 1.2 - Make application start without websocket automatically connecting.
 1.3 - Give players information on when their last location update was...
 1.4 - Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
 1.5 - Move javascript code into a .js file, and attempt minimise global variable usage (other than websocket) 
 1.6 - Remove api logic if it isn't going to be used
 1.7 - Websocket - Implement Heartbreak to prevent it from expiring. Heroku expired my websocket connection for some reason..? H15 error??
-1.8 - Websocket - Decide whether to keep chat, if chat remains we need to add scrolling ---- Probably not best format for Mobile environment... 
+X1.8 - Websocket - Decide whether to keep chat, if chat remains we need to add scrolling ---- Probably not best format for Mobile environment... 
 1.9 - Performance - Location update every 60s for every player - it would be a performance drain when too many people have connected 
 
 2. Implement Vision
