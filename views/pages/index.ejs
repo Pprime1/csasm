@@ -2,27 +2,50 @@
 <html>
 <head>
   <%- include ("../partials/header.ejs") %>
-  <script type="text/javascript" src="/s/ws-landing.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+  <script>
+      const personal_group_id = '<%= groupId %>'
+
+      window.onload = function() {
+        var clipboard = new ClipboardJS('.btn');
+      }
+  </script>
+  <script type="text/javascript" src="/js/mobcache-socketio.js"></script>
+
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="container-fluid">
   <div class="alert alert-info text-center" role="alert">
 	   Welcome to the Anti Social Mob Cache :-)
   </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-12">
-      <h3><span class="glyphicon glyphicon-link"></span> Distances From Waypoints</h3>
-  	  <!-- div with distances -->
-  	  <div id="distances" style="height: 300px"></div>
-      </div>
-  </div> <!-- row -->
+  <div class="jumbotron" id="landingJumbotron">
+    <div id="lj-startup">
+      <h1 class="display-7">Start your own anti social group!</h1>
+      <p>Give your unique code <span id="MyGroupId" class="badge badge-secondary"><%= groupId %></span> to a friend</p>
+      <button type="button" class="btn btn-primary btn-clipboard" data-clipboard-text="<%=groupId%>">Copy Code</button>
+      <hr class="my-4">
+      <h1 class="display-7">Join your friends anti social group!</h1>
+      <form id="join-group-form">
+          <div class="form-group">
+              <input type="text" class="form-control" id="groupId" aria-describedby="Group Code">
+              <small class="form-text text-muted">Ask your friend for their code!</small>
+          </div>
+          <button type="submit" class="btn btn-primary" href="#" role="button">Join Group</button>
+      </form>
+    </div>
+    <div id="lj-joining" style="display: none">
+        <h1 class="display-7"><span id="current-group-id" class="badge badge-secondary"></span>: Waiting for your anti social group members!</h1>
+        <p>Your group currently has <span id="current-group-member-count" class="badge badge-info"></span> members</p>
+    </div>
+  </div>
    <div class="alert alert-info text-center" role="alert">
 		  Developed by Pprime` with help.  Hosted by Heroku. (c) 2021 All rights reserved.
   </div>
 </div>
+
 
 </body>
 </html>

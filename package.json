@@ -5,18 +5,17 @@
   "engines": {
     "node": "14.x"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node test.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
     "ejs": "^3.1.5",
-    "express": "^4.15.2",
+    "express": "^4.17.1",
     "pg": "^8.5.1",
     "postgrator": "^4.1.1",
-    "ws": "^7.4.4"
+    "randomstring": "^1.1.5",
+    "socket.io": "^4.0.1"
   },
   "devDependencies": {
     "got": "^11.3.0",
