@@ -2,114 +2,27 @@
 <html>
 <head>
   <%- include ("../partials/header.ejs") %>
+  <script type="text/javascript" src="/s/ws-landing.js"></script>
 </head>
 
 <body>
 
 <div class="container">
   <div class="alert alert-info text-center" role="alert">
-	Welcome to MobCache :-)
+	   Welcome to MobCache :-)
   </div>
   <hr>
   <div class="row">
-    <div class="col-md-6">
-      <h3><span class="glyphicon glyphicon-info-sign"></span> Messaging</h3>
-	  <!-- message form -->
-		<form name="publish">
-		  <input type="text" name="message">
-		  <input type="submit" value="Send">
-		</form>
-
-		<!-- div with messages -->
-		<div id="messages" style="height: 750px"></div>
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
       <h3><span class="glyphicon glyphicon-link"></span> Distances From Me</h3>
-	  
-	  <!-- div with distances -->
-	  <div id="distances" style="height: 750px"></div>
-    </div>
+  	  <!-- div with distances -->
+  	  <div id="distances" style="height: 300px"></div>
+      </div>
   </div> <!-- row -->
    <div class="alert alert-info text-center" role="alert">
-		NodeJS Application with WebSocket chat channel, and distance tracker between other users.
+		   NodeJS Application with Web Socket Channel
   </div>
 </div>
-
-<script>
-	function removeAllChildNodes(parent) {
-		while (parent.firstChild) {
-			parent.removeChild(parent.firstChild);
-		}
-	}
-	
-	var host = location.origin.replace(/^http/, 'ws')
-    var socket = new WebSocket(host + "?name=" + faker.name.findName());
-	//var socket = new WebSocket("ws://" + document.location.hostname + ":5010?name=" + faker.name.findName());
-	
-	function updatePosition(position) {
-	  var latitude = position.coords.latitude;
-	  var longitude = position.coords.longitude;
-
-		
-		let locationMessage = {
-			type: "location",
-			latitude: latitude,
-			longitude: longitude
-		}
-		
-		socket.send(JSON.stringify(locationMessage));
-	}
-	
-	// send message from the form
-	document.forms.publish.onsubmit = function() {
-	  let outgoingMessage = {
-		type: "chat",
-		content: this.message.value
-	  }
-
-	  socket.send(JSON.stringify(outgoingMessage));
-	  return false;
-	};
-	
-	socket.onopen = function(event) {
-		
-		// Update User Location every 1 minute ... note this could be done better with watch function see geolocation watch for javascript
-		// 	it does use more battery life now, so it might be worth while building in functionality for players to enable / disable 
-		// 	their location updates (i.e. partipate / stay out)
-		
-		navigator.geolocation.getCurrentPosition(updatePosition);
-		
-		const interval = setInterval(function() {
-			navigator.geolocation.getCurrentPosition(updatePosition);
-		}, 60000);
-		
-		// clearInterval(interval); // to disable
-	}
-
-	// message received - show the message in div#messages
-	socket.onmessage = function(event) {
-	  let incomingMessage = JSON.parse(event.data);
-	  console.log(incomingMessage)
-	  
-	  if(incomingMessage.type == "chat") {
-		let messageElem = document.createElement('div');
-		messageElem.textContent = incomingMessage.content;
-		document.getElementById('messages').prepend(messageElem);
-	  }
-	  if(incomingMessage.type == "distance") {
-		const container = document.getElementById('distances');
-		removeAllChildNodes(container);
-		incomingMessage.content.forEach(function(location) {
-				let messageElem = document.createElement('div');
-			messageElem.textContent = "I'm " + location["distance (m2)"] + " metres away from " + location["description"];
-			container.prepend(messageElem);
-		});
-
-	  }
-	  
-	}
-
-</script>
 
 </body>
 </html>
