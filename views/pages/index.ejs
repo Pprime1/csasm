@@ -25,8 +25,14 @@
 </div>
 
 <script>
-    var host = location.origin.replace(/^http/, 'ws')
-    var socket = new WebSocket(host + "?name=" + faker.name.findName());
+    	function removeAllChildNodes(parent) {
+		while (parent.firstChild) {
+			parent.removeChild(parent.firstChild);
+		}
+	}
+	
+	var host = location.origin.replace(/^http/, 'ws')
+	var socket = new WebSocket(host + "?name=" + faker.name.findName());
 
 	function updatePosition(position) {
 	  var latitude = position.coords.latitude;
