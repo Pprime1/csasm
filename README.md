@@ -69,9 +69,11 @@ X		This should be tracked to whether it is still appropriate
 
 ejs gets current user location and sends to js (websocket message)
 
-js gets that location and updates 'players table' and then calculates distance from 'geocaches table' location
+js gets that location and creates/access the database tables, using the code in the postgrator folder
 
-js returns distance and description of the 'geocaches table' locaiton
+js then updates 'players table' with the received location, and then calculates distance from a single 'geocaches table' location (this needs to change to asm table and multiple waypoint locaitons within each asm-game)
+
+js returns distance and description of the 'geocaches table' location
 
 ejs receives the returned data and displays it and then re-polls 60 seconds later (?not tested)
 
