@@ -1,13 +1,13 @@
 # csasm
 This is the source code repository for the Geocaching Anti-Social Mob application (ASM) - aka Covid Safe Anti-Social Mob (csasm).
-The app runs on two mobile devices, each connecting to the same data source to determine if they are within a proximity radius of either of the locations stored.
-If they are within range the timestamp is updated for that location
+The app runs on two mobile devices, each connecting to the same data source to determine if they are within a proximity radius of either of the waypoint locations stored in a database table.
+If one is within range of a waypoint location the timestamp is updated for that location
 It then checks if the timestamp of both locations is within 30 seconds of current time - ie: are both locations currently occupied?
 If so, returns hidden text value. Otherwise restart the process (polling) to see if anything has changed.
 
 Options to be included once base code is working
-1. Allow a three-location ASM
-2. Allow multiple different ASMs called by a 'GCCODE' as to which one is being attempted
+1. Allow a three-location ASM (ie: three players at three differnet waypoint locations simultaneously. Will never want to make it bigger than that. 
+
 
 # TODO
 
@@ -25,7 +25,7 @@ X1.3 - Give players information on when their last location update was...
 
 1.6 - Remove api logic if it isn't going to be used
 
-X1.7 - Websocket - Implement Heartbreak to prevent it from expiring. Heroku expired my websocket connection for some reason..? H15 error??
+1.7 - Websocket - Implement Heartbreak to prevent it from expiring. Heroku expired my websocket connection for some reason..? H15 error??
 
 X1.8 - Websocket - Decide whether to keep chat, if chat remains we need to add scrolling ---- Probably not best format for Mobile environment... 
 
@@ -33,8 +33,10 @@ X1.8 - Websocket - Decide whether to keep chat, if chat remains we need to add s
 
 1.A - Remove the chat function, utilise the ASM database table
 
+1.B - investigate Android Chrome browser as this does not appear to allow (or even ask) for geolocation
 
-2. Implement Vision
+
+# 2. Implement Vision
 X2.1 - geocache table contains information about points of interest - e.g "Andrews Place"... if we wanted we could add a third table to link them to a "GCCODE"
 		then look for all players updated in last 5 minutes and see whether they're near any of the places for our GCCODE, 
 			if any are send that as an update to all users for same GCCODE
@@ -57,6 +59,23 @@ X2.1 - geocache table contains information about points of interest - e.g "Andre
 X3.1 - Postgres allows for 10k rows, we store player information in the database whilst they're connected. 
 X		This means we are allowed to have (10k - geocache.rows - othertables.rows) players
 X		This should be tracked to whether it is still appropriate 
+
+
+## code logic explained (in Peter terms)
+
+(js) index.js is the primary engine (server side)
+
+(ejs) views/pages/index.ejs is the calling script (client side)
+
+ejs gets current user location and sends to js (websocket message)
+
+js gets that location and updates 'players table' and then calculates distance from 'geocaches table' location
+
+js returns distance and description of the 'geocaches table' locaiton
+
+ejs receives the returned data and displays it and then re-polls 60 seconds later (?not tested)
+
+There is also a chat feature currently also implemented (not required)
 
 
 
