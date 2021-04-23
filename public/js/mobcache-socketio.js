@@ -1,18 +1,15 @@
 const socket = io(); // or io("/"), the main namespace
 
-let current_group_id = personal_group_id
+socket.on("room-join", () => {
+  $("#lj-startup").hide();
+  $("#lj-in-game").show();
+});
 
-socket.on("group-join", (group_id, new_player_count) => {
-  if(group_id !== current_group_id) {
-    alert('Something went wrong!')
-  }
+socket.on("room-update", (group_id, new_player_count) => {
+  $("#lj-startup").hide();
+  $("#lj-in-game").show();
 
-  if(new_player_count > 1) {
-    $("#lj-startup").hide();
-    $("#lj-joining").show();
-  }
-
-  $("#current-group-id").text(current_group_id);
+  $("#current-group-id").text(group_id);
   $("#current-group-member-count").text(new_player_count);
 })
 
@@ -23,29 +20,22 @@ socket.on("group-join", (group_id, new_player_count) => {
 //   }
 // });
 
-
-// Join our personal group
-socket.emit('join-our-group', current_group_id);
-
-
-// Bind Submit Event for Front Page Group Joiner
-
+// Bind Submit Event for Front Page Group Joiner / Group Starter / Group Resume
 window.addEventListener("load",function(event) {
+  $( "#start-group-form" ).on( "submit", function(e) {
+      e.preventDefault();
+
+      console.log(`Attempting to start a group!`)
+
+      socket.emit('join-a-group');
+  });
+
   $( "#join-group-form" ).on( "submit", function(e) {
       e.preventDefault();
 
-      var groupToJoin = $("#groupId").val();
-      console.log(`Attempting to join ${ groupToJoin }`)
+      var group = $("#groupId").val();
+      console.log(`Attempting to join ${ group }`)
 
-      if (personal_group_id === groupToJoin) {
-        alert("You cannot join yourself!");
-        return;
-      }
-
-      $("#lj-startup").hide();
-      $("#lj-joining").show();
-
-      current_group_id = groupToJoin;
-      socket.emit('join-a-friend', groupToJoin);
+      socket.emit('join-a-group', group);
   });
 }, false);
