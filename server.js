@@ -36,10 +36,10 @@ boot_database(CONNECTION_STRING).then(
           // TODO - validate arg[0], and arg[1] exist
           let location_update_query = `
             UPDATE player
-            set location = ST_GeomFromText('POINT(" + $2 + " " + $3 + ")', 3857)
-            WHERE id = $1
+            set location = ST_GeomFromText('POINT(${args[0]} ${args[1]})', 3857)
+            WHERE id = '${socket.id}'
           `
-          db_connnection.query(location_update_query, [socket.id, args[0], args[1]]).catch(err => console.log(err))
+          db_connnection.query(location_update_query).catch(err => console.log(err))
 
           console.log(socket.id, "gave location update", args)
         })
@@ -59,7 +59,7 @@ boot_database(CONNECTION_STRING).then(
     // Handle Group Join / Leave - Inform users within group of changes (i.e. online amount)
     io.of("/").adapter.on("join-room", (room, id) => {
       if(room !== id) {
-        db_connnection.query("INSERT INTO player(id) VALUES($1)", [socket.id]).catch(err => console.log(err));
+        db_connnection.query("INSERT INTO player(id) VALUES($1)", [id]).catch(err => console.log(err));
 
         let room_size = io.sockets.adapter.rooms.get(room).size
         console.log(id, "joined", room, room_size, "online")
@@ -75,7 +75,7 @@ boot_database(CONNECTION_STRING).then(
         console.log(id, "left", room, room_size, "online")
         io.to(room).emit("room-update", room, room_size)
 
-        db_connnection.query("DELETE FROM player WHERE id = " + socket.id).catch(err => console.log(err));
+        db_connnection.query("DELETE FROM player WHERE id = " + id).catch(err => console.log(err));
       }
     })
 

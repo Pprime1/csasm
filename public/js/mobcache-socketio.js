@@ -1,8 +1,21 @@
 const socket = io(); // or io("/"), the main namespace
 
+function updatePosition(position) {
+  var latitude = position.coords.latitude;
+  var longitude = position.coords.longitude;
+
+  socket.emit('location-update', latitude, longitude);
+}
+
 socket.on("room-join", () => {
   $("#lj-startup").hide();
   $("#lj-in-game").show();
+
+  navigator.geolocation.getCurrentPosition(updatePosition);
+
+	const interval = setInterval(function() {
+		navigator.geolocation.getCurrentPosition(updatePosition);
+	}, 60000);
 });
 
 socket.on("room-update", (group_id, new_player_count) => {
@@ -11,6 +24,11 @@ socket.on("room-update", (group_id, new_player_count) => {
 
   $("#current-group-id").text(group_id);
   $("#current-group-member-count").text(new_player_count);
+})
+
+socket.on("room-location-update", (information) => {
+  // do changes here!
+
 })
 
 // socket.on("group-leave", (group_id, player_count) => {
