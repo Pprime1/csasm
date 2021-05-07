@@ -7,6 +7,14 @@ function updatePosition(position) {
   socket.emit('location-update', latitude, longitude);
 }
 
+let is_joined = false;
+
+socket.io.on("reconnect", () => {
+  if (is_joined) {
+      socket.emit('join-a-group', $("#current-group-id").text())
+  }
+});
+
 socket.on("room-join", () => {
   $("#lj-startup").hide();
   $("#lj-in-game").show();
@@ -19,6 +27,8 @@ socket.on("room-join", () => {
 });
 
 socket.on("room-update", (group_id, new_player_count) => {
+  is_joined = true;
+
   $("#lj-startup").hide();
   $("#lj-in-game").show();
 
@@ -28,6 +38,7 @@ socket.on("room-update", (group_id, new_player_count) => {
 
 socket.on("room-location-update", (information) => {
   // do changes here!
+  console.log(information);
 
 })
 
