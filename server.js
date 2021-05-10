@@ -25,28 +25,40 @@ app.use(express.static(path.join(__dirname, 'public')))
 let db_connnection;
 
 function roomUpdateHandler(roomId, io){
-    if(!io.sockets.adapter.rooms[roomId]) {
+    if(!io.sockets.adapter.rooms.has(roomId)) {
        clearInterval(this)
        return;
     }
 
     console.log("Updating", roomId, "With Location Statuses")
 
-    SELECT wp.waypoint_id, wp.game_code, wp.name FROM waypoint AS wp;
+    let game_code = "GCTEST"
 
+    let location_query = `
+      SELECT wp.waypoint_id, wp.name, wp.radius,
+             pl.id as player_id, pl.room_id, pl.updated_at, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+      FROM waypoint as wp, player as pl
+      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
+      `
 
-    let qry = `
-      SELECT id, description,
-         round(ST_DISTANCE(
-          location,
-          ST_GeomFromText('POINT(${latitude} ${longitude})', 3857)) * 100000) as "distance (m2)"
-        from geocaches
-        WHERE
-          ST_DISTANCE(
-          location,
-          ST_GeomFromText('POINT(${latitude} ${longitude})', 3857)) * 100000 <= ${metres}`;
+    let reward_query = `select reward from games where game_code = '${game_code}'`
 
-    io.to(roomId).emit('room-location-update', { none: "hello" });
+    db_connnection.query(location_query).then(result => {
+        io.to(roomId).emit('room-location-update', result.rows);
+
+        // TODO: determine whether they have "met the criteria" to succeed in the game?
+        //  count all unique waypoint_id's with players within radius, if all expected
+        //  waypoints have someone within radius sent each player in the room the reward string for display
+
+        let success = false;
+        if (success) {
+          db_connnection.query(reward_query).then(game_reward => {
+              io.to(roomId).emit('room-reward', game_reward.rows[0]);
+          }).catch(err => console.log(err));
+        }
+
+    }).catch(err => console.log(err));
+
 }
 
 boot_database(CONNECTION_STRING).then(
@@ -59,7 +71,6 @@ boot_database(CONNECTION_STRING).then(
         console.log(socket.id, "connected");
 
         socket.on('location-update', (...args) => {
-          // TODO - validate arg[0], and arg[1] exist
           let location_update_query = `
             UPDATE player
             set location = ST_GeomFromText('POINT(${args[0]} ${args[1]})', 3857)
@@ -72,9 +83,6 @@ boot_database(CONNECTION_STRING).then(
           // Join Requested Group if supplied, or create a group using randomized string
           let room_id = args.length > 0 ? args[0] : randomstring.generate({ length: 5, charset: 'alphabetic' });
 
-          // TODO: We should check whether they're in any other rooms (other than their own personal room)..
-          //  and leave them; unless it matches the provided room_id
-
           socket.join("group-" + room_id);
         });
 
@@ -83,8 +91,11 @@ boot_database(CONNECTION_STRING).then(
 
     // Handle Group Join / Leave - Inform users within group of changes (i.e. online amount)
     io.of("/").adapter.on("create-room", (room) => {
+      console.log("creating-room", room)
       if (room.startsWith("group-")) {
-        setInterval(roomUpdateHandler, 60000, room, io)
+        console.log("Scheduling Update Handler", room)
+        // TODO: once this is being deployed increase time from 5000 (5 seconds) to 60000 (60 seconds)
+        setInterval(roomUpdateHandler, 5000, room, io)
       }
     })
     io.of("/").adapter.on("join-room", (room, id) => {

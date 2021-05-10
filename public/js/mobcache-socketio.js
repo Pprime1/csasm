@@ -36,18 +36,23 @@ socket.on("room-update", (group_id, new_player_count) => {
   $("#current-group-member-count").text(new_player_count);
 })
 
-socket.on("room-location-update", (information) => {
+socket.on("room-location-update", (waypoint_information) => {
   // do changes here!
-  console.log(information);
+  console.log(waypoint_information);
+
+  // TODO: Show all waypoints, and players with their distance from those waypoints (will need some data manipulation... currently we will have 1 row per waypoint per player that is within the radius of the waypoint)
+  // distance is in m2
+
 
 })
 
-// socket.on("group-leave", (group_id, player_count) => {
-//   if(player_count > 1) {
-//     $("#lj-startup").hide();
-//     $("#lj-joining").show();
-//   }
-// });
+socket.on("room-reward", (reward_information) => {
+  // do changes here!
+  console.log(reward_information);
+
+  // TODO: show reward on screen!
+
+})
 
 // Bind Submit Event for Front Page Group Joiner / Group Starter / Group Resume
 window.addEventListener("load",function(event) {
