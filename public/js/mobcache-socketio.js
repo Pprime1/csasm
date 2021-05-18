@@ -20,7 +20,7 @@ socket.on("room-join", () => {
   $("#lj-in-game").show();
 
   navigator.geolocation.getCurrentPosition(updatePosition);
-$("#current-location-and-time).text(updateposition);
+$("#current-location-and-time).text(position);
 	const interval = setInterval(function() {
 		navigator.geolocation.getCurrentPosition(updatePosition);
 	}, 60000);
