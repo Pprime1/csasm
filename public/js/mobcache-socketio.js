@@ -20,7 +20,7 @@ socket.on("room-join", () => {
   $("#lj-in-game").show();
 
   navigator.geolocation.getCurrentPosition(updatePosition);
-
+$("#current-location-and-time).text(updateposition);
 	const interval = setInterval(function() {
 		navigator.geolocation.getCurrentPosition(updatePosition);
 	}, 60000);
@@ -40,6 +40,7 @@ socket.on("room-location-update", (waypoint_information) => {
   // do changes here!
   console.log(waypoint_information);
 
+  $("#waypoint-information").text(waypoint_information);
   // TODO: Show all waypoints, and players with their distance from those waypoints (will need some data manipulation... currently we will have 1 row per waypoint per player that is within the radius of the waypoint)
   // distance is in m2
 
