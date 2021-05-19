@@ -11,10 +11,6 @@ const randomstring = require ('randomstring');
 const boot_database = require('./app/database').db;
 
 // configuration
-if (location.protocol !== 'https:') {
-    location.replace(`https:${location.href.substring(location.protocol.length)}`);
-}
-
 const PORT = process.env.PORT || 5000;
 const CONNECTION_STRING = process.env.DATABASE_URL;
 
