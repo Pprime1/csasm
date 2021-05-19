@@ -1,15 +1,12 @@
-## csasm
+# csasm
 This is the source code repository for the Geocaching Anti-Social Mob application (ASM) - aka Covid Safe Anti-Social Mob (csasm).
-The app runs on multiple mobile devices, each connecting to the same source to determine if they are within a proximity radius of any waypoint location stored in a database table.
-If so, returns hidden REWARD text value (clues/directions tot he final container). Otherwise restart the process (polling) to see if anything has changed.
-
-Options to be included once base code is working
-1. Allow a three-location ASM (ie: three players at three differnet waypoint locations simultaneously. Will never want to make it bigger than that. 
+The app runs on multiple mobile devices, each connecting to the same source to determine if they are within a proximity radius of any waypoint location stored in a database table for a given Game-Code.
+If so, returns hidden REWARD text value (clues/directions to the final container). Otherwise restart the process (polling) to see if anything has changed.
 
 
-## TODO
+# TODO
 
-# 1. Clean Up Code -
+## 1. Clean Up Code -
 
 1.1 - Make application start with a selection of all valid Game-Codes, allowing user to select which game they are playing.
 
@@ -21,12 +18,14 @@ Options to be included once base code is working
 
 1.5 - Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
 
-1.6 - Shorter Player ID numbers
+1.6 - Shorter Player ID numbers ... no value in self-naming players
 
 XDONEX 1.7 - Force https so that Chrome android and others can get local device location
 
+1.8 - remove redundant postgrator and other code in the csasm package
 
-# 2. Implement Vision
+
+## 2. Implement Vision
 
 2.1 - Keep track of which waypoints have a player currently in their radius (since last polling update) - waypoint-occupied state (until next room poll)
 
@@ -38,16 +37,16 @@ XDONEX 1.7 - Force https so that Chrome android and others can get local device 
 
 ## code logic explained (in Peter terms)
 
-server.js is the primary engine (server side) - no visibility of goings on to enduser. Must socket.emit to client side javascript
+###server.js### is the primary engine (server side) - no visibility of goings on to enduser (can be seen in heroku console). Must socket.emit to communicate to client side javascript
 
-public/js/mobcachie.io.js (client side) - visible in console (F12). Can update variables used by html id=stuff
+###public/js/mobcache-socketio.js### (client side) - visible in console (F12). Can update variables used by html id=stuff
 
-views/pages/index.ejs is the calling script (client side) and displays stuff. use ID=stuff so that content can be sent across
-
-
+###views/pages/index.ejs### is the calling script (client side) and displays stuff. use ID=stuff so that content can be sent across
 
 
-## Running Locally ... unreliable still. code doesn't stay in sync with github.
+
+
+### Running Locally ... unreliable still. code doesn't stay in sync with github.
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
