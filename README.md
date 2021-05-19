@@ -18,11 +18,13 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 1.5 - Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
 
-1.6 - Shorter Player ID numbers ... no value in self-naming players
+1.6 - Shorter Player ID numbers ... no value in self-naming players but human usable IDs will help
 
 XDONEX 1.7 - Force https so that Chrome android and others can get local device location
 
 1.8 - remove redundant postgrator and other code in the csasm package
+
+1.9 - will need to remove most client side console.log outputs for production use, can they be shifted to server side?
 
 
 ## 2. Implement Vision
@@ -37,11 +39,11 @@ XDONEX 1.7 - Force https so that Chrome android and others can get local device 
 
 ## code logic explained (in Peter terms)
 
-###server.js### is the primary engine (server side) - no visibility of goings on to enduser (can be seen in heroku console). Must socket.emit to communicate to client side javascript
+server.js    is the primary engine (server side) - no visibility of goings on to enduser (can be seen in heroku console). Must socket.emit to communicate to client side javascript
 
-###public/js/mobcache-socketio.js### (client side) - visible in console (F12). Can update variables used by html id=stuff
+public/js/mobcache-socketio.js   is the primary controller (client side) - visible in console (F12). Can update variables used by html id=stuff
 
-###views/pages/index.ejs### is the calling script (client side) and displays stuff. use ID=stuff so that content can be sent across
+views/pages/index.ejs    is the calling script (client side) and displays stuff. use ID=stuff so that content can be sent across
 
 
 
