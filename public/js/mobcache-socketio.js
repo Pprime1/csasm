@@ -38,10 +38,9 @@ socket.on("room-update", (group_id, new_player_count) => {
 
 socket.on("room-location-update", (waypoint_information) => {
   console.log(waypoint_information);
-  var result= JSON.stringify(waypoint_information);
+  var result= JSON.stringify(waypoint_information,null,2);
   $("#wpinfo").text(result);
-  //why is the result display NOT updating every 5s (room location update cycle) but the console is?
-  	
+    	
   // TODO: Show all waypoints in a table:
   // List current player only per waypoint with their distance from each
   // IF the player is less than the radius distance from a waypoint, list all other players and their distances away from other waypoints
