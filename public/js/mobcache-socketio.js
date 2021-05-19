@@ -23,7 +23,7 @@ socket.on("room-join", () => {
 // todo send current location and time to index.ejs    $("#current-location-and-time").text(updatePosition);
 	const interval = setInterval(function() {
 		navigator.geolocation.getCurrentPosition(updatePosition);
-	}, 60000);
+	}, 10000);
 });
 
 socket.on("room-update", (group_id, new_player_count) => {
@@ -38,16 +38,15 @@ socket.on("room-update", (group_id, new_player_count) => {
 
 socket.on("room-location-update", (waypoint_information) => {
   console.log(waypoint_information);
-	
-  // do changes here! replicate console.log output to index.ejs
-  // $("#wpinfo").text(waypoint_information);  .... is returning [object Object],[object Object] instead of what is displayed in console
   var result= JSON.stringify(waypoint_information);
   $("#wpinfo").text(result);
-  
+  //why is the result display NOT updating every 5s (room location update cycle) but the console is?
   	
-  // TODO: Show all waypoints, and players with their distance from those waypoints (will need some data manipulation... currently we will have 1 row per waypoint per player that is within the radius of the waypoint)
-  // distance is in m2
-
+  // TODO: Show all waypoints in a table:
+  // List current player only per waypoint with their distance from each
+  // IF the player is less than the radius distance from a waypoint, list all other players and their distances away from other waypoints
+  // IF all waypoints have a player in their radius then room.reward is achieved
+  
 })
 
 socket.on("room-reward", (reward_information) => {
