@@ -3,7 +3,8 @@
 <head>
   <%- include ("../partials/header.ejs") %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-  <script> if (location.protocol !== 'https:') {
+  <script> <!-- must be https for Chrome browsers to access current locaiton -->
+  if (location.protocol !== 'https:') {
     location.replace(`https:${location.href.substring(location.protocol.length)}`);
   } </script>
   <script>
@@ -28,9 +29,9 @@
           <button type="submit" class="btn btn-primary" href="#" role="button">Start Group</button>
       </form>
       <hr class="my-4">
-      <!-- snip -->
+      ---- snip -->
       
-      <h1 class="display-7">Enter the Geocaching ID Code for the Anti-Social mob you wish to play:</h1>
+      <h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>
       <form id="join-group-form">
           <div class="form-group">
               <input type="text" class="form-control" id="groupId" aria-describedby="Group Code">
