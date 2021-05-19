@@ -41,7 +41,7 @@ socket.on("room-location-update", (waypoint_information) => {
 	
   // do changes here! replicate console.log output to index.ejs
   // $("#waypoint-information").text(waypoint_information);  .... is returning [object Object],[object Object] instead of what is displayed in console
-$("#waypoint-information").text(waypoint_information.name);
+$("#wpinfo").text(waypoint_information.name);
   
   	
   // TODO: Show all waypoints, and players with their distance from those waypoints (will need some data manipulation... currently we will have 1 row per waypoint per player that is within the radius of the waypoint)
