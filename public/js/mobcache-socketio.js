@@ -43,14 +43,14 @@ socket.on("room-location-update", (waypoint_information) => {
     	
   // TODO: Show all waypoints in a table: pass variables from server.js?
 	// TODO: Receive from server.js and pass to index.ejs?
-        // var pl.id WHERE id= '${socket.id}' // this is current player?
-        // var pl.location
-        // var pl.updated_at
+        // pl.id WHERE id= '${socket.id}' // this is current player?
+        // pl.location
+        // pl.updated_at
       
-        // var wp.name 
-	$("#wp.name").text(wp.name)
-        // var wp.radius
-        // var distance
+        $("#wpname").text(wp.name)
+        $("#wpradius").text(wp.radius)
+        $("distance").text(distance)
+	
 	// if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
   // IF all waypoints have a wp.occupied = true then room-reward is achieved
   
