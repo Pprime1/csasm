@@ -44,7 +44,17 @@ function roomUpdateHandler(roomId, io){
 
     db_connnection.query(location_query).then(result => {
         io.to(roomId).emit('room-location-update', result.rows);
-
+      
+        // TODO: Pass variables of current status data back to index.ejs to display in a table
+        // var pl.id WHERE id= '${socket.id}' // this is current player?
+        // var pl.location
+        // var pl.updated_at
+      
+        // var wp.name
+        // var wp.radius
+        // var distance
+      
+      
         // TODO: determine whether they have "met the criteria" to succeed in the game?
         //  count all unique waypoint_id's with players within radius, if all expected
         //  waypoints have someone within radius sent each player in the room the reward string for display
@@ -93,7 +103,7 @@ boot_database(CONNECTION_STRING).then(
       console.log("creating-room", room)
       if (room.startsWith("group-")) {
         console.log("Scheduling Update Handler", room)
-        // TODO: once this is being deployed increase time from 5000 (5 seconds) to 60000 (60 seconds)
+        // TODO: once this is being deployed increase time from 5000 (5 seconds) to 15000 (15 seconds)
         setInterval(roomUpdateHandler, 5000, room, io)
       }
     })
