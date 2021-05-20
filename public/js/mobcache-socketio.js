@@ -47,7 +47,8 @@ socket.on("room-location-update", (waypoint_information) => {
         // var pl.location
         // var pl.updated_at
       
-        // var wp.name
+        // var wp.name 
+	$("#wp.name").text(wp.name)
         // var wp.radius
         // var distance
 	// if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
