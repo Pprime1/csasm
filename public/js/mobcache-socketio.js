@@ -41,10 +41,17 @@ socket.on("room-location-update", (waypoint_information) => {
   var result= JSON.stringify(waypoint_information,null,2);
   $("#wpinfo").text(result);
     	
-  // TODO: Show all waypoints in a table:
-  // List current player only per waypoint with their distance from each
-  // IF the player is less than the radius distance from a waypoint, list all other players and their distances away from other waypoints
-  // IF all waypoints have a player in their radius then room.reward is achieved
+  // TODO: Show all waypoints in a table: pass variables from server.js?
+	// TODO: Receive from server.js and pass to index.ejs?
+        // var pl.id WHERE id= '${socket.id}' // this is current player?
+        // var pl.location
+        // var pl.updated_at
+      
+        // var wp.name
+        // var wp.radius
+        // var distance
+	// if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
+  // IF all waypoints have a wp.occupied = true then room-reward is achieved
   
 })
 
@@ -52,7 +59,7 @@ socket.on("room-reward", (reward_information) => {
   // do changes here!
   console.log(reward_information);
 
-  // TODO: show reward on screen!
+  // TODO: show reward on seperate secured screen! And stop updates/refreshes of screen
 
 })
 
