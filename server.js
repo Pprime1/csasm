@@ -53,7 +53,7 @@ function roomUpdateHandler(roomId, io){
         // var wp.name
         // var wp.radius
         // var distance
-      
+  res.send(wp)    
       
         // TODO: determine whether they have "met the criteria" to succeed in the game?
         //  count all unique waypoint_id's with players within radius, if all expected
