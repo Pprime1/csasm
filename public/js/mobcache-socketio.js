@@ -3,7 +3,8 @@ const socket = io(); // or io("/"), the main namespace
 function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-
+$("#current-Lat").text(latitude);
+$("#current-Lon").text(longitude);
   socket.emit('location-update', latitude, longitude);
 }
 
