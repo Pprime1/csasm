@@ -5,6 +5,7 @@ const io = require('socket.io')(http);
 
 const path = require('path')
 const randomstring = require ('randomstring');
+var wp;
 
 // Our Imports
 
@@ -22,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (request, response) => response.render('pages/index'));
 
 let db_connnection;
-var wp;
 
 function roomUpdateHandler(roomId, io){
     if(!io.sockets.adapter.rooms.has(roomId)) {
