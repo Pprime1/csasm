@@ -3,7 +3,7 @@
 <head>
   <%- include ("../partials/header.ejs") %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-  <script> <!-- must be https for Chrome browsers to access current locaiton -->
+  <script> <!-- must be https for Chrome browsers to access current location -->
   if (location.protocol !== 'https:') {
     location.replace(`https:${location.href.substring(location.protocol.length)}`);
   } </script>
@@ -51,6 +51,7 @@
       <p>Your distance from each waypoint currently is:</p>
       <!-- Insert List of each waypoint, show coords and radius target and current distance -->
       <pre><span id="wpinfo"></span></pre>
+      
       <!-- Insert Table here instead
       Using variables passed from mocache-socket.js and/or server.js
       	// TODO: Receive from server.js and pass to index.ejs?
@@ -64,11 +65,11 @@
        
 	<p>Distance= <span id=distance></p>
 	<p>Waypoint= <span id=wpname></p>
-        <p>Radius= <span id=wpradius></p>
+        <p>Radius= <span id=#wpradius></p>
 	 
       <table border="1"><caption>Current Player: #Location and #Timestamp</caption>
       <thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead>
-      <tbody><tr><td id="<%= wp.name%>"></td><td id="<%= wp.radius%>">m</td><td id="<%= distance%>">m</td><td>dist1,dist2,dist3 ...</td></tr></tbody></table>
+      <tbody><tr><td id="<%= wp.name%>"></td><td ="<%= wp.radius %>">m</td><td id="<%= distance%>">m</td><td>dist1,dist2,dist3 ...</td></tr></tbody></table>
    </div>
 
    <div class="alert alert-info text-center" role="alert">
