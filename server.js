@@ -50,12 +50,10 @@ function roomUpdateHandler(roomId, io){
         // var pl.id WHERE id= '${socket.id}' // this is current player?
         // var pl.location
         // var pl.updated_at
-      
         // var wp.name
         // var wp.radius
         // var distance
-  res.send(wp);    
-      
+        
         // TODO: determine whether they have "met the criteria" to succeed in the game?
         //  count all unique waypoint_id's with players within radius, if all expected
         //  waypoints have someone within radius sent each player in the room the reward string for display
