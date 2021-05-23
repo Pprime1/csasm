@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (request, response) => response.render('pages/index'));
 
 let db_connnection;
-let wp;
+var wp;
 
 function roomUpdateHandler(roomId, io){
     if(!io.sockets.adapter.rooms.has(roomId)) {
