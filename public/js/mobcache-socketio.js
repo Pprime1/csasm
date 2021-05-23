@@ -49,7 +49,7 @@ socket.on("room-location-update", (waypoint_information) => {
       
         $("#wpname").JSON.stringify(wp.name);
         $("#wpradius").JSON.stringify(wp.radius);
-        $("distance").JSON.stringify(distance);
+        $("#distance").JSON.stringify(distance);
 	
 	// if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
   // IF all waypoints have a wp.occupied = true then room-reward is achieved
