@@ -50,11 +50,8 @@
       
       <p>Your distance from each waypoint currently is:</p>
       <!-- Insert List of each waypoint, show coords and radius target and current distance -->
-      <pre><span id="wpinfo"></span></pre>
-      
-      <!-- Insert Table here instead
-      Using variables passed from mocache-socket.js and/or server.js
-      	// TODO: Receive from server.js and pass to index.ejs?
+       
+      <!-- TODO: Receive from server.js and pass to index.ejs?
         // var pl.id WHERE id= '${socket.id}' // this is current player?
         // var pl.location
         // var pl.updated_at
@@ -67,15 +64,18 @@
 	<p>Waypoint= <span id=wpname></p>
         <p>Radius= <span id=#wpradius></p>
 	 
-      <!--
+      <!-- Insert Table here instead
       <table border="1"><caption>Current Player: #Location and #Timestamp</caption>
       <thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead>
       <tbody><tr><td id="<$= wp.name%>"></td><td ="<$= wp.radius %>">m</td><td id="<$= distance%>">m</td><td>dist1,dist2,dist3 ...</td></tr></tbody></table>
       -->
    </div>
-
+   
+   <!-- display a dump of the received data -->
+   <pre><span id="wpinfo"></span></pre>
+   
    <div class="alert alert-info text-center" role="alert">
-		  <i>Developed by Pprime` with a hell of a lot of help.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
+	  <i>Developed by Pprime` with a hell of a lot of help.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
   </div>
 </div>
 
