@@ -46,7 +46,7 @@
 <!-- <span><button type="button" class="btn btn-primary btn-clipboard" data-clipboard-target="#current-group-id">Copy</button></span> -->
 </p>
       <p>This game currently has <span id="current-group-member-count" class="badge badge-info"></span> active players</p>
-      <p>You are located at: <span id="current-lat" class="badge badge-info" </span> <span id="current-lon" class="badge badge-info" </span></p>
+      <p>You are located at: <span id="current-Lat" class="badge badge-info" </span> <span id="current-Lon" class="badge badge-info" </span></p>
       
       <p>Your distance from each waypoint currently is:</p>
       <!-- Insert List of each waypoint, show coords and radius target and current distance -->
@@ -63,13 +63,13 @@
 	<p>Distance= <span id=distance></p>
 	<p>Waypoint= <span id=wpname></p>
         <p>Radius= <span id=#wpradius></p>
+	
+	<% var wp; %>
 	 
-      <!-- Insert Table here instead -->
-      <table border="1"><caption>Current Player: #Location and #Timestamp</caption>
+      <!-- Insert Table here showing Waypoints, My distance from each and other player's distance from each. Highlight a waypoint if "occupied" -->
+      <table border="1"><caption>Current Player: #Location and #Timestamp Z</caption>
       <thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead>
-      <tbody>
-      <% var wp; %>
-      
+      <tbody>   
       <% for (var i = 0; i < 2 i++) { %>
       <tr>
          <td><%= wp[i].name %> </td>
@@ -79,10 +79,9 @@
       </tr>    
       <% } %>
       </tbody></table>
-      
    </div>
    
-   <!-- display a dump of the received data -->
+   <!-- display a straight dump of the received data for debugging -->
    <pre><span id="wpinfo"></span></pre>
    
    <div class="alert alert-info text-center" role="alert">
