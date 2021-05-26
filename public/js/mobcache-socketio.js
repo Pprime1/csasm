@@ -7,7 +7,7 @@ const socket = io(); // or io("/"), the main namespace
     	var minutes = Math.floor(minutesNotTruncated);
     	var minutesdecimals = ((absolute - degrees) * 60).toFixed(3);
     	var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
-    	if (dir = 1) {
+    	if (dir == 1) {
         	var direction = deg >= 0 ? "N" : "S";
     	} else {
         	var direction = deg >= 0 ? "E" : "W";
