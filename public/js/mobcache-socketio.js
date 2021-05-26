@@ -1,10 +1,25 @@
 const socket = io(); // or io("/"), the main namespace
 
+function ConvertDEGToDM(deg, lat) {
+    var absolute = Math.abs(deg);
+
+    var degrees = Math.floor(absolute);
+    var minutesNotTruncated = (absolute - degrees) * 60;
+    var minutes = Math.floor(minutesNotTruncated);
+    var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+    if (lat) {
+        var direction = deg >= 0 ? "N" : "S";
+    } else {
+        var direction = deg >= 0 ? "E" : "W";
+    }
+    return direction + degrees + "° " + minutes + "'";
+}
+
 function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-$("#current-Lat").text(latitude);
-$("#current-Lon").text(longitude);
+    $("#current-Lat").text(ConvertDEGtoDM(latitude,1)); //convert formatting
+    $("#current-Lon").text(ConvertDEGtoDM(longitude,0)); //convert formatting
   socket.emit('location-update', latitude, longitude);
 }
 
@@ -21,7 +36,6 @@ socket.on("room-join", () => {
   $("#lj-in-game").show();
 
   navigator.geolocation.getCurrentPosition(updatePosition);
-// todo send current location and time to index.ejs    $("#current-location-and-time").text(updatePosition);
 	const interval = setInterval(function() {
 		navigator.geolocation.getCurrentPosition(updatePosition);
 	}, 10000);
