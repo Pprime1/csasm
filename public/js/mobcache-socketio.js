@@ -48,7 +48,7 @@ socket.on("room-location-update", (waypoint_information) => {
         // pl.location
         // pl.updated_at
       
-        $("#wpname").JSON.stringify(waypoint_information[0].name);
+        $("#wpname").text(waypoint_information[0].name);
         $("#wpradius").JSON.stringify(waypoint_information[0].radius);
         $("#distance").JSON.stringify(waypoint_information[0].distance);
 	
