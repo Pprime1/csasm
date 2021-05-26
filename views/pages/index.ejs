@@ -64,17 +64,16 @@
 	<p>Waypoint= <span id=wpname></p>
         <p>Radius= <span id=#wpradius></p>
 	
-	<% var wp; %>
-	 
+	
       <!-- Insert Table here showing Waypoints, My distance from each and other player's distance from each. Highlight a waypoint if "occupied" -->
       <table border="1"><caption>Current Player: #Location and #Timestamp Z</caption>
       <thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead>
       <tbody>   
       <% for (var i = 0; i < 2 i++) { %>
       <tr>
-         <td><%= wp[i].name %> </td>
-         <td><%= wp[i].radius %>m</td>
-         <td><%= wp[i].distance %>m</td>
+         <td><$= wp[i].name $> </td>
+         <td><$= wp[i].radius $>m</td>
+         <td><$= wp[i].distance $>m</td>
 	 <td>dist1,dist2,dist3 ...</td>
       </tr>    
       <% } %>
