@@ -1,7 +1,6 @@
 const socket = io(); // or io("/"), the main namespace
 
-function updatePosition(position) {
-    function ConvertDEGToDM(deg,dir) {
+  function ConvertDEGToDM(deg,dir) {
     	var absolute = Math.abs(deg);
     	var degrees = Math.floor(absolute);
     	var minutesNotTruncated = (absolute - degrees) * 60;
@@ -14,13 +13,15 @@ function updatePosition(position) {
         	var direction = deg >= 0 ? "E" : "W";
     	}
     	return direction + degrees + "° " + minutesdecimals+ "' ";
-    }
+ }
+
+function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-  var lat = ConvertDEGtoDM(latitude,1);
-  var lon = ConvertDEGtoDM(longitude,0);
-    $("#current-Lat").text(lat);
-    $("#current-Lon").text(lon);
+  //var lat = ConvertDEGtoDM(latitude,1);
+  //var lon = ConvertDEGtoDM(longitude,0); //why can't I run this?
+    $("#current-Lat").text(latitude); // should be lat/lon as formatted. sigh
+    $("#current-Lon").text(longitude);
   socket.emit('location-update', latitude, longitude);
 }
 
