@@ -1,27 +1,27 @@
 const socket = io(); // or io("/"), the main namespace
 
-function ConvertDEGToDM(deg, lat) {
+function ConvertDEGToDM(deg,dir) {
     var absolute = Math.abs(deg);
-
     var degrees = Math.floor(absolute);
     var minutesNotTruncated = (absolute - degrees) * 60;
     var minutes = Math.floor(minutesNotTruncated);
+    var minutesdecimals = ((absolute - degrees) * 60).tofixed(3);
     var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
-    if (lat) {
+    if (dir = 1) {
         var direction = deg >= 0 ? "N" : "S";
     } else {
         var direction = deg >= 0 ? "E" : "W";
     }
-    return direction + degrees + "° " + minutes + "'";
+    return direction + degrees + "° " + minutesdecimals+ "' ";
 }
 
 function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-  var lat = latitude;
-  var lon = longitude;
-    $("#current-Lat").text(ConvertDEGtoDM(lat,true)); //convert formatting
-    $("#current-Lon").text(ConvertDEGtoDM(lon,false)); //convert formatting
+  var lat = ConvertDEGtoDM(latitude,1);
+  var lon = ConvertDEGtoDM(longitude,0);
+    $("#current-Lat").text(lat);
+    $("#current-Lon").text(lon);
   socket.emit('location-update', latitude, longitude);
 }
 
