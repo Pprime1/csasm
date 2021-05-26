@@ -18,8 +18,10 @@ function ConvertDEGToDM(deg, lat) {
 function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-    $("#current-Lat").text(ConvertDEGtoDM(latitude,1)); //convert formatting
-    $("#current-Lon").text(ConvertDEGtoDM(longitude,0)); //convert formatting
+  var lat = latitude;
+  var lon = longitude;
+    $("#current-Lat").text(ConvertDEGtoDM(lat,true)); //convert formatting
+    $("#current-Lon").text(ConvertDEGtoDM(lon,false)); //convert formatting
   socket.emit('location-update', latitude, longitude);
 }
 
