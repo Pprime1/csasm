@@ -1,21 +1,20 @@
 const socket = io(); // or io("/"), the main namespace
 
-function ConvertDEGToDM(deg,dir) {
-    var absolute = Math.abs(deg);
-    var degrees = Math.floor(absolute);
-    var minutesNotTruncated = (absolute - degrees) * 60;
-    var minutes = Math.floor(minutesNotTruncated);
-    var minutesdecimals = ((absolute - degrees) * 60).tofixed(3);
-    var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
-    if (dir = 1) {
-        var direction = deg >= 0 ? "N" : "S";
-    } else {
-        var direction = deg >= 0 ? "E" : "W";
-    }
-    return direction + degrees + "° " + minutesdecimals+ "' ";
-}
-
 function updatePosition(position) {
+    function ConvertDEGToDM(deg,dir) {
+    	var absolute = Math.abs(deg);
+    	var degrees = Math.floor(absolute);
+    	var minutesNotTruncated = (absolute - degrees) * 60;
+    	var minutes = Math.floor(minutesNotTruncated);
+    	var minutesdecimals = ((absolute - degrees) * 60).tofixed(3);
+    	var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+    	if (dir = 1) {
+        	var direction = deg >= 0 ? "N" : "S";
+    	} else {
+        	var direction = deg >= 0 ? "E" : "W";
+    	}
+    	return direction + degrees + "° " + minutesdecimals+ "' ";
+    }
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   var lat = ConvertDEGtoDM(latitude,1);
