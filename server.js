@@ -5,10 +5,8 @@ const io = require('socket.io')(http);
 
 const path = require('path')
 const randomstring = require ('randomstring');
-var wp;
 
 // Our Imports
-
 const boot_database = require('./app/database').db;
 
 // configuration
@@ -16,7 +14,6 @@ const PORT = process.env.PORT || 5000;
 const CONNECTION_STRING = process.env.DATABASE_URL;
 
 // Startup Logic
-
 app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
@@ -121,7 +118,7 @@ boot_database(CONNECTION_STRING).then(
       if(room !== id) {
         let room_size = io.sockets.adapter.rooms.get(room).size
         console.log(id, "left", room, room_size, "online")
-        io.to(room).emit("room-update", room, room_size)
+        io.to(room).emit("room-update", room.replace("group-", ""), room_size)
 
         db_connnection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
       }
