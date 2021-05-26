@@ -18,10 +18,10 @@ const socket = io(); // or io("/"), the main namespace
 function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
-  //var lat = ConvertDEGtoDM(latitude,1);
-  //var lon = ConvertDEGtoDM(longitude,0); //why can't I run this?
-    $("#current-Lat").text(latitude); // should be lat/lon as formatted. sigh
-    $("#current-Lon").text(longitude);
+  var lat = ConvertDEGToDM(latitude,1);
+  var lon = ConvertDEGToDM(longitude,0); //why can't I run this?
+    $("#current-Lat").text(lat); // should be lat/lon as formatted. sigh
+    $("#current-Lon").text(lon);
   socket.emit('location-update', latitude, longitude);
 }
 
