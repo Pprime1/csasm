@@ -1,4 +1,3 @@
-
 --- Player Table (when players online they have a row in the table)
 CREATE TABLE players (
   id 			SERIAL PRIMARY KEY,
