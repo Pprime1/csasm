@@ -83,7 +83,7 @@ socket.on("room-location-update", (waypoint_information) => {
 
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
-  var displayinfo = maketable(display_information);
+  var displayinfo = maketable(display_information,waypoint_information);
   var displayresult= JSON.stringify(displayinfo,null,2);
   $("#displayinfo").text(displayresult);
 })
