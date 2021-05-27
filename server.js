@@ -71,7 +71,8 @@ function roomUpdateHandler(roomId, io){
         }).catch(err => console.log(err));
      }
      }).catch(err => console.log(err));
-})
+   }).catch(err => console.log(err));
+}
 
 boot_database(CONNECTION_STRING).then(
   (pool) => {
