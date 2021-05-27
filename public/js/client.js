@@ -67,7 +67,7 @@ socket.on("room-location-update", (waypoint_information) => {
 
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
-  var MYID = ${socket.id} // this is current player?
+  var MYID = {socket.id} // this is current player?
   var DTStamp = display_information[0].updated_at.toLocaleString(); // this is NOT converting the timestamp to a readable format?
 
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
