@@ -16,14 +16,14 @@ function ConvertDEGToDM(deg,dir) {
  }
 
 function maketable(pl) {
-   var thetable = "<table border='1'><caption>Current Player: " + pl.id +"</caption>" +
-	 "<thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead><tbody><tr>"
+   var thetable = '<table border="1"><caption>Current Player: ' + pl.id +'</caption>' +
+	 '<thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead><tbody><tr>'
    for (var i = 0; i < pl.length; i++) {
-         thetable = thetable + "<td>" + pl[i].id +"</td>" 
-        // + "<td>" + wp[i].radius + "m</td>" +
-        // "<td>" + wp[i].distance +">m</td>"
+         thetable += '<td>" + pl[i].id +"</td>' 
+        // + '<td>' + wp[i].radius + 'm</td>' +
+        // '<td>' + wp[i].distance + '>m</td>'
    }
-    thetable = thetable + "<td>dist1,dist2,dist3 sort this out next ...</td></tr></tbody></table>"
+    thetable += '<td>dist1,dist2,dist3 sort this out next ...</td></tr></tbody></table>'
 return thetable;
 }
 
@@ -85,7 +85,7 @@ socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   var displayinfo = maketable(display_information);
   var displayresult= JSON.stringify(displayinfo,null,2);
-  $("#displayinfo").text(displayresult);
+  $("#displayinfo").text(displayinfo);
 })
 
   // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
