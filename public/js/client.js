@@ -15,13 +15,13 @@ function ConvertDEGToDM(deg,dir) {
   return direction + degrees + "° " + minutesdecimals+ "' ";
  }
 
-function maketable(pl,wp) {
+function maketable(pl) {
    var thetable = "<table border='1'><caption>Current Player: " + pl.id +"</caption>" +
 	 "<thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead><tbody><tr>"
-   for (var i = 0; i < wp.length; i++) {
-         thetable = thetable + "<td>" + wp[i].name +"</td>" +
-         "<td>" + wp[i].radius + "m</td>" +
-         "<td>" + wp[i].distance +">m</td>"
+   for (var i = 0; i < pl.length; i++) {
+         thetable = thetable + "<td>" + pl[i].id +"</td>" 
+        // + "<td>" + wp[i].radius + "m</td>" +
+        // "<td>" + wp[i].distance +">m</td>"
    }
     thetable = thetable + "<td>dist1,dist2,dist3 sort this out next ...</td></tr></tbody></table>"
 return thetable;
@@ -83,7 +83,7 @@ socket.on("room-location-update", (waypoint_information) => {
 
 socket.on("room-display-update", (display_information,waypoint_information) => {
   console.log(display_information);
-  var displayinfo = maketable(display_information,waypoint_information);
+  var displayinfo = maketable(display_information);
   var displayresult= JSON.stringify(displayinfo,null,2);
   $("#displayinfo").text(displayresult);
 })
