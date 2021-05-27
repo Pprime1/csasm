@@ -1,6 +1,7 @@
 
--- DROP TABLE geocache;
--- DROP TABLE players;
+-- DROP TABLE geocache; // why?
+-- DROP TABLE players; // players with an s is from 003 players but don't think it is needed now
+// should we drop games and waypoint tables first as well?
 
 CREATE TABLE games (
   game_code       VARCHAR(10) NOT NULL PRIMARY KEY,
@@ -21,10 +22,12 @@ CREATE TABLE waypoint (
 -- Update SRID to WGS84 (World Geodetic System 1984) - Standard for most calcluations worldwide
 SELECT UpdateGEometrySRID('waypoint', 'location', 3857);
 
+
+// TEST GAME GCTEST - we can look at having a seperate postgrator file per geocache following the below format?
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
-  'GCTEST', 'An exciting Adventure to .....', 2, 'You have reached Nirvana';
+  'GCTEST', 'An exciting Adventure to whatever ASM cahce name this is', 2, 'You have reached Nirvana this is the reward data';
 
 INSERT INTO
     waypoint (game_code, name, location, radius)
