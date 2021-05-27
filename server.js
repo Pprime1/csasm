@@ -45,7 +45,7 @@ function roomUpdateHandler(roomId, io){
       SELECT pl.id, pl.room_id, pl.updated_at,
       wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
       FROM player as pl, waypoint as wp
-      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
+      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "") GROUP BY pl.id}'
       `
     // SELECT ((stored_timestamp AT TIME ZONE 'UTC') AT TIME ZONE 'EST') AS local_timestamp
 
