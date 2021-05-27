@@ -1,19 +1,31 @@
 const socket = io(); // or io("/"), the main namespace
 
-  function ConvertDEGToDM(deg,dir) {
-    	var absolute = Math.abs(deg);
-    	var degrees = Math.floor(absolute);
-    	var minutesNotTruncated = (absolute - degrees) * 60;
-    	var minutes = Math.floor(minutesNotTruncated);
-    	var minutesdecimals = ((absolute - degrees) * 60).toFixed(3);
-    	var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
-    	if (dir == 1) {
-        	var direction = deg >= 0 ? "N" : "S";
-    	} else {
-        	var direction = deg >= 0 ? "E" : "W";
-    	}
-    	return direction + degrees + "° " + minutesdecimals+ "' ";
+function ConvertDEGToDM(deg,dir) {
+  var absolute = Math.abs(deg);
+  var degrees = Math.floor(absolute);
+  var minutesNotTruncated = (absolute - degrees) * 60;
+  var minutes = Math.floor(minutesNotTruncated);
+  var minutesdecimals = ((absolute - degrees) * 60).toFixed(3);
+  var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+  if (dir == 1) {
+     	var direction = deg >= 0 ? "N" : "S";
+  } else {
+      	var direction = deg >= 0 ? "E" : "W";
+  }
+  return direction + degrees + "° " + minutesdecimals+ "' ";
  }
+
+function maketable(pl,wp) {
+   var thetable = "<table border='1'><caption>Current Player: " + pl.id +"</caption>" +
+	 "<thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead><tbody><tr>"
+   for (var i = 0; i < wp.length; i++) {
+         thetable = thetable + "<td>" + wp[i].name +"</td>" +
+         "<td>" + wp[i].radius + "m</td>" +
+         "<td>" + wp[i].distance +">m</td>"
+   }
+    thetable = thetable + "<td>dist1,dist2,dist3 sort this out next ...</td></tr></tbody></table>"
+return thetable;
+}
 
 function updatePosition(position) {
   var latitude = position.coords.latitude;
@@ -64,17 +76,20 @@ socket.on("room-location-update", (waypoint_information) => {
         // pl.location
         // pl.updated_at
         
-	var wp = waypoint_information;
-	
-        $("#wpname").text(waypoint_information[0].name);
+	$("#wpname").text(waypoint_information[0].name);
         $("#wpradius").text(waypoint_information[0].radius);
         $("#distance").text(waypoint_information[0].distance);
-
-	
-	// if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
-  // IF all waypoints have a wp.occupied = true then room-reward is achieved
-  
 })
+
+socket.on("room-display-update", (display_information) => {
+  console.log(display_information);
+  var displayinfo = maketable(display_information);
+  var displayresult= JSON.stringify(displayinfo,null,2);
+  $("#displayinfo").text(displayresult);
+})
+
+  // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
+  // IF all waypoints have a wp.occupied = true then room-reward is achieved
 
 socket.on("room-reward", (reward_information) => {
   // do changes here!
