@@ -43,7 +43,16 @@ function roomUpdateHandler(roomId, io){
     db_connnection.query(location_query).then(result => {
         io.to(roomId).emit('room-location-update', result.rows);
       
-        // TODO: Pass variables of current status data back to index.ejs to display in a table
+    let results_query = `
+      SELECT pl.id, pl.room_id, pl.updated_at, 
+          wp.id as waypoint.id, wp.name, wp.radius, wp.location,
+          round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+      FROM player as pl, waypoint as wp
+      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
+      `
+    db_connnection.query(results_query).then(result => {
+        io.to(roomId).emit('room-display-update', result.rows);
+      
         // var pl.id WHERE id= '${socket.id}' // this is current player?
         // var pl.location
         // var pl.updated_at
@@ -51,6 +60,8 @@ function roomUpdateHandler(roomId, io){
         // var wp.radius
         // var distance
         
+      
+      
         // TODO: determine whether they have "met the criteria" to succeed in the game?
         //  count all unique waypoint_id's with players within radius, if all expected
         //  waypoints have someone within radius sent each player in the room the reward string for display
