@@ -72,12 +72,12 @@ socket.on("room-display-update", (display_information) => {
   
   var DTStamp = display_information[0].updated_at.toLocaleString();
   var $table = "<table border='1'> <caption>Current Player: " + display_information[0].id + " at " + DTStamp + "</caption>"
-      $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody><tr>"
+      $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
-         $table += '<td>' + display_information[i].player_id + '</td>'
-         $table += '<td>' + display_information[i].name + 'm</td>'
+         $table += '<tr><td>' + display_information[i].id + '</td>'
+         $table += '<td>' + display_information[i].name + '</td>'
 	 $table += '<td>' + display_information[i].radius + 'm</td>'
-         $table += '<td>' + display_information[i].distance + '>m</td>'
+         $table += '<td>' + display_information[i].distance + 'm</td></tr>'
    }
    $table += "</tr></tbody></table>"
    $('#displayinfo').empty().append($table);
