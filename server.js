@@ -38,19 +38,17 @@ function roomUpdateHandler(roomId, io){
       WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
       `
 
-    let reward_query = `select reward from games where game_code = '${game_code}'`
-
     db_connnection.query(location_query).then(result => {
         io.to(roomId).emit('room-location-update', result.rows);
       
-    let results_query = `
+    let display_query = `
       SELECT pl.id, pl.room_id, pl.updated_at, 
           wp.id as waypoint.id, wp.name, wp.radius, wp.location,
           round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
       FROM player as pl, waypoint as wp
       WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
       `
-    db_connnection.query(results_query).then(result => {
+    db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
       
         // var pl.id WHERE id= '${socket.id}' // this is current player?
@@ -61,21 +59,19 @@ function roomUpdateHandler(roomId, io){
         // var distance
         
       
-      
+     let reward_query = `select reward from games where game_code = '${game_code}'`
+     let success = false;
         // TODO: determine whether they have "met the criteria" to succeed in the game?
         //  count all unique waypoint_id's with players within radius, if all expected
         //  waypoints have someone within radius sent each player in the room the reward string for display
-
-        let success = false;
-        if (success) {
-          db_connnection.query(reward_query).then(game_reward => {
-              io.to(roomId).emit('room-reward', game_reward.rows[0]);
-          }).catch(err => console.log(err));
-        }
-
-    }).catch(err => console.log(err));
-
-}
+  
+     if (success) {
+        db_connnection.query(reward_query).then(game_reward => {
+             io.to(roomId).emit('room-reward', game_reward.rows[0]);
+        }).catch(err => console.log(err));
+     }
+     }).catch(err => console.log(err));
+})
 
 boot_database(CONNECTION_STRING).then(
   (pool) => {
