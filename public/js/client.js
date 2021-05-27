@@ -57,20 +57,13 @@ socket.on("room-update", (group_id, new_player_count) => {
 //  console.log(waypoint_information);
 //  var result= JSON.stringify(waypoint_information,null,2);
 //  $("#wpinfo").text(result);
-
-  // TODO: Show all waypoints in a table: pass variables from server.js?
-	// TODO: Receive from server.js and pass to index.ejs?
-	//$("#wpname").text(waypoint_information[0].name);
-        //$("#wpradius").text(waypoint_information[0].radius);
-        //$("#distance").text(waypoint_information[0].distance);
 // })
 
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id // this is current player?
-  var DTStamp = display_information[0].updated_at.format('YYYY-MM-DD HH:mm:ss'); // this is NOT converting the timestamp to a readable format?
+  var DTStamp = display_information[0].updated_at; // this is NOT converting the timestamp to a readable format?
 	
-
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
@@ -81,7 +74,6 @@ socket.on("room-display-update", (display_information) => {
    }
    $table += "</tr></tbody></table>"
    $('#displayinfo').empty().append($table);
-	
 })
 
   // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
