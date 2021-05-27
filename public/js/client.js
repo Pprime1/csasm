@@ -70,7 +70,7 @@ socket.on("room-location-update", (waypoint_information) => {
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
 
-  var $table = "<table border='1'> <caption>Current Player: " + display_information[0].id + " at " + display_information[0].updated_at.tolocalestring() + "</caption>"
+  var $table = "<table border='1'> <caption>Current Player: " + display_information[0].id + " at " + display_information[0].updated_at.toLocaleDateString() + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody><tr>"
   for (var i = 0; i < display_information.length; i++) {
          $table += '<td>' + display_information[i].player_id + '</td>'
