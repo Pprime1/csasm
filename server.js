@@ -42,12 +42,16 @@ function roomUpdateHandler(roomId, io){
         io.to(roomId).emit('room-location-update', result.rows);
       
     let display_query = `
-      SELECT pl.id as player.id, pl.room_id, pl.updated_at, 
-          wp.id as waypoint.id, wp.name, wp.radius, wp.location,
-          round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
-      FROM player as pl, waypoint as wp
-      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
+      SELECT id, room_id, updated_at
+      FROM player
+      WHERE player.room_id = '${roomId.replace("group-", "")}'
       `
+    //        wp.id as waypoint.id, wp.name, wp.radius, wp.location,
+    //        round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+    //        FROM player as pl, waypoint as wp
+    //        WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
+    //        AND pl.id= '${socket.id}' // this is current player?
+  
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
       
