@@ -61,18 +61,16 @@ socket.on("room-location-update", (waypoint_information) => {
   // TODO: Show all waypoints in a table: pass variables from server.js?
 	// TODO: Receive from server.js and pass to index.ejs?
         // pl.id WHERE id= '${socket.id}' // this is current player?
-        // pl.location
-        // pl.updated_at
         
-	$("#wpname").text(waypoint_information[0].name);
-        $("#wpradius").text(waypoint_information[0].radius);
-        $("#distance").text(waypoint_information[0].distance);
+	//$("#wpname").text(waypoint_information[0].name);
+        //$("#wpradius").text(waypoint_information[0].radius);
+       // $("#distance").text(waypoint_information[0].distance);
 })
 
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
 
-  var $table = "<table border='1'> <caption>Current Player: " + display_information[0].id + " at " + display_information[0].updated_at + "</caption>"
+  var $table = "<table border='1'> <caption>Current Player: " + display_information[0].id + " at " + display_information[0].updated_at.tolocalestring() + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody><tr>"
   for (var i = 0; i < display_information.length; i++) {
          $table += '<td>' + display_information[i].player_id + '</td>'
