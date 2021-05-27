@@ -87,7 +87,7 @@ socket.on("room-display-update", (display_information) => {
 	
   var $thetable = "<table border='1'<caption>Current Player: " + display_information[0].id + "</caption>" +
 	 "<thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead><tbody><tr>";
-   for (var i = 0; i < pl.length; i++) {
+   for (var i = 0; i < display_information.length; i++) {
          $thetable.append('<td>' + display_information[i].id + '</td>' )
         // + '<td>' + wp[i].radius + 'm</td>' +
         // '<td>' + wp[i].distance + '>m</td>'
