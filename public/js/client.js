@@ -85,10 +85,10 @@ socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   // var displayinfo = maketable(display_information);
 	
-  var $thetable = "<table border='1'<caption>Current Player: " + pl.id + "</caption>" +
+  var $thetable = "<table border='1'<caption>Current Player: " + display_information[0].id + "</caption>" +
 	 "<thead><tr><th>Waypoint</th><th>Radius</th><th>My Distance</th><th>Other Player Distances</th></tr></thead><tbody><tr>";
    for (var i = 0; i < pl.length; i++) {
-         $thetable.append('<td>' + pl[i].id + '</td>' )
+         $thetable.append('<td>' + display_information[i].id + '</td>' )
         // + '<td>' + wp[i].radius + 'm</td>' +
         // '<td>' + wp[i].distance + '>m</td>'
    };
