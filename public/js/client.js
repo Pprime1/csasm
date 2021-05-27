@@ -1,18 +1,18 @@
 const socket = io(); // or io("/"), the main namespace
 
-  function ConvertDEGToDM(deg,dir) {
-    	var absolute = Math.abs(deg);
-    	var degrees = Math.floor(absolute);
-    	var minutesNotTruncated = (absolute - degrees) * 60;
-    	var minutes = Math.floor(minutesNotTruncated);
-    	var minutesdecimals = ((absolute - degrees) * 60).toFixed(3);
-    	var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
-    	if (dir == 1) {
-        	var direction = deg >= 0 ? "N" : "S";
-    	} else {
-        	var direction = deg >= 0 ? "E" : "W";
-    	}
-    	return direction + degrees + "° " + minutesdecimals+ "' ";
+function ConvertDEGToDM(deg,dir) {
+  var absolute = Math.abs(deg);
+  var degrees = Math.floor(absolute);
+  var minutesNotTruncated = (absolute - degrees) * 60;
+  var minutes = Math.floor(minutesNotTruncated);
+  var minutesdecimals = ((absolute - degrees) * 60).toFixed(3);
+  var seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+  if (dir == 1) {
+     	var direction = deg >= 0 ? "N" : "S";
+  } else {
+      	var direction = deg >= 0 ? "E" : "W";
+  }
+  return direction + degrees + "° " + minutesdecimals+ "' ";
  }
 
 function updatePosition(position) {
@@ -60,21 +60,31 @@ socket.on("room-location-update", (waypoint_information) => {
 
   // TODO: Show all waypoints in a table: pass variables from server.js?
 	// TODO: Receive from server.js and pass to index.ejs?
-        // pl.id WHERE id= '${socket.id}' // this is current player?
-        // pl.location
-        // pl.updated_at
-        
-	var wp = waypoint_information;
-	
-        $("#wpname").text(waypoint_information[0].name);
-        $("#wpradius").text(waypoint_information[0].radius);
-        $("#distance").text(waypoint_information[0].distance);
-
-	
-	// if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
-  // IF all waypoints have a wp.occupied = true then room-reward is achieved
-  
+	//$("#wpname").text(waypoint_information[0].name);
+        //$("#wpradius").text(waypoint_information[0].radius);
+        //$("#distance").text(waypoint_information[0].distance);
 })
+
+socket.on("room-display-update", (display_information) => {
+  console.log(display_information);
+  var MYID = '${socket.id}' // this is current player?
+  var DTStamp = display_information[0].updated_at.toLocaleString(); // this is NOT converting the timestamp to a readable format?
+
+  var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
+      $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
+  for (var i = 0; i < display_information.length; i++) {
+         $table += '<tr><td>' + display_information[i].id + '</td>'
+         $table += '<td>' + display_information[i].name + '</td>'
+	 $table += '<td>' + display_information[i].radius + 'm</td>'
+         $table += '<td>' + display_information[i].distance + 'm</td></tr>'
+   }
+   $table += "</tr></tbody></table>"
+   $('#displayinfo').empty().append($table);
+	
+})
+
+  // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
+  // IF all waypoints have a wp.occupied = true then room-reward is achieved
 
 socket.on("room-reward", (reward_information) => {
   // do changes here!
@@ -103,3 +113,4 @@ window.addEventListener("load",function(event) {
       socket.emit('join-a-group', group);
   });
 }, false);
+
