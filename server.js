@@ -42,9 +42,9 @@ function roomUpdateHandler(roomId, io){
         io.to(roomId).emit('room-location-update', result.rows);
       
     let display_query = `
-      SELECT id, room_id, updated_at
-      FROM player
-      WHERE player.room_id = '${roomId.replace("group-", "")}'
+      SELECT pl.id, pl.room_id, pl.updated_at
+      FROM player as pl
+      WHERE pl.room_id = '${roomId.replace("group-", "")}'
       `
     //        wp.id as waypoint.id, wp.name, wp.radius, wp.location,
     //        round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
