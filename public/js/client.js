@@ -93,7 +93,7 @@ socket.on("room-display-update", (display_information) => {
         // '<td>' + wp[i].distance + '>m</td>'
    }
    $table += "<td>dist1,dist2,dist3 sort this out next ...</td></tr></tbody></table>"
-   $('#displayinfo').append($table);
+   $('#displayinfo').empty().append($table);
 	
   // var displayresult= JSON.stringify(displayinfo,null,2);
   // $("#displayinfo").text(displayinfo);
