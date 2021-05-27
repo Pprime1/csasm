@@ -60,18 +60,17 @@ socket.on("room-location-update", (waypoint_information) => {
 
   // TODO: Show all waypoints in a table: pass variables from server.js?
 	// TODO: Receive from server.js and pass to index.ejs?
-        // pl.id WHERE id= '${socket.id}' // this is current player?
-        
 	//$("#wpname").text(waypoint_information[0].name);
         //$("#wpradius").text(waypoint_information[0].radius);
-       // $("#distance").text(waypoint_information[0].distance);
+        //$("#distance").text(waypoint_information[0].distance);
 })
 
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
-  
-  var DTStamp = display_information[0].updated_at.toLocaleString();
-  var $table = "<table border='1'> <caption>Current Player: " + display_information[0].id + " at " + DTStamp + "</caption>"
+  var MYID = ${socket.id} // this is current player?
+  var DTStamp = display_information[0].updated_at.toLocaleString(); // this is NOT converting the timestamp to a readable format?
+
+  var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
          $table += '<tr><td>' + display_information[i].id + '</td>'
@@ -82,8 +81,6 @@ socket.on("room-display-update", (display_information) => {
    $table += "</tr></tbody></table>"
    $('#displayinfo').empty().append($table);
 	
-  // var displayresult= JSON.stringify(displayinfo,null,2);
-  // $("#displayinfo").text(displayinfo);
 })
 
   // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
