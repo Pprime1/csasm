@@ -38,8 +38,8 @@ function roomUpdateHandler(roomId, io){
       WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
       `
 
-    db_connnection.query(location_query).then(result => {
-        io.to(roomId).emit('room-location-update', result.rows);
+    //db_connnection.query(location_query).then(result => {
+    //    io.to(roomId).emit('room-location-update', result.rows);
       
     let display_query = `
       SELECT pl.id, pl.room_id, pl.updated_at,
@@ -47,6 +47,9 @@ function roomUpdateHandler(roomId, io){
       FROM player as pl, waypoint as wp
       WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
       `
+    // SELECT ((stored_timestamp AT TIME ZONE 'UTC') AT TIME ZONE 'EST') AS local_timestamp
+
+    
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
       
@@ -63,7 +66,7 @@ function roomUpdateHandler(roomId, io){
         }).catch(err => console.log(err)); // reward_query
      }
      }).catch(err => console.log(err)); // display_query
-   }).catch(err => console.log(err)); // location_query
+//   }).catch(err => console.log(err)); // location_query
 }
 
 boot_database(CONNECTION_STRING).then(
