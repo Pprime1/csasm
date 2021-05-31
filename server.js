@@ -53,8 +53,10 @@ function roomUpdateHandler(roomId, io){
       var m = 0;
       var wpcheck = []; 
       // for (var i = 0; i < result.length; i++) {
-      //  if result[i].distance <= result.radius then wpcheck[i]==true
-      //  m++
+      //  if result[i].distance <= result.radius { 
+      //    wpcheck[i] = true
+      //    m++
+      //    }
       // }
       console.log("And", m, "are currently occupied");
       }).catch(err => console.log(err));
@@ -62,7 +64,7 @@ function roomUpdateHandler(roomId, io){
            
      let reward_query = `select reward from games where game_code = '${game_code}'`
      let success = false;
-     if (m == n) then let success=true;
+    // if (m == n) { success = true };
      if (success) {
         db_connnection.query(reward_query).then(game_reward => {
              io.to(roomId).emit('room-reward', game_reward.rows[0]);
