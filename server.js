@@ -27,7 +27,7 @@ function roomUpdateHandler(roomId, io){
        return;
     }
 
-    console.log("Updating", roomId, "With Location Statuses")
+    console.log("Updating Room: ", '${roomId.replace("group-", "")}, " With Location Statuses")
 
     let game_code = "GCTEST"  // will eventually merge this to room_id
    
@@ -39,9 +39,9 @@ function roomUpdateHandler(roomId, io){
     //  `
     
     let display_query = `
-      SELECT pl.id, pl.room_id, pl.updated_at
-      FROM player as pl
-      WHERE pl.room_id = '${roomId.replace("group-", "")} GROUP BY pl.id'
+      SELECT id, room_id, updated_at
+      FROM player
+      WHERE room_id = '${roomId.replace("group-", "")} GROUP BY id'
      `
     
     db_connnection.query(display_query).then(result => {
