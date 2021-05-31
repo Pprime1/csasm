@@ -50,7 +50,7 @@ function roomUpdateHandler(roomId, io){
 
       let n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
       console.log("There are", n, "waypoints to occupy").
-      var m=0;
+      var m = 0;
       var wpcheck = []; 
       for (var i = 0; i < display_query.length; i++) {
         if display_query[i].distance <= display_query[i].radius then wpcheck[i]==true
