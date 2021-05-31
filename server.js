@@ -38,11 +38,7 @@ function roomUpdateHandler(roomId, io){
     //  WHERE wp.game_code = '${game_code}' AND WHERE pl.room_id = '${roomId.replace("group-", "")} GROUP BY pl.id'
     //  `
     
-    let display_query = `
-      SELECT id, room_id, updated_at
-      FROM player
-      WHERE room_id = '${roomId.replace("group-", "")} GROUP BY id'
-     `
+    let display_query = `SELECT * FROM player`
     
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
