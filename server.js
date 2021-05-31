@@ -31,14 +31,20 @@ function roomUpdateHandler(roomId, io){
 
     let game_code = "GCTEST"  // will eventually merge this to room_id
    
+    let display_query = `
+      SELECT pl.id, pl.room_id, pl.updated_at,
+      wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+      FROM player as pl, waypoint as wp
+    `
+    
+    // let display_query = `SELECT id, room_id, updated_at FROM player`
+    
     // let display_query = `
     //  SELECT pl.id, pl.room_id, pl.updated_at,
     //  wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
     //  FROM player as pl, waypoint as wp
-    //  WHERE wp.game_code = '${game_code}' AND WHERE pl.room_id = '${roomId.replace("group-", "")} GROUP BY pl.id'
+    //  WHERE wp.game_code = '${game_code}' AND WHERE pl.room_id = '${roomId.replace("group-", "")}' GROUP BY pl.id
     //  `
-    
-    let display_query = `SELECT id, room_id, updated_at FROM player`
     
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
