@@ -30,7 +30,6 @@ function roomUpdateHandler(roomId, io){
     console.log("Updating Room:", roomId, "With Location Statuses")
 
     let game_code = "GCTEST"  // will eventually merge this to room_id
-   
     let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
@@ -43,31 +42,30 @@ function roomUpdateHandler(roomId, io){
        // console.log(result.rows); 
       
        // TODO: determine whether they have "met the criteria" to succeed in the game!
-          // For each waypoint in display_query if distance <= radius then set occupied = true // create new field in waypoint table 'occupied'
+          // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
-          // for each waypoint in database set occupied = false // reset values prior to next check
 
-    let n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
-    console.log("There are", n, "waypoints to occupy");
-    var m = 0;
-    var wpcheck = []; 
-    // for (var i = 0; i < result.length; i++) {
-    //  if result[i].distance <= result.radius { 
-    //    wpcheck[i] = true
-    //    m++
-    //    }
-    // }
-    console.log("And", m, "are currently occupied");
+        let n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
+        console.log("There are", n, "waypoints to occupy");
+        var m = 0;
+        var wpcheck = []; 
+        // for (var i = 0; i < result.length; i++) {
+        //   if result[i].distance <= result.radius { 
+        //      wpcheck[i] = true
+        //      m++
+        //      }
+        // }
+        console.log("And", m, "are currently occupied");
             
-    let reward_query = `select reward from games where game_code = '${game_code}'`
-    let success = false;
-    // if (m == n) { success = true };
-    if (success) {
-        db_connnection.query(reward_query).then(game_reward => {
-             io.to(roomId).emit('room-reward', game_reward.rows[0]);
-        }).catch(err => console.log(err)); // reward_query
-    }
-    }).catch(err => console.log(err)); // display_query}
+        let reward_query = `select reward from games where game_code = '${game_code}'`
+        let success = false;
+        // if (m == n) { success = true };
+        // if (success) {
+        //     db_connnection.query(reward_query).then(game_reward => {
+        //          io.to(roomId).emit('room-reward', game_reward.rows[0]);
+        //     }).catch(err => console.log(err)); // reward_query
+        // }
+    }).catch(err => console.log(err)); // display_query
 } // function roomUpdateHandler
 
 boot_database(CONNECTION_STRING).then(
