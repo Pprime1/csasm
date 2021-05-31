@@ -45,8 +45,8 @@ function roomUpdateHandler(roomId, io){
           // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
 
-        let n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
-        console.log("There are", n, "waypoints to occupy");
+        var n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
+        console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy
         var m = 0;
         var wpcheck = []; 
         // for (var i = 0; i < result.length; i++) {
