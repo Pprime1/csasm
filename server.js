@@ -47,7 +47,7 @@ function roomUpdateHandler(roomId, io){
 
         // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
         db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,result) {
-            n = result[0].total;
+            var n = result[0].total;
         });
         console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy ???
         
