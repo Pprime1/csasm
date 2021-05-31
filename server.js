@@ -39,13 +39,16 @@ function roomUpdateHandler(roomId, io){
     `
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
-       // console.log(result.rows); 
+        // console.log(result.rows); 
       
-       // TODO: determine whether they have "met the criteria" to succeed in the game!
+        // TODO: determine whether they have "met the criteria" to succeed in the game!
           // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
 
-        db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
+        // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
+        db_connection.query("SELECT * FROM waypoint" {
+            n = results.length;
+        });
         console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy ???
         
         var m = 0;
