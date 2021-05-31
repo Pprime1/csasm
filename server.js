@@ -62,7 +62,7 @@ function roomUpdateHandler(roomId, io){
            
      let reward_query = `select reward from games where game_code = '${game_code}'`
      let success = false;
-     if (m == n) then success=true;
+     if (m == n) then let success=true;
      if (success) {
         db_connnection.query(reward_query).then(game_reward => {
              io.to(roomId).emit('room-reward', game_reward.rows[0]);
