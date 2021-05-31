@@ -19,8 +19,8 @@ function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   var lat = ConvertDEGToDM(latitude,1);
-  var lon = ConvertDEGToDM(longitude,0); //why can't I run this?
-    $("#current-Lat").text(lat); // should be lat/lon as formatted. sigh
+  var lon = ConvertDEGToDM(longitude,0);
+    $("#current-Lat").text(lat);
     $("#current-Lon").text(lon);
   socket.emit('location-update', latitude, longitude);
 }
@@ -62,7 +62,7 @@ socket.on("room-update", (group_id, new_player_count) => {
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id // this is current player?
-  var DTStamp = display_information[0].updated_at.toLocaleString(); // how to convert the timestamp to a readable format?
+  var DTStamp = now(); //display_information[0].updated_at.toLocaleString(); // how to convert the timestamp to a readable format?
 	
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
