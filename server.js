@@ -52,10 +52,10 @@ function roomUpdateHandler(roomId, io){
       console.log("There are", n, "waypoints to occupy");
       var m = 0;
       var wpcheck = []; 
-      for (var i = 0; i < display_query.length; i++) {
-        if display_query[i].distance <= display_query[i].radius then wpcheck[i]==true
-        m++
-      }
+      // for (var i = 0; i < result.length; i++) {
+      //  if result[i].distance <= result.radius then wpcheck[i]==true
+      //  m++
+      // }
       console.log("And", m, "are currently occupied");
       }).catch(err => console.log(err));
       
