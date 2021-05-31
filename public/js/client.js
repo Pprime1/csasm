@@ -58,7 +58,7 @@ socket.on("room-display-update", (display_information) => {
 	
  // var DTStamp = display_information[0].updated_at; //display_information[0].updated_at.toLocaleString(); // how to convert the timestamp to a readable format?
 	
-  var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
+  var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp.toLocaleTimeString() + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
          $table += '<tr><td>' + display_information[i].id + '</td>'
