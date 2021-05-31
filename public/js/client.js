@@ -19,8 +19,8 @@ function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
   var lat = ConvertDEGToDM(latitude,1);
-  var lon = ConvertDEGToDM(longitude,0); //why can't I run this?
-    $("#current-Lat").text(lat); // should be lat/lon as formatted. sigh
+  var lon = ConvertDEGToDM(longitude,0);
+    $("#current-Lat").text(lat);
     $("#current-Lon").text(lon);
   socket.emit('location-update', latitude, longitude);
 }
@@ -36,7 +36,6 @@ socket.io.on("reconnect", () => {
 socket.on("room-join", () => {
   $("#lj-startup").hide();
   $("#lj-in-game").show();
-
   navigator.geolocation.getCurrentPosition(updatePosition);
 	const interval = setInterval(function() {
 		navigator.geolocation.getCurrentPosition(updatePosition);
@@ -45,24 +44,18 @@ socket.on("room-join", () => {
 
 socket.on("room-update", (group_id, new_player_count) => {
   is_joined = true;
-
   $("#lj-startup").hide();
   $("#lj-in-game").show();
-
   $("#current-group-id").text(group_id);
   $("#current-group-member-count").text(new_player_count);
 })
 
-// socket.on("room-location-update", (waypoint_information) => {
-//  console.log(waypoint_information);
-//  var result= JSON.stringify(waypoint_information,null,2);
-//  $("#wpinfo").text(result);
-// })
-
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id // this is current player?
-  var DTStamp = 1; // display_information[0].updated_at.toLocaleString(); // how to convert the timestamp to a readable format?
+  
+  var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB');
+	// {weekday: "short", year: "numeric", month: "short", day: "2-digit", hour12: false}
 	
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
@@ -76,34 +69,28 @@ socket.on("room-display-update", (display_information) => {
    $('#displayinfo').empty().append($table);
 })
 
+
   // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
   // IF all waypoints have a wp.occupied = true then room-reward is achieved
 
 socket.on("room-reward", (reward_information) => {
   // do changes here!
   console.log(reward_information);
-
   // TODO: show reward on seperate secured screen! And stop updates/refreshes of screen
-
 })
 
 // Bind Submit Event for Front Page Group Joiner / Group Starter / Group Resume
 window.addEventListener("load",function(event) {
   $( "#start-group-form" ).on( "submit", function(e) {
       e.preventDefault();
-
       console.log(`Attempting to start a group!`)
-
       socket.emit('join-a-group');
   });
 
   $( "#join-group-form" ).on( "submit", function(e) {
       e.preventDefault();
-
       var group = $("#groupId").val();
       console.log(`Attempting to join ${ group }`)
-
       socket.emit('join-a-group', group);
   });
 }, false);
-

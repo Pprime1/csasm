@@ -43,34 +43,19 @@
 
   <div id="lj-in-game" style="display: none">
       <p>Game Code: <span id="current-group-id" class="badge badge-secondary"></span>
-<!-- <span><button type="button" class="btn btn-primary btn-clipboard" data-clipboard-target="#current-group-id">Copy</button></span> -->
-</p>
+      <!-- <span><button type="button" class="btn btn-primary btn-clipboard" data-clipboard-target="#current-group-id">Copy</button></span> -->
+      </p>
       <p>This game currently has <span id="current-group-member-count" class="badge badge-info"></span> active players</p>
       <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p>
       
-      <!-- Insert List of each waypoint, show coords and radius target and current distance -->
-      <!-- TODO: Receive array of data from server.js and pass to index.ejs?
-        // var pl.id WHERE id= '${socket.id}' // this is current player?
-        
-	<p>Your distance from each waypoint currently is:</p>   
-       	<p>Waypoint= <span id=wpname></p>
-        <p>Radius= <span id=wpradius></p>
-	<p>Distance= <span id=distance></p>
-       -->
-	
       <!-- Insert Table here showing Waypoints, My distance from each and other player's distance from each. Highlight a waypoint if "occupied"       -->
       <pre><span id="displayinfo"></span></pre>
    
  </div>
    
-   <!-- display a straight dump of the received data for debugging 
-   </br><p><b>WPINFO:</b></p>
-   <pre><span id="wpinfo"></span></pre>
-   -->
-   
-   <div class="alert alert-info text-center" role="alert">
-	  <i>Developed by Pprime` with a hell of a lot of help.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
-  </div>
+ <div class="alert alert-info text-center" role="alert">
+    <i>Developed by Pprime` with a hell of a lot of help.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
+ </div>
 </div>
 
 </body>

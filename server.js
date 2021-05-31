@@ -27,31 +27,21 @@ function roomUpdateHandler(roomId, io){
        return;
     }
 
-    console.log("Updating", roomId, "With Location Statuses")
+    console.log("Updating Room:", roomId, "With Location Statuses")
 
-    let game_code = "GCTEST"
-
-    let location_query = `
-      SELECT wp.waypoint_id, wp.name, wp.radius,
-             pl.id as player_id, pl.room_id, pl.updated_at, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
-      FROM waypoint as wp, player as pl
-      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
-      `
-
-    //db_connnection.query(location_query).then(result => {
-    //    io.to(roomId).emit('room-location-update', result.rows);
-      
+    let game_code = "GCTEST"  // will eventually merge this to room_id
+   
     let display_query = `
       SELECT pl.id, pl.room_id, pl.updated_at,
-      wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+         wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
       FROM player as pl, waypoint as wp
-      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")} GROUP BY pl.id'
-      `
-    // SELECT ((stored_timestamp AT TIME ZONE 'UTC') AT TIME ZONE 'EST') AS local_timestamp
+      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}' 
+      ORDER BY pl.id
+    `
 
-    
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
+     // console.log(result.rows); 
       
      let reward_query = `select reward from games where game_code = '${game_code}'`
      let success = false;
@@ -66,7 +56,6 @@ function roomUpdateHandler(roomId, io){
         }).catch(err => console.log(err)); // reward_query
      }
      }).catch(err => console.log(err)); // display_query
-//   }).catch(err => console.log(err)); // location_query
 }
 
 boot_database(CONNECTION_STRING).then(
