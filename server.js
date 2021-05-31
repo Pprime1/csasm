@@ -46,8 +46,8 @@ function roomUpdateHandler(roomId, io){
           // if count (waypoints.occupied) = waypoint.length then success = true
 
         // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
-        db_connection.query("SELECT * FROM waypoint" {
-            n = results.length;
+        db_connection.query("SELECT COUNT(*) as total FROM waypoint", function(err,result) {
+            n = result[0].total;
         });
         console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy ???
         
