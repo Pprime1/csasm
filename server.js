@@ -48,7 +48,7 @@ function roomUpdateHandler(roomId, io){
          // if count (waypoints.occupied) = waypoint.length then success = true
          // for each waypoint in database set occupied = false // reset values prior to next check
 
-      let n = db_connnection.query(SELECT COUNT(name) FROM waypoint);
+      let n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
       console.log("There are", n, "waypoints to occupy").
       var m=0;
       var wpcheck = []; 
