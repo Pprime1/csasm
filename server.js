@@ -33,11 +33,10 @@ function roomUpdateHandler(roomId, io){
    
     let display_query = `
       SELECT pl.id, pl.room_id, pl.updated_at,
-      wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+         wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
       FROM player as pl, waypoint as wp
-      WHERE wp.game_code = '${game_code}' AND WHERE pl.room_id = '${roomId.replace("group-", "")}'
+      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}'
     `
-    
     // GROUP BY pl.id
   
     db_connnection.query(display_query).then(result => {
