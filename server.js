@@ -36,7 +36,7 @@ function roomUpdateHandler(roomId, io){
          wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
       FROM player as pl, waypoint as wp
       WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}' 
-      SORT BY pl.id
+      ORDER BY pl.id
     `
 
     db_connnection.query(display_query).then(result => {
