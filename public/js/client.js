@@ -54,7 +54,7 @@ socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id // this is current player?
   
-  DTStamp = display_information[0].updated_at.toLocaleTimeString('en-GB');
+  var DTStamp = display_information[0].updated_at;
 	
  // var DTStamp = display_information[0].updated_at; //display_information[0].updated_at.toLocaleString(); // how to convert the timestamp to a readable format?
 	
