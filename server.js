@@ -52,6 +52,7 @@ function roomUpdateHandler(roomId, io){
     
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
+      console.log(result); // what's not happening here
       
      let reward_query = `select reward from games where game_code = '${game_code}'`
      let success = false;
