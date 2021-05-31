@@ -43,13 +43,26 @@ function roomUpdateHandler(roomId, io){
         io.to(roomId).emit('room-display-update', result.rows);
      // console.log(result.rows); 
       
-     let reward_query = `select reward from games where game_code = '${game_code}'`
-     let success = false;
      // TODO: determine whether they have "met the criteria" to succeed in the game!
-         // For each waypoint in location_query if distance <= radius then set occupied = true // create new field in waypoint table 'occupied'
+         // For each waypoint in display_query if distance <= radius then set occupied = true // create new field in waypoint table 'occupied'
          // if count (waypoints.occupied) = waypoint.length then success = true
          // for each waypoint in database set occupied = false // reset values prior to next check
+
+      let n = db_connnection.query(SELECT COUNT(name) FROM waypoint);
+      console.log("There are", n, "waypoints to occupy").
+      var m=0;
+      var wpcheck = []; 
+      for (var i = 0; i < display_query.length; i++) {
+        if display_query[i].distance <= display_query[i].radius then wpcheck[i]==true
+        m++
+      }
+      console.log("And", m, "are currently occupied");
+      }).catch(err => console.log(err));
       
+           
+     let reward_query = `select reward from games where game_code = '${game_code}'`
+     let success = false;
+     if m=n success=true;
      if (success) {
         db_connnection.query(reward_query).then(game_reward => {
              io.to(roomId).emit('room-reward', game_reward.rows[0]);
