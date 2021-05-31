@@ -45,8 +45,9 @@ function roomUpdateHandler(roomId, io){
           // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
 
-        var n = db_connnection.query("SELECT COUNT(name) FROM waypoint");
-        console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy
+        db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
+        console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy ???
+        
         var m = 0;
         var wpcheck = []; 
         // for (var i = 0; i < result.length; i++) {
@@ -55,7 +56,7 @@ function roomUpdateHandler(roomId, io){
         //      m++
         //      }
         // }
-        console.log("And", m, "are currently occupied");
+        // console.log("And", m, "are currently occupied");
             
         let reward_query = `select reward from games where game_code = '${game_code}'`
         let success = false;
