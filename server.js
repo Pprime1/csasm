@@ -27,7 +27,7 @@ function roomUpdateHandler(roomId, io){
        return;
     }
 
-    console.log("Updating Room: ", '${roomId.replace("group-", "")}, " With Location Statuses")
+    console.log("Updating Room:", roomId, "With Location Statuses")
 
     let game_code = "GCTEST"  // will eventually merge this to room_id
    
