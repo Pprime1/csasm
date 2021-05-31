@@ -42,17 +42,17 @@ function roomUpdateHandler(roomId, io){
     //    io.to(roomId).emit('room-location-update', result.rows);
       
     let display_query = `
-      SELECT pl.id, pl.room_id, pl.updated_at,
-      wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
-      FROM player as pl, waypoint as wp
-      WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")} GROUP BY pl.id'
+      SELECT pl.id, pl.room_id, pl.updated_at
+     //, wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+     FROM player as pl
+     //, waypoint as wp
+     // WHERE wp.game_code = '${game_code}' AND 
+      WHERE pl.room_id = '${roomId.replace("group-", "")} GROUP BY pl.id'
       `
-    // SELECT ((stored_timestamp AT TIME ZONE 'UTC') AT TIME ZONE 'EST') AS local_timestamp
-
     
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
-      console.log(result); // what's not happening here
+      console.log(result); // what's not happening here? no longer getting any data?
       
      let reward_query = `select reward from games where game_code = '${game_code}'`
      let success = false;
