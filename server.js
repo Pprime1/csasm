@@ -49,9 +49,9 @@ function roomUpdateHandler(roomId, io){
             var n = await db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
                    return parseInt(Result.total);
             });
-        console.log("There are", n, "waypoints to occupy"); // n is 'undefined'
+        console.log("There are", n, "inside waypoints to occupy"); // n is 'defined' in here
         };
-        console.log("There are", n, "waypoints to occupy"); // n is 'undefined'
+        // console.log("There are", n, "outside waypoints to occupy"); // n is 'undefined'
         
         var m = 0;
         var wpcheck = []; 
