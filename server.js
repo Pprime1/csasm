@@ -46,11 +46,11 @@ function roomUpdateHandler(roomId, io){
           // if count (waypoints.occupied) = waypoint.length then success = true
 
         // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
-        db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,result) {
-                console.log(result); // What do I get here?
-                var n = result.total;
+        var n = db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,result) {
+                // console.log(result); // What do I get here?
+                return result.total;
         });
-        console.log("There are", n, "waypoints to occupy");  // There are Promise { <pending> } waypoints to occupy ???
+        console.log("There are", n, "or", result.total, "waypoints to occupy");
         
         var m = 0;
         var wpcheck = []; 
