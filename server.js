@@ -46,9 +46,9 @@ function roomUpdateHandler(roomId, io){
           // if count (waypoints.occupied) = waypoint.length then success = true
 
         // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
-        var n = db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,result) {
-                console.log("returns", result); // returns undefined for .total
-                return parseInt(result.total);
+        var n = db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
+                console.log("returns", Result); // returns undefined for .total?
+                return parseInt(Result.total);
         });
         console.log("There are", n, "waypoints to occupy"); // n is 'undefined'
         
