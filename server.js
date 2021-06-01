@@ -45,16 +45,16 @@ function roomUpdateHandler(roomId, io){
           // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
 
-        // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
-        var n = db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
-                console.log("returns", Result.total); // returns undefined for .total?
-                return parseInt(Result.total);
-        });
+        const queryFunction = async (db_connection) => {
+            var n = await db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
+                   return parseInt(Result.total);
+            });
+        };
         console.log("There are", n, "waypoints to occupy"); // n is 'undefined'
         
         var m = 0;
         var wpcheck = []; 
-        // for (var i = 0; i < result.length; i++) {
+        // for (var i = 0; i < n; i++) {
         //   if result[i].distance <= result.radius { 
         //      wpcheck[i] = true
         //      m++
