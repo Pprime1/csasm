@@ -48,7 +48,7 @@ function roomUpdateHandler(roomId, io){
         // db_connnection.query("SELECT COUNT(name) AS n FROM waypoint");
         var n = db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,result) {
                 // console.log(result); // What do I get here?
-                return number(result.total);
+                return parseInt(result.total);
         });
         console.log("There are", n, "or", result.total, "waypoints to occupy"); // n is 'undefined'
         
