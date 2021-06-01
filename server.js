@@ -52,7 +52,7 @@ function roomUpdateHandler(roomId, io){
             console.log("There are", n, "inside waypoints to occupy"); // n is 'defined' in here
             return n
         };
-        console.log("There are", n, "outside waypoints to occupy"); // n is 'undefined'
+        console.log("There are", queryFunction, "outside waypoints to occupy"); // n is 'undefined'
         
         var m = 0;
         var wpcheck = []; 
