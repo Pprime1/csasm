@@ -45,7 +45,7 @@ function roomUpdateHandler(roomId, io){
           // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
 
-        const queryFunction = async (db_connection) => {
+        const queryFunction = async (db_connnection) => {
             var n = await db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
                    return parseInt(Result.total);
             });
