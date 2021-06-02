@@ -29,7 +29,7 @@ function roomUpdateHandler(roomId, io){
 
     console.log("Updating Room:", roomId, "With Location Statuses")
 
-    let game_code = "GCTEST"  // will eventually merge this to room_id
+    let game_code = "GCALBURY"  // will eventually merge this to room_id
     let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
