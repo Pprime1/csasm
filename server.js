@@ -49,12 +49,14 @@ function roomUpdateHandler(roomId, io){
             var n = await db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
                    return parseInt(Result.total);
             });
-            console.log("There are", n, "inside waypoints to occupy"); // n is 'defined' in here?
+            console.log("There are", n, "inside queryfunction"); // this is never called?
             return n
         };
         
-        var nn = queryFunction();
-        console.log("There are", nn, "outside waypoints to occupy"); // nn is 'undefined'
+        var nn = queryFunction(db_connnection);
+        console.log("There are", nn, "outside queryfunction"); // returns the follwoing
+        // There are Promise {<rejected> TypeError: Cannot read property 'query' of undefined at queryFunction (/app/server.js:49:42) ...
+
         
         var m = 0;
         var wpcheck = []; 
