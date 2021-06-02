@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .set('view engine', 'ejs')
   .get('/', (request, response) => response.render('pages/index'));
 
-let db_connnection;
+let db_connnection; // note there are three ns in this
 
 function roomUpdateHandler(roomId, io){
     if(!io.sockets.adapter.rooms.has(roomId)) {
@@ -27,9 +27,9 @@ function roomUpdateHandler(roomId, io){
        return;
     }
 
+    let game_code = '${roomId.replace("group-", "")}'   // merging game and room_id, but needs validity checking subroutines
     console.log("Updating Room:", roomId, "With Location Statuses")
-
-    let game_code = "GCALBURY"  // will eventually merge this to room_id
+   
     let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
@@ -39,7 +39,7 @@ function roomUpdateHandler(roomId, io){
     `
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
-        // console.log(result.rows); 
+        console.log(result.rows); //returning nul data now?
       
         // TODO: determine whether they have "met the criteria" to succeed in the game!
           // For each waypoint in display_query if distance <= radius then set occupied = true
@@ -49,15 +49,14 @@ function roomUpdateHandler(roomId, io){
             var n = await db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
                    return parseInt(Result.total);
             });
-            console.log("There are", n, "inside queryfunction"); // this is never called?
+            console.log("There are", n, "inside queryfunction"); // There are undefined inside queryfunction
             return n
         };
         
         var nn = queryFunction(db_connnection);
-        console.log("There are", nn, "outside queryfunction"); // returns the follwoing
-        // There are Promise {<rejected> TypeError: Cannot read property 'query' of undefined at queryFunction (/app/server.js:49:42) ...
+        console.log("There are", nn, "outside queryfunction"); //  There are Promise { <pending> } outside queryfunction
 
-        
+      
         var m = 0;
         var wpcheck = []; 
         // for (var i = 0; i < n; i++) {
