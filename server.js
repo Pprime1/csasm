@@ -47,7 +47,7 @@ function roomUpdateHandler(roomId, io){
 
         var count_query = "SELECT COUNT(*) as total FROM waypoint" 
         async function Countit(count_query) {
-            const ioResult = await db_connnection.query(count_query).then(async (result) => { 
+            var ioResult = await db_connnection.query(count_query).then(result => { 
             console.log("There are", result.total, "inside function") // There are undefined inside function
             return parseInt(result.total);
             })
