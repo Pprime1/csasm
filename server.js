@@ -23,12 +23,12 @@ let db_connnection; // note there are three ns in this
 
 function roomUpdateHandler(roomId, io){
     if(!io.sockets.adapter.rooms.has(roomId)) {
-       clearInterval(this)
+       clearInterval(this);
        return;
     }
 
-    let game_code = '${roomId.replace("group-", "")}'   // merging game and room_id, but needs validity checking subroutines
-    console.log("Updating Room:", roomId, "With Location Statuses")
+    let game_code = '${roomId.replace("group-", "")}';   // merging game and room_id, but needs validity checking subroutines
+    console.log("Updating Room:", roomId, "With Location Statuses");
    
     let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
@@ -36,7 +36,7 @@ function roomUpdateHandler(roomId, io){
        FROM player as pl, waypoint as wp
        WHERE wp.game_code = '${game_code}' AND pl.room_id = '${roomId.replace("group-", "")}' 
        ORDER BY pl.id
-    `
+    `;
     db_connnection.query(display_query).then(result => {
         io.to(roomId).emit('room-display-update', result.rows);
         console.log(result.rows); //returning nul data now?
@@ -45,14 +45,15 @@ function roomUpdateHandler(roomId, io){
           // For each waypoint in display_query if distance <= radius then set occupied = true
           // if count (waypoints.occupied) = waypoint.length then success = true
 
-        var count_query = "SELECT COUNT(*) as total FROM waypoint" 
+        let count_query = "SELECT COUNT(*) as total FROM waypoint WHERE game_code = '${game_code}'";
         async function Countit(count_query) {
             var ioResult = await db_connnection.query(count_query).then(result => { 
-            console.log("There are", result.total, "inside function") // There are undefined inside function
+            console.log("There are", result.total, "inside function"); // There are undefined inside function
             return parseInt(result.total);
-            })
-        console.log("There are", ioResult.total, "inside ioResult") // There are undefined inside ioResult
-        };
+            });
+        console.log("There are", ioResult.total, "inside ioResult"); // There are undefined inside ioResult
+        } // Countit async function
+      
         var nn = Countit(count_query);
         console.log("There are", nn, "outside function"); //  There are Promise { <pending> } outside function
       // and the postgrator database is probably broken again. Tried creating an 008 second test game, but that screwed it all up
@@ -79,7 +80,7 @@ function roomUpdateHandler(roomId, io){
         // }
         // console.log("And", m, "are currently occupied");
             
-        let reward_query = `select reward from games where game_code = '${game_code}'`
+        let reward_query = `select reward from games where game_code = '${game_code}'`;
         let success = false;
         // if (m == n) { success = true };
         // if (success) {
@@ -103,10 +104,10 @@ boot_database(CONNECTION_STRING).then(
               UPDATE player
               set location = ST_GeomFromText('POINT(${args[0]} ${args[1]})', 3857)
               WHERE id = '${socket.id}'
-            `
-           db_connnection.query(location_update_query).catch(err => console.log(err))
-           console.log(socket.id, "performed location update", args)
-        }) // location-update
+            `;
+           db_connnection.query(location_update_query).catch(err => console.log(err));
+           console.log(socket.id, "performed location update", args);
+        }); // location-update
     
         socket.on('join-a-group', (...args) => {
            // Join Requested Group if supplied, or create a group using randomized string
@@ -117,34 +118,32 @@ boot_database(CONNECTION_STRING).then(
 
     // Handle Group Join / Leave - Inform users within group of changes (i.e. online amount)
     io.of("/").adapter.on("create-room", (room) => {
-      console.log("creating-room", room)
+      console.log("creating-room", room);
       if (room.startsWith("group-")) {
-        console.log("Scheduling Update Handler", room)
-        setInterval(roomUpdateHandler, 5000, room, io)
+        console.log("Scheduling Update Handler", room);
+        setInterval(roomUpdateHandler, 5000, room, io);
       }
-    }) // create-room
+    }); // create-room
     
     io.of("/").adapter.on("join-room", (room, id) => {
       if(room !== id) {
         db_connnection.query(`INSERT INTO player(id, room_id) VALUES('${id}', '${room.replace("group-", "")}')`).catch(err => console.log(err));
 
-        let room_size = io.sockets.adapter.rooms.get(room).size
-        console.log(id, "joined", room, room_size, "online")
-        io.to(room).emit("room-update", room.replace("group-", ""), room_size)
-        // Inform user joining to update their UI because they joined a room
-        io.to(id).emit("room-join")
+        let room_size = io.sockets.adapter.rooms.get(room).size;
+        console.log(id, "joined", room, room_size, "online");
+        io.to(room).emit("room-update", room.replace("group-", ""), room_size);
+        io.to(id).emit("room-join"); // Inform user joining to update their UI because they joined a room    
       }
-    }) // join-room
+    }); // join-room
     
     io.of("/").adapter.on("leave-room", (room, id) => {
       if(room !== id) {
-        let room_size = io.sockets.adapter.rooms.get(room).size
-        console.log(id, "left", room, room_size, "online")
-        io.to(room).emit("room-update", room.replace("group-", ""), room_size)
-
+        let room_size = io.sockets.adapter.rooms.get(room).size;
+        console.log(id, "left", room, room_size, "online");
+        io.to(room).emit("room-update", room.replace("group-", ""), room_size);
         db_connnection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
       }
-    }) // leave-room
+    }); // leave-room
 
     http.listen(PORT, () => console.log(`listening on *:${ PORT }`));
   }
