@@ -42,52 +42,54 @@ function roomUpdateHandler(roomId, io){
         console.log(result.rows); //returning nul data now?
       
         // TODO: determine whether they have "met the criteria" to succeed in the game!
-          // For each waypoint in display_query if distance <= radius then set occupied = true
-          // if count (waypoints.occupied) = waypoint.length then success = true
-
-        let count_query = "SELECT COUNT(*) as total FROM waypoint WHERE game_code = '${game_code}'";
-        async function Countit(count_query) {
-            var ioResult = await db_connnection.query(count_query).then(result => { 
-            console.log("There are", result.total, "inside function"); // There are undefined inside function
-            return parseInt(result.total);
-            });
-        console.log("There are", ioResult.total, "inside ioResult"); // There are undefined inside ioResult
-        } // Countit async function
+          // For each waypoint in this game,
+          //      if distance <= radius FOR ANY PLAYER, then set occupied = true ... should this be in the database itself (which I cannot update) or in an array?
+          //      if all waypoints.occupied are true then game.success = true, else reset all occupied statuses to false prior to next checkup
+          // Approach options: Using an array same length as the number of waypoints for this game, check for each waypoint if distance <= radius and set occupied
       
-        var nn = Countit(count_query);
-        console.log("There are", nn, "outside function"); //  There are Promise { <pending> } outside function
-      // and the postgrator database is probably broken again. Tried creating an 008 second test game, but that screwed it all up
+          // How many waypoints are there in this game? count rows in waypoint table? 
+          // try and get this to happen in a synchronous manner using async function(s).
+          //  async function Countit(count_query) {
+          //      var ioResult = await db_connnection.query(count_query).then(result => { 
+          //          console.log("There are", result.total, "inside function"); // There are undefined inside function
+          //          return parseInt(result.total);
+          //      });
+          //      console.log("There are", ioResult.total, "inside ioResult"); // There are undefined inside ioResult
+          //  } // Countit async function
+          // var nn = Countit(count_query);
+      
+          // ALT: emit the count of rows to client.js and have that send it back here and then try and use the value?
+      
+          // How many waypoints are there in this game? minimum_players in games table should know this?
+          let count_query = "SELECT minimum_players as countwp FROM games WHERE game_code = '${game_code}'";
+          var nn = db_connnection.query(count_query).then(result => { 
+               console.log("There are", result.countwp, "inside function"); // There are undefined inside function
+               return parseInt(result.countwp);
+          }); 
+      
+          console.log("There are", nn, "outside function"); //  There are Promise { <pending> } outside function
+          // and the postgrator database is probably broken again. Tried creating an 008 second test game, but that screwed it all up
       
       
-     // const queryFunction = async (db_connnection) => {
-     //       var n = await db_connnection.query("SELECT COUNT(*) as total FROM waypoint", function(err,Result) {
-     //              return parseInt(Result.total);
-     //      });
-     //       console.log("There are", n, "inside queryfunction"); // There are undefined inside queryfunction
-     //       return n
-     //   };
-        
-        
-
-      
-        var m = 0;
-        var wpcheck = []; 
-        // for (var i = 0; i < n; i++) {
-        //   if result[i].distance <= result.radius { 
-        //      wpcheck[i] = true
-        //      m++
-        //      }
-        // }
-        // console.log("And", m, "are currently occupied");
+            var m = 0;
+            var wpcheck = []; 
+            // remove the check code sections until we can count the rows in the damn table
+            // for (var i = 0; i < n; i++) {
+            //   if result[i].distance <= result.radius { 
+            //      wpcheck[i] = true
+            //      m++
+            //      }
+            // }
+            // console.log("And", m, "are currently occupied");
             
-        let reward_query = `select reward from games where game_code = '${game_code}'`;
-        let success = false;
-        // if (m == n) { success = true };
-        // if (success) {
-        //     db_connnection.query(reward_query).then(game_reward => {
-        //          io.to(roomId).emit('room-reward', game_reward.rows[0]);
-        //     }).catch(err => console.log(err)); // reward_query
-        // }
+            let reward_query = `select reward from games where game_code = '${game_code}'`;
+            let success = false;
+            // if (m == n) { success = true };
+            // if (success) {
+            //     db_connnection.query(reward_query).then(game_reward => {
+            //          io.to(roomId).emit('room-reward', game_reward.rows[0]);
+            //     }).catch(err => console.log(err)); // reward_query
+            // }
     }).catch(err => console.log(err)); // display_query
 } // function roomUpdateHandler
 
