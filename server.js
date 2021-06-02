@@ -46,13 +46,15 @@ function roomUpdateHandler(roomId, io){
           // if count (waypoints.occupied) = waypoint.length then success = true
 
         var count_query = "SELECT COUNT(*) as total FROM waypoint" 
-        async function Countit(count_query);
+        async function Countit(count_query) {
             const ioResult = await db_connnection.query(count_query).then(async (result) => { 
-            console.log("There are", result.total, "inside queryfunction"); // There are undefined inside queryfunction
-            return parseInt(result.total); 
-        })
+            console.log("There are", result.total, "inside function") // There are undefined inside queryfunction
+            return parseInt(result.total);
+            })
+        console.log("There are", ioResult.total, "inside ioResult") // There are undefined inside queryfunction
+        };
         var nn = Countit(count_query);
-        console.log("There are", nn, "outside queryfunction"); //  There are Promise { <pending> } outside queryfunction
+        console.log("There are", nn, "outside function"); //  There are Promise { <pending> } outside queryfunction
       
       
      // const queryFunction = async (db_connnection) => {
