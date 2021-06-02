@@ -48,13 +48,14 @@ function roomUpdateHandler(roomId, io){
         var count_query = "SELECT COUNT(*) as total FROM waypoint" 
         async function Countit(count_query) {
             const ioResult = await db_connnection.query(count_query).then(async (result) => { 
-            console.log("There are", result.total, "inside function") // There are undefined inside queryfunction
+            console.log("There are", result.total, "inside function") // There are undefined inside function
             return parseInt(result.total);
             })
-        console.log("There are", ioResult.total, "inside ioResult") // There are undefined inside queryfunction
+        console.log("There are", ioResult.total, "inside ioResult") // There are undefined inside ioResult
         };
         var nn = Countit(count_query);
-        console.log("There are", nn, "outside function"); //  There are Promise { <pending> } outside queryfunction
+        console.log("There are", nn, "outside function"); //  There are Promise { <pending> } outside function
+      // and the postgrator database is probably broken again. Tried creating an 008 second test game, but that screwed it all up
       
       
      // const queryFunction = async (db_connnection) => {
