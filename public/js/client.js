@@ -53,10 +53,9 @@ socket.on("room-update", (group_id, new_player_count) => {
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id // this is current player?
-  
-  var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB');
-	// {weekday: "short", year: "numeric", month: "short", day: "2-digit", hour12: false}
+  var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
 	
+  // Display in here the occupied status? Perhaps a different display class if distance<=radius?
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
