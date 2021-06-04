@@ -56,22 +56,21 @@ socket.on("room-display-update", (display_information) => {
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
 	
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
-  var $table = "<table width=100% border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
+  var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
-        if (display_information[i].distance <= display_information[i].distance) {  // For display purposes only, not used for success determination here
-     	   $table += "<tr class='table table-success'>";
-  	} else {
-      	   $table += "<tr class='table table-light'>";
-  	}
-	$table += "<td>" + display_information[i].id + "</td>"
-        $table += "<td>" + display_information[i].name + "</td>"
-	$table += "<td>" + display_information[i].radius + "m</td>"
-        $table += "<td>" + display_information[i].distance + "m</td></tr>"
-   }
-   $table += "</tr></tbody></table>"
-   $('#displayinfo').empty().append($table);
-   console.log($table);
+      if (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
+          $table += "<tr class='table table-success'>"
+      } else {
+          $table += "<tr class='table table-light'>"
+      };
+      $table += "<td>" + display_information[i].id + "</td>"
+      $table += "<td>" + display_information[i].name + "</td>"
+      $table += "<td>" + display_information[i].radius + "m</td>"
+      $table += "<td>" + display_information[i].distance + "m</td></tr>"
+  };
+  $table += "</tr></tbody></table>";
+  $('#displayinfo').empty().append($table);
 });
 
 socket.on("room-reward", (reward_information) => { // if all waypoints are in occupied state, show Success!
