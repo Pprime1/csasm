@@ -52,31 +52,32 @@ socket.on("room-update", (group_id, new_player_count) => {
 
 socket.on("room-display-update", (display_information) => {
   console.log(display_information);
-  var MYID = socket.id // this is current player?
+  var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
 	
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
-      $table += "<thead><tr><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
+      $table += "<thead><tr 'class=badge badge-Primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
-         $table += '<tr><td>' + display_information[i].id + '</td>'
-         $table += '<td>' + display_information[i].name + '</td>'
-	 $table += '<td>' + display_information[i].radius + 'm</td>'
-         $table += '<td>' + display_information[i].distance + 'm</td></tr>'
+        if (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
+     	   $table += "<tr 'class=badge badge-Success'>";
+  	} else {
+      	   $table += "<tr 'class=badge badge-Light'>";
+  	}
+	$table += "<td>" + display_information[i].id + "</td>"
+        $table += "<td>" + display_information[i].name + "</td>"
+	$table += "<td>" + display_information[i].radius + "m</td>"
+        $table += "<td>" + display_information[i].distance + "m</td></tr>"
    }
    $table += "</tr></tbody></table>"
    $('#displayinfo').empty().append($table);
-})
+});
 
-
-  // if distance <= wp.radius then set wp.occupied = true // reset to false every room refresh?
-  // IF all waypoints have a wp.occupied = true then room-reward is achieved
-
-socket.on("room-reward", (reward_information) => {
-  // do changes here!
-  console.log(reward_information);
+socket.on("room-reward", (reward_information) => { // if all waypoints are in occupied state, show Success!
   // TODO: show reward on seperate secured screen! And stop updates/refreshes of screen
-})
+  // do stuff here!
+  console.log(reward_information);
+});
 
 // Bind Submit Event for Front Page Group Joiner / Group Starter / Group Resume
 window.addEventListener("load",function(event) {
