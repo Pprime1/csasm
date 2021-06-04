@@ -57,12 +57,12 @@ socket.on("room-display-update", (display_information) => {
 	
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
-      $table += "<thead><tr 'class=badge badge-Primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
+      $table += "<thead><tr 'class=badge badge-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
         if (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
-     	   $table += "<tr 'class=badge badge-Success'>";
+     	   $table += "<tr 'class=badge badge-success'>";
   	} else {
-      	   $table += "<tr 'class=badge badge-Light'>";
+      	   $table += "<tr 'class=badge badge-light'>";
   	}
 	$table += "<td>" + display_information[i].id + "</td>"
         $table += "<td>" + display_information[i].name + "</td>"
@@ -71,6 +71,7 @@ socket.on("room-display-update", (display_information) => {
    }
    $table += "</tr></tbody></table>"
    $('#displayinfo').empty().append($table);
+   console.log($table);
 });
 
 socket.on("room-reward", (reward_information) => { // if all waypoints are in occupied state, show Success!
