@@ -33,9 +33,11 @@ async function configure_socketio(db_connection) {
            console.log(socket.id, "performed location update", args);
         }); // location-update
     
+// TODO: Global replace the term 'group' with 'game' for clarity
+	
         socket.on('join-a-group', (...args) => {
-           // Join Requested Group if supplied, or create a group using randomized string
-           let room_id = args.length > 0 ? args[0] : randomstring.generate({ length: 5, charset: 'alphabetic' });
+           // Join Requested Group ... if group name is not supplied return error?
+           let room_id = args.length > 0 ? args[0] : randomstring.generate({ length: 5, charset: 'alphabetic' }); // this is to be replaced
            socket.join("group-" + room_id);
         }); // join-a-group
     }); // connection
@@ -52,10 +54,9 @@ async function configure_socketio(db_connection) {
     io.of("/").adapter.on("join-room", (room, id) => {
       if(room !== id) {
         db_connection.query(`INSERT INTO player(id, room_id) VALUES('${id}', '${room.replace("group-", "")}')`).catch(err => console.log(err));
-
-        let room_size = io.sockets.adapter.rooms.get(room).size;
+        let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the group
         console.log(id, "joined", room, room_size, "online");
-        io.to(room).emit("room-update", room.replace("group-", ""), room_size);
+        io.to(room).emit("room-update", room.replace("group-", ""), room_size);	// can we also send the game description to be displayed top of screen?
         io.to(id).emit("room-join"); // Inform user joining to update their UI because they joined a room    
       }
     }); // join-room
@@ -75,16 +76,21 @@ function delay(ms) {
 }
 
 async function update_game(roomId, io, db_connection) {
-	if(!io.sockets.adapter.rooms.has(roomId)) {
+    if(!io.sockets.adapter.rooms.has(roomId)) {
        return;
     }
-	
-	if(!roomId.includes("group-")) {
-		return;
-	}
-	
-	let game_code = roomId.replace("group-", "");   // merging game and room_id, but needs validity checking subroutines
-    console.log("Updating game", game_code);
+    if(!roomId.includes("group-")) {
+	return;
+    }
+
+    let game_code = roomId.replace("group-", "");   // merging game and room_id, but needs validity checking subroutine
+    //let game_exists_query = `SELECT description FROM games WHERE EXISTS (SELECT game_code FROM games WHERE game_code = '${game_code}')`;
+    //let game_exists_result = await db_connection.query(game_exists_query);
+    //if (!game_exists_result) {
+    //	return; // what does this do in practice?
+    //}  // can we also send the description to index.ejs be displayed at top of screen?
+    // $("#game-description").text(description); // is this JQuery variable actually useable in index.ejs? Or do I have to emit it there somewhere?
+    console.log("Playing game", game_code);
    
     let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
@@ -95,19 +101,14 @@ async function update_game(roomId, io, db_connection) {
     `;
     let display_result = await db_connection.query(display_query);
 	io.to(roomId).emit('room-display-update', display_result.rows);
-      
-	// TODO: determine whether they have "met the criteria" to succeed in the game!
-	// For each waypoint in this game,
-	//      if distance <= radius FOR ANY PLAYER, then set occupied = true ... should this be in the database itself (which I cannot update) or in an array?
-	//      if all waypoints.occupied are true then game.success = true, else reset all occupied statuses to false prior to next checkup
-	// Approach options: Using an array same length as the number of waypoints for this game, check for each waypoint if distance <= radius and set occupied
-
-	// How many waypoints are there in this game? minimum_players in games table should know this?
+	      
+    // Determine whether they have "met the criteria" to succeed in the game!
+	// How many waypoints are there in this game?
 	let minimum_player_query = `SELECT minimum_players FROM games WHERE game_code = '${game_code}'`;
 	let minimum_player_result = await db_connection.query(minimum_player_query); 
 	let minimum_player_count = minimum_player_result.rows[0]["minimum_players"]
 
-	console.log(game_code, "requires at least", minimum_player_count, "players"); 
+	console.log(game_code, "requires", minimum_player_count, "waypoints to be occupied."); 
 	  
 	var within_radius = [];
 	for (var i = 0; i < display_result.rows.length; i++) {
@@ -123,13 +124,11 @@ async function update_game(roomId, io, db_connection) {
 		}
 	}
 	
-	console.log(within_radius.length, "are currently occupied");
-
-	if (within_radius.length >= minimum_player_count) {
+	console.log(within_radius.length, "waypoints are currently occupied.");
+	if (within_radius.length == minimum_player_count) {
 		let reward_query = `select reward from games where game_code = '${game_code}'`;
 		let reward_result = await db_connection.query(reward_query); 
 		let reward = reward_result.rows[0]["reward"]
-	
 		io.to(roomId).emit('room-reward', reward);
 	}
 }
