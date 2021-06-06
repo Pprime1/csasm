@@ -2,7 +2,7 @@
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
-  'GCALBURY', 'The Anti-Social-Mob cache for Albury to Carseldine testing', 2, 'Hey diddle diddle the cat and the fiddle we have a winner!!!!';
+  'GCALBURY', 'The Anti-Social-Mob cache for Albury to Carseldine testing', 2, 'We have a win! Go to Ronnies ;-)';
 
 INSERT INTO
     waypoint (game_code, name, location, radius)
