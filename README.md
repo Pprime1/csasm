@@ -8,31 +8,23 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 ## 1. Clean Up Code -
 
-1.1 - Make application start with a selection of all valid Game-Codes, allowing user to select which game they are playing. - update can use ROOM selector
+Issues to be resolved - 
+1. no idea how to update the database to insert a new game
 
-1.2 - merge the game code as room ID - DONE but need error/validity checking
+2. need to merge the concepts of 'game', 'group' and 'room', they are all the same thing here
 
-1.3 - Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
+3. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
 
-xCANCELx1.4 - remove redundant postgrator code ... there is a player, players, recreate players and pivot players table? drop geocache?
+4. Main display banner/footer (and table???) do not resize on smaller/mobile screens
 
-xDONEx1.5 - location_query and display_query duplicating the same thing but inverted. Can we remove location_query?
+5. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
 
-1.6 - How to add new game data into postgrator
+6. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
 
-
-
-## 2. Implement Vision
-
-2.1 - Keep track of which waypoints have a player currently in their radius (since last polling update) - set waypoint-occupied state as true (until next room poll occurs)
-
-2.2 - When all waypoints have a player located in them - ie: waypoint-occupied state as true -  set success as true and run reward-criteria routine
-
-2.3 - Secure way of calling and displaying reward page once criteria are met and no other time. Stop screen refreshes, halt game.
+7. Secure display - and screen pause - of reward information once success criteria is reached
 
 
-
-## code logic explained (in Peter terms)
+# code logic explained
 
 server.js    is the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
 
@@ -43,7 +35,7 @@ views/pages/index.ejs    is the calling script (client side html) to display stu
 
 
 
-### Running Locally 
+## Running Locally 
 ... unreliable still. code doesn't stay in sync with github?
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
@@ -58,7 +50,7 @@ $ heroku local
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
+### Deploying to Heroku
 
 ```
 $ heroku git:remote -a csasm
@@ -69,7 +61,7 @@ or
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Documentation
+### Documentation
 
 For more information about using Node.js on Heroku, see these Dev Center articles:
 
