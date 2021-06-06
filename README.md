@@ -8,15 +8,17 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 ## 1. Clean Up Code -
 
-1.1 - Make application start with a selection of all valid Game-Codes, allowing user to select which game they are playing.
+1.1 - Make application start with a selection of all valid Game-Codes, allowing user to select which game they are playing. - update can use ROOM selector
 
-1.2 - merge the game code as room ID
+1.2 - merge the game code as room ID - DONE but need error/validity checking
 
 1.3 - Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
 
-1.4 - remove redundant postgrator code ... there is a player, players, recreate players and pivot players table? drop geocache?
+xCANCELx1.4 - remove redundant postgrator code ... there is a player, players, recreate players and pivot players table? drop geocache?
 
-1.5 - location_query and display_query duplicating the same thing but inverted. Can we remove location_query?
+xDONEx1.5 - location_query and display_query duplicating the same thing but inverted. Can we remove location_query?
+
+1.6 - How to add new game data into postgrator
 
 
 
