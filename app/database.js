@@ -7,7 +7,7 @@ function db(connectionString) {
   return new Promise(resolve => {
     (async function() {
       const postgrator = new POSTGRATOR({
-            validateChecksums: false, // Set to true to force validation,
+            validateChecksums: false, // Set this to true to force validation which is better security, but how to find and update the md5 checksums stored in schemaversion table?
             newline: 'CRLF', // Force using 'CRLF' (windows) or 'LF' (unix/mac)
             migrationDirectory: path.join(__dirname, '../postgrator'),
             driver: 'pg',
