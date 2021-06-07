@@ -67,6 +67,7 @@ async function configure_socketio(db_connection) {
         console.log(id, "left", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("group-", ""), room_size);
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
+        db_connection.query(`DELETE FROM player`).catch(err => console.log(err)); // one off to clear the table again. not getting run during startup currently
       }
     }); // leave-room	
 }
