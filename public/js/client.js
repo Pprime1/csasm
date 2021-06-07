@@ -59,7 +59,7 @@ socket.on("room-display-update", (display_information) => {
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
-      if ((display_information[i].distance != 0) AND (display_information[i].distance <= display_information[i].radius)) {  // For display purposes only, not used for success determination here
+      if (display_information[i].distance != null AND (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
           $table += "<tr class='table table-success'>"
       } else {
           $table += "<tr class='table table-light'>"
