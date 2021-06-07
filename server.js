@@ -67,7 +67,6 @@ async function configure_socketio(db_connection) {
         console.log(id, "left", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("group-", ""), room_size);
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
-	db_connection.query(`DELETE FROM player`) // .catch(err => console.log(err)); // one off to clear the table again. not getting run during startup currently
       }
     }); // leave-room	
 }
@@ -139,7 +138,7 @@ async function main() {
 	
 	// On Startup - Delete all players
     let startingup = await connection.query("DELETE FROM player").catch(err => console.log(err));
-	console.log("System startup, clear all players", startingup);
+	console.log("System startup, clear all players", startingup); // this isn't working, but seems to be getting run
 	
 	// On Startup - Configure SocketIo
 	await configure_socketio(connection)
