@@ -9,7 +9,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 ## 1. Clean Up Code -
 
 Issues to be resolved - 
-1. no idea how to update the database to insert a new game
+X. to update the database and insert a new game see 008.do.GCALBURY-game.sql note also that checksum validation is false in app/database.js now
 
 2. need to merge the concepts of 'game', 'group' and 'room', they are all the same thing here
 
