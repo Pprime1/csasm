@@ -59,7 +59,7 @@ socket.on("room-display-update", (display_information) => {
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
-      if (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
+      if (display_information[i].distance != 0 AND display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
           $table += "<tr class='table table-success'>"
       } else {
           $table += "<tr class='table table-light'>"
@@ -81,11 +81,11 @@ socket.on("room-reward", (reward_information) => { // if all waypoints are in oc
 
 // Bind Submit Event for Front Page Group Joiner / Group Starter / Group Resume
 window.addEventListener("load",function(event) {
-  $( "#start-group-form" ).on( "submit", function(e) {
-      e.preventDefault();
-      console.log(`Attempting to start a group!`)
-      socket.emit('join-a-group');
-  });
+ // $( "#start-group-form" ).on( "submit", function(e) {
+ //     e.preventDefault();
+ //     console.log(`Attempting to start a group!`)
+ //     socket.emit('join-a-group');
+ // });
 
   $( "#join-group-form" ).on( "submit", function(e) {
       e.preventDefault();
