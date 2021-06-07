@@ -57,7 +57,7 @@ async function configure_socketio(db_connection) {
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the group
         console.log(id, "joined", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("group-", ""), room_size);	// can we also send the game description to be displayed top of screen?
-        io.to(id).emit("room-join"); // Inform user joining to update their UI because they joined a room    
+        io.to(id).emit("room-join"); // Inform client joining that they have joined a room, update display to show game status
       }
     }); // join-room
     
@@ -137,7 +137,8 @@ async function main() {
 	let connection = await boot_database(CONNECTION_STRING);
 	
 	// On Startup - Delete all players
-    await connection.query("DELETE FROM player").catch(err => console.log(err));
+    let startingup = await connection.query("DELETE FROM player").catch(err => console.log(err));
+	console.log("System startup, clear all players", startingup); // this isn't working, but seems to be getting run
 	
 	// On Startup - Configure SocketIo
 	await configure_socketio(connection)

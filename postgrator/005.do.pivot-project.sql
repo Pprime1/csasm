@@ -23,11 +23,12 @@ CREATE TABLE waypoint (
 SELECT UpdateGEometrySRID('waypoint', 'location', 3857);
 
 
-// TEST GAME GCTEST - we can look at having a seperate postgrator file per geocache following the below format?
+-- ---------------------------------------------------------------------------------------------
+--  TEST GAME GCTEST - create a seperate postgrator file per geocache following the below format
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
-  'GCTEST', 'An exciting Adventure to whatever ASM cahce name this is', 2, 'You have reached Nirvana this is the reward data';
+  'GCTEST', 'An exciting Adventure to the test ASM cache that this is', 2, 'You have reached Nirvana and this is the reward data';
 
 INSERT INTO
     waypoint (game_code, name, location, radius)
