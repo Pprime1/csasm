@@ -1,4 +1,4 @@
-// TEST GAME GCALBURY - attempting to have a seperate postgrator file per geocache following the below format
+-- TEST GAME GCALBURY - attempting to have a seperate postgrator file per geocache following the below format
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
