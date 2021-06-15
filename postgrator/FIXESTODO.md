@@ -1,0 +1,7 @@
+- 001 is needed to initialise
+- 002, 003, 004 not needed (geocaches, players, asm tables)
+- 005 is needed, but can remove first two DROP table lines. Creates games, waypoint tables and inserts the GCTEST game. 
+- 006 is not needed it is replaced by 007)
+- 007 is needed it creates the player table and a timestamp update trigger function
+- 008 is not needed (replaced by 009
+- 009 inserts a new test game called GCALBURY2 into games/waypoint
