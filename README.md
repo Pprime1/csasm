@@ -36,7 +36,8 @@ Allow content to be copied for use outside of app
 
 # code logic explained
 
-server.js    is the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
+server.js  
+[SERVER.JS](https://github.com/{{ repository.name }}/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
 
 public/js/client.js   is the primary controller (client side javascript called from index.ejs) - visible in console (F12). 
 
