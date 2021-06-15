@@ -67,7 +67,7 @@ socket.on("room-display-update", (display_information) => {
       $table += "<td>" + display_information[i].id + "</td>"
       $table += "<td>" + display_information[i].name + "</td>"
       $table += "<td>" + display_information[i].radius + "m</td>"
-      $table += "<td>" + display_information[i].distance + "m</td></tr>"
+      $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
   };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
@@ -79,18 +79,13 @@ socket.on("room-reward", (reward_information) => { // if all waypoints are in oc
   console.log(reward_information);
 });
 
-// Bind Submit Event for Front Page Group Joiner / Group Starter / Group Resume
-window.addEventListener("load",function(event) {
- // $( "#start-group-form" ).on( "submit", function(e) {
- //     e.preventDefault();
- //     console.log(`Attempting to start a group!`)
- //     socket.emit('join-a-group');
- // });
-
+  // Bind Submit Event for Front Page Game Joiner
+  window.addEventListener("load",function(event) {
   $( "#join-group-form" ).on( "submit", function(e) {
-      e.preventDefault();
-      var group = $("#groupId").val();
-      console.log(`Attempting to join ${ group }`)
-      socket.emit('join-a-group', group);
+    e.preventDefault();
+    var group = $("#groupId").val();
+    game = game.toUpperCase();
+    console.log(`Attempting to join ${ group }`)
+    socket.emit('join-a-group', group);
   });
 }, false);
