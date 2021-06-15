@@ -12,4 +12,3 @@ SELECT UpdateGEometrySRID('geocaches', 'location', 3857);
 -- Insert Example Geocache
 INSERT INTO geocaches (description, location) 
 SELECT 'Andrews Place', 'SRID=3857; POINT(-27.71451719967375 153.159056940647)';
- 
