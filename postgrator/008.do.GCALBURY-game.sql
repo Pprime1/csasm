@@ -7,7 +7,7 @@ SELECT
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GCALBURY', 'Albury', 'SRID=3857; POINT(-36.05412 146.91021)', 50;
+    'GCALBURY', 'Albury', 'SRID=3857; POINT(-36.05412 146.91021)', 150;
     
 INSERT INTO
     waypoint (game_code, name, location, radius)
