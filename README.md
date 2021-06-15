@@ -8,32 +8,29 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 ## Clean Up Code -
 
-X. to update the database and insert a new game see 008.do.GCALBURY-game.sql note also that checksum validation is false in app/database.js now
+1. to update the database and insert a new game see 008.do.GCALBURY-game.sql note also that checksum validation is false in app/database.js now
 
-X.a see Database Updates Issue#15 for ongoing database management matters
-
+1.1 see Database Updates Issue#15 for ongoing database management matters
 
 2. need to merge the concepts of 'game', 'group' and 'room', they are all the same thing here
 
-2a. case sensitivity of entered game code - needs to be case insensitive
+3. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
 
-2b. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
-
-
-X. Main display banner/footer (and table???) do not resize on smaller/mobile screens
-
-
-3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
+4. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this.
 Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
 
-
-4. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
+5. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
 
 
 
 ## Code Vision -
 
-1. Secure display - and screen pause - of reward information once success criteria is reached
+1. Reward display - secure display and screen pause - of reward information once success criteria is reached
+
+Note - only display the reward to IDs that are currently occupying one of the waypoints
+
+Allow content to be copied for use outside of app
+
 
 
 
