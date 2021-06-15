@@ -6,23 +6,35 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 
-## 1. Clean Up Code -
-
-Issues to be resolved - 
+## Clean Up Code -
 
 X. to update the database and insert a new game see 008.do.GCALBURY-game.sql note also that checksum validation is false in app/database.js now
 
+X.a see Database Updates Issue#15 for ongoing database management matters
+
+
 2. need to merge the concepts of 'game', 'group' and 'room', they are all the same thing here
 
-3. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
+2a. case sensitivity of entered game code - needs to be case insensitive
 
-4. Main display banner/footer (and table???) do not resize on smaller/mobile screens
+2b. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
 
-5. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
 
-6. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
+X. Main display banner/footer (and table???) do not resize on smaller/mobile screens
 
-7. Secure display - and screen pause - of reward information once success criteria is reached
+
+3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this
+Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
+
+
+4. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
+
+
+
+## Code Vision -
+
+1. Secure display - and screen pause - of reward information once success criteria is reached
+
 
 
 # code logic explained
@@ -39,16 +51,20 @@ views/pages/index.ejs    is the calling script (client side html) to display stu
 ## Running Locally 
 ... unreliable still. code doesn't stay in sync with github?
 
+```
+heroku login -i \\ userID is prefilled but type the password
+heroku pg:psql -a csasm \\ for database commands
+```
+
+### Installing
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
 $ git clone https://github.com/Pprime1/csasm # or clone your own fork
 $ cd csasm
 $ npm install
-
 $ heroku local
 ```
-
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
 ### Deploying to Heroku
@@ -62,7 +78,7 @@ or
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-### Documentation
+## Documentation
 
 For more information about using Node.js on Heroku, see these Dev Center articles:
 
