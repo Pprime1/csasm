@@ -138,7 +138,7 @@ async function main() {
 	
 	// On Startup - Delete all players
     let startingup = await connection.query("DELETE FROM player").catch(err => console.log(err));
-	console.log("System startup, clear all players", startingup); // this isn't working, but seems to be getting run
+	console.log("System startup, clear all players");
 	
 	// On Startup - Configure SocketIo
 	await configure_socketio(connection)
