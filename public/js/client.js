@@ -84,7 +84,7 @@ socket.on("room-reward", (reward_information) => { // if all waypoints are in oc
   $( "#join-group-form" ).on( "submit", function(e) {
     e.preventDefault();
     var group = $("#groupId").val();
-    game = game.toUpperCase();
+    group = group.toUpperCase();
     console.log(`Attempting to join ${ group }`)
     socket.emit('join-a-group', group);
   });
