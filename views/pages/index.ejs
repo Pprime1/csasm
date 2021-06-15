@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head width: 100vw>
   <%- include ("../partials/header.ejs") %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
   <script> <!-- must be https for Chrome browsers to access current location -->
@@ -15,27 +15,19 @@
   <script type="text/javascript" src="/js/client.js"></script>
 </head>
 
-<body>
+<body width: 100vw>
 
 <div class="container-fluid">
-  <div class="alert alert-info text-center" role="alert">
+  <div class="alert alert-info text-center" role="alert" width: 100vw>
 	  <H1> Welcome to the Anti Social Mob Cache </H1>
   </div>
 
   <div id="lj-startup">
-    <!-- Remove option to create own game/room
-      <h1 class="display-7">Enter the Game ID Reference Number:</h1>
-      <form id="start-group-form">
-          <button type="submit" class="btn btn-primary" href="#" role="button">Start Group</button>
-      </form>
-      <hr class="my-4">
-     snip -->
-      
       <h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>
       <form id="join-group-form">
           <div class="form-group">
               <input type="text" class="form-control" id="groupId" aria-describedby="Group Code">
-              <small class="form-text text-muted">Use GCTEST for the testing game</small>
+              <small class="form-text text-muted">The Geocaching Game ID starts with 'GC'</small>
           </div>
           <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
       </form>
@@ -54,10 +46,13 @@
    
  </div>
    
- <div class="alert alert-info text-center" role="alert">
+ <div id="lj-reward" style="container-fluid">
+   <!-- Show Reward screen -->
+ </div>
+  
+ <div class="alert alert-info text-center" role="alert" width: 100vw>
     <i>Developed by Pprime` with a hell of a lot of help.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
  </div>
 </div>
-
 </body>
 </html>
