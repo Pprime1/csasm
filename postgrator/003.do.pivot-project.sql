@@ -1,8 +1,3 @@
-
--- DROP TABLE geocache; // why?
--- DROP TABLE players; // players with an s is from 003 players but don't think it is needed now
-// should we drop games and waypoint tables first as well?
-
 CREATE TABLE games (
   game_code       VARCHAR(10) NOT NULL PRIMARY KEY,
   description     TEXT,
