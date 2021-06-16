@@ -1,5 +1,3 @@
-DROP TABLE player;
-
 CREATE TABLE player (
   id 			    VARCHAR(20),
   room_id     VARCHAR(20),
