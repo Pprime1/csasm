@@ -20,6 +20,7 @@ SELECT UpdateGEometrySRID('waypoint', 'location', 3857);
 
 -- ---------------------------------------------------------------------------------------------
 --  TEST GAME GCTEST - create a seperate postgrator file per geocache following the below format
+-- ---------------------------------------------------------------------------------------------
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
