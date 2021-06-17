@@ -1,4 +1,7 @@
+-- ---------------------------------------------------------------------------------------------
 -- TEST GAME GCALBURY - create a seperate postgrator file per geocache following the below format
+-- ---------------------------------------------------------------------------------------------
+
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
@@ -7,9 +10,9 @@ SELECT
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GCALBURY', 'Albury', 'SRID=3857; POINT(-36.055217 146.909850)', 50;
+    'GCALBURY', 'Albury', 'SRID=3857; POINT(-36.055217 146.909850)', 150;
     
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GCALBURY', 'Carseldine', 'SRID=3857; POINT(-27.34296 153.01237)', 50;
+    'GCALBURY', 'Carseldine', 'SRID=3857; POINT(-27.34296 153.01237)', 150;
