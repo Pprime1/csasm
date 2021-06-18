@@ -29,9 +29,9 @@ SELECT
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GCTEST', 'Waypoiint 1', 'SRID=3857; POINT(-27.34511 153.03048)', 100;
+    'GCTEST', 'Waypoiint 1', 'SRID=3857; POINT(-27.27917, 152.97558)', 150;
 
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GCTEST', 'Waypoiint 2', 'SRID=3857; POINT(-27.34296 153.01237)', 100;
+    'GCTEST', 'Waypoiint 2', 'SRID=3857; POINT(-27.34296 153.01237)', 150;
