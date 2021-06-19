@@ -9,6 +9,7 @@ CREATE TABLE player (
 -- Update SRID to WGS84 (World Geodetic System 1984 which is the Geocaching standard)
 SELECT UpdateGEometrySRID('player', 'location', 3857);
 
+
 -- Create Trigger for updated column timestamp
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
