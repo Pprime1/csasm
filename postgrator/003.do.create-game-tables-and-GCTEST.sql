@@ -18,6 +18,7 @@ CREATE TABLE waypoint (
 SELECT UpdateGEometrySRID('waypoint', 'location', 3857);
 
 
+
 -- ---------------------------------------------------------------------------------------------
 --  TEST GAME GCTEST - create a seperate postgrator file per geocache following the below format
 -- ---------------------------------------------------------------------------------------------
