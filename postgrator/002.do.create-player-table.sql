@@ -6,7 +6,7 @@ CREATE TABLE player (
   PRIMARY KEY(id, room_id)
 );
 
--- Update SRID to WGS84 (World Geodetic System 1984) - Standard for most calcluations worldwide
+-- Update SRID to WGS84 (World Geodetic System 1984 which is the Geocaching standard)
 SELECT UpdateGEometrySRID('player', 'location', 3857);
 
 -- Create Trigger for updated column timestamp
