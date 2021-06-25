@@ -92,7 +92,7 @@ async function update_game(roomId, io, db_connection) {
     if (!game_query_result) {
     	return; // what does this do in practice?
     }  
-    console.log(game_query_result);
+    console.log(game_query_result.gamedescription);
     // can we also send the description to index.ejs be displayed at top of screen?
     // $("#game-description").text(gamedescription); // is this JQuery variable actually useable in index.ejs? Or do I have to emit it there somewhere?
     
