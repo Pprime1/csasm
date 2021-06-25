@@ -58,8 +58,23 @@ async function configure_socketio(db_connection) {
         db_connection.query(`INSERT INTO player(id, room_id) VALUES('${id}', '${room.replace("game-", "")}')`).catch(err => console.log(err));
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "joined", room, room_size, "online");
+	      
+	let game_code = roomId.replace("game-", "");   // merging game and room_id, but needs validity checking subroutine
+        let game_query = `SELECT description as gamedescription FROM games WHERE game_code = '${game_code}'`;
+        // let game_exists_query = `SELECT description FROM games WHERE EXISTS (SELECT game_code FROM games WHERE game_code = '${game_code}')`;
+        let game_query_result = await db_connection.query(game_query);
+        console.log("Description is", game_query_result[0].gamedescription);
+	// (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+        // (node:21) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+        // (node:21) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'gamedescription' of undefined
+	
+	if (!game_query_result) {
+    	    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
+        } 
+	      
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);	// can we also send the game description to be displayed top of screen?
-        io.to(id).emit("room-join"); // Inform client joining that they have joined a room, update display to show game status
+        io.to(id).emit("room-join");
+	// io.to(id).emit("room-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status
       }
     }); // join-room
     
@@ -85,19 +100,7 @@ async function update_game(roomId, io, db_connection) {
 	return; // error check in case playerID gets confused in here
     }
 
-    let game_code = roomId.replace("game-", "");   // merging game and room_id, but needs validity checking subroutine
-    let game_query = `SELECT description as gamedescription FROM games WHERE game_code = '${game_code}'`;
-    // let game_exists_query = `SELECT description FROM games WHERE EXISTS (SELECT game_code FROM games WHERE game_code = '${game_code}')`;
-    let game_query_result = await db_connection.query(game_query);
-    console.log("Description is", game_query_result[0].gamedescription);
-	if (!game_query_result) {
-    	return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
-    }  else {
-        console.log("Description is", game_query_result[0].gamedescription);
-        // can we also send the description to index.ejs be displayed at top of screen?
-        // $("#game-description").text(gamedescription); // is this JQuery variable actually useable in index.ejs? Or do I have to emit it there somewhere?
-    }
-    console.log("Playing game", game_code);
+   console.log("Playing game", game_code);
    
     let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
@@ -108,6 +111,7 @@ async function update_game(roomId, io, db_connection) {
     `;
     let display_result = await db_connection.query(display_query);
 	io.to(roomId).emit('room-display-update', display_result.rows);
+	// io.to(roomId).emit('room-display-update', gamedescription, display_result.rows);
 	      
     // Determine whether they have "met the criteria" to succeed in the game!
 	// How many waypoints are there in this game?
