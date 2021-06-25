@@ -38,7 +38,7 @@ socket.on("room-join", () => {
    $("#lj-startup").hide();
    $("#lj-reward").hide();
    $("#lj-in-game").show();
-   $("#game-description").text(gamedescription);
+   // $("#game-description").text(gamedescription);
    navigator.geolocation.getCurrentPosition(updatePosition);
    const interval = setInterval(function() {
    navigator.geolocation.getCurrentPosition(updatePosition);
