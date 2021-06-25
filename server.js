@@ -44,10 +44,12 @@ async function configure_socketio(db_connection) {
 
     // Handle Game Join / Leave - Inform users within game of changes (i.e. count of active players)
     io.of("/").adapter.on("create-room", (room) => {
-      console.log("new player ", room);
       if (room.startsWith("game-")) {
-        //console.log("Scheduling Update Handler", room);
+        console.log("new ", room);
+	//console.log("Scheduling Update Handler", room);
         //setInterval(roomUpdateHandler, 5000, room, io, connection);
+      } else {
+        console.log("new player-", room);
       }
     }); // create-room
     
