@@ -29,7 +29,7 @@ let is_joined = false;
 
 socket.io.on("reconnect", () => {
   if (is_joined) {
-      socket.emit('join-a-group', $("#current-group-id").text())
+      socket.emit('join-a-group', $("#current-game-id").text())
   }
 });
 
@@ -49,7 +49,7 @@ socket.on("room-update", (group_id, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
   $("#lj-in-game").show();
-  $("#current-group-id").text(group_id);
+  $("#current-game-id").text(group_id);
   console.log("is_joined to ", group_id)
   $("#current-game-player-count").text(new_player_count);
 })
@@ -89,11 +89,11 @@ socket.on("room-reward", (reward_information) => { // if all waypoints are in oc
 
   // Bind Submit Event for Front Page Game Joiner
   window.addEventListener("load",function(event) {
-  $( "#join-group-form" ).on( "submit", function(e) {
+  $( "#join-game-form" ).on( "submit", function(e) {
     e.preventDefault();
-    var group = $("#groupId").val();
-    group = group.toUpperCase();
-    console.log(`Attempting to join ${ group }`)
-    socket.emit('join-a-group', group);
+    var game = $("#gameId").val();
+    game = game.toUpperCase();
+    console.log(`Attempting to join ${ game }`)
+    socket.emit('join-a-group', game);
   });
 }, false);
