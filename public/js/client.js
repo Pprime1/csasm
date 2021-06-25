@@ -47,7 +47,8 @@ socket.on("room-update", (group_id, new_player_count) => {
   $("#lj-startup").hide();
   $("#lj-in-game").show();
   $("#current-group-id").text(group_id);
-  $("#current-group-member-count").text(new_player_count);
+  console.log("is_joined to ", group_id)
+  $("#current-game-player-count").text(new_player_count);
 })
 
 socket.on("room-display-update", (display_information) => {
