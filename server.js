@@ -61,7 +61,7 @@ async function configure_socketio(db_connection) {
 	      
 	let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
         let game_query_result = db_connection.query(game_query);
-        console.log("Description is", game_query_result[0].gamedescription);
+        console.log("Description is", game_query_result);
 	
 	if (!game_query_result) {
     	    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
