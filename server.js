@@ -60,12 +60,13 @@ async function configure_socketio(db_connection) {
         console.log(id, "joined", room, room_size, "online");
 	      
 	let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
-        let game_query_result = db_connection.query(game_query);
-        console.log("Description is", game_query_result);
-	
-	if (!game_query_result) {
-    	    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
-        } 
+        // let game_query_result = db_connection.query(game_query);
+        // console.log("Description is", game_query_result);
+	// 2021-06-25T10:23:51.165897+00:00 app[web.1]: Description is Promise { <pending> }
+
+	// if (!game_query_result) {
+    	//    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
+        // } 
 	      
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);	// can we also send the game description to be displayed top of screen?
         io.to(id).emit("room-join");
@@ -128,7 +129,8 @@ async function update_game(roomId, io, db_connection) {
 	}
 	console.log(within_radius.length, "waypoints are currently occupied.");
 
-	if (within_radius.length == minimum_player_count) {
+	// if (within_radius.length == minimum_player_count) {
+	if (within_radius.length == 1) { // for testing purposes
 		let reward_query = `select reward from games where game_code = '${game_code}'`;
 		let reward_result = await db_connection.query(reward_query); 
 		let reward = reward_result.rows[0]["reward"]
