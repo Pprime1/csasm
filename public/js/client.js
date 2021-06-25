@@ -81,7 +81,7 @@ socket.on("room-reward", (reward_information) => { // if all waypoints are in oc
   // TODO: show reward on seperate secured screen! And stop updates/refreshes of screen
   // do stuff here!
   $("#lj-startup").hide();
-  $("#lj-in-game").hide();
+  $("#lj-in-game").show();
   $("#lj-reward").show();
   console.log(reward_information);
   $("#rewardinfo").text(reward_information);
