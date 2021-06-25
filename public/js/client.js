@@ -29,25 +29,29 @@ let is_joined = false;
 
 socket.io.on("reconnect", () => {
   if (is_joined) {
-      socket.emit('join-a-group', $("#current-group-id").text())
+      socket.emit('join-a-group', $("#current-game-id").text())
   }
 });
 
 socket.on("room-join", () => {
-  $("#lj-startup").hide();
-  $("#lj-in-game").show();
-  navigator.geolocation.getCurrentPosition(updatePosition);
-	const interval = setInterval(function() {
-		navigator.geolocation.getCurrentPosition(updatePosition);
-	}, 10000);
+// socket.on("room-join", (gamedescription) => {
+   $("#lj-startup").hide();
+   $("#lj-reward").hide();
+   $("#lj-in-game").show();
+   // $("#game-description").text(gamedescription);
+   navigator.geolocation.getCurrentPosition(updatePosition);
+   const interval = setInterval(function() {
+   navigator.geolocation.getCurrentPosition(updatePosition);
+   }, 5000);
 });
 
 socket.on("room-update", (group_id, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
   $("#lj-in-game").show();
-  $("#current-group-id").text(group_id);
-  $("#current-group-member-count").text(new_player_count);
+  $("#current-game-id").text(group_id);
+  console.log("is_joined to ", group_id)
+  $("#current-game-player-count").text(new_player_count);
 })
 
 socket.on("room-display-update", (display_information) => {
@@ -76,16 +80,20 @@ socket.on("room-display-update", (display_information) => {
 socket.on("room-reward", (reward_information) => { // if all waypoints are in occupied state, show Success!
   // TODO: show reward on seperate secured screen! And stop updates/refreshes of screen
   // do stuff here!
+  $("#lj-startup").hide();
+  $("#lj-in-game").show();
+  $("#lj-reward").show();
   console.log(reward_information);
+  $("#rewardinfo").text(reward_information);
 });
 
   // Bind Submit Event for Front Page Game Joiner
   window.addEventListener("load",function(event) {
-  $( "#join-group-form" ).on( "submit", function(e) {
+  $( "#join-game-form" ).on( "submit", function(e) {
     e.preventDefault();
-    var group = $("#groupId").val();
-    group = group.toUpperCase();
-    console.log(`Attempting to join ${ group }`)
-    socket.emit('join-a-group', group);
+    var game = $("#gameId").val();
+    game = game.toUpperCase();
+    console.log(`Attempting to join ${ game }`)
+    socket.emit('join-a-group', game);
   });
 }, false);
