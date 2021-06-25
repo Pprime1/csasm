@@ -129,8 +129,8 @@ async function update_game(roomId, io, db_connection) {
 	}
 	console.log(within_radius.length, "waypoints are currently occupied.");
 
-	// if (within_radius.length == minimum_player_count) {
-	if (within_radius.length == 1) { // for testing purposes
+	if (within_radius.length == minimum_player_count) {
+	// if (within_radius.length == 1) { // for testing purposes
 		let reward_query = `select reward from games where game_code = '${game_code}'`;
 		let reward_result = await db_connection.query(reward_query); 
 		let reward = reward_result.rows[0]["reward"]
