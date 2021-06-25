@@ -24,9 +24,9 @@
 
   <div id="lj-startup">
       <h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>
-      <form id="join-group-form">
-          <div class="form-group">
-              <input type="text" class="form-control" id="groupId" aria-describedby="Group Code">
+      <form id="join-game-form">
+          <div class="form-game">
+              <input type="text" class="form-control" id="gameId" aria-describedby="Game Code">
               <small class="form-text text-muted">The Geocaching Game ID starts with 'GC'</small>
           </div>
           <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
@@ -34,8 +34,8 @@
   </div>
 
   <div id="lj-in-game" style="display: none">
-      <h1>Game Code: <span id="current-group-id" class="badge badge-secondary"></span>
-      <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-group-id">Copy Code</button></span>
+      <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
+      <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
       </h1>
       <p><span id="game-description"></p>
       <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
