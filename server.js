@@ -89,13 +89,14 @@ async function update_game(roomId, io, db_connection) {
     let game_query = `SELECT description as gamedescription FROM games WHERE game_code = '${game_code}'`;
     // let game_exists_query = `SELECT description FROM games WHERE EXISTS (SELECT game_code FROM games WHERE game_code = '${game_code}')`;
     let game_query_result = await db_connection.query(game_query);
-    if (!game_query_result) {
-    	return; // what does this do in practice?
-    }  
     console.log("Description is", game_query_result[0].gamedescription);
-    // can we also send the description to index.ejs be displayed at top of screen?
-    // $("#game-description").text(gamedescription); // is this JQuery variable actually useable in index.ejs? Or do I have to emit it there somewhere?
-    
+	if (!game_query_result) {
+    	return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
+    }  else {
+        console.log("Description is", game_query_result[0].gamedescription);
+        // can we also send the description to index.ejs be displayed at top of screen?
+        // $("#game-description").text(gamedescription); // is this JQuery variable actually useable in index.ejs? Or do I have to emit it there somewhere?
+    }
     console.log("Playing game", game_code);
    
     let display_query = `
