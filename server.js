@@ -59,14 +59,9 @@ async function configure_socketio(db_connection) {
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "joined", room, room_size, "online");
 	      
-	let game_code = roomId.replace("game-", "");   // merging game and room_id, but needs validity checking subroutine
-        let game_query = `SELECT description as gamedescription FROM games WHERE game_code = '${game_code}'`;
-        // let game_exists_query = `SELECT description FROM games WHERE EXISTS (SELECT game_code FROM games WHERE game_code = '${game_code}')`;
+	let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
         let game_query_result = db_connection.query(game_query);
         console.log("Description is", game_query_result[0].gamedescription);
-	// (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
-        // (node:21) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-        // (node:21) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'gamedescription' of undefined
 	
 	if (!game_query_result) {
     	    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
@@ -99,7 +94,7 @@ async function update_game(roomId, io, db_connection) {
     if(!roomId.includes("game-")) {
 	return; // error check in case playerID gets confused in here
     }
-
+   let game_code = roomId.replace("game-", "");
    console.log("Playing game", game_code);
    
     let display_query = `
