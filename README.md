@@ -6,34 +6,26 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 
-## Clean Up Code -
+1. merge the concepts of 'game', and 'group', they are the same thing
 
-1. to update the database and insert a new game see 008.do.GCALBURY-game.sql note also that checksum validation is false in app/database.js now
+2. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not 
+    ... or can we display all valid games as buttons and "pick game"?
 
-1.1 see Database Updates Issue#15 for ongoing database management matters
-
-2. need to merge the concepts of 'game', 'group' and 'room', they are all the same thing here
-
-3. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
-
-4. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this.
+3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this.
 Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
 
-5. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
+4. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
+
+5. Only display Reward to those players currently occupying any waypoint (thwart game-jumpers)
+
+6. Once Reward is displayed, stop all screen and location updates.
+
+7. How can I grab the Game Description and display it ? Promise rejections again 👎
+
+8. reintroduce validatechecksums = true for the database tables. how to set/reset md5 values?
 
 
-
-## Code Vision -
-
-1. Reward display - secure display and screen pause - of reward information once success criteria is reached
-
-Note - only display the reward to IDs that are currently occupying one of the waypoints
-
-Allow content to be copied for use outside of app
-
-
-
-# code logic explained
+# Key files
 
 [SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
 
