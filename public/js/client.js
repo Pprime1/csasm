@@ -40,7 +40,7 @@ socket.on("room-join", () => {
    // $("#game-description").text(gamedescription);
    navigator.geolocation.getCurrentPosition(updatePosition);
    const interval = setInterval(function() {
-       navigator.geolocation.getCurrentPosition(updatePosition);
+       navigator.geolocation.getCurrentPosition(updatePosition); // TODO: does this really keep running ? Or should this bit be in room-update isntead?
    }, 5000);
 }); // end of ROOM-JOIN
 
@@ -71,7 +71,7 @@ socket.on("room-display-update", (display_information) => {
       $table += "<td>" + display_information[i].name + "</td>"
       $table += "<td>" + display_information[i].radius + "m</td>"
       $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
-  };
+      };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
 }); // end of DISPLAY-UPDATE
@@ -83,7 +83,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
   console.log(reward_information);
   $("#rewardinfo").text(reward_information);
   // TODO: is there a way to STOP THE GAME or prevent screen updates at this point for the relevant player?
-}); end of DISPLAY-REWARD
+}); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Front Page Game Joiner
 window.addEventListener("load",function(event) {
@@ -94,4 +94,4 @@ window.addEventListener("load",function(event) {
     console.log(`Attempting to join ${ game }`)
     socket.emit('join-a-game', game);
   });
-}, false);
+}, false); // end of JOIN-GAME-FORM
