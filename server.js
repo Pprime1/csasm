@@ -79,7 +79,7 @@ async function configure_socketio(db_connection) {
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
-} end of DELAY
+} // end of DELAY
 
 async function game_details(room, db_connection) {
     let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
@@ -90,7 +90,7 @@ async function game_details(room, db_connection) {
     // if (!game_query_result) {
     //    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
     // } 
-} end of GAME_DETAILS
+} // end of GAME_DETAILS
 
 // UPDATE GAME: Primary game management coding
 async function update_game(room, io, db_connection) {
