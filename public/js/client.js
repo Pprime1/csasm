@@ -32,8 +32,8 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
   }
 });
 
-socket.on("room-join", () => {
-// socket.on("room-join", (gamedescription) => {
+socket.on("game-join", () => {
+// socket.on("game-join", (gamedescription) => {
    $("#lj-startup").hide();
    $("#lj-reward").hide();
    $("#lj-in-game").show();
@@ -42,7 +42,7 @@ socket.on("room-join", () => {
    const interval = setInterval(function() {
        navigator.geolocation.getCurrentPosition(updatePosition); // TODO: does this really keep running ? Or should this bit be in room-update isntead?
    }, 5000);
-}); // end of ROOM-JOIN
+}); // end of GAME-JOIN
 
 socket.on("room-update", (game_id, new_player_count) => {
   is_joined = true;
@@ -53,7 +53,7 @@ socket.on("room-update", (game_id, new_player_count) => {
   $("#current-game-player-count").text(new_player_count);
 }); // end of ROOM-UPDATE
 
-socket.on("room-display-update", (display_information) => {
+socket.on("display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
