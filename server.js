@@ -28,15 +28,16 @@ async function configure_socketio(db_connection) {
               UPDATE player
               set location = ST_GeomFromText('POINT(${args[0]} ${args[1]})', 3857)
               WHERE id = '${socket.id}'
-            `;
+           `;
            db_connection.query(location_update_query).catch(err => console.log(err));
            console.log(socket.id, "performed location update", args);
         }); // location-update
     
         socket.on('join-a-game', (...args) => {
-           // Start Requested Game ... if game name is not supplied return error?
-           let room_id = args.length > 0 ? args[0] : "GCTEST"; // this is to be replaced/removed
-           socket.join("game-" + room_id);
+           // Start Requested Game ... 
+           let room = args.length > 0 ? args[0] : "GCTEST"; // Needs valid game checking routine
+	   // IF room does not exist FROM games table set room = "GCTEST
+           socket.join("game-" + room);
         }); // join-a-game
     }); // on connection
 
