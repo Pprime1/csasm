@@ -40,33 +40,37 @@ async function configure_socketio(db_connection) {
         }); // join-a-game
     }); // on connection
 
-    // Start up a room
-    io.of("/").adapter.on("create-room", (room) => {
+    // *************************************************************************************************** //
+    // Respond to adapter events - a player or a room  // HOW DO THESE CODES GET RUN? 
+    
+    // Create - start a new game room
+    io.of("/").adapter.on("create-room", (room) => { 
        if (room.startsWith("game-")) {
-          console.log("new game-", room.replace("game-", ""));
+          console.log("new game-", room.replace("game-", "")); // NEW GAME ROOM STARTED
 	  //console.log("Scheduling Update Handler", room);  // commented out by Andrew
           //setInterval(roomUpdateHandler, 5000, room, io, connection);  // commented out by Andrew
-          
-	  // can we also send the game description to be displayed top of screen?
-	  // let gamedescription = game_details(room.replace("game-", ""), db_connection);
-	  // io.to(room).emit("room-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status
-        
         } else {
-          console.log("new player-", room);
+          console.log("new player-", room); // NEW PLAYER STARTED
         }
     }); // create-room
     
-    // Join or Leave - Inform users within game of changes (i.e. count of active players)
-    io.of("/").adapter.on("join-room", (room, id) => {
+    // Join a game room - Inform users within game of changes (i.e. count of active players)
+    io.of("/").adapter.on("join-room", (room, id) => { 
       if(room !== id) {
         db_connection.query(`INSERT INTO player(id, room_id) VALUES('${id}', '${room.replace("game-", "")}')`).catch(err => console.log(err));
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "joined", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
-        io.to(id).emit("room-join");
+          
+	  // can we also send the game description to be displayed top of screen?
+	  // let gamedescription = game_details(room.replace("game-", ""), db_connection);
+	  // io.to(id).emit("game-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status
+	      
+	io.to(id).emit("game-join");
       }
     }); // join-room
     
+    // Leave a game room - Inform users within game of changes (i.e. count of active players)
     io.of("/").adapter.on("leave-room", (room, id) => {
       if(room !== id) {
         let room_size = io.sockets.adapter.rooms.get(room).size;
@@ -75,6 +79,8 @@ async function configure_socketio(db_connection) {
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
       }
     }); // leave-room	
+    // *************************************************************************************************** //
+	
 }; // end of CONFIGURE_SOCKET
 
 function delay(ms) {
@@ -111,8 +117,8 @@ async function update_game(room, io, db_connection) {
        ORDER BY pl.id
     `;
     let display_result = await db_connection.query(display_query);
-    io.to(room).emit('room-display-update', display_result.rows);
-    // io.to(room).emit('room-display-update', gamedescription, display_result.rows);
+    io.to(room).emit('display-update', display_result.rows);
+    // io.to(room).emit('display-update', gamedescription, display_result.rows);
 	      
     // How many waypoints are there in this game?
     let minimum_player_query = `SELECT minimum_players FROM games WHERE game_code = '${game_code}'`;
