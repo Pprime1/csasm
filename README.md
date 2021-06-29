@@ -6,22 +6,13 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 
-1. merge the concepts of 'game', and 'group', they are the same thing
-
-2. need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not 
-    ... or can we display all valid games as buttons and "pick game"?
-
-3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this.
-Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
-
-4. Clarify all the timeouts - time to refresh player location, refresh room contents and time to remove a player once they shutdown/switch off browser on phone.
-
+1. need a routine to check if chosen game is a valid one, and to error/restart if not ... or can we display all valid games as buttons and "pick game"?
+2. Check the timeouts - time to refresh player location (should be 5000ms?), refresh room contents (should be 10000ms?)
+3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this. Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
+4. Check that update location is actually updating - inside house tests it is never changing location
 5. Only display Reward to those players currently occupying any waypoint (thwart game-jumpers)
-
-6. Once Reward is displayed, stop all screen and location updates.
-
+6. Once Reward is displayed, stop all screen and location updates
 7. How can I grab the Game Description and display it ? Promise rejections again 👎
-
 8. reintroduce validatechecksums = true for the database tables. how to set/reset md5 values?
 
 
