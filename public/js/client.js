@@ -1,4 +1,6 @@
 const socket = io(); // or io("/"), the main namespace
+$("#current-player-id").text(socket.id); // this is the current player 
+// console.log("Current Player", $("#current-player-id));
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
@@ -26,37 +28,36 @@ function updatePosition(position) {
 }
 
 let is_joined = false;
-
-socket.io.on("reconnect", () => {
+socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
-      socket.emit('join-a-group', $("#current-game-id").text())
+      socket.emit('join-a-game', $("#current-game-id").text())
   }
 });
 
-socket.on("room-join", () => {
-// socket.on("room-join", (gamedescription) => {
+socket.on("game-join", () => {
+// socket.on("game-join", (gamedescription) => {
    $("#lj-startup").hide();
    $("#lj-reward").hide();
    $("#lj-in-game").show();
    // $("#game-description").text(gamedescription);
    navigator.geolocation.getCurrentPosition(updatePosition);
    const interval = setInterval(function() {
-   navigator.geolocation.getCurrentPosition(updatePosition);
+       navigator.geolocation.getCurrentPosition(updatePosition); // TODO: does this really keep running ? Or should this bit be in room-update isntead?
    }, 5000);
-});
+}); // end of GAME-JOIN
 
-socket.on("room-update", (group_id, new_player_count) => {
+socket.on("room-update", (game_id, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
   $("#lj-in-game").show();
-  $("#current-game-id").text(group_id);
-  console.log("is_joined to ", group_id)
+  $("#current-game-id").text(game_id);
+  console.log("is joined to ", game_id)
   $("#current-game-player-count").text(new_player_count);
-})
+}); // end of ROOM-UPDATE
 
-socket.on("room-display-update", (display_information) => {
+socket.on("display-update", (display_information) => {
   console.log(display_information);
-  var MYID = socket.id; // this is current player
+  var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
 	
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
@@ -72,28 +73,27 @@ socket.on("room-display-update", (display_information) => {
       $table += "<td>" + display_information[i].name + "</td>"
       $table += "<td>" + display_information[i].radius + "m</td>"
       $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
-  };
+      };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
-});
+}); // end of DISPLAY-UPDATE
 
-socket.on("room-reward", (reward_information) => { // if all waypoints are in occupied state, show Success!
-  // TODO: show reward on seperate secured screen! And stop updates/refreshes of screen
-  // do stuff here!
+socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   $("#lj-startup").hide();
   $("#lj-in-game").show();
   $("#lj-reward").show();
   console.log(reward_information);
   $("#rewardinfo").text(reward_information);
-});
+  // TODO: is there a way to STOP THE GAME or prevent screen updates at this point for the relevant player?
+}); // end of DISPLAY-REWARD
 
-  // Bind Submit Event for Front Page Game Joiner
-  window.addEventListener("load",function(event) {
+// Bind Submit Event for Front Page Game Joiner
+window.addEventListener("load",function(event) {
   $( "#join-game-form" ).on( "submit", function(e) {
     e.preventDefault();
     var game = $("#gameId").val();
     game = game.toUpperCase();
     console.log(`Attempting to join ${ game }`)
-    socket.emit('join-a-group', game);
+    socket.emit('join-a-game', game);
   });
-}, false);
+}, false); // end of JOIN-GAME-FORM
