@@ -1,5 +1,6 @@
 const socket = io(); // or io("/"), the main namespace
 $("#current-player-id").text(socket.id); // this is the current player 
+console.log("Current Player", $("#current-player-id));
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
@@ -50,13 +51,13 @@ socket.on("room-update", (game_id, new_player_count) => {
   $("#lj-startup").hide();
   $("#lj-in-game").show();
   $("#current-game-id").text(game_id);
-  console.log("is_joined to ", game_id)
+  console.log("is joined to ", game_id)
   $("#current-game-player-count").text(new_player_count);
 }); // end of ROOM-UPDATE
 
 socket.on("display-update", (display_information) => {
   console.log(display_information);
-  var MYID = socket.id; // this is current player ... variable is now set at the top could be reused here too
+  var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
 	
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
