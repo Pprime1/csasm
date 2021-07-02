@@ -1,7 +1,11 @@
 const socket = io(); // or io("/"), the main namespace
-$("#current-player-id").text(socket.id); // this is the current player 
-// console.log("Current Player", $("#current-player-id));
-
+// $("#current-player-id").text(socket.id); // this is the current player 
+// console.log("Current Player #", $("#current-player-id));
+// console.log("Current Player id", socket.id);
+var STARTID = socket.id; // this is current player
+console.log("Current Player var", STARTID);
+$("#current-player-id").text(STARTID); // set current player 
+				     
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
   var degrees = Math.floor(absolute);
@@ -35,11 +39,11 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 });
 
 socket.on("game-join", () => {
-// socket.on("game-join", (gamedescription) => {
+// socket.on("game-join", (gamedesc) => {
    $("#lj-startup").hide();
    $("#lj-reward").hide();
    $("#lj-in-game").show();
-   // $("#game-description").text(gamedescription);
+   // $("#game-description").text(gamedesc);
    navigator.geolocation.getCurrentPosition(updatePosition);
    const interval = setInterval(function() {
        navigator.geolocation.getCurrentPosition(updatePosition); // TODO: does this really keep running ? Or should this bit be in room-update isntead?
@@ -55,10 +59,12 @@ socket.on("room-update", (game_id, new_player_count) => {
   $("#current-game-player-count").text(new_player_count);
 }); // end of ROOM-UPDATE
 
-socket.on("display-update", (display_information) => {
-  console.log(display_information);
+socket.on("display-update", (gamedesc, display_information) => {
+// socket.on("display-update", (display_information) => {
+  console.log(gamedesc, display_information);
   var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
+  $("#game-description").text(gamedesc); // Current gamedescription
 	
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
