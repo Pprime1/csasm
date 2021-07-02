@@ -85,6 +85,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
   console.log(reward_information);
   $("#rewardinfo").text(reward_information);
   // TODO: is there a way to STOP THE GAME or prevent screen updates at this point for the relevant player?
+  cleartimeout(); // ?
 }); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Front Page Game Joiner
