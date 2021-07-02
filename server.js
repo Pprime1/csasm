@@ -64,7 +64,7 @@ async function configure_socketio(db_connection) {
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
    
 	// can we also send the game description to be displayed top of screen?
-	let gamedescription = game_details(room.replace("game-", ""), db_connection);
+	// let gamedescription = game_details(room.replace("game-", ""), db_connection);
 	// io.to(id).emit("game-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status      
 
 	io.to(id).emit("game-join");
@@ -113,7 +113,12 @@ async function update_game(room, io, db_connection) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    
-    let display_query = `
+   let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
+   console.log("Getting Game Description");
+   let game_result = await db_connection.query(game_query).catch(err => console.log(err));;
+   console.log("Description is", game_result);
+	
+   let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
        FROM player as pl, waypoint as wp
