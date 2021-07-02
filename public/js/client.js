@@ -34,12 +34,12 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
   }
 });
 
-socket.on("game-join", () => {
-// socket.on("game-join", (gamedescription) => {
+// socket.on("game-join", () => {
+socket.on("game-join", (gamedesc) => {
    $("#lj-startup").hide();
    $("#lj-reward").hide();
    $("#lj-in-game").show();
-   // $("#game-description").text(gamedescription);
+   $("#game-description").text(gamedesc);
    navigator.geolocation.getCurrentPosition(updatePosition);
    const interval = setInterval(function() {
        navigator.geolocation.getCurrentPosition(updatePosition); // TODO: does this really keep running ? Or should this bit be in room-update isntead?
