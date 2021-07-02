@@ -65,10 +65,10 @@ async function configure_socketio(db_connection) {
    
 	// can we also send the game description to be displayed top of screen?
         let game_code = room.replace("game-", "");
-        console.log("Joining game", game_code);
         let game_query = `select description from games where game_code = '${game_code}'`;
         let game_result = db_connection.query(game_query).catch(err => console.log(err));
-        let gamedesc = game_result.rows[0]["description"]
+	console.log("Result is", game_result);
+	let gamedesc = game_result.rows[0]["description"]
         console.log("Description is", gamedesc);
 	io.to(id).emit("game-join", gamedesc); // Inform client joining that they have joined a room, update display to show game status      
 
