@@ -103,12 +103,12 @@ async function update_game(room, io, db_connection) {
    
    let game_query = `select description from games where game_code = '${game_code}'`;
    let game_result = await db_connection.query(game_query);
-   let gamedesc = game_result.rows[0]["description"]
-   // console.log("Game description is", gamedesc);
    if (!game_result) {
 	   return; // so this should exit back to main if the game doesn't exist?
    }
-	
+   let gamedesc = game_result.rows[0]["description"]
+   // console.log("Game description is", gamedesc);
+
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
