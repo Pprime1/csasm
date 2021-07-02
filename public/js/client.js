@@ -1,7 +1,4 @@
 const socket = io(); // or io("/"), the main namespace
-$("#current-player-id").text(socket.id); // this is the current player 
-// console.log("Current Player", $("#current-player-id));
-console.log("Current Player", socket.id);
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
@@ -29,6 +26,14 @@ function updatePosition(position) {
 }
 
 let is_joined = false;
+$("#current-player-id").text("Purple 42"); // this is the current player 
+$("#current-player-id").text(socket.id); // this is the current player 
+var STARTID = socket.id; // this is current player
+console.log("Current Player #", $("#current-player-id));
+console.log("Current Player id", socket.id);
+console.log("Current Player var", STARTID);
+$("#current-player-id").text(STARTID); // this is the current player 
+console.log("Current Player var#", $("#current-player-id));
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
       socket.emit('join-a-game', $("#current-game-id").text())
@@ -58,7 +63,7 @@ socket.on("room-update", (game_id, new_player_count) => {
 
 socket.on("display-update", (gamedesc, display_information) => {
 // socket.on("display-update", (display_information) => {
-  console.log(display_information);
+  console.log(gamedesc, display_information);
   var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   $("#game-description").text(gamedesc); // Current gamedescription
