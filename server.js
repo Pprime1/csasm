@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (request, response) => response.render('pages/index'));
 
 
-// FUNCTION CODE
+// SOCKET FUNCTIONAL CODE
 async function configure_socketio(db_connection) {
    io.on("connection", (socket) => {
         console.log(socket.id, "connected");
@@ -36,7 +36,7 @@ async function configure_socketio(db_connection) {
         socket.on('join-a-game', (...args) => {
            // Start Requested Game ... 
            let room = args.length > 0 ? args[0] : "GCTEST"; // Needs valid game checking routine
-	   // IF room does not exist FROM games table set room = "GCTEST
+	   // IF room does not exist FROM games table set room = "GCTEST" or better still error and restart?
            socket.join("game-" + room);
         }); // join-a-game
     }); // on connection
@@ -88,20 +88,6 @@ function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 } // end of DELAY
 
-async function game_details(room, db_connection) {
-    let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
-    console.log("Getting Game Description");
-    let game_result = await db_connection.query(game_query).catch(err => console.log(err));;
-    console.log("Description is", game_result);
-    // which keeps failing. 
-    // (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
-    // (node:21) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-
-    // if (!game_result) {
-    //    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
-    // } 
-} // end of GAME_DETAILS
-
 // UPDATE GAME: Primary game management coding
 async function update_game(room, io, db_connection) {
     if(!io.sockets.adapter.rooms.has(room)) {
@@ -113,9 +99,9 @@ async function update_game(room, io, db_connection) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    
-   let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
+   let game_query = `select description as gamedescription from games where game_code = '${game_code}'`;
    console.log("Getting Game Description");
-   let game_result = await db_connection.query(game_query).catch(err => console.log(err));;
+   let game_result = await db_connection.query(game_query); //.catch(err => console.log(err));;
    console.log("Description is", game_result);
 	
    let display_query = `
