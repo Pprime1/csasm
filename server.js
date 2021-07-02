@@ -64,10 +64,15 @@ async function configure_socketio(db_connection) {
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
    
 	// can we also send the game description to be displayed top of screen?
-	// let gamedescription = game_details(room.replace("game-", ""), db_connection);
-	// io.to(id).emit("game-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status      
+        let game_code = room.replace("game-", "");
+        console.log("Joining game", game_code);
+        let game_query = `select description from games where game_code = '${game_code}'`;
+        let game_result = await db_connection.query(game_query);
+        let gamedesc = game_result.rows[0]["description"]
+        console.log("Description is", gamedesc);
+	io.to(id).emit("game-join", gamedesc); // Inform client joining that they have joined a room, update display to show game status      
 
-	io.to(id).emit("game-join");
+	// io.to(id).emit("game-join");
       }
     }); // join-room
     
@@ -80,8 +85,6 @@ async function configure_socketio(db_connection) {
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
       }
     }); // leave-room	
-    // *************************************************************************************************** //
-	
 }; // end of CONFIGURE_SOCKET
 
 function delay(ms) {
@@ -99,10 +102,10 @@ async function update_game(room, io, db_connection) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    
-   let game_query = `select description as gamedescription from games where game_code = '${game_code}'`;
-   console.log("Getting Game Description");
-   let game_result = await db_connection.query(game_query); //.catch(err => console.log(err));;
-   console.log("Description is", game_result);
+   let game_query = `select description from games where game_code = '${game_code}'`;
+   let game_result = await db_connection.query(game_query);
+   let gamedesc = game_result.rows[0]["description"]
+   console.log("Description is", gamedesc);
 	
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
