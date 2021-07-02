@@ -1,10 +1,4 @@
 const socket = io(); // or io("/"), the main namespace
-// $("#current-player-id").text(socket.id); // this is the current player 
-// console.log("Current Player #", $("#current-player-id));
-// console.log("Current Player id", socket.id);
-var STARTID = socket.id; // this is current player
-console.log("Current Player var", STARTID);
-$("#current-player-id").text(STARTID); // set current player 
 				     
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
