@@ -105,7 +105,7 @@ async function update_game(room, io, db_connection) {
    let gamedesc = "This is not a valid game";
    let game_query = `select count(*) from games where game_code = '${game_code}'`;
    let game_result = await db_connection.query(game_query);
-   console.log("Valid Games found:",game_query);
+   console.log("Valid Games found:",game_result);
    if (game_result == 0) {
 	   return; // so this should exit back to main if the game doesn't exist? 
    };
