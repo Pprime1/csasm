@@ -91,12 +91,13 @@ function delay(ms) {
 async function game_details(room, db_connection) {
     let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
     console.log("Getting Game Description");
-    let game_query_result = await db_connection.query(game_query);
-    console.log("Description is", game_query_result);
+    let game_result = await db_connection.query(game_query).catch(err => console.log(err));;
+    console.log("Description is", game_result);
+    // which keeps failing. 
     // (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
     // (node:21) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 
-    // if (!game_query_result) {
+    // if (!game_result) {
     //    return; // what does this do in practice? I need it to error and restart if the game code is not a valid one in the games table
     // } 
 } // end of GAME_DETAILS
