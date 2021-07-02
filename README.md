@@ -14,6 +14,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 6. Once Reward is displayed, stop all screen and location updates
 7. How can I grab the Game Description and display it ? Promise rejections again 👎
 8. reintroduce validatechecksums = true for the database tables. how to set/reset md5 values?
+9. Is it a good idea to include some form of live map view on the screen? cf: 
 
 
 # Key files
