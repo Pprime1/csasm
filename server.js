@@ -101,12 +101,14 @@ async function update_game(room, io, db_connection) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    
-   let game_query = `select description from games where game_code = '${game_code}'`;
+   let game_query = `select game_code from games where game_code = '${game_code}'`;
    let game_result = await db_connection.query(game_query);
    if (!game_result) {
-	   return; // so this should exit back to main if the game doesn't exist?
-   }
-   let gamedesc = game_result.rows[0]["description"]
+	   return; // so this should exit back to main if the game doesn't exist? 
+   };
+   let desc_query = `select description from games where game_code = '${game_code}'`;
+   let desc_result = await db_connection.query(desc_query);
+   let gamedesc = desc_result.rows[0]["description"];
    // console.log("Game description is", gamedesc);
 
    let display_query = `
@@ -126,14 +128,6 @@ async function update_game(room, io, db_connection) {
     let minimum_player_count = minimum_player_result.rows[0]["minimum_players"]
     console.log(game_code, "requires", minimum_player_count, "waypoints to be occupied."); 
 
-// this is what happens if the game code doesn't exist:
-//   (node:21) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'minimum_players' of undefined
-//     at update_game (/app/server.js:126:61)
-//     at processTicksAndRejections (internal/process/task_queues.js:95:5)
-//     (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, 
-//         or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag 
-//         `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 3)
-	
     // Determine whether they have "met the criteria" to succeed in the game!
     var within_radius = [];
     var winning_player =[];
