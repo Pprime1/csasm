@@ -41,8 +41,7 @@ async function configure_socketio(db_connection) {
         }); // join-a-game
     }); // on connection
 
-    // *************************************************************************************************** //
-    // Respond to adapter events - a player or a room  // HOW DO THESE CODES GET RUN? 
+    // Respond to socket adapter events - a player or a room
     
     // Create - start a new game room
     io.of("/").adapter.on("create-room", (room) => { 
@@ -63,7 +62,7 @@ async function configure_socketio(db_connection) {
         console.log(id, "joined", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
    
-	// can we also send the game description to be displayed top of screen?
+	// can we also send the game description to be displayed top of screen? NOT FROM HERE APPARENTLY :-(
         let game_code = room.replace("game-", "");
         let game_query = `select description from games where game_code = '${game_code}'`;
         // let game_result = db_connection.query(game_query).catch(err => console.log(err));
@@ -106,6 +105,9 @@ async function update_game(room, io, db_connection) {
    let game_result = await db_connection.query(game_query);
    let gamedesc = game_result.rows[0]["description"]
    // console.log("Game description is", gamedesc);
+   if (!game_result) {
+	   return; // so this should exit back to main if the game doesn't exist?
+   }
 	
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
