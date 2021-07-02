@@ -143,7 +143,7 @@ async function update_game(room, io, db_connection) {
 	if(distance != null) {	
 		if ( !within_radius.includes(row.name) && distance <= radius ) {
 			within_radius.push(row.name);
-			winning_player.push(row.pl);
+			winning_player[i] = row.pl;
 		}
 	}
     }
