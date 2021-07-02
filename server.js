@@ -62,11 +62,11 @@ async function configure_socketio(db_connection) {
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "joined", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
-          
-	  // can we also send the game description to be displayed top of screen?
-	  // let gamedescription = game_details(room.replace("game-", ""), db_connection);
-	  // io.to(id).emit("game-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status
-	      
+   
+	// can we also send the game description to be displayed top of screen?
+	let gamedescription = game_details(room.replace("game-", ""), db_connection);
+	// io.to(id).emit("game-join", gamedescription); // Inform client joining that they have joined a room, update display to show game status      
+
 	io.to(id).emit("game-join");
       }
     }); // join-room
@@ -90,8 +90,8 @@ function delay(ms) {
 
 async function game_details(room, db_connection) {
     let game_query = `SELECT description as gamedescription FROM games WHERE game_code = room.replace("game-", "")`;
-    // let game_query_result = db_connection.query(game_query);
-    // console.log("Description is", game_query_result);
+    let game_query_result = db_connection.query(game_query);
+    console.log("Description is", game_query_result);
     // 2021-06-25T10:23:51.165897+00:00 app[web.1]: Description is Promise { <pending> }
 
     // if (!game_query_result) {
