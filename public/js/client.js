@@ -1,5 +1,11 @@
 const socket = io(); // or io("/"), the main namespace
-
+// $("#current-player-id").text(socket.id); // this is the current player 
+// console.log("Current Player #", $("#current-player-id));
+// console.log("Current Player id", socket.id);
+var STARTID = socket.id; // this is current player
+console.log("Current Player var", STARTID);
+$("#current-player-id").text(STARTID); // set current player 
+				     
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
   var degrees = Math.floor(absolute);
@@ -26,14 +32,6 @@ function updatePosition(position) {
 }
 
 let is_joined = false;
-$("#current-player-id").text("Purple 42"); // this is the current player 
-$("#current-player-id").text(socket.id); // this is the current player 
-var STARTID = socket.id; // this is current player
-console.log("Current Player #", $("#current-player-id));
-console.log("Current Player id", socket.id);
-console.log("Current Player var", STARTID);
-$("#current-player-id").text(STARTID); // this is the current player 
-console.log("Current Player var#", $("#current-player-id));
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
       socket.emit('join-a-game', $("#current-game-id").text())
