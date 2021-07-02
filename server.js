@@ -101,9 +101,10 @@ async function update_game(room, io, db_connection) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    
-   let game_query = `select game_code from games where game_code = '${game_code}'`;
+   // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
+   let game_query = `select count(*) from games where game_code = '${game_code}'`;
    let game_result = await db_connection.query(game_query);
-   if (!game_result) {
+   if (game_result == 0) {
 	   return; // so this should exit back to main if the game doesn't exist? 
    };
    let desc_query = `select description from games where game_code = '${game_code}'`;
