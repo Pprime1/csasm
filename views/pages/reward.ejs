@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head width: 100vw>
+  <%- include ("../partials/header.ejs") %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+  <script> <!-- must be https for Chrome browsers to access current location -->
+  if (location.protocol !== 'https:') {
+    location.replace(`https:${location.href.substring(location.protocol.length)}`);
+  } </script>
+  <script>
+      window.onload = function() {
+        var clipboard = new ClipboardJS('.btn');
+
+        var reward_information = localStorage.getItem('reward_information');
+        $("#rewardinfo").text(reward_information);
+      }
+
+  </script>
+</head>
+
+<body width: 100vw>
+
+<div class="container-fluid">
+  <div class="alert alert-info text-center" role="alert" width: 100vw>
+	  <H1> Congrats </H1>
+  </div>
+
+ <div id="lj-reward">
+     <!-- Show Reward screen -->
+     <div class="alert alert-success text-center" role="alert" width: 100vw>
+     <pre><H1><strong><span id="rewardinfo"></span></strong></H1></pre>
+     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#rewardinfo">Copy</button></span>
+  </div>
+ </div>
+
+ <div class="alert alert-info text-center" role="alert" width: 100vw>
+    <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
+ </div>
+</div>
+</body>
+</html>

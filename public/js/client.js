@@ -1,5 +1,5 @@
 const socket = io(); // or io("/"), the main namespace
-				     
+
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
   var degrees = Math.floor(absolute);
@@ -59,7 +59,7 @@ socket.on("display-update", (gamedesc, display_information) => {
   var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   $("#game-description").text(gamedesc); // Current gamedescription
-	
+
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
@@ -79,13 +79,14 @@ socket.on("display-update", (gamedesc, display_information) => {
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
-  $("#lj-startup").hide();
-  $("#lj-in-game").show();
-  $("#lj-reward").show();
-  console.log(reward_information);
-  $("#rewardinfo").text(reward_information);
-  // TODO: is there a way to STOP THE GAME or prevent screen updates at this point for the relevant player?
-  cleartimeout(); // ?
+  // Save Reward in Local Storage
+  localStorage.setItem('reward_information', reward_information);
+
+  // Redirect user to reward page, thus disconnecting them from game session.
+  setTimeout( function() {
+    location.href = "reward";
+  }, 100)
+
 }); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Front Page Game Joiner
@@ -95,6 +96,9 @@ window.addEventListener("load",function(event) {
     var game = $("#gameId").val();
     game = game.toUpperCase();
     console.log(`Attempting to join ${ game }`)
-    socket.emit('join-a-game', game);
+    socket.emit('join-a-game', game, (response) => {
+			 console.log(response.status);
+       console.log(response.message);   // <------- can use this to show error for user before joining game
+		});
   });
 }, false); // end of JOIN-GAME-FORM
