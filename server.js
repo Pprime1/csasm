@@ -45,18 +45,16 @@ async function configure_socketio(db_connection, games_result) {
 
         socket.on('join-a-game', (chosen_game, callback) => {
             // Start Requested Game ...
-            let game_name = chosen_game !== null ? chosen_game : "GCTEST"; // Needs valid game checking routine
-
-            // Confirm game exists, a non null valid = correct game
+            let game_name = chosen_game !== null ? chosen_game : null;
             var game_details = getGameByCode(games_result, chosen_game)
-            if(game_details != null) {
-                socket.join("game-" + game_name);
-                callback({ status: "Success", message: "correct" });
+            if(game_details != null) {  // Confirm game exists, a non null valid = correct game
+                gamedesc = game_details["description"];
+                console.log("Game description is", gamedesc); 
+		socket.join("game-" + game_name);
+                callback({ status: "Success", message: "correct" }); // could send gamedesc back at this point?
             } else {
                 callback({ status: "Error", message: "Invalid Game!" });
-            }
-
-            //
+            };
         }); // join-a-game
     }); // on connection
 
@@ -78,11 +76,8 @@ async function configure_socketio(db_connection, games_result) {
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "joined", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
-
-	      // can we also send the game description to be displayed top of screen? NOT FROM HERE APPARENTLY :-(
         let game_code = room.replace("game-", "");
-
-	      io.to(id).emit("game-join");
+        io.to(id).emit("game-join");
       }
     }); // join-room
 
@@ -118,9 +113,6 @@ async function update_game(room, io, db_connection, games_result) {
    if (game_details == null) {
         return; // so this should exit back to main if the game doesn't exist?
    };
-
-   gamedesc = game_details["description"];
-   console.log("Game description is", gamedesc);
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
