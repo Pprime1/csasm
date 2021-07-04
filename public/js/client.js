@@ -58,7 +58,7 @@ socket.on("display-update", (display_information) => {
   // console.log(gamedesc, display_information);
   var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
-  $("#game-description").text(gamedesc); // Current gamedescription
+  // $("#game-description").text(gamedesc); // Current gamedescription
 
   // Display in here the occupied status? Perhaps a different display class if distance<=radius?
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
@@ -99,6 +99,7 @@ window.addEventListener("load",function(event) {
     socket.emit('join-a-game', game, (response) => {
 			 console.log(response.status);
        console.log(response.message);   // <------- can use this to show error for user before joining game
+       $("#game-description").text(response.message); // Current gamedescription
 		});
   });
 }, false); // end of JOIN-GAME-FORM
