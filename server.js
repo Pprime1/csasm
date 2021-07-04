@@ -19,10 +19,10 @@ app.use(express.static(path.join(__dirname, 'public')))
   .get('/', (request, response) => response.render('pages/index'))
   .get('/reward', (request, response)=> response.render('pages/reward'));
 
-function getGameByCode(games_result, game_name) {
+function getGameByCode(games_result, game_id) {
     for (var i = 0; i < games_result.length; i++) {
-      if (games_result[i]["game_code"] == game_name) {
-          console.log("Game is: ", games_result);
+      if (games_result[i]["game_code"] == game_id) {
+          console.log("Game is: ", games_result[i]);
 	  return games_result[i];
       }
     }
@@ -46,15 +46,15 @@ async function configure_socketio(db_connection, games_result) {
 
         socket.on('join-a-game', (chosen_game, callback) => {
             // Start Requested Game ...
-            let game_name = chosen_game !== null ? chosen_game : null;
+            // let game_id = chosen_game !== null ? chosen_game : null;
             var game_details = getGameByCode(games_result, chosen_game)
             if(game_details != null) {  // Confirm game exists, a non null valid = correct game
                 gamedesc = game_details["description"];
                 console.log("Game description is", gamedesc); 
 		socket.join("game-" + game_name);
-                callback({ status: "Success", message: "correct" }); // could send gamedesc back at this point?
+                callback({ status: "Success", message: gamedesc });
             } else {
-                callback({ status: "Error", message: "Invalid Game!" });
+                callback({ status: "Error", message: "Invalid Game, try again!" });
             };
         }); // join-a-game
     }); // on connection
@@ -110,8 +110,9 @@ async function update_game(room, io, db_connection, games_result) {
 
    // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
    let game_details = getGameByCode(games_result, game_code)
-   console.log(game_details);
+   console.log("Game details are: ", game_details);
    if (game_details == null) {
+	console.log("Game_Details is null");
         return; // so this should exit back to main if the game doesn't exist?
    };
 
@@ -123,8 +124,8 @@ async function update_game(room, io, db_connection, games_result) {
        ORDER BY pl.id
     `;
     let display_result = await db_connection.query(display_query);
-    // io.to(room).emit('display-update', display_result.rows);
-    io.to(room).emit('display-update', gamedesc, display_result.rows);
+    io.to(room).emit('display-update', display_result.rows);
+    // io.to(room).emit('display-update', gamedesc, display_result.rows);
 
     // How many waypoints are there in this game?
     let minimum_player_count = game_details["minimum_players"]
@@ -163,9 +164,9 @@ async function main() {
     // On SERVER Startup - Boot the database and delete all players left over from previous runs
     let connection = await boot_database(CONNECTION_STRING);
     let startingup = await connection.query("DELETE FROM player").catch(err => console.log(err));
+    console.log("System startup, clear all players");
     let games_result = await connection.query("SELECT game_code, description, reward, minimum_players FROM games").catch(err => console.log(err));
     await configure_socketio(connection, games_result.rows)
-    console.log("System startup, clear all players");
 
     // Commence listening for client conenctions
     http.listen(PORT, () => console.log(`listening on *:${ PORT }`));
