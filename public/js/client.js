@@ -89,17 +89,17 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 
 }); // end of DISPLAY-REWARD
 
-// Bind Submit Event for Front Page Game Joiner
+// Bind Submit Event for Front Page Game Joining form
 window.addEventListener("load",function(event) {
   $( "#join-game-form" ).on( "submit", function(e) {
-    e.preventDefault();
-    var game = $("#gameId").val();
-    game = game.toUpperCase();
-    console.log(`Attempting to join ${ game }`)
-    socket.emit('join-a-game', game, (response) => {
-			 console.log(response.status);
-       console.log(response.message);   // <------- can use this to show error for user before joining game
-       $("#game-description").text(response.message); // Current gamedescription
-		});
-  });
-}, false); // end of JOIN-GAME-FORM
+     e.preventDefault();
+     var game = $("#gameId").val();
+     game = game.toUpperCase();
+     console.log(`Attempting to join ${ game }`)
+     socket.emit('join-a-game', game, (response) => {
+        console.log(response.status, response.message); // <------- can use this to show error for user before joining game. 
+        // IF response.status==error then don't start a game keep the form open (can an error be put on screen to say why?
+        $("#game-description").text(response.message); // Current gamedescription
+     }); // emit join-a-game
+   }); // end of form
+}, false); // end of JOIN-GAME listener
