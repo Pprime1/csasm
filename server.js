@@ -51,7 +51,7 @@ async function configure_socketio(db_connection, games_result) {
             var game_details = getGameByCode(games_result, chosen_game)
             if(game_details != null) {
                 socket.join("game-" + game_name);
-                callback({ status: "Success" });
+                callback({ status: "Success", message: "correct" });
             } else {
                 callback({ status: "Error", message: "Invalid Game!" });
             }
