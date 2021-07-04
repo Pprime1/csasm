@@ -51,7 +51,7 @@ async function configure_socketio(db_connection, games_result) {
             if(game_details != null) {  // Confirm game exists, a non null valid = correct game
                 gamedesc = game_details["description"];
                 console.log("Game description is", gamedesc); 
-		socket.join("game-" + game_name);
+		socket.join("game-" + chosen_game);
                 callback({ status: "Success", message: gamedesc });
             } else {
                 callback({ status: "Error", message: "Invalid Game, try again!" });
