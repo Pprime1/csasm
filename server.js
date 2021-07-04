@@ -22,10 +22,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 function getGameByCode(games_result, game_name) {
     for (var i = 0; i < games_result.length; i++) {
       if (games_result[i]["game_code"] == game_name) {
-          return games_result[i];
+          console.log("Game is: ", games_result);
+	  return games_result[i];
       }
     }
-
+    console.log("Game is null")
     return null;
 }
 
