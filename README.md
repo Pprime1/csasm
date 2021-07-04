@@ -18,10 +18,10 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 
 # Key files
-.[SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
-.[CLIENT.JS](/public/js/client.js) : the primary controller (client side javascript called from index.ejs) - visible in console (F12). 
-.[INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
-.[REWARD.EJS](/views/pages/reward.ejs) : the final reward display script (client side html) - visible in console (F12).
+-[SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
+-[CLIENT.JS](/public/js/client.js) : the primary controller (client side javascript called from index.ejs) - visible in console (F12). 
+-[INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
+-[REWARD.EJS](/views/pages/reward.ejs) : the final reward display script (client side html) - visible in console (F12).
 
 
 
