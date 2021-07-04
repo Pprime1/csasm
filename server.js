@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 function getGameByCode(games_result, game_id) {
     for (var i = 0; i < games_result.length; i++) {
       if (games_result[i]["game_code"] == game_id) {
-          console.log("Game is: ", games_result[i]);
+         // console.log("Game is: ", games_result[i]);
 	  return games_result[i];
       }
     }
@@ -48,19 +48,18 @@ async function configure_socketio(db_connection, games_result) {
             // Start Requested Game ...
             // let game_id = chosen_game !== null ? chosen_game : null;
             var game_details = getGameByCode(games_result, chosen_game)
-            if(game_details != null) {  // Confirm game exists, a non null valid = correct game
+            if(game_details != null) {  // Confirm game exists, a non null valid = successful game choice
                 gamedesc = game_details["description"];
                 console.log("Game description is", gamedesc); 
 		socket.join("game-" + chosen_game);
                 callback({ status: "Success", message: gamedesc });
             } else {
-                callback({ status: "Error", message: "Invalid Game, try again!" });
+                callback({ status: "Error", message: "Invalid Game Code, please try again!" });
             };
         }); // join-a-game
     }); // on connection
 
-    // Respond to socket adapter events - a player or a room
-
+    // Respond to SOCKET ADAPTER EVENTS - a player or a room
     // Create - start a new game room
     io.of("/").adapter.on("create-room", (room) => {
        if (room.startsWith("game-")) {
@@ -110,10 +109,10 @@ async function update_game(room, io, db_connection, games_result) {
 
    // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
    let game_details = getGameByCode(games_result, game_code)
-   console.log("Game details are: ", game_details);
+   console.log("Game details in update game function are: ", game_details);
    if (game_details == null) {
-	console.log("Game_Details is null");
-        return; // so this should exit back to main if the game doesn't exist?
+	console.log("Game details in update game function are == null");
+        return; // this exits back to main but can't restart the game. should have been caught in the callback function
    };
 
    let display_query = `
@@ -173,7 +172,7 @@ async function main() {
     while ( 1 == 1 ) {
       /* code to wait on goes here (sync or async) */
       Array.from( io.sockets.adapter.rooms.keys() ).forEach(roomId => { // For each concurrently running game
-        update_game(roomId, io, connection, games_result);
+        update_game(roomId, io, connection, games_result.rows);
       });
 
       // wait 10 seconds between performing game updates
