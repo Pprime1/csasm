@@ -53,9 +53,9 @@ socket.on("room-update", (game_id, new_player_count) => {
   $("#current-game-player-count").text(new_player_count);
 }); // end of ROOM-UPDATE
 
-socket.on("display-update", (gamedesc, display_information) => {
-// socket.on("display-update", (display_information) => {
-  console.log(gamedesc, display_information);
+// socket.on("display-update", (gamedesc, display_information) => {
+socket.on("display-update", (display_information) => {
+  // console.log(gamedesc, display_information);
   var MYID = socket.id; // this is current player ... variable is now set at the top? could be reused here too
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   $("#game-description").text(gamedesc); // Current gamedescription
