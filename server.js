@@ -109,7 +109,7 @@ async function update_game(room, io, db_connection, games_result) {
 
    // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
    let game_details = getGameByCode(games_result, game_code)
-   console.log(game_results);
+   console.log(game_details);
    if (game_details == null) {
         return; // so this should exit back to main if the game doesn't exist?
    };
