@@ -114,12 +114,13 @@ async function update_game(room, io, db_connection, games_result) {
 
    // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
    let game_details = getGameByCode(games_result, game_code)
+   console.log(game_results);
    if (game_details == null) {
         return; // so this should exit back to main if the game doesn't exist?
    };
 
    gamedesc = game_details["description"];
-   // console.log("Game description is", gamedesc);
+   console.log("Game description is", gamedesc);
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
