@@ -147,7 +147,7 @@ async function update_game(room, io, db_connection, games_result) {
     	// io.to(room).emit('display-reward', reward);
 	// TODO: Can this be emitted ONLY to an occupying player, not the whole room?
 	for (var p = 0; p < winning_player.length; p++) {
-	    io.to(winning_player[p]).emit(display-reward', reward);
+	    io.to(winning_player[p]).emit('display-reward', reward);
 	};
     }; // Send reward
 }; // end of UPDATE_GAME
