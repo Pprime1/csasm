@@ -10,18 +10,19 @@
   <script>
       window.onload = function() {
         var clipboard = new ClipboardJS('.btn');
-        var display-update = localStorage.getItem('display_update');
-        $("#displayinfo").text(display-update);
-        var current-game = localStorage.getItem('current-game');
-        $("#current-game-id").text(current-game);
-        var game-description = localStorage.getItem ('game-description);
-        $("game-description").text(game-description);
+
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
       };
   </script>
 </head>
-
+<!--         var display-update = localStorage.getItem('display_update');
+        $("#displayinfo").text(display-update);
+        var current-game = localStorage.getItem('current-game');
+        $("#current-game-id").text(current-game);
+        var game-description = localStorage.getItem ('game-description);
+        $("game-description").text(game-description);
+ -->
 <body width: device-width>
 <div class="container-fluid">
   <div class="alert alert-success text-center" role="alert" width: device-width> <H1> Congratulations! </H1> </div>
