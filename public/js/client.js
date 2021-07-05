@@ -50,7 +50,6 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 });
 
 socket.on("game-join", () => {
-// socket.on("game-join", (gamedesc) => {
    $("#lj-startup").hide();
    $("#lj-in-game").show();
    navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
@@ -59,12 +58,13 @@ socket.on("game-join", () => {
    }, 5000);
 }); // end of GAME-JOIN
 
-socket.on("room-update", (game_id, new_player_count) => {
+socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
   $("#lj-in-game").show();
   $("#current-game-id").text(game_id);
-  console.log("is joined to ", game_id)
+  $("#game-description").text(gamedesc); // Current gamedescription
+  console.log("is joined to ", game_id, ":", gamedesc);  
   $("#current-game-player-count").text(new_player_count);
 }); // end of ROOM-UPDATE
 
@@ -75,7 +75,7 @@ socket.on("display-update", (display_information) => {
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   // $("#game-description").text(gamedesc); // Current gamedescription
-  console.log("Current #game-description (display_update):", $("#game-description").innertext);
+  // console.log("Current #game-description (display_update):", $("#game-description"));
 
   // Display game status including any occupied status lines
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
@@ -120,9 +120,9 @@ window.addEventListener("load",function(event) {
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
-        console.log(response.status, response.message); // IF response.status==error then don't start a game keep the form open (the error message is put on screen to say so
-        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener?
-        console.log("Current #game-description (in form):", $("#game-description"));
+        console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game founction kicks off
+        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener? Not being displayed :(
+        // console.log("Current #game-description (in form):", $("#game-description")); it's in there, but won't display in index.ejs
         // localStorage.setItem('current-game', game);
         // localStorage.setItem('game-description', response.message);     
      }); // emit join-a-game
