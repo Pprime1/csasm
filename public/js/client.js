@@ -54,7 +54,7 @@ socket.on("game-join", () => {
    $("#lj-in-game").show();
    navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
    const interval = setInterval(function() {
-       navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds (is also updating every 10 seconds ... room-update??
+       navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds (is updating every 11 seconds ... room-update does this
    }, 5000);
 }); // end of GAME-JOIN
 
@@ -63,8 +63,8 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   $("#lj-startup").hide();
   $("#lj-in-game").show();
   $("#current-game-id").text(game_id);
-  $("#game-description").text(gamedesc); // Current gamedescription
-  console.log("is joined to ", game_id, ":", gamedesc);  
+  $("#game-description").text(gamedesc); // Current game-description ... still can't get this to display on the index.ejs screen
+  console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
   $("#current-game-player-count").text(new_player_count);
 }); // end of ROOM-UPDATE
 
@@ -74,7 +74,7 @@ socket.on("display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
-  // $("#game-description").text(gamedesc); // Current gamedescription
+  // $("#game-description").text(gamedesc); // Current gamedescription ... can't get this to display on the index.ejs screen
   // console.log("Current #game-description (display_update):", $("#game-description"));
 
   // Display game status including any occupied status lines
