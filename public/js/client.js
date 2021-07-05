@@ -13,7 +13,7 @@ function ConvertDEGToDM(deg,dir) {
       	var direction = deg >= 0 ? "E" : "W";
   }
   return direction + degrees + "° " + minutesdecimals+ "' ";
- }
+ }; // Convert DM.MMM
 
 function updatePosition(position) {
   var latitude = position.coords.latitude;
@@ -23,7 +23,24 @@ function updatePosition(position) {
     $("#current-Lat").text(lat);
     $("#current-Lon").text(lon);
   socket.emit('location-update', latitude, longitude);
-}
+}; // UpdatePosition
+
+function PosError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("GeoLocation error: User denied the request for Geolocation.");
+            return;
+        case error.POSITION_UNAVAILABLE:
+            console.log("GeoLocation error: Location information is unavailable.");
+            return;
+        case error.TIMEOUT:
+            console.log("GeoLocation error: The request to get user location timed out.");
+            return;
+        default:
+            console.log("GeoLocation error: An unknown error occurred.");
+            return;
+    };
+}; // Position Error handler
 
 let is_joined = false;
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
@@ -37,8 +54,7 @@ socket.on("game-join", () => {
    $("#lj-startup").hide();
    $("#lj-reward").hide();
    $("#lj-in-game").show();
-   // $("#game-description").text(gamedesc);
-   navigator.geolocation.getCurrentPosition(updatePosition);
+   navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
    const interval = setInterval(function() {
        navigator.geolocation.getCurrentPosition(updatePosition); // TODO: does this really keep running ? Or should this bit be in room-update isntead?
    }, 5000);
@@ -60,7 +76,7 @@ socket.on("display-update", (display_information) => {
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   // $("#game-description").text(gamedesc); // Current gamedescription
-  // console.log("Current #game-description (display_update):", $("#game-description"));
+  console.log("Current #game-description (display_update):", $("#game-description"));
 
   // Display game status including any occupied status lines
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
@@ -90,12 +106,11 @@ socket.on("display-update", (display_information) => {
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   // Save Reward in Local Storage
   localStorage.setItem('reward_information', reward_information);
-  
+  console.log(reward_information);
   // Redirect user to reward page, thus disconnecting them from game session.
   setTimeout( function() {
     location.href = "reward";
   }, 100)
-
 }); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Front Page Game Joining form
@@ -107,10 +122,10 @@ window.addEventListener("load",function(event) {
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
         console.log(response.status, response.message); // IF response.status==error then don't start a game keep the form open (the error message is put on screen to say so
-        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener
+        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener?
         // console.log("Current #game-description (in form):", $("#game-description"));
-        localStorage.setItem('current-game', game);
-        localStorage.setItem('game-description', response.message);     
+        // localStorage.setItem('current-game', game);
+        // localStorage.setItem('game-description', response.message);     
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
