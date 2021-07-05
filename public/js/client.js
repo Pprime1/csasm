@@ -60,7 +60,7 @@ socket.on("display-update", (display_information) => {
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   // $("#game-description").text(gamedesc); // Current gamedescription
-  // console.log("Current game:", $("#game-description"));
+  console.log("Current #game-description (display_update):", $("#game-description"));
 
   // Display game status including any occupied status lines
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
@@ -99,10 +99,9 @@ window.addEventListener("load",function(event) {
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
-        console.log(response.status, response.message); // <------- can use this to show error for user before joining game. 
-        // IF response.status==error then don't start a game keep the form open (can the error message be put on screen to say why?
-        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING?
-        console.log("Current #game-description:", $("#game-description"));
+        console.log(response.status, response.message); // IF response.status==error then don't start a game keep the form open (the error message is put on screen to say so
+        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener
+        console.log("Current #game-description (in form):", $("#game-description"));
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
