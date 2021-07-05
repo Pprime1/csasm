@@ -61,11 +61,11 @@ socket.on("game-join", () => {
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
-  $("#lj-in-game").show();
-  $("#current-game-id").text(game_id);
+  $("#current-game-id").text(game_id); // this displays fine
   $("#game-description").text(gamedesc); // Current game-description ... still can't get this to display on the index.ejs screen
   console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
-  $("#current-game-player-count").text(new_player_count);
+  $("#current-game-player-count").text(new_player_count); // this displays fine
+  $("#lj-in-game").show();
 }); // end of ROOM-UPDATE
 
 // socket.on("display-update", (gamedesc, display_information) => {
