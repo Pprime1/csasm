@@ -141,8 +141,8 @@ async function update_game(room, io, db_connection, games_result) {
 	if(distance != null) {
 		if ( !within_radius.includes(row.name) && distance <= radius ) {
 			within_radius.push(row.name);
-			console.log(row.pl, "is occupying a waypoint");
-			winning_player[i] = row.pl;
+			console.log(player, "is occupying a waypoint");
+			winning_player[i] = player;
 		}
 	}
     }
