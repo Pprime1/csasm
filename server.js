@@ -108,12 +108,7 @@ async function update_game(room, io, db_connection, games_result) {
    console.log("Playing game", game_code);
 
    let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
-   console.log("Game description in update game function are: ", game_details["description"]);
-   //if (game_details == null) {   // Check if the chosen game is a valid game in database // THIS IS NOW GETTING RUN WHEN CREATING THE GAME ROOM ABOVE
-	//console.log("Game details in update game function are == null");
-        //return; // this exits back to main but can't restart the game. should have been caught in the callback function
-   //};
-
+   // console.log("Game description in update game function are: ", game_details["description"]);
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
@@ -148,14 +143,14 @@ async function update_game(room, io, db_connection, games_result) {
 
     if (within_radius.length == minimum_player_count) { // If the number of occupied waypoints == the number required we have success
     // if (within_radius.length == 1) { // for solo testing purposes
-    	let reward = game_details["reward"]
-    	io.to(room).emit('display-reward', reward);
+    	let reward = game_details["reward"];
+    	// io.to(room).emit('display-reward', reward);
 	// TODO: Can this be emitted ONLY to an occupying player, not the whole room?
-	// For (var p = 0; p < winning_player.length; p++) {
-	//    io.to(winning_player[p]).emit(display-reward', reward);
-	// }
-    } // Send reward
-} // end of UPDATE_GAME
+	For (var p = 0; p < winning_player.length; p++) {
+	    io.to(winning_player[p]).emit(display-reward', reward);
+	};
+    }; // Send reward
+}; // end of UPDATE_GAME
 
 async function main() {
     // On SERVER Startup - Boot the database and delete all players left over from previous runs
