@@ -10,10 +10,25 @@
   <script>
       window.onload = function() {
         var clipboard = new ClipboardJS('.btn');
+        // TODO also send display_udpate table
+        // var display_update = localStorage.getItem('display_update');
+        // var current-game = localStorage.getItem('current-game');
+        // var game-description = localStorage.getItem ('game-description);
+        // $("#displayinfo").text(display_update);
+        // $("#current-game-id").text(current-game);
+        // $("game-description").text(game-description);
+
 
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
-      }
+
+        // TODO: Clear the local storage once displayed
+        //   localStorage.setItem('reward_information', null);
+        //   localStorage.setItem('display_update', null);
+        //   localStorage.setItem('current-game', null);
+        //   localStorage.setItem('game-description', null);
+
+      };
 
   </script>
 </head>
@@ -26,8 +41,8 @@
       <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
       </h1>
   <p><b><i><span id="game-description"></i></b></p>
-  <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
-  <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p>
+  // <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
+  // <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p>
   <pre><span id="displayinfo"></span></pre>
 
   <div id="lj-reward">
