@@ -19,7 +19,6 @@
         $("game-description").text(game-description);
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
-        localStorage.clear(); <!-- once the volatile memory variables are set, empty it -->
       };
   </script>
 </head>
@@ -48,5 +47,8 @@
     <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
  </div>
 </div>
+<script>
+    localStorage.clear(); <!-- once the volatile memory variables are set, empty it --> 
+</script>
 </body>
 </html>
