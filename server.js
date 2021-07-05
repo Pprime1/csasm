@@ -173,7 +173,7 @@ async function main() {
     while ( 1 == 1 ) {
       /* code to wait on goes here (sync or async) */
       Array.from( io.sockets.adapter.rooms.keys() ).forEach(roomId => { // For each concurrently running game
-        update_game(roomId, io, connection, games_result);
+        update_game(roomId, io, connection, games_result.rows);
       });
 
       // wait 10 seconds between performing game updates
