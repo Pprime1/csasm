@@ -53,7 +53,7 @@ async function configure_socketio(db_connection, games_result) {
 		socket.join("game-" + chosen_game);
                 callback({ status: "Success", message: gamedesc });
             } else {
-                callback({ status: "Error", message: "Invalid Game Code, please try again!" });
+                callback({ status: "Error", message: "Invalid Game Code, please try again!" }); //Invalid game, leave form on screen with error message below
             };
         }); // join-a-game
     }); // on connection
@@ -144,8 +144,7 @@ async function update_game(room, io, db_connection, games_result) {
     if (within_radius.length == minimum_player_count) { // If the number of occupied waypoints == the number required we have success
     // if (within_radius.length == 1) { // for solo testing purposes
     	let reward = game_details["reward"];
-    	// io.to(room).emit('display-reward', reward);
-	// TODO: Can this be emitted ONLY to an occupying player, not the whole room?
+	// Emit the reward ONLY to an occupying player, not the whole room
 	for (var p = 0; p < winning_player.length; p++) {
 	    io.to(winning_player[p]).emit('display-reward', reward);
 	};
@@ -156,21 +155,18 @@ async function main() {
     // On SERVER Startup - Boot the database and delete all players left over from previous runs
     let connection = await boot_database(CONNECTION_STRING);
     let startingup = await connection.query("DELETE FROM player").catch(err => console.log(err));
-    console.log("System startup, clear all players");
+    console.log("System startup");
     let games_result = await connection.query("SELECT game_code, description, reward, minimum_players FROM games").catch(err => console.log(err));
     await configure_socketio(connection, games_result.rows)
-
-    // Commence listening for client conenctions
+    // Commence listening for client connections
     http.listen(PORT, () => console.log(`listening on *:${ PORT }`));
-    while ( 1 == 1 ) {
-      /* code to wait on goes here (sync or async) */
+	
+    while ( 1 == 1 ) { // endless loop runs the games
       Array.from( io.sockets.adapter.rooms.keys() ).forEach(roomId => { // For each concurrently running game
-        update_game(roomId, io, connection, games_result.rows);
+         update_game(roomId, io, connection, games_result.rows);
       });
-
-      // wait 10 seconds between performing game updates
-      await delay(10000)
-    }
+      await delay(11000); // wait 11 seconds between performing game updates
+    }; // end of while loop
 } // end of MAIN
 
 main();  // RUN IT ALL!
