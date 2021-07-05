@@ -45,11 +45,11 @@ async function configure_socketio(db_connection, games_result) {
         }); // location-update
 
         socket.on('join-a-game', (chosen_game, callback) => {
-            // Start Requested Game ...
+            // Start Chosen Game ...
             var game_details = getGameByCode(games_result, chosen_game);
             if(game_details != null) {  // Confirm game exists, a non null valid = successful game choice
-                gamedesc = game_details["description"];
-                console.log("Game description is", gamedesc); 
+                var gamedesc = game_details["description"];
+                console.log("Chosen Game is", chosen_game, ":", gamedesc); 
 		socket.join("game-" + chosen_game);
                 callback({ status: "Success", message: gamedesc });
             } else {
