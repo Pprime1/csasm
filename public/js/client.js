@@ -101,7 +101,7 @@ window.addEventListener("load",function(event) {
      socket.emit('join-a-game', game, (response) => {
         console.log(response.status, response.message); // <------- can use this to show error for user before joining game. 
         // IF response.status==error then don't start a game keep the form open (can the error message be put on screen to say why?
-        $("#game-description").text(response.message); // Set current gamedescription
+        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING?
         console.log("Current #game-description:", $("#game-description"));
      }); // emit join-a-game
    }); // end of form
