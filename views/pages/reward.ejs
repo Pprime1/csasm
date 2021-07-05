@@ -25,12 +25,12 @@
 <body width: device-width>
 <div class="container-fluid">
   <div class="alert alert-success text-center" role="alert" width: device-width> <H1> Congratulations! </H1> </div>
-  <div id="lj-reward" style="display: none">
+  <div id="lj-reward">
     <!-- Show Game information -->
     <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
     </h1>
-    <p><b><i><span id="game-description"></i></b></p>
+    <p><small><span id="game-description" class="badge badge-info"></span></small></p>
     <pre><span id="displayinfo"></span></pre>
     
     <!-- Show Reward information -->
