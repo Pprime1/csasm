@@ -46,8 +46,7 @@ async function configure_socketio(db_connection, games_result) {
 
         socket.on('join-a-game', (chosen_game, callback) => {
             // Start Requested Game ...
-            // let game_id = chosen_game !== null ? chosen_game : null;
-            var game_details = getGameByCode(games_result, chosen_game)
+            var game_details = getGameByCode(games_result, chosen_game);
             if(game_details != null) {  // Confirm game exists, a non null valid = successful game choice
                 gamedesc = game_details["description"];
                 console.log("Game description is", gamedesc); 
@@ -84,7 +83,7 @@ async function configure_socketio(db_connection, games_result) {
     // Leave a game room - Inform users within game of changes (i.e. count of active players)
     io.of("/").adapter.on("leave-room", (room, id) => {
       if(room !== id) {
-        let room_size = io.sockets.adapter.rooms.get(room).size;
+        let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "left", room, room_size, "online");
         io.to(room).emit("room-update", room.replace("game-", ""), room_size);
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
@@ -93,22 +92,23 @@ async function configure_socketio(db_connection, games_result) {
 }; // end of CONFIGURE_SOCKET
 
 function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-} // end of DELAY
+  return new Promise(resolve => setTimeout(resolve, ms));
+}; // end of DELAY
 
 // UPDATE GAME: Primary game management coding
 async function update_game(room, io, db_connection, games_result) {
     if(!io.sockets.adapter.rooms.has(room)) {
        return; // error check in case there is no current game (room) in motion
-    }
+    };
     if(!room.includes("game-")) {
 	     return; // error check in case a player ID gets confused in here
-    }
+    };
+	
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
-
    let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
    // console.log("Game description in update game function are: ", game_details["description"]);
+
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
               wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
@@ -146,7 +146,7 @@ async function update_game(room, io, db_connection, games_result) {
     	let reward = game_details["reward"];
     	// io.to(room).emit('display-reward', reward);
 	// TODO: Can this be emitted ONLY to an occupying player, not the whole room?
-	For (var p = 0; p < winning_player.length; p++) {
+	for (var p = 0; p < winning_player.length; p++) {
 	    io.to(winning_player[p]).emit(display-reward', reward);
 	};
     }; // Send reward
