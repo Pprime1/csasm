@@ -79,10 +79,12 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   
-  localStorage.setItem('display-update', $('#displayinfo'));
-  localStorage.setItem('current-game',  $("#current-game-id"));
-  localStorage.setItem('game-description', $("#game-description"));
-
+  // localStorage.setItem('display-update', $table);
+  
+  //localStorage.setItem('display-update', $('#displayinfo'));
+  //localStorage.setItem('current-game',  $("#current-game-id"));
+  //localStorage.setItem('game-description', $("#game-description"));
+  
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
@@ -106,7 +108,9 @@ window.addEventListener("load",function(event) {
      socket.emit('join-a-game', game, (response) => {
         console.log(response.status, response.message); // IF response.status==error then don't start a game keep the form open (the error message is put on screen to say so
         $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener
-        console.log("Current #game-description (in form):", $("#game-description"));
+        // console.log("Current #game-description (in form):", $("#game-description"));
+        localStorage.setItem('current-game', game);
+        localStorage.setItem('game-description', response.message);     
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
