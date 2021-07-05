@@ -60,7 +60,7 @@ socket.on("display-update", (display_information) => {
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   // $("#game-description").text(gamedesc); // Current gamedescription
-  console.log("Current #game-description (display_update):", $("#game-description"));
+  // console.log("Current #game-description (display_update):", $("#game-description"));
 
   // Display game status including any occupied status lines
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
@@ -78,12 +78,17 @@ socket.on("display-update", (display_information) => {
       };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
+  
+  localStorage.setItem('display-update', $('#displayinfo'));
+  localStorage.setItem('current-game',  $("#current-game-id"));
+  localStorage.setItem('game-description', $("#game-description"));
+
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   // Save Reward in Local Storage
   localStorage.setItem('reward_information', reward_information);
-
+  
   // Redirect user to reward page, thus disconnecting them from game session.
   setTimeout( function() {
     location.href = "reward";
