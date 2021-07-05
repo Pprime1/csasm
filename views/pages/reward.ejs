@@ -10,7 +10,6 @@
   <script>
       window.onload = function() {
         var clipboard = new ClipboardJS('.btn');
-        <!-- Obtain screen data from localstorage and then clear the local storage out -->
         var display-update = localStorage.getItem('display_update');
         $("#displayinfo").text(display-update);
         var current-game = localStorage.getItem('current-game');
@@ -24,22 +23,20 @@
 </head>
 
 <body width: device-width>
-
 <div class="container-fluid">
   <div class="alert alert-success text-center" role="alert" width: device-width> <H1> Congratulations! </H1> </div>
-  <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
-      <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
-      </h1>
-  <p><b><i><span id="game-description"></i></b></p>
-  <!-- <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p> -->
-  <!-- <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p> -->
-  <pre><span id="displayinfo"></span></pre>
-
-  <div id="lj-reward">
-     <!-- Show Reward information -->
-     <div class="alert alert-success text-center" role="alert" width: device-width>
-     <pre><H1><strong><span id="rewardinfo"></span></strong></H1></pre>
-     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#rewardinfo">Copy</button></span>
+  <div id="lj-reward" style="display: none">
+    <!-- Show Game information -->
+    <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
+    <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
+    </h1>
+    <p><b><i><span id="game-description"></i></b></p>
+    <pre><span id="displayinfo"></span></pre>
+    
+    <!-- Show Reward information -->
+    <div class="alert alert-success text-center" role="alert" width: device-width>
+    <pre><H1><strong><span id="rewardinfo"></span></strong></H1></pre>
+    <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#rewardinfo">Copy</button></span>
   </div>
  </div>
 
@@ -48,7 +45,7 @@
  </div>
 </div>
 <script>
-   <!-- localStorage.clear();  once the volatile memory variables are set, empty it --> 
+   <!-- localStorage. clear();  once the volatile memory variables are set, empty it --> 
 </script>
 </body>
 </html>
