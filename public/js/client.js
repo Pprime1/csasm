@@ -57,12 +57,12 @@ socket.on("room-update", (game_id, new_player_count) => {
 socket.on("display-update", (display_information) => {
   // console.log(gamedesc, display_information);
   console.log(display_information);
-  console.log("Current game:", $("#game-description"));
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   // $("#game-description").text(gamedesc); // Current gamedescription
+  // console.log("Current game:", $("#game-description"));
 
-  // Display in here the occupied status? Perhaps a different display class if distance<=radius?
+  // Display game status including any occupied status lines
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
@@ -102,6 +102,7 @@ window.addEventListener("load",function(event) {
         console.log(response.status, response.message); // <------- can use this to show error for user before joining game. 
         // IF response.status==error then don't start a game keep the form open (can the error message be put on screen to say why?
         $("#game-description").text(response.message); // Set current gamedescription
+        console.log("Current #game-description:", $("#game-description"));
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
