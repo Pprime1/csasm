@@ -137,21 +137,21 @@ async function update_game(room, io, db_connection, games_result) {
 	var distance = row.distance;
 	var radius = row.radius;
 	var player = row.id;
-	if(distance != null) { // error check, should never be null at this point
-		if ( !within_radius.includes(row.name) && distance <= radius ) {
-			within_radius.push(row.name);
-			// console.log(player, "is occupying a waypoint");
-			winning_player[i] = player;
+	if(distance != null && distance <= radius ) { // error check, should never be null at this point
+		console.log(player, "is occupying a waypoint");
+		winning_player[i] = player;
+		if ( !within_radius.includes(row.name) && distance <= radius ) { // only include a waypoint
+			within_radius.push(row.name); 
 		};
 	};
     };
-    console.log(within_radius.length, "waypoints are currently occupied. By: ", winning_player);
+    console.log(within_radius.length, "waypoints are currently occupied.");
 
-    if (within_radius.length == minimum_player_count) {
+    if (within_radius.length == minimum_player_count) { // If the number of occupied waypoints == the number required we have success
     // if (within_radius.length == 1) { // for solo testing purposes
     	let reward = game_details["reward"]
     	io.to(room).emit('display-reward', reward);
-	// TODO: Can this be emitted ONLY to a qualifying person not the whole room?
+	// TODO: Can this be emitted ONLY to an occupying player, not the whole room?
 	// For (var p = 0; p < winning_player.length; p++) {
 	//    io.to(winning_player[p]).emit(display-reward', reward);
 	// }
