@@ -107,10 +107,9 @@ async function update_game(room, io, db_connection, games_result) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
 
-   // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
-   let game_details = getGameByCode(games_result, game_code)
-   console.log("Game details in update game function are: ", game_details);
-   //if (game_details == null) {
+   let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
+   console.log("Game description in update game function are: ", game_details["description']);
+   //if (game_details == null) {   // Check if the chosen game is a valid game in database // THIS IS NOW GETTING RUN WHEN CREATING THE GAME ROOM ABOVE
 	//console.log("Game details in update game function are == null");
         //return; // this exits back to main but can't restart the game. should have been caught in the callback function
    //};
@@ -137,15 +136,15 @@ async function update_game(room, io, db_connection, games_result) {
 	var row = display_result.rows[i];
 	var distance = row.distance;
 	var radius = row.radius;
-	var player = row.pl;
-	if(distance != null) {
+	var player = row.id;
+	if(distance != null) { // error check, should never be null at this point
 		if ( !within_radius.includes(row.name) && distance <= radius ) {
 			within_radius.push(row.name);
 			console.log(player, "is occupying a waypoint");
 			winning_player[i] = player;
-		}
-	}
-    }
+		};
+	};
+    };
     console.log(within_radius.length, "waypoints are currently occupied. By: ", winning_player);
 
     if (within_radius.length == minimum_player_count) {
