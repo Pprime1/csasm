@@ -108,7 +108,7 @@ async function update_game(room, io, db_connection, games_result) {
    console.log("Playing game", game_code);
 
    // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
-   //let game_details = getGameByCode(games_result, game_code)
+   let game_details = getGameByCode(games_result, game_code)
    console.log("Game details in update game function are: ", game_details);
    //if (game_details == null) {
 	//console.log("Game details in update game function are == null");
@@ -141,6 +141,7 @@ async function update_game(room, io, db_connection, games_result) {
 	if(distance != null) {
 		if ( !within_radius.includes(row.name) && distance <= radius ) {
 			within_radius.push(row.name);
+			console.log(row.pl, "is occupying a waypoint");
 			winning_player[i] = row.pl;
 		}
 	}
@@ -172,7 +173,7 @@ async function main() {
     while ( 1 == 1 ) {
       /* code to wait on goes here (sync or async) */
       Array.from( io.sockets.adapter.rooms.keys() ).forEach(roomId => { // For each concurrently running game
-        update_game(roomId, io, connection, games_result.rows);
+        update_game(roomId, io, connection, games_result);
       });
 
       // wait 10 seconds between performing game updates
