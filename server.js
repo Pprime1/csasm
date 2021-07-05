@@ -136,11 +136,10 @@ async function update_game(room, io, db_connection, games_result) {
 	var row = display_result.rows[i];
 	var distance = row.distance;
 	var radius = row.radius;
-	var player = row.id;
 	if(distance != null && distance <= radius ) { // error check, should never be null at this point
-		console.log(player, "is occupying a waypoint");
-		winning_player[i] = player;
-		if ( !within_radius.includes(row.name) && distance <= radius ) { // only include a waypoint
+		console.log(row.id, "is occupying waypoint", row.name);
+		winning_player.push(row.id);
+		if ( !within_radius.includes(row.name) && distance <= radius ) { // only include a waypoint if not already occupied
 			within_radius.push(row.name); 
 		};
 	};
