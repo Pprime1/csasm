@@ -108,12 +108,12 @@ async function update_game(room, io, db_connection, games_result) {
    console.log("Playing game", game_code);
 
    // Check if the chosen game is a valid game in database // THIS REALLY NEEDS TO BE RUN BEFORE CREATING THE GAME ROOM ABOVE
-   let game_details = getGameByCode(games_result, game_code)
+   //let game_details = getGameByCode(games_result, game_code)
    console.log("Game details in update game function are: ", game_details);
-   if (game_details == null) {
-	console.log("Game details in update game function are == null");
-        return; // this exits back to main but can't restart the game. should have been caught in the callback function
-   };
+   //if (game_details == null) {
+	//console.log("Game details in update game function are == null");
+        //return; // this exits back to main but can't restart the game. should have been caught in the callback function
+   //};
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
