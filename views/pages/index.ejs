@@ -25,7 +25,7 @@
 	<form id="join-game-form">
             <div class="form-game">
                <input type="text" class="form-control" id="gameId" aria-describedby="Game Code">
-               <small class="form-text text-muted"><span id="game-description"></span></small>
+               <small class="form-text text-muted"><span id="game-description"></span></small> <!-- this DOES display on error repeat
             </div>
             <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
         </form>
@@ -35,7 +35,7 @@
       <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
       <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
       </h1>
-      <small class="badge badge-light"><span id="game-description"></span></small>
+      <small class="badge badge-light"><div id="game-description"></div></small> <!-- this does NOT display
       <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
       <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p>
 
