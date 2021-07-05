@@ -153,8 +153,7 @@ async function update_game(room, io, db_connection, games_result) {
     	io.to(room).emit('display-reward', reward);
 	// TODO: Can this be emitted ONLY to a qualifying person not the whole room?
 	// For (var p = 0; p < winning_player.length; p++) {
-	//    io.to(winning_player[p]).emit(display-reward'); // ?
-	// STOP GAME SCREEN UPDATES FOR THAT PLAYER!!! OR STOP GAME?
+	//    io.to(winning_player[p]).emit(display-reward', reward);
 	// }
     } // Send reward
 } // end of UPDATE_GAME
