@@ -108,7 +108,7 @@ async function update_game(room, io, db_connection, games_result) {
    console.log("Playing game", game_code);
 
    let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
-   console.log("Game description in update game function are: ", game_details["description']);
+   console.log("Game description in update game function are: ", game_details["description"]);
    //if (game_details == null) {   // Check if the chosen game is a valid game in database // THIS IS NOW GETTING RUN WHEN CREATING THE GAME ROOM ABOVE
 	//console.log("Game details in update game function are == null");
         //return; // this exits back to main but can't restart the game. should have been caught in the callback function
