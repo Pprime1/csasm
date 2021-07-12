@@ -10,17 +10,16 @@
   <script>
      window.onload = function() {
         var clipboard = new ClipboardJS('.btn');
-
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
+        var display-update = localStorage.getItem('display_update');
+        $("#displayinfo").text(display_update);
+        var game_description = localStorage.getItem ('game_description');
+        $("#gamedesc").text(game_description);
+        var current-game = localStorage.getItem('current-game');
+        $("#current-game-id").text(current-game);
      };
   </script>
-  var display-update = localStorage.getItem('display_update');
-  $("#displayinfo").text(display_update);
-  var game_description = localStorage.getItem ('game_description');
-  $("#gamedesc").text(game_description);
-  var current-game = localStorage.getItem('current-game');
-  $("#current-game-id").text(current-game);
 </head>
 
 <body width: device-width>
