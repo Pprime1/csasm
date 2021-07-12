@@ -25,7 +25,7 @@ function updatePosition(position) {
   socket.emit('location-update', latitude, longitude);
 }; // UpdatePosition
 
-function PosError(error) {
+function PosError(error) { // display geolocation error to console. TODO:Can we do a screen popup as well?
     switch (error.code) {
         case error.PERMISSION_DENIED:
             console.log("GeoLocation error: User denied the request for Geolocation.");
@@ -54,34 +54,25 @@ socket.on("game-join", () => {
    $("#lj-in-game").show();
    navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
    const interval = setInterval(function() {
-       navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds (is updating every 11 seconds ... room-update does this
+       navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds
    }, 5000);
 }); // end of GAME-JOIN
 
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
-  $("#current-game-id").text(game_id); // this displays fine
-  
-  // $("#game-description").text(gamedesc); // Current game-description ... still can't get this to display on the index.ejs or reward.ejs screens
+  $("#current-game-id").text(game_id);
   localStorage.setItem('game_description', gamedesc);
   localStorage.setItem('current-game', game_id);
-  
   console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
   $("#current-game-player-count").text(new_player_count); // this displays fine
   $("#lj-in-game").show();
 }); // end of ROOM-UPDATE
 
-// socket.on("display-update", (gamedesc, display_information) => {
-  // console.log(gamedesc, display_information);
-  // $("#game-description").text(gamedesc); // Current gamedescription ... can't get this to display on the index.ejs screen
-  // console.log("Current #game-description (display_update):", $("#game-description"));
-
 socket.on("display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
-
   var game_description = localStorage.getItem ('game_description');
   $("#gamedesc").text(game_description);
 
@@ -109,13 +100,12 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
   // Save Reward in Local Storage
   localStorage.setItem('reward_information', reward_information);
   console.log("Reward=",reward_information);
-  // Redirect user to reward page, thus disconnecting them from game session.
   setTimeout( function() {
-    location.href = "reward";
+    location.href = "reward"; // Redirect user to reward page, thus disconnecting them from game session updates.
   }, 100)
 }); // end of DISPLAY-REWARD
 
-// Bind Submit Event for Front Page Game Joining form
+// Bind Submit Event for Front Page Game Joining form.  TODO: Can we skip the first form entry if a parameter is included to the URL?
 window.addEventListener("load",function(event) {
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
@@ -124,10 +114,7 @@ window.addEventListener("load",function(event) {
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
         console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game founction kicks off
-        $("#game-description").text(response.message); // Set current gamedescription for display - NOT WORKING outside of this event listener? Not being displayed :(
-        // console.log("Current #game-description (in form):", $("#game-description")); it's in there, but won't display in index.ejs
-        // localStorage.setItem('current-game', game);
-        // localStorage.setItem('game-description', response.message);     
+        $("#game-description").text(response.message); // Set current gamedescription for display of an error message underneath form field
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
