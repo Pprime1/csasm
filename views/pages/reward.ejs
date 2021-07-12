@@ -13,7 +13,7 @@
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
         var display_update = localStorage.getItem('display_update');
-        $("#displayinfo").text(display_update);
+        $("#displayinfo").empty().append(display_update);
         var game_description = localStorage.getItem('game_description');
         $("#gamedesc").text(game_description);
         var current_game = localStorage.getItem('current_game');
@@ -30,8 +30,8 @@
     <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
     </h1>
-    <p><small><span id="gamedesc" class="badge badge-info"></span></small></p>
-    <p><span id="displayinfo"></span></p>
+    <p><span id="gamedesc" class="badge badge-info"></span></p>
+    <pre><span id="displayinfo"></span></pre>
   </div>
   
   <div class="alert alert-success text-center" role="alert">
