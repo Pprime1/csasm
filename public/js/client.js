@@ -22,6 +22,8 @@ function updatePosition(position) {
   var lon = ConvertDEGToDM(longitude,0);
     $("#current-Lat").text(lat);
     $("#current-Lon").text(lon);
+    localStorage.setItem('my_lat', lat);
+    localStorage.setItem('my_lon', lon);
   socket.emit('location-update', latitude, longitude);
 }; // UpdatePosition
 
@@ -85,7 +87,7 @@ socket.on("display-update", (display_information) => {
       if (display_information[i].distance != null && display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
           $table += "<tr class='table table-success'>"
       } else {
-          $table += "<tr class='table table-light'>"
+          $table += "<tr class='table table-light' border='1'>"
       };
       $table += "<td>" + display_information[i].id + "</td>"
       $table += "<td>" + display_information[i].name + "</td>"
