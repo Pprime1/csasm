@@ -3,7 +3,7 @@
 <head width: device-width>
   <%- include ("../partials/header.ejs") %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-  <script> <!-- must be https for Chrome browsers to access current location -->
+  <script>
   if (location.protocol !== 'https:') {
     location.replace(`https:${location.href.substring(location.protocol.length)}`);
   } </script>
@@ -11,22 +11,19 @@
      window.onload = function() {
         var clipboard = new ClipboardJS('.btn');
      };
-     
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
-        var display-update = localStorage.getItem('display_update');
+        var display_update = localStorage.getItem('display_update');
         $("#displayinfo").text(display_update);
         var game_description = localStorage.getItem ('game_description');
         $("#gamedesc").text(game_description);
         var current-game = localStorage.getItem('current-game');
-        $("#current-game-id").text(current-game);
-     
+        $("#current-game-id").text(current-game);   
   </script>
 </head>
 
 <body width: device-width>
-<!-- <div class="container-fluid"> -->
-<div>
+<div class="container-fluid">
   <div class="alert alert-success text-center" role="alert" width: device-width> <H1> Congratulations! </H1> </div>
   <div id="lj-reward">
     <!-- Show Game information -->
