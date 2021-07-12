@@ -18,6 +18,10 @@
         $("#gamedesc").text(game_description);
         var current_game = localStorage.getItem('current_game');
         $("#current-game-id").text(current_game);   
+        var my-lat = localStorage.getItem('my_lat');
+        $("#Current-Lat").text(my-lat);   
+        var my-lon = localStorage.getItem('my_lon');
+        $("#Current-Lon").text(my-lon);   
         localStorage.clear();
       };
   </script>
@@ -31,7 +35,8 @@
     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
     </h1>
     <p><span id="gamedesc" class="badge badge-info"></span></p>
-    <pre><span id="displayinfo"></span></pre>
+    <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p>
+    <pre><small><span id="displayinfo"></span></small></pre>
   </div>
   
   <div class="alert alert-success text-center" role="alert">
