@@ -35,15 +35,15 @@ function PosError(error) { // display geolocation error to console. TODO: what n
             location.href("https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting");
             return;
         case error.POSITION_UNAVAILABLE:
-            window.alert("GeoLocation error: Location information is unavailable."+\n+"Please correct and then refresh screen to restart");
+            window.alert("GeoLocation error: Location information is unavailable. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: Location information is unavailable.");
             return;
         case error.TIMEOUT:
-            window.alert("GeoLocation error: The request to get user location timed out."+\n+"Please correct and then refresh screen to restart");
+            window.alert("GeoLocation error: The request to get user location timed out. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: The request to get user location timed out.");
             return;
         default:
-            window.alert("GeoLocation error: An unknown error occurred."+\n+"Please correct and then refresh screen to restart");
+            window.alert("GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: An unknown error occurred.");
             return;
     };
