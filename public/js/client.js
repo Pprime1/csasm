@@ -30,15 +30,20 @@ function updatePosition(position) {
 function PosError(error) { // display geolocation error to console. TODO:Can we do a screen popup as well?
     switch (error.code) {
         case error.PERMISSION_DENIED:
+            // window.alert("sometext");
+            window.alert("GeoLocation error: User denied the request for Geolocation.");
             console.log("GeoLocation error: User denied the request for Geolocation.");
             return;
         case error.POSITION_UNAVAILABLE:
+            window.alert("GeoLocation error: Location information is unavailable.");
             console.log("GeoLocation error: Location information is unavailable.");
             return;
         case error.TIMEOUT:
+            window.alert("GeoLocation error: The request to get user location timed out.");
             console.log("GeoLocation error: The request to get user location timed out.");
             return;
         default:
+            window.alert("GeoLocation error: An unknown error occurred.");
             console.log("GeoLocation error: An unknown error occurred.");
             return;
     };
@@ -117,8 +122,8 @@ window.addEventListener("load",function(event) {
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
-        console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game founction kicks off
-        $("#game-description").text(response.message); // Set current gamedescription for display of an error message underneath form field
+        console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
+        $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
