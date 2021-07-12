@@ -30,10 +30,9 @@ function updatePosition(position) {
 function PosError(error) { // display geolocation error to console. TODO: what next? Can we restart the index.ejs?
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            // window.alert("sometext");
-            window.alert("GeoLocation error: User denied the request for Geolocation."+\n+"Please allow location sharing and then refresh screen to restart");
+            window.alert("GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart");
             console.log("GeoLocation error: User denied the request for Geolocation.");
-            // location.reload();
+            location.href("https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting");
             return;
         case error.POSITION_UNAVAILABLE:
             window.alert("GeoLocation error: Location information is unavailable."+\n+"Please correct and then refresh screen to restart");
