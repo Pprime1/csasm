@@ -62,20 +62,28 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
   $("#current-game-id").text(game_id); // this displays fine
-  $("#game-description").text(gamedesc); // Current game-description ... still can't get this to display on the index.ejs screen
+  
+  // $("#game-description").text(gamedesc); // Current game-description ... still can't get this to display on the index.ejs or reward.ejs screens
+  localStorage.setItem('game_description', gamedesc);
+  localStorage.setItem('current-game', game_id);
+  
   console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
   $("#current-game-player-count").text(new_player_count); // this displays fine
   $("#lj-in-game").show();
 }); // end of ROOM-UPDATE
 
 // socket.on("display-update", (gamedesc, display_information) => {
-socket.on("display-update", (display_information) => {
   // console.log(gamedesc, display_information);
+  // $("#game-description").text(gamedesc); // Current gamedescription ... can't get this to display on the index.ejs screen
+  // console.log("Current #game-description (display_update):", $("#game-description"));
+
+socket.on("display-update", (display_information) => {
   console.log(display_information);
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
-  // $("#game-description").text(gamedesc); // Current gamedescription ... can't get this to display on the index.ejs screen
-  // console.log("Current #game-description (display_update):", $("#game-description"));
+
+  var game_description = localStorage.getItem ('game_description');
+  $("#gamedesc").text(game_description);
 
   // Display game status including any occupied status lines
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
@@ -94,13 +102,7 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table);
-  console.log("#=",$('#displayinfo'));
-  console.log("T=",$table);
-  
-  //localStorage.setItem('display-update', $('#displayinfo'));
-  //localStorage.setItem('current-game',  $("#current-game-id"));
-  //localStorage.setItem('game-description', $("#game-description"));
-  
+  //console.log("T=",$table);
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
