@@ -33,7 +33,7 @@ function PosError(error) { // display geolocation error to console. TODO: what n
             // window.alert("sometext");
             window.alert("GeoLocation error: User denied the request for Geolocation.");
             console.log("GeoLocation error: User denied the request for Geolocation.");
-            window.location.reload();
+            location.href("index");
             return;
         case error.POSITION_UNAVAILABLE:
             window.alert("GeoLocation error: Location information is unavailable.");
