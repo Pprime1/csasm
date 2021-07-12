@@ -9,7 +9,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - Xneed a routine to check if chosen game is a valid one, and to error/restart if not ... or can we display all valid games as buttons and "pick game"?X
 2. Check the timeouts - time to refresh player location (should be 5000ms?), refresh room contents (should be 10000ms?)
 3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this. Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
-4. Check that update location is actually updating - inside house tests it is never changing location
+- XCheck that update location is actually updating - inside house tests it is never changing locationX
 - XOnly display Reward to those players currently occupying any waypoint (thwart game-jumpers)X
 - XOnce Reward is displayed, stop all screen and location updatesX
 7. How can I grab the Game Description and display it? sigh 🦖 
