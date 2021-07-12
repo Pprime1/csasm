@@ -63,7 +63,7 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   $("#lj-startup").hide();
   $("#current-game-id").text(game_id);
   localStorage.setItem('game_description', gamedesc);
-  localStorage.setItem('current-game', game_id);
+  localStorage.setItem('current_game', game_id);
   console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
   $("#current-game-player-count").text(new_player_count); // this displays fine
   $("#lj-in-game").show();
