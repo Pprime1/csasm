@@ -31,20 +31,20 @@ function PosError(error) { // display geolocation error to console. TODO: what n
     switch (error.code) {
         case error.PERMISSION_DENIED:
             // window.alert("sometext");
-            window.alert("GeoLocation error: User denied the request for Geolocation.");
+            window.alert("GeoLocation error: User denied the request for Geolocation."+\n+"Please allow location sharing and then refresh screen to restart");
             console.log("GeoLocation error: User denied the request for Geolocation.");
-            location.href("index");
+            // location.reload();
             return;
         case error.POSITION_UNAVAILABLE:
-            window.alert("GeoLocation error: Location information is unavailable.");
+            window.alert("GeoLocation error: Location information is unavailable."+\n+"Please correct and then refresh screen to restart");
             console.log("GeoLocation error: Location information is unavailable.");
             return;
         case error.TIMEOUT:
-            window.alert("GeoLocation error: The request to get user location timed out.");
+            window.alert("GeoLocation error: The request to get user location timed out."+\n+"Please correct and then refresh screen to restart");
             console.log("GeoLocation error: The request to get user location timed out.");
             return;
         default:
-            window.alert("GeoLocation error: An unknown error occurred.");
+            window.alert("GeoLocation error: An unknown error occurred."+\n+"Please correct and then refresh screen to restart");
             console.log("GeoLocation error: An unknown error occurred.");
             return;
     };
