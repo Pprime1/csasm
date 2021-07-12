@@ -27,12 +27,13 @@ function updatePosition(position) {
   socket.emit('location-update', latitude, longitude);
 }; // UpdatePosition
 
-function PosError(error) { // display geolocation error to console. TODO:Can we do a screen popup as well?
+function PosError(error) { // display geolocation error to console. TODO: what next? Can we restart the index.ejs?
     switch (error.code) {
         case error.PERMISSION_DENIED:
             // window.alert("sometext");
             window.alert("GeoLocation error: User denied the request for Geolocation.");
             console.log("GeoLocation error: User denied the request for Geolocation.");
+            window.location.reload();
             return;
         case error.POSITION_UNAVAILABLE:
             window.alert("GeoLocation error: Location information is unavailable.");
