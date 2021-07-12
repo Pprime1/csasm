@@ -10,7 +10,6 @@
   <script>
      window.onload = function() {
         var clipboard = new ClipboardJS('.btn');
-     };
         var reward_information = localStorage.getItem('reward_information');
         $("#rewardinfo").text(reward_information);
         var display_update = localStorage.getItem('display_update');
@@ -19,6 +18,7 @@
         $("#gamedesc").text(game_description);
         var current_game = localStorage.getItem('current_game');
         $("#current-game-id").text(current_game);   
+  };
   </script>
 </head>
 
