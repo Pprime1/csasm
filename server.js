@@ -53,7 +53,7 @@ async function configure_socketio(db_connection, games_result) {
 		socket.join("game-" + chosen_game);
                 callback({ status: "Success", message: gamedesc });
             } else {
-                callback({ status: "Error", message: "Invalid Game Code, please try again!" }); //Invalid game, leave form on screen with error message below
+                callback({ status: "Error", message: "Invalid Game Code:", chosen_game, "Please try again!" });  // Invalid game, leave form on screen with error message below
             };
         }); // join-a-game
     }); // on connection
