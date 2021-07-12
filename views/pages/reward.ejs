@@ -15,6 +15,9 @@
         $("#rewardinfo").text(reward_information);
      };
   </script>
+  var display-update = localStorage.getItem('display_update');
+  $("#displayinfo").text(display_update);
+
   <!-- Can we include these somehow as well?
         var display-update = localStorage.getItem('display_update');
         $("#displayinfo").text(display-update);
@@ -37,7 +40,7 @@
     <p><small><span id="game-description" class="badge badge-info"></span></small></p>
     <pre><span id="displayinfo"></span></pre>
     
-    <!-- Show Reward information -->
+    <!-- Show the Reward information -->
     <div class="alert alert-success text-center" role="alert">
     <pre><H1><strong><span id="rewardinfo"></span></strong></H1></pre>
     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#rewardinfo">Copy</button></span>
@@ -48,8 +51,10 @@
     <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
  </div>
 </div>
+
+ <!-- once the volatile memory variables are set, empty it
 <script>
    localStorage.clear();
-</script>   <!-- once the volatile memory variables are set, empty it --> 
+</script>  --> 
 </body>
 </html>
