@@ -93,8 +93,9 @@ socket.on("display-update", (display_information) => {
       };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
-  
-  // localStorage.setItem('display-update', $table);
+  localStorage.setItem('display_update', $table);
+  console.log("#=",$('#displayinfo'));
+  console.log("T=",$table);
   
   //localStorage.setItem('display-update', $('#displayinfo'));
   //localStorage.setItem('current-game',  $("#current-game-id"));
@@ -105,7 +106,7 @@ socket.on("display-update", (display_information) => {
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   // Save Reward in Local Storage
   localStorage.setItem('reward_information', reward_information);
-  console.log(reward_information);
+  console.log("Reward=",reward_information);
   // Redirect user to reward page, thus disconnecting them from game session.
   setTimeout( function() {
     location.href = "reward";
