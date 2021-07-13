@@ -4,9 +4,10 @@ for (var entry of urlParams) {
     // console.log(entry)
     var URLentry = entry[0];
 };   
-    if (URLentry) { $("#URLentry").text(URLentry) }
-    else { $("#URLentry").text("") };
-    console.log("URL Parameter:", `$("#URLentry")`);
+if (!URLentry) { URLentry = "" };
+console.log("URL Parameter:", URLentry);
+$("#URLentry").text(URLentry);
+    
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
