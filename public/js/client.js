@@ -2,7 +2,7 @@ const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
 const entry = urlParams.entries()
 var URLentry = entry[0];
-console.log(URL Parameter:",URLentry);
+console.log("URL Parameter:",URLentry);
 $("#URLentry").text(URLentry);
 
 function ConvertDEGToDM(deg,dir) {
