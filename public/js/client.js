@@ -6,7 +6,7 @@ for (var entry of urlParams) {
 };   
     if (URLentry) { $("#URLentry").text(URLentry) }
     else { $("#URLentry").text("") };
-    console.log("URL Parameter:", URLentry);
+    console.log("URL Parameter:", `$("#URLentry")`);
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
