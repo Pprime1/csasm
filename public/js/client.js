@@ -1,9 +1,10 @@
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
-const entry = urlParams.entries()
+const entry = urlParams.entries();
+console.log(entry);
 var URLentry = entry[0];
-console.log("URL Parameter:",URLentry);
-$("#URLentry").text(URLentry);
+console.log("URL Parameter:", URLentry);
+if URLentry !=null {$("#URLentry").text(URLentry)};
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
