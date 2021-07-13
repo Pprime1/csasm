@@ -1,7 +1,6 @@
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
-const entry = urlParams.entries();
-    console.log(entry);
+for(const entry of urlParams) { console.log(entry) };
     var URLentry = entry[0];
     console.log("URL Parameter:", URLentry);
     if (URLentry !=null) { $("#URLentry").text(URLentry) };
