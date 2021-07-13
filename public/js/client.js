@@ -4,7 +4,7 @@ const entry = urlParams.entries();
 console.log(entry);
 var URLentry = entry[0];
 console.log("URL Parameter:", URLentry);
-if URLentry !=null {$("#URLentry").text(URLentry)};
+if (URLentry !=null) { $("#URLentry").text(URLentry) };
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
