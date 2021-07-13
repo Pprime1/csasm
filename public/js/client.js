@@ -6,8 +6,10 @@ for (var entry of urlParams) {
 };   
 if (!URLentry) { URLentry = "" };
 console.log("URL Parameter:", URLentry);
+URLentry = "<input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = " + toString(URLentry) + ">"
+console.log("Form String:", URLentry);
 $("#URLentry").text(URLentry);
-    
+   
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
