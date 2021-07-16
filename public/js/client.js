@@ -61,7 +61,7 @@ function PosError(error) { // display geolocation error to console. TODO: what n
             console.log("GeoLocation error: An unknown error occurred.");
             return;
     };
-}; // Position Error handler
+}; // GeoLocation Error handler
 
 let is_joined = false;
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
@@ -71,15 +71,15 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 });
 
 socket.on("game-join", () => {
-   navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
-   console.log("Geolocation status", PosError);
-   if (!PosError) {
+   var Locate = navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
+   console.log("Geolocation status", Locate);
+   if (!Locate) {
        $("#lj-startup").hide();
        $("#lj-in-game").show();
        const interval = setInterval(function() {
           navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds
        }, 5000);
-   }; //getCurrentPosition no error
+   }; //set GeoLocation
 }); // end of GAME-JOIN
 
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
