@@ -3,19 +3,11 @@ const urlParams = new URLSearchParams(location.search);
 for (var entry of urlParams) { 
     var URLentry = entry[0];
 };   
-if (!URLentry) { URLentry = "" };
+//TODO: Insert code to detect if URLentry exists and if so socket.emit('join-a-game', URLentry, (response) => { }
+if (!URLentry) { URLentry = "" }
+else { socket.emit('join-a-game', URLentry, (response) => { } };
     console.log("URL Parameter:", URLentry);
     $("#URLentry").text(URLentry);
-
-var $form = "<form id='join-game-form'>";
-    $form += "<div class='form-game'>";
-    $form += "<input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = " + URLentry + ">";
-    $form += "<small class='form-text text-muted'><span id='game-error'></span></small>";
-    $form += "</div><button type='submit' class='btn btn-primary' href='#' role='button'>Start Game</button></form>";
-    console.log("Form String:", $form);
-    $("#FORMentry").empty().append($form);
-    //console.log(`Attempting to join ${ game }`)
-
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
