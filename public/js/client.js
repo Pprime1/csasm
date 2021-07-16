@@ -5,6 +5,7 @@ for (var entry of urlParams) {
 };   
 if (!URLentry) { URLentry = "" };
     console.log("URL Parameter:", URLentry);
+    $("#URLentry").text(URLentry);
 var $form = "<form id='join-game-form'>";
     $form += "<div class='form-game'>";
     $form += "<input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = " + URLentry + ">";
@@ -12,7 +13,7 @@ var $form = "<form id='join-game-form'>";
     $form += "</div><button type='submit' class='btn btn-primary' href='#' role='button'>Start Game</button></form>";
     console.log("Form String:", $form);
     $("#FORMentry").empty().append($form);
-//console.log(`Attempting to join ${ game }`)
+    //console.log(`Attempting to join ${ game }`)
 
 
 function ConvertDEGToDM(deg,dir) {
