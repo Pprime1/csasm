@@ -6,6 +6,8 @@ for (var entry of urlParams) {
 if (!URLentry) { URLentry = "" };
     console.log("URL Parameter:", URLentry);
     $("#URLentry").text(URLentry);
+    document.querySelector("#gameId").value = URLentry;
+
 var $form = "<form id='join-game-form'>";
     $form += "<div class='form-game'>";
     $form += "<input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = " + URLentry + ">";
