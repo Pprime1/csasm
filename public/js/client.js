@@ -5,7 +5,6 @@ for (var entry of urlParams) {
 };   
 if (!URLentry) { URLentry = "" } //If started without a URLParam then show an entry form to get the GC Code
 else {  socket.emit('join-a-game', URLentry, (response) => {         
-        $("#lj-startup").hide();
         console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
@@ -129,6 +128,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 
 // Bind Submit Event for Front Page Game Joining form.  TODO: Can we skip the first form entry if a parameter is included to the URL?
 window.addEventListener("load",function(event) {
+  $("#lj-startup").show();
   document.querySelector("#gameId").value = URLentry;
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
