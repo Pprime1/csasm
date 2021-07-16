@@ -5,7 +5,7 @@ for (var entry of urlParams) {
 };   
 if (!URLentry) { URLentry = "" } //If started without a URLParam then show an entry form to get the GC Code
 else {  socket.emit('join-a-game', URLentry, (response) => {         
-        console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
+        // console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
 };
@@ -86,7 +86,7 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
     localStorage.setItem('current_game', game_id);
   };
   console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
-  $("#current-game-player-count").text(new_player_count); // this displays fine
+  $("#current-game-player-count").text(new_player_count);
   $("#lj-in-game").show();
 }); // end of ROOM-UPDATE
 
@@ -114,7 +114,6 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table);
-  //console.log("T=",$table);
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
@@ -122,11 +121,11 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
   localStorage.setItem('reward_information', reward_information);
   console.log("Reward=",reward_information);
   setTimeout( function() {
-    location.href = "reward"; // Redirect user to reward page, thus disconnecting them from game session updates.
+    location.href = "reward"; // Redirect user to reward page, disconnecting them from game session updates.
   }, 100)
 }); // end of DISPLAY-REWARD
 
-// Bind Submit Event for Front Page Game Joining form.  TODO: Can we skip the first form entry if a parameter is included to the URL?
+// Bind Submit Event for Front Page Game Joining form.
 window.addEventListener("load",function(event) {
   $("#lj-startup").show();
   document.querySelector("#gameId").value = URLentry;
@@ -136,7 +135,7 @@ window.addEventListener("load",function(event) {
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
-        console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
+       // console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
