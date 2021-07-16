@@ -1,15 +1,19 @@
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
 for (var entry of urlParams) { 
-    // console.log(entry)
     var URLentry = entry[0];
 };   
 if (!URLentry) { URLentry = "" };
-console.log("URL Parameter:", URLentry);
-URLentry = "<input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = " + URLentry + ">"
-console.log("Form String:", URLentry);
-$("#URLentry").text(URLentry);
-   
+    console.log("URL Parameter:", URLentry);
+var $form = "<form id='join-game-form'>";
+    $form += "<div class='form-game'>";
+    $form += "<input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = " + URLentry + ">";
+    $form += "<small class='form-text text-muted'><span id='game-error'></span></small>";
+    $form += "</div><button type='submit' class='btn btn-primary' href='#' role='button'>Start Game</button></form>";
+    console.log("Form String:", $form);
+    $("#FORMentry").empty().append($form);
+//console.log(`Attempting to join ${ game }`)
+
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
