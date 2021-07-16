@@ -9,7 +9,7 @@ if (URLentry) {  // if started with a URLParam then attempt to join that game ID
         // console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
-} else { URLentry = "" };
+} else { URLentry = "GCALBURY" };
 console.log("URL Parameter:", URLentry);
 
 function ConvertDEGToDM(deg,dir) {
