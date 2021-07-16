@@ -6,7 +6,6 @@ for (var entry of urlParams) {
 if (URLentry) {  // if started with a URLParam then attempt to join that game ID
     URLentry = URLentry.toUpperCase();
     socket.emit('join-a-game', URLentry, (response) => {         
-        // console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
 } else { URLentry = "GCALBURY" };
@@ -46,20 +45,20 @@ function PosError(error) { // display geolocation error to console. TODO: what n
             console.log("GeoLocation error: User denied the request for Geolocation.");
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
-            location.href("/");  // reload and restart index? ... sort of? crashes server.js:54 "TypeError: callback is not a function"
-            return;
+            location.href = "/";  // reload and restart index? ... sort of? crashes server.js:54 "TypeError: callback is not a function"
+            return error.code;
         case error.POSITION_UNAVAILABLE:
             window.alert("GeoLocation error: Location information is unavailable. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: Location information is unavailable.");
-            return;
+            return error.code;
         case error.TIMEOUT:
             window.alert("GeoLocation error: The request to get user location timed out. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: The request to get user location timed out.");
-            return;
+            return error.code;
         default:
             window.alert("GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: An unknown error occurred.");
-            return;
+            return error.code;
     };
 }; // GeoLocation Error handler
 
@@ -71,9 +70,9 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 });
 
 socket.on("game-join", () => {
-   var Locate = navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
-   console.log("Geolocation status", Locate);
-   if (!Locate) {
+   var LocError = navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
+   console.log("Geolocation Error Status", LocError);
+   if (!LocError) {
        $("#lj-startup").hide();
        $("#lj-in-game").show();
        const interval = setInterval(function() {
