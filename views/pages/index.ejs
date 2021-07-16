@@ -27,7 +27,7 @@
 	
 	<form id='join-game-form'>
             <div class='form-game'>    
-              <input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = <%- #URLentry %>> 
+              <input type='text' class='form-control' id='gameId' aria-describedby='Game Code' value = <%- ${ #URLentry } %>> 
               <small class='form-text text-muted'><span id='game-error'></span></small>
             </div>
             <button type='submit' class='btn btn-primary' href='#' role='button'>Start Game</button>
