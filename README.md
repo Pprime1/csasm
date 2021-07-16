@@ -15,7 +15,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - Xgrab the Game Description and display itX
 8. reintroduce validatechecksums = true for the database tables. how to set/reset md5 values?
 9. Is it a good idea to include some form of live map view on the screen? cf: https://github.com/googlemaps/js-samples/blob/master/dist/samples/map-geolocation/index.js
-10. Can we start the game directly to a pre-filled GC code eg: https://csasm.herokuapp.com/?GCTEST ?
+- XCan we start the game directly to a pre-filled GC code eg: https://csasm.herokuapp.com/?GCTEST ?X
 
 
 # Key files
