@@ -5,9 +5,13 @@ for (var entry of urlParams) {
 };   
 //TODO: Insert code to detect if URLentry exists and if so socket.emit('join-a-game', URLentry, (response) => { }
 if (!URLentry) { URLentry = "" }
-else { socket.emit('join-a-game', URLentry, (response) => { } };
-    console.log("URL Parameter:", URLentry);
-    $("#URLentry").text(URLentry);
+else {  socket.emit('join-a-game', URLentry, (response) => {         
+        console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
+        $("#game-error").text(response.message); // Set to display an error message underneath form entry field
+     }); // emit join-a-game
+};
+console.log("URL Parameter:", URLentry);
+$("#URLentry").text(URLentry);
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
