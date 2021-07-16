@@ -6,7 +6,6 @@ for (var entry of urlParams) {
 if (!URLentry) { URLentry = "" };
     console.log("URL Parameter:", URLentry);
     $("#URLentry").text(URLentry);
-    document.querySelector("#gameId").value = URLentry;
 
 var $form = "<form id='join-game-form'>";
     $form += "<div class='form-game'>";
@@ -134,6 +133,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 
 // Bind Submit Event for Front Page Game Joining form.  TODO: Can we skip the first form entry if a parameter is included to the URL?
 window.addEventListener("load",function(event) {
+  document.querySelector("#gameId").value = URLentry;
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
