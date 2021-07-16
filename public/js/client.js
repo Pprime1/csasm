@@ -3,9 +3,9 @@ const urlParams = new URLSearchParams(location.search);
 for (var entry of urlParams) { 
     var URLentry = entry[0];
 };   
-//TODO: Insert code to detect if URLentry exists and if so socket.emit('join-a-game', URLentry, (response) => { }
-if (!URLentry) { URLentry = "" }
+if (!URLentry) { URLentry = "" } //If started without a URLParam then show an entry form to get the GC Code
 else {  socket.emit('join-a-game', URLentry, (response) => {         
+        $("#lj-startup").hide();
         console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
