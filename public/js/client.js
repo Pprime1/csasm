@@ -134,6 +134,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 window.addEventListener("load",function(event) {
   if (!is_joined) { $("#lj-startup").show() }; // show the form if not already joined to a game thanks to the URL paramater
   $( "#join-game-form" ).on( "submit", function(e) {
+     document.querySelector("#gameId").value = URLentry;
      e.preventDefault();
      var game = $("#gameId").val();
      game = game.toUpperCase();
