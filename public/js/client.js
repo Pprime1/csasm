@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(location.search);
 for (var entry of urlParams) { 
     var URLentry = entry[0];
 };   
-var RtnError = "";
+var RtnError = null;
 if (URLentry) {  // if started with a URLParam then attempt to join that game ID
     URLentry = URLentry.toUpperCase();
     console.log("URL Parameter:", URLentry);
@@ -68,7 +68,7 @@ function PosError(error) { // display geolocation error to console. TODO: what n
     };
 }; // GeoLocation Error handler
 
-let is_joined = false;
+var is_joined = false;
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
       socket.emit('join-a-game', $("#current-game-id").text())
