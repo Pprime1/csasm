@@ -47,7 +47,7 @@ function PosError(error) { // display geolocation error to console. TODO: what n
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
             location.href = "/";
-            return error.code;
+            return "error";
         case error.POSITION_UNAVAILABLE:
             console.log("GeoLocation error: Location information is unavailable.");
             window.alert("GeoLocation error: Location information is unavailable. \n Please correct and then refresh screen to restart");
