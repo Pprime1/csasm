@@ -5,11 +5,11 @@ for (var entry of urlParams) {
 };   
 if (URLentry) {  // if started with a URLParam then attempt to join that game ID
     URLentry = URLentry.toUpperCase();
+    console.log("URL Parameter:", URLentry);
     socket.emit('join-a-game', URLentry, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
-} else { URLentry = "GCALBURY" };
-console.log("URL Parameter:", URLentry);
+} else { URLentry = "GCALBURY" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
@@ -134,9 +134,9 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 
 // Bind Submit Event for Front Page Game Joining form.
 window.addEventListener("load",function(event) {
+  document.querySelector("#gameId").value = URLentry;
   if (!is_joined) { $("#lj-startup").show() }; // show the form if not already joined to a game thanks to the URL paramater
   $( "#join-game-form" ).on( "submit", function(e) {
-     document.querySelector("#gameId").value = URLentry;
      e.preventDefault();
      var game = $("#gameId").val();
      game = game.toUpperCase();
