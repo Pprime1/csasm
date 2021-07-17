@@ -41,23 +41,26 @@ function updatePosition(position) {
 function PosError(error) { // display geolocation error to console. TODO: what next? Can we restart the index.ejs?
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            window.alert("GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart \n");
+            alert("GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart \n");
             console.log("GeoLocation error: User denied the request for Geolocation.");
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
-            location.href = "/";  // reload and restart index? ... sort of? crashes server.js:54 "TypeError: callback is not a function"
+            location.href = "/";
             return error.code;
         case error.POSITION_UNAVAILABLE:
-            window.alert("GeoLocation error: Location information is unavailable. \n Please correct and then refresh screen to restart");
+            alert("GeoLocation error: Location information is unavailable. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: Location information is unavailable.");
+            location.href = "/";
             return error.code;
         case error.TIMEOUT:
-            window.alert("GeoLocation error: The request to get user location timed out. \n Please correct and then refresh screen to restart");
+            alert("GeoLocation error: The request to get user location timed out. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: The request to get user location timed out.");
+            location.href = "/";
             return error.code;
         default:
-            window.alert("GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart");
+            alert("GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart");
             console.log("GeoLocation error: An unknown error occurred.");
+            location.href = "/";
             return error.code;
     };
 }; // GeoLocation Error handler
