@@ -43,6 +43,7 @@ function PosError(error) { // display geolocation error to console. TODO: what n
     switch (error.code) {
         case error.PERMISSION_DENIED:
             RtnError = "GeoLocation error: User denied the request for Geolocation.";
+            localStorage.setItem('RtnError', RtnError);
             console.log(RtnError);
             $("#game-error").text(RtnError);
             window.alert("GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart \n");
@@ -138,6 +139,10 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 // Bind Submit Event for Front Page Game Joining form.
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
+  var GmError = "";
+  GmError = localStorage.getItem('RtnError');
+  console.log("Startup Error",GmError);
+  $("#game-error").text(GmError);
   if (!is_joined) { $("#lj-startup").show() }; // show the form if not already joined to a game thanks to the URL paramater
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
