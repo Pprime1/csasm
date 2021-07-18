@@ -39,12 +39,13 @@ function updatePosition(position) {
   var accuracy = position.coords.accuracy;
   var lat = ConvertDEGToDM(latitude,1);
   var lon = ConvertDEGToDM(longitude,0);
-    $("#current-Lat").text(lat);
-    $("#current-Lon").text(lon);
-    $("#current-Acc").text(accuracy);
-    localStorage.setItem('my_lat', lat);
-    localStorage.setItem('my_lon', lon);
-    localStorage.setItem('my_acc', accuracy);
+  var acc = accuracy.ToFixed(2);
+  $("#current-Lat").text(lat);
+  $("#current-Lon").text(lon);
+  $("#current-Acc").text(acc);
+  localStorage.setItem('my_lat', lat);
+  localStorage.setItem('my_lon', lon);
+  localStorage.setItem('my_acc', accuracy);
   socket.emit('location-update', latitude, longitude);
 }; // UpdatePosition
 
@@ -53,7 +54,6 @@ function PosError(error) { // handle/display get geolocation errors
         case error.PERMISSION_DENIED:
             RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart";
             localStorage.setItem('RtnError', RtnError);
-            console.log(RtnError);
             window.alert(RtnError);
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
@@ -83,16 +83,17 @@ function PosError(error) { // handle/display get geolocation errors
 var is_joined = false;
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
-      socket.emit('join-a-game', $("#current-game-id").text())
-  }
+      socket.emit('join-a-game', $("#current-game-id").text());
+  };
 });
 
 socket.on("game-join", () => {
    navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // First location update attempt, handle errors and set options
    console.log("Geolocation Error Status", RtnError);
-   if (!RtnError) {
+   if (!RtnError) { 
        $("#lj-startup").hide();
        $("#lj-in-game").show();
+       is_joined = true;
        const interval = setInterval(function() {
           navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds
        }, 5000);
@@ -151,7 +152,6 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
-  console.log("Startup Error Msg", GmError); 
   $("#game-error").text(GmError); // Set to display any error message underneath form entry field
   console.log("In Form join status is ", is_joined);
   if (!is_joined) { $("#lj-startup").show() }; // show the form only if not already joined to a game thanks to the URL paramater
@@ -161,7 +161,6 @@ window.addEventListener("load",function(event) {
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
-       // console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
