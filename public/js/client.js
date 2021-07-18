@@ -12,6 +12,12 @@ if (URLentry) {  // if started with a URLParam then attempt to join that game ID
      }); // emit join-a-game
 } else { URLentry = "GCALBURY" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
 
+var geoOptions = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
   var degrees = Math.floor(absolute);
@@ -30,42 +36,47 @@ function ConvertDEGToDM(deg,dir) {
 function updatePosition(position) {
   var latitude = position.coords.latitude;
   var longitude = position.coords.longitude;
+  var accuracy = position.coords.accuracy;
   var lat = ConvertDEGToDM(latitude,1);
   var lon = ConvertDEGToDM(longitude,0);
     $("#current-Lat").text(lat);
     $("#current-Lon").text(lon);
+    $("#current-Acc").text(accuracy);
     localStorage.setItem('my_lat', lat);
     localStorage.setItem('my_lon', lon);
+    localStorage.setItem('my_acc', accuracy);
   socket.emit('location-update', latitude, longitude);
 }; // UpdatePosition
 
-function PosError(error) { // display geolocation error to console. TODO: what next? Can we restart the index.ejs?
+function PosError(error) { // handle/display get geolocation errors
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            RtnError = "GeoLocation error: User denied the request for Geolocation.";
+            RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart";
             localStorage.setItem('RtnError', RtnError);
             console.log(RtnError);
-            $("#game-error").text(RtnError);
-            window.alert("GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart \n");
+            window.alert(RtnError);
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
             location.href = "/";
             break;
         case error.POSITION_UNAVAILABLE:
-            console.log("GeoLocation error: Location information is unavailable.");
-            window.alert("GeoLocation error: Location information is unavailable. \n Please correct and then refresh screen to restart");
+            RtnError = "GeoLocation error: Location information is unavailable \n Please correct and then refresh screen to restart.";
+            localStorage.setItem('RtnError', RtnError);
+            window.alert(RtnError);
             location.href = "/";
-            return error.code;
+            break;
         case error.TIMEOUT:
-            console.log("GeoLocation error: The request to get user location timed out.");
-            window.alert("GeoLocation error: The request to get user location timed out. \n Please correct and then refresh screen to restart");
+            RtnError = "GeoLocation error: The request to get user location timed out. \n Please refresh screen to restart";
+            localStorage.setItem('RtnError', RtnError);
+            window.alert(RtnError);
             location.href = "/";
-            return error.code;
+            break;
         default:
-            console.log("GeoLocation error: An unknown error occurred.");
-            window.alert("GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart");
+            RtnError = "GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart";
+            localStorage.setItem('RtnError', RtnError);
+            window.alert(RtnError);
             location.href = "/";
-            return error.code;
+            break;
     };
 }; // GeoLocation Error handler
 
@@ -77,7 +88,7 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 });
 
 socket.on("game-join", () => {
-   navigator.geolocation.getCurrentPosition(updatePosition, PosError); // First location update attempt, handle errors
+   navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // First location update attempt, handle errors and set options
    console.log("Geolocation Error Status", RtnError);
    if (!RtnError) {
        $("#lj-startup").hide();
@@ -139,11 +150,11 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 // Bind Submit Event for Front Page Game Joining form.
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
-  var GmError = "";
-  GmError = localStorage.getItem('RtnError');
-  console.log("Startup Error",GmError);
-  $("#game-error").text(GmError);
-  if (!is_joined) { $("#lj-startup").show() }; // show the form if not already joined to a game thanks to the URL paramater
+  var GmError = localStorage.getItem('RtnError') || "Clear skies";
+  console.log("Startup Error Msg", GmError); 
+  $("#game-error").text(GmError); // Set to display any error message underneath form entry field
+  console.log("In Form join status is ", is_joined);
+  if (!is_joined) { $("#lj-startup").show() }; // show the form only if not already joined to a game thanks to the URL paramater
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
@@ -151,7 +162,7 @@ window.addEventListener("load",function(event) {
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
        // console.log(response.status, response.message); // IF response.status!=error then socket is joined to a game room and the update_game function kicks off
-        $("#game-error").text(response.message); // Set to display an error message underneath form entry field
+        $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
 }, false); // end of JOIN-GAME listener
