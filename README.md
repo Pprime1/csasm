@@ -6,14 +6,16 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 
-1. need a routine to check if chosen game is a valid one, and to error/restart if not ... or can we display all valid games as buttons and "pick game"?
-2. Check the timeouts - time to refresh player location (should be 5000ms?), refresh room contents (should be 10000ms?)
-3. Throw players to an error page when they do not allow locations to be grabbed, and inform them how to fix this. Note that on mobiles the location permission is not 'sticky' when launched from facebook messenger (facebook browser). This is fixed if player launches it in a real browser
-4. Check that update location is actually updating - inside house tests it is never changing location
-5. Only display Reward to those players currently occupying any waypoint (thwart game-jumpers)
-6. Once Reward is displayed, stop all screen and location updates
-7. How can I grab the Game Description and display it ? Promise rejections again 👎
+- XRoutine to check if chosen game is a valid one, and to error/restart if notX
+- XCheck the timeouts - time to refresh player location (should be 5000ms?), refresh room contents (should be 10000ms?)X
+- XThrow players to an error when they do not allow locations to be grabbed, and inform them how to fix this.X
+- XCheck that update location is actually updating - inside house tests it is never changing locationX
+- XOnly display Reward to those players currently occupying any waypoint (thwart game-jumpers)X
+- XOnce Reward is displayed, stop all screen and location updatesX
+- Xgrab the Game Description and display itX
 8. reintroduce validatechecksums = true for the database tables. how to set/reset md5 values?
+9. Is it possible to include some form of live map view on the screen? cf: https://github.com/googlemaps/js-samples/blob/master/dist/samples/map-geolocation/index.js
+- XCan we start the game directly to a pre-filled GC code eg: https://csasm.herokuapp.com/?GCTEST ?X
 
 
 # Key files
@@ -24,6 +26,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 [INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
 
+[REWARD.EJS](/views/pages/reward.ejs) : the final reward display script (client side html) - visible in console (F12).
 
 
 

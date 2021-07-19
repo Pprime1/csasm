@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head width: 100vw>
+<head width: device-width>
   <%- include ("../partials/header.ejs") %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
   <script> <!-- must be https for Chrome browsers to access current location -->
@@ -15,49 +15,37 @@
   <script type="text/javascript" src="/js/client.js"></script>
 </head>
 
-<body width: 100vw>
+<body width: device-width>
+<div class="alert alert-info text-center" role="alert" width: device-width>
+	<H1> Welcome to the Anti-Social Cache Hub </H1>
+</div>
 
-<div class="container-fluid">
-  <div class="alert alert-info text-center" role="alert" width: 100vw>
-	  <H1> Welcome to the Anti Social Mob Cache </H1>
-  </div>
+<div id="lj-startup" style="display: none" width: device-width>
+	<h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>	
+	<form id="join-game-form">
+            <div class="form-game">    
+              <input type="text" width:100 class="form-control" id="gameId" aria-describedby="Game Code">
+              <small class="form-text text-muted"><span id="game-error"></span></small>
+            </div>
+            <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
+        </form>
+</div>
 
-  <div id="lj-startup">
-      <h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>
-      <form id="join-game-form">
-          <div class="form-game">
-              <input type="text" class="form-control" id="gameId" aria-describedby="Game Code">
-              <small class="form-text text-muted">Current player ID# <span id="current-player-id"></span></small>
-          </div>
-          <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
-      </form>
-  </div>
-
-  <div id="lj-in-game" style="display: none">
+<div id="lj-in-game" style="display: none" width: device-width>
       <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
       <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
       </h1>
-      <p><span id="game-description"></p>
+      <p><span id="gamedesc" class="badge badge-info"></span></p>
       <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
-      <p>You are located at: <span id="current-Lat" class="badge badge-info"></span>, <span id="current-Lon" class="badge badge-info"></span></p>
-      
-      <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
-      <pre><span id="displayinfo"></span></pre>
-   
- </div>
-   
- <div id="lj-reward" style="display: none">
-     <!-- Show Reward screen -->
-     <div class="alert alert-success text-center" role="alert" width: 100vw>
-     <pre><H1><strong><span id="rewardinfo"></span></strong></H1></pre>
-     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#rewardinfo">Copy</button></span>
+      <p>You are located at: <span id="current-Lat" class="badge badge-info"></span> <span id="current-Lon" class="badge badge-info"></span> (+/-<span id="current-Acc" class="badge-light"></span>m)</p>
 
-  </div>
- </div>
-  
- <div class="alert alert-info text-center" role="alert" width: 100vw>
-    <i>Developed by Pprime` with a hell of a lot of help.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
- </div>
+      <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
+      <pre><span id="displayinfo" width: device-width></span></pre>
+
+</div>
+
+<div class="alert alert-info text-center" role="alert" width: device-width>
+    <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
 </div>
 </body>
 </html>
