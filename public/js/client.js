@@ -39,7 +39,7 @@ function updatePosition(position) {
   var accuracy = position.coords.accuracy;
   var lat = ConvertDEGToDM(latitude,1);
   var lon = ConvertDEGToDM(longitude,0);
-  var acc = accuracy.ToFixed(2);
+  var acc = val(accuracy).ToFixed(2);
   $("#current-Lat").text(lat);
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
