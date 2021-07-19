@@ -6,8 +6,10 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 1. reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-2. Include some form of live map view on the screen? cf: https://github.com/googlemaps/js-samples/blob/master/dist/samples/map-geolocation/index.js
-
+2. Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
+- Centre on the current player's location
+- Have Markers for each waypoint
+- do we show other players?
 
 
 # Key files
