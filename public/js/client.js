@@ -10,7 +10,7 @@ if (URLentry) {  // if started with a URLParam then attempt to join that game ID
     socket.emit('join-a-game', URLentry, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
-} else { URLentry = "GCALBURY" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
+} else { URLentry = "GCTEST" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
 
 var geoOptions = {
   enableHighAccuracy: true,
