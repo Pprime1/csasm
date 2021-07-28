@@ -1,5 +1,7 @@
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
+var latitude;
+var longitude;
 for (var entry of urlParams) { 
     var URLentry = entry[0];
 };   
@@ -34,8 +36,8 @@ function ConvertDEGToDM(deg,dir) {
  }; // Convert DM.MMM
 
 function updatePosition(position) {
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
   var accuracy = position.coords.accuracy;
   var lat = ConvertDEGToDM(latitude,1);
   var lon = ConvertDEGToDM(longitude,0);
@@ -115,7 +117,8 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 }); // end of ROOM-UPDATE
 
 socket.on("display-update", (display_information) => {
-  console.log(display_information);
+  displaytable=display_information;
+  console.log(displaytable);
   var MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   var game_description = localStorage.getItem ('game_description');
@@ -154,8 +157,8 @@ window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
   $("#game-error").text(GmError); // Set to display any error message underneath form entry field
-  console.log("In Form join status is ", is_joined);
   if (!is_joined) { $("#lj-startup").show() }; // show the form only if not already joined to a game thanks to the URL paramater
+  console.log("Starting Game Form");
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
