@@ -1,7 +1,7 @@
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
-var latitude;
-var longitude;
+var latitude =-27;
+var longitude =153;
 for (var entry of urlParams) { 
     var URLentry = entry[0];
 };   
