@@ -1,1 +1,4 @@
-#mapid { height: 480px; }
+#mapid { 
+  height: 480px; 
+  width: 480px
+}
