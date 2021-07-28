@@ -22,86 +22,49 @@
         var clipboard = new ClipboardJS('.btn');}
   </script>
   
+  <!-- OUR CODE -->
   <script type="text/javascript" src="/js/client.js"></script>
 </head>
 
 <body width: device-width>
-<div class="alert alert-info text-center" role="alert" width: device-width>
-	<H1> Welcome to the Anti-Social Cache Hub </H1>
-</div>
+  <div class="alert alert-info text-center" role="alert" width: device-width>
+     <H1> Welcome to the Anti-Social Cache Hub </H1>
+  </div>
 
-<div id="lj-startup" style="display: none" width: device-width>
-	<h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>	
-	<form id="join-game-form">
-            <div class="form-game">    
+  <div id="lj-startup" style="display: none" width: device-width>
+     <h1 class="display-7">Enter the Geocaching ID Code for the game you wish to play:</h1>	
+     <form id="join-game-form">
+         <div class="form-game">    
               <input type="text" width:100 class="form-control" id="gameId" aria-describedby="Game Code">
               <small class="form-text text-muted"><span id="game-error"></span></small>
-            </div>
-            <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
-        </form>
-</div>
+         </div>
+         <button type="submit" class="btn btn-primary" href="#" role="button">Start Game</button>
+     </form>
+  </div>
 
-<div id="lj-in-game" style="display: none" width: device-width>
-      <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
-      <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
-      </h1>
-      <p><span id="gamedesc" class="badge badge-info"></span></p>
-      <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
-      <p>You are located at: <span id="current-Lat" class="badge badge-info"></span> <span id="current-Lon" class="badge badge-info"></span> (+/-<span id="current-Acc" class="badge-light"></span>m)</p>
+  <div id="lj-in-game" style="display: none" width: device-width>
+     <h1>Game Code: <span id="current-game-id" class="badge badge-secondary"></span>
+         <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#current-game-id">Copy Code</button></span>
+     </h1>
+     <p><span id="gamedesc" class="badge badge-info"></span></p>
+     <p>This game currently has <span id="current-game-player-count" class="badge badge-info"></span> active players</p>
+     <p>You are located at: <span id="current-Lat" class="badge badge-info"></span> <span id="current-Lon" class="badge badge-info"></span> (+/-<span id="current-Acc" class="badge-light"></span>m)</p>
 
-      <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
-      <pre><span id="displayinfo" width: device-width></span></pre>
+     <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
+     <pre><span id="displayinfo" width: device-width></span></pre>
 
-      <div id="mapid" width: 50%></div>       <!-- display map -->
-</div>
-
-<!-- TODO - display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves
+     <div id="mapid" width: 50%></div>       <!-- Display map -->
+     <!-- TODO - display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves
 	Display a marker showing the location of the current user
-	Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
+	Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.   
      
-     --- Alternative: Use straight openstreetmap. Not really any better? no good at all
-     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	 maxZoom: 18,
-         tileSize: 512,
-         zoomOffset: -1,
-     }).addTo(map);
-     
-     
-     --- display the player's location (and direction?)
-     var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
-     
-     --- display each waypoint and target radius as a circle
-     var WPcircle[i] = L.circle([lat[i],lon[i]], {
-         color: 'red',
-         fillColor: '#f03',
-         fillOpacity: 0.5,
-         radius: radius[i]
-     }).addTo(mymap);
-     
-     -- for each circle clicking on it will display the centre coordinates
-     circle[i].bindPopup(lat{i],lon[i]);
-     
-     
-    *** ALSO:- This script has to be placed AFTER the <div id="mapid">. So does that mean it cannot be in client.js where all the variables are set? How can I access all the variables here?
--->
-
-<script>
-     var mymap = L.map('mapid').setView([-27.28, 152.976], 13);
-     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-         maxZoom: 18,
-         id: 'mapbox/streets-v11',
-         tileSize: 512,
-         zoomOffset: -1,
-         accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
-     }).addTo(mymap);
-     
-
-</script>  
+     *** Has to be called after the <div id="mapid> declaration
+     -->
+     <script type="text/javascript" src="/js/showmap.js"></script>
+  </div>
   
-<div class="alert alert-info text-center" role="alert" width: device-width>
-    <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
-</div>
+  <div class="alert alert-info text-center" role="alert" width: device-width>
+     <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
+  </div>
 </body>
 </html>
