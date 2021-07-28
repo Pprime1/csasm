@@ -24,21 +24,24 @@
      //}).addTo(mymap);
      
      //--- for each circle clicking on it will display the centre coordinates
-     //circle[i].bindPopup(lat{i],lon[i]);
+     //circle[i].bindPopup(name[i],lat[i],lon[i]);
      
-     
-// *** ALSO:- This script has to be called AFTER the <div id="mapid"> in idex.ejs. So it cannot be in client.js where all the variables are set? How can I access all the variables here?
 
-// If you made a global variable / global methods you could also make reference to the map from client.js
+// *** Global variables of note out of client.js ***
 // latitude, longitude == of current player
 // waypoint name, lat, lon, radius for each waypoint in an array
 
+// create an array of objects and zoom the map to show them all?
 // var maparray = [];
 // maparray.push(L.marker(playerLoc));
 // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
 // mapgroup.union(waypointcircles.getBounds());
 // mymap.fitBounds(mapgroup.getBounds());
 
+//make the map pan to follow the player location
+//timeDimesion.on('timeload', function(){ //triggered when a new time is displayed
+//  map.panTo(marker.getLatLng()); // pan the map to follow the marker
+//});
 
      var mymap = L.map('mapid').setView([latitude, longitude], 15);
      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -48,7 +51,9 @@
          zoomOffset: -1,
          accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
      }).addTo(mymap);
-     
+  
+
+// I keep getting lost, click on map to see where you are --- not needed in final release (although clicking on objects will popup some info)
 var popup = L.popup();
 function onMapClick(e) {
     popup
