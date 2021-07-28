@@ -59,6 +59,7 @@
 	Display a marker showing the location of the current user
 	Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
      
+     --- Use mapbox tiles instead of straight openstreetmap. Not really any better?
      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
          maxZoom: 18,
@@ -68,22 +69,32 @@
          accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
      }).addTo(mymap);
      
-          
+     
+     --- display the player's location (and direction?)
      var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
+     
+     --- display each waypoint and target radius as a circle
      var WPcircle[i] = L.circle([lat[i],lon[i]], {
          color: 'red',
          fillColor: '#f03',
          fillOpacity: 0.5,
          radius: radius[i]
      }).addTo(mymap);
+     
+     -- for each circle clicking on it will display the centre coordinates
      circle[i].bindPopup(lat{i],lon[i]);
      
-     ALSO:- This script has to be placed AFTER the <div id="mapid">. So does that mean it cannot be in client.js where all the variables are set? How can I access all the variables here?
+     
+    *** ALSO:- This script has to be placed AFTER the <div id="mapid">. So does that mean it cannot be in client.js where all the variables are set? How can I access all the variables here?
 -->
+
 <script>
      var mymap = L.map('mapid').setView([-27.28, 152.976], 13);
      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	 maxZoom: 18,
+         tileSize: 512,
+         zoomOffset: -1,
      }).addTo(map);
 
 </script>  
