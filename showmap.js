@@ -1,53 +1,41 @@
-// code from https://github.com/googlemaps/js-samples/blob/master/dist/samples/map-geolocation/index.js 
-// [START maps_map_geolocation]
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
-let map, infoWindow;
+//--- TODO - display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves
+	//Display a marker showing the location of the current user
+	//Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
+     
+     //--- Alternative: Use straight openstreetmap. Not really any better? no good at all actually
+     //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	   //    maxZoom: 18,
+     //    tileSize: 512,
+     //    zoomOffset: -1,
+     //}).addTo(map);
+          
+     //--- display the player's location (and direction?)
+     //var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
+     
+     //--- display each waypoint and target radius as a circle
+     //var WPcircle[i] = L.circle([lat[i],lon[i]], {
+     //    color: 'red',
+     //   fillColor: '#f03',
+     //    fillOpacity: 0.5,
+     //    radius: radius[i]
+     //}).addTo(mymap);
+     
+     //--- for each circle clicking on it will display the centre coordinates
+     //circle[i].bindPopup(lat{i],lon[i]);
+     
+     
+// *** ALSO:- This script has to be called AFTER the <div id="mapid"> in idex.ejs. So it cannot be in client.js where all the variables are set? How can I access all the variables here?
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 6,
-  });
-  infoWindow = new google.maps.InfoWindow();
-  const locationButton = document.createElement("button");
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
-}
+// If you made a global variable / global methods you could also make reference to the map from client.js
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-  infoWindow.open(map);
-}
-// [END maps_map_geolocation]
+     var mymap = L.map('mapid').setView([-27.28, 152.976], 5);
+     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         maxZoom: 18,
+         id: 'mapbox/streets-v11',
+         tileSize: 512,
+         zoomOffset: -1,
+         accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
+     }).addTo(mymap);
+     
