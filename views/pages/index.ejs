@@ -10,14 +10,6 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin="">
   </script>
-  <script>
-	var mymap = L.map('mapid').setView([-27.28, 152.976], 13);
-	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w', {
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		id: 'mapbox/streets-v11'
-	}).addTo(mymap);
-  </script>  
   <script> <!-- must be https for Chrome browsers to access current location -->
     if (location.protocol !== 'https:') {
       location.replace(`https:${location.href.substring(location.protocol.length)}`);}
@@ -60,6 +52,15 @@
       <div id="mapid" width: device-width></div>
 </div>
 
+  <script>
+	var mymap = L.map('mapid').setView([-27.28, 152.976], 13);
+	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w', {
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11'
+	}).addTo(mymap);
+  </script>  
+  
 <div class="alert alert-info text-center" role="alert" width: device-width>
     <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
 </div>
