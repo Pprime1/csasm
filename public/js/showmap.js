@@ -49,7 +49,11 @@
          accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
      }).addTo(mymap);
      
+var popup = L.popup();
 function onMapClick(e) {
-    alert("You clicked the map at " + e.latlng);
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(mymap);
 }
 mymap.on('click', onMapClick);
