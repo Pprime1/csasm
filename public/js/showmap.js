@@ -28,8 +28,8 @@
 // *** ALSO:- This script has to be called AFTER the <div id="mapid"> in idex.ejs. So it cannot be in client.js where all the variables are set? How can I access all the variables here?
 
 // If you made a global variable / global methods you could also make reference to the map from client.js
-
-     import {latitude, longitude} from 'client.js';
+// latitude, longitude == of current player
+// waypoint name, lat, lon, radius for each waypoint in an array
 
      var mymap = L.map('mapid').setView([latitude, longitude], 18);
      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
