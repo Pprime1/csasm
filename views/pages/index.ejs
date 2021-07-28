@@ -2,22 +2,26 @@
 <html>
 <head width: device-width>
   <%- include ("../partials/header.ejs") %>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+ 
+  <!-- Leaflet stylesheet and source code are added here -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin=""/>
+     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+     crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin="">
+     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+     crossorigin="">
   </script>
-  <script> <!-- must be https for Chrome browsers to access current location -->
-    if (location.protocol !== 'https:') {
-      location.replace(`https:${location.href.substring(location.protocol.length)}`);}
+  
+  <script> <!-- must be https for most web browsers to access current location -->
+     if (location.protocol !== 'https:') {
+        location.replace(`https:${location.href.substring(location.protocol.length)}`);}
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
   <script>
-      window.onload = function() {
+     window.onload = function() {
         var clipboard = new ClipboardJS('.btn');}
   </script>
+  
   <script type="text/javascript" src="/js/client.js"></script>
 </head>
 
@@ -48,18 +52,38 @@
       <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
       <pre><span id="displayinfo" width: device-width></span></pre>
 
-      <!-- display map -->
-      <div id="mapid" width: device-width></div>
+      <div id="mapid" width: device-width></div>       <!-- display map -->
 </div>
 
-  <script>
-	var mymap = L.map('mapid').setView([-27.28, 152.976], 13);
-	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w', {
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		id: 'mapbox/streets-v11'
-	}).addTo(mymap);
-  </script>  
+<!-- TODO - display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves
+	Display a marker showing the location of the current user
+	Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
+     
+          
+     var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
+     var WPcircle[i] = L.circle([lat[i],lon[i]], {
+         color: 'red',
+         fillColor: '#f03',
+         fillOpacity: 0.5,
+         radius: radius[i]
+     }).addTo(mymap);
+     circle[i].bindPopup(lat{i],lon[i]);
+     
+     ALSO:- This script has to be placed AFTER the <div id="mapid">. So does that mean it cannot be in client.js where all the variables are set? How can I access all the variables here?
+-->
+<script>
+     var mymap = L.map('mapid').setView([-27.28, 152.976], 13);
+     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         maxZoom: 18,
+         id: 'mapbox/streets-v11',
+         tileSize: 512,
+         zoomOffset: -1,
+         accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
+     }).addTo(mymap);
+
+
+</script>  
   
 <div class="alert alert-info text-center" role="alert" width: device-width>
     <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
