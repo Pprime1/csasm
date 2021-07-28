@@ -45,7 +45,6 @@ function updatePosition(position) {
   $("#current-Lat").text(lat);
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
-  export {latitude, longitude};
   localStorage.setItem('my_lat', lat);
   localStorage.setItem('my_lon', lon);
   localStorage.setItem('my_acc', accuracy);
