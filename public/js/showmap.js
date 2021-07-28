@@ -29,7 +29,11 @@
 
 // If you made a global variable / global methods you could also make reference to the map from client.js
 
-     var mymap = L.map('mapid').setView([position.coords.latitude, position.coords.longitude], 18);
+
+        var mylat = localStorage.getItem('my_lat');
+        var mylon = localStorage.getItem('my_lon');
+
+     var mymap = L.map('mapid').setView([mylat, mylon], 18);
      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
          id: 'mapbox/streets-v11',
