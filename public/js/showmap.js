@@ -66,7 +66,7 @@
 
      var mymap = L.map('mapid'), {
 	     center: [latitude, longitude],
-	     zoom: 15
+	     zoom: 15,
 	     layers: [streetmap]
      };
 
