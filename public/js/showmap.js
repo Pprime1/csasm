@@ -69,7 +69,7 @@
 	     center: [latitude, longitude],
 	     zoom: 15,
 	     layers: [streetmap]
-     }).setview([latitude,longitude]);
+     });
 
      L.control.layers(baseMaps).addTo(mymap);
      L.control.scale().addTo(mymap);
