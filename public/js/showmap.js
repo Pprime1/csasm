@@ -28,7 +28,7 @@
      
 
 // *** Global variables of note out of client.js ***
-// latitude, longitude == of current player
+// latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
 // waypoint name, lat, lon, radius for each waypoint in an array
 
 // create an array of objects and zoom the map to show them all?
@@ -38,10 +38,6 @@
 // mapgroup.union(waypointcircles.getBounds());
 // mymap.fitBounds(mapgroup.getBounds());
 
-//make the map pan to follow the player location
-//timeDimesion.on('timeload', function(){ //triggered when a new time is displayed
-//  map.panTo(marker.getLatLng()); // pan the map to follow the marker
-//});
 
      var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -71,6 +67,12 @@
 
      L.control.layers(baseMaps).addTo(mymap);
      L.control.scale().addTo(mymap);
+
+//make the map pan to follow the player location
+mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed
+  map.panTo([latitude,longitude); // pan the map to follow the player
+});
+
 
 // I keep getting lost, click on map to see where you are --- not needed in final release (although clicking on objects will popup some info)
 var popup = L.popup();
