@@ -70,7 +70,7 @@
 
 //make the map pan to follow the player location
 mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed
-  map.panTo([latitude,longitude); // pan the map to follow the player
+  map.panTo([latitude,longitude]); // pan the map to follow the player
 });
 
 
