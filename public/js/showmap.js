@@ -12,9 +12,8 @@
      //    zoomOffset: -1,
      //}).addTo(map);
           
-     //--- display the player's location (and direction?)
-     //var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
-     
+     //--- display the player's direction?
+          
      //--- display each waypoint and target radius as a circle
      //var WPcircle[i] = L.circle([lat[i],lon[i]], {
      //    color: 'red',
@@ -67,15 +66,18 @@
 
      L.control.layers(baseMaps).addTo(mymap);
      L.control.scale().addTo(mymap);
-
+     
+     var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
 
 //make the map pan to follow the player location?
 //mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here
-//  map.panTo([latitude,longitude]); // pan the map to follow the player
+  mymap.panTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
 //});
 
 
-// I keep getting lost, click on map to see where you are --- not needed in final release (although clicking on objects will popup some info)
+
+// I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
+// *** not needed in final release (although clicking on objects will popup some info)
 var popup = L.popup();
 function onMapClick(e) {
     popup
