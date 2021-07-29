@@ -43,15 +43,35 @@
 //  map.panTo(marker.getLatLng()); // pan the map to follow the marker
 //});
 
-     var mymap = L.map('mapid').setView([latitude, longitude], 15);
-     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+     var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
          id: 'mapbox/streets-v11',
          tileSize: 512,
          zoomOffset: -1,
          accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
-     }).addTo(mymap);
-  
+     });
+
+     var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         id: 'mapbox/satellite-v9',
+         tileSize: 512,
+         zoomOffset: -1,
+         accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
+     });
+
+     var baseMaps = {
+	"Streetmap": streetmap,
+	"Satellite": satellite
+     };
+
+     var mymap = L.map('mapid'), {
+	     center: [latitude, longitude],
+	     zoom: 15
+	     layers: [streetmap]
+     };
+
+     L.control.layers(baseMaps).addTo(mymap);
+     L.control.scale().addTo(mymap);
 
 // I keep getting lost, click on map to see where you are --- not needed in final release (although clicking on objects will popup some info)
 var popup = L.popup();
