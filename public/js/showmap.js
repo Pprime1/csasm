@@ -64,11 +64,12 @@
 	"Satellite": satellite
      };
 
-     var mymap = L.map('mapid'), {
+     var mymap = L.map({
+	     container: 'mymap',
 	     center: [latitude, longitude],
 	     zoom: 15,
 	     layers: [streetmap]
-     };
+     }).setview([latitude,longitude]);
 
      L.control.layers(baseMaps).addTo(mymap);
      L.control.scale().addTo(mymap);
