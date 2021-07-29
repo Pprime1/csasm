@@ -63,15 +63,16 @@
 	     center: [latitude, longitude],
 	     zoom: 15,
 	     layers: [streetmap]
-     });
+     }).locate({setView:true});
 
      L.control.layers(baseMaps).addTo(mymap);
      L.control.scale().addTo(mymap);
 
-//make the map pan to follow the player location
-mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed
-  map.panTo([latitude,longitude]); // pan the map to follow the player
-});
+
+//make the map pan to follow the player location?
+//mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here
+//  map.panTo([latitude,longitude]); // pan the map to follow the player
+//});
 
 
 // I keep getting lost, click on map to see where you are --- not needed in final release (although clicking on objects will popup some info)
