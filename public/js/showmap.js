@@ -63,7 +63,7 @@
 	"Satellite": satellite
      };
 
-     var mymap = L.map('mymap', {
+     var mymap = L.map('mapid', {
 	     center: [latitude, longitude],
 	     zoom: 15,
 	     layers: [streetmap]
