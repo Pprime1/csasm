@@ -73,7 +73,7 @@
 
 //make the map pan to follow the player location?
 //mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here
-  mymap.panTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
+  mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
 //});
 
 
