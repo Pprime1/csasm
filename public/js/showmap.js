@@ -66,7 +66,7 @@ var playerLoc = L.marker([latitude,longitude]) //current player location
      .addTo(mymap)
      .bindPopup("<b>Current Player</b><br>",MYID)
      .openPopup();
-
+console.log("Current Player",MYID)
 //--- display the player's direction of travel/facing? how? Not a feature it seems
 
 
