@@ -65,8 +65,8 @@
 
     //--- display each waypoint and target radius as a circle
     for (var i = 0; i < displaytable.length; i++) {
-       console.log("Mapping" displaytable[i]);
-       //var WPcircle[i] = L.circle([lat[i],lon[i]], {
+       console.log("Mapping", displaytable[i]);
+       //var WPcircle[i] = L.circle(location[i], {
        //    color: 'red',
        //   fillColor: '#f03',
        //    fillOpacity: 0.5,
@@ -74,7 +74,7 @@
        //}).addTo(mymap);
      
        //--- for each circle clicking on it will display the centre coordinates
-       //circle[i].bindPopup(name[i],lat[i],lon[i]);
+       //circle[i].bindPopup(name[i],location[i]);
     };
 
 //make the map pan to follow the player location?
