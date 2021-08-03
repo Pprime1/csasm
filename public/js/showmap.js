@@ -47,10 +47,8 @@ var baseMaps = {
 
 // Initial display of map centred on the current player
 var mymap = L.map('mapid', {
-     center: [latitude, longitude],
-     zoom: 15,
-     layers: [streetmap]
-}).locate({setView:true});
+	layers: [streetmap]
+}).setView([latitude, longitude],13);
 
 L.control.layers(baseMaps).addTo(mymap);
 L.control.scale().addTo(mymap);
