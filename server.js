@@ -114,7 +114,7 @@ async function update_game(room, io, db_connection, games_result) {
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
-              wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+              wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
        FROM player as pl, waypoint as wp
        WHERE wp.game_code = '${game_code}' AND pl.room_id = '${game_code}'
        ORDER BY pl.id
@@ -168,7 +168,7 @@ async function main() {
       Array.from( io.sockets.adapter.rooms.keys() ).forEach(roomId => { // For each concurrently running game
          update_game(roomId, io, connection, games_result.rows);
       });
-      await delay(11000); // wait 11 seconds between performing game updates
+      await delay(10000); // wait 10 seconds between performing game updates
     }; // end of while loop
 } // end of MAIN
 
