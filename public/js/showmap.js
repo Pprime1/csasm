@@ -2,8 +2,7 @@
 	//Display a marker showing the location of the current user
 	//Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
 
-// why doesn't the map tiles show in the window? Only showing top left until I pan the display?
-
+// FAIL - why doesn't the map tiles show in the window? Only showing top left until I pan the display?
      //--- Alternative: Use straight openstreetmap. Not really any better? no good at all actually
      //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
      //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -12,30 +11,26 @@
      //    zoomOffset: -1,
      //}).addTo(map);
           
-     //--- display the player's direction?
-          
+  
+// FAIL - displaytable probably containing the data I want to display, but it's not populated in client.js quickly enough? I need to put this into some sort of loop perhaps?
  
 // *** Global variables of note out of client.js ***
 // latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
 // displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
 
-// create an array of objects and zoom the map to show them all?
-// var maparray = [];
-// maparray.push(L.marker(playerLoc));
-// var mapgroup = new L.featureGroup(maparray).addTo(mymap);
-// mapgroup.union(waypointcircles.getBounds());
-// mymap.fitBounds(mapgroup.getBounds());
 
 
-     var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+
+// Allow streetview and satellite view on the map
+var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
          id: 'mapbox/streets-v11',
          maxZoom: 18,
 	 tileSize: 256,
          zoomOffset: -1,
          accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
-     }),
-     satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  }),
+  satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
          id: 'mapbox/satellite-v9',
          maxZoom: 18,
@@ -43,43 +38,56 @@
          zoomOffset: -1,
          accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w'
      });
-
-     var baseMaps = {
+var baseMaps = {
 	"Streetmap": streetmap,
 	"Satellite": satellite
-     };
+};
 
-     var mymap = L.map('mapid', {
-	     center: [latitude, longitude],
-	     zoom: 15,
-	     layers: [streetmap]
-     }).locate({setView:true});
+// Initial display of map centred on the current player
+var mymap = L.map('mapid', {
+     center: [latitude, longitude],
+     zoom: 15,
+     layers: [streetmap]
+}).locate({setView:true});
 
-     L.control.layers(baseMaps).addTo(mymap);
-     L.control.scale().addTo(mymap);
+L.control.layers(baseMaps).addTo(mymap);
+L.control.scale().addTo(mymap);
+ 
+// create an array of objects and zoom the map to show them all?
+	// var maparray = [];
+	// maparray.push(L.marker(playerLoc));
+	// var mapgroup = new L.featureGroup(maparray).addTo(mymap);
+	// mapgroup.union(waypointcircles.getBounds());
+	// mymap.fitBounds(mapgroup.getBounds());
+
+
+// Display the current player location 
+var playerLoc = L.marker([latitude,longitude]) //current player location
+     .addTo(mymap)
+     .bindPopup("<b>Current Player</b><br>") //displaytable[0].id)
+     .openPopup();
+
+//--- display the player's direction of travel/facing? how? Not a feature it seems
+
+
+//--- display each waypoint and target radius as a circle
+for (var i = 0; i < displaytable.length; i++) { // not displaying, not running. displaytable.length=0?
+      console.log("Mapping", displaytable[i]);
+      //var WPcircle[i] = L.circle(location[i], {
+      //    color: 'red',
+      //   fillColor: '#f03',
+      //    fillOpacity: 0.5,
+      //    radius: radius[i]
+      //}).addTo(mymap);
      
-     var playerLoc = L.marker([latitude,longitude]) //current player location
-            .addTo(mymap)
-            .bindPopup("<b>Current Player</b><br>") //displaytable[0].id)
-            .openPopup();
+      //--- for each circle clicking on it will display the centre coordinates
+      //circle[i].bindPopup(name[i],location[i]);
+};
 
-    //--- display each waypoint and target radius as a circle
-    for (var i = 0; i < displaytable.length; i++) {
-       console.log("Mapping", displaytable[i]);
-       //var WPcircle[i] = L.circle(location[i], {
-       //    color: 'red',
-       //   fillColor: '#f03',
-       //    fillOpacity: 0.5,
-       //    radius: radius[i]
-       //}).addTo(mymap);
-     
-       //--- for each circle clicking on it will display the centre coordinates
-       //circle[i].bindPopup(name[i],location[i]);
-    };
 
 //make the map pan to follow the player location?
 //mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here?
-  mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
+     mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
 //});
 
 
