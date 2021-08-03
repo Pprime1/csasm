@@ -14,21 +14,10 @@
           
      //--- display the player's direction?
           
-     //--- display each waypoint and target radius as a circle
-     //var WPcircle[i] = L.circle([lat[i],lon[i]], {
-     //    color: 'red',
-     //   fillColor: '#f03',
-     //    fillOpacity: 0.5,
-     //    radius: radius[i]
-     //}).addTo(mymap);
-     
-     //--- for each circle clicking on it will display the centre coordinates
-     //circle[i].bindPopup(name[i],lat[i],lon[i]);
-     
-
+ 
 // *** Global variables of note out of client.js ***
 // latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
-// waypoint name, lat, lon, radius for each waypoint in an array
+// displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
 
 // create an array of objects and zoom the map to show them all?
 // var maparray = [];
@@ -69,10 +58,27 @@
      L.control.layers(baseMaps).addTo(mymap);
      L.control.scale().addTo(mymap);
      
-     var playerLoc = L.marker([latitude,longitude]).addTo(mymap);
+     var playerLoc = L.marker([latitude,longitude]) //current player location
+            .addTo(mymap)
+            .bindPopup("<b>Current Player</b><br>") //displaytable[0].id)
+            .openPopup();
+
+    //--- display each waypoint and target radius as a circle
+    for (var i = 0; i < displaytable.length; i++) {
+       console.log("Mapping" displaytable[i]);
+       //var WPcircle[i] = L.circle([lat[i],lon[i]], {
+       //    color: 'red',
+       //   fillColor: '#f03',
+       //    fillOpacity: 0.5,
+       //    radius: radius[i]
+       //}).addTo(mymap);
+     
+       //--- for each circle clicking on it will display the centre coordinates
+       //circle[i].bindPopup(name[i],lat[i],lon[i]);
+    };
 
 //make the map pan to follow the player location?
-//mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here
+//mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here?
   mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
 //});
 
