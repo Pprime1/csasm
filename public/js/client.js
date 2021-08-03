@@ -3,6 +3,7 @@ const urlParams = new URLSearchParams(location.search);
 var latitude =-27;    // make available to global variable in Displaymap.js
 var longitude =153;   // make available to global variable in Displaymap.js
 var displaytable =[]; // make available to global variable in Displaymap.js
+var MYID = socket.id; // this is current player, make available to global variable in Displaymap.js
 for (var entry of urlParams) { 
     var URLentry = entry[0]; // only the first URL paramis considered as the Game ID code
 };   
@@ -119,7 +120,7 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 socket.on("display-update", (display_information) => {
   displaytable=display_information; // make available to global variable in Displaymap.js
   //console.log(displaytable);
-  var MYID = socket.id; // this is current player
+  MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   var game_description = localStorage.getItem ('game_description');
   $("#gamedesc").text(game_description);
