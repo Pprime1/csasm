@@ -18,7 +18,13 @@
 // latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
 // displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
 
-
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
 
 
 // Allow streetview and satellite view on the map
@@ -68,7 +74,7 @@ mymap.on('click', onMapClick);
 
 
 while ( 1 == 1 ) { // endless loop runs the games
-    await delay(10000); // wait 10 seconds between performing map updates
+    wait(10000); // wait 10 seconds between performing map updates
 
     // create an array of objects and zoom the map to show them all?
 	// var maparray = [];
