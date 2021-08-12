@@ -140,7 +140,7 @@ socket.on("display-update", (display_information) => {
           $table += "<td>" + display_information[i].radius + "m</td>"
           $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
      } else { 
-          console.log("distance is null error occurred")
+          console.log("distance is null error occurred", display_information)
      };
   };
   $table += "</tr></tbody></table>";
