@@ -29,17 +29,21 @@ function updatemap() {
 
 
     //--- display each waypoint and target radius as a circle
-    for (var i = 0; i < displaytable.length; i++) { // not displaying, not running. displaytable.length=0?
-        console.log("Mapping", displaytable[i]);
-        var WPcircle[i] = L.circle(location[i], {
-            color: 'red',
-           fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: radius[i]
-        }).addTo(mymap);
+    for (var i = 0; i < displaytable.length; i++) { 
+        if (display_information[i].distance != null) { // if it is null there is an error somewhere
+	    console.log("Mapping", displaytable[i]);
+            var WPcircle[i] = L.circle(location[i], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: radius[i]
+            }).addTo(mymap);
     
-	//--- for each circle clicking on it will display the centre coordinates
-        //circle[i].bindPopup(name[i],location[i]);
+	    //--- for each circle clicking on it will display the centre coordinates
+            circle[i].bindPopup(name[i],location[i]);
+	} else {
+	    console.log("mapping table is null", display_information)
+	};
     };
     
     // create an array of objects and zoom the map to show them all?
