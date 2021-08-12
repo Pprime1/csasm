@@ -18,64 +18,7 @@
 // latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
 // displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
 
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-  }
-}
-
-
-// Allow streetview and satellite view on the map
-var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-         id: 'mapbox/streets-v11',
-         maxZoom: 18,
-	 tileSize: 256,
-         zoomOffset: -1,
-         accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGRlenM3enRlMnRsM2s3NXl4cGRyIn0._X0tZf-JwyMdPCtZ8WHAMw' //public token
-	// accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
-  }),
-  satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-         id: 'mapbox/satellite-v9',
-         maxZoom: 18,
-	 tileSize: 512,
-         zoomOffset: -1,
-	  accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGRlenM3enRlMnRsM2s3NXl4cGRyIn0._X0tZf-JwyMdPCtZ8WHAMw' //public token
-         // accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
-     });
-var baseMaps = {
-	"Streetmap": streetmap,
-	"Satellite": satellite
-};
-
-// Initial display of map centred on the current player
-var mymap = L.map('mapid', {
-	layers: [streetmap]
-}).setView([latitude, longitude],13);
-
-L.control.layers(baseMaps).addTo(mymap);
-L.control.scale().addTo(mymap);
-
-
-
-// I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
-// *** not needed in final release (although clicking on objects will popup some info)
-var popup = L.popup();
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
-}
-mymap.on('click', onMapClick);
-
-
-while ( 1 == 1 ) { // endless loop runs the games
-    delay(10000); // wait 10 seconds between performing map updates
-
+function updatemap() {
     // create an array of objects and zoom the map to show them all?
 	// var maparray = [];
 	// maparray.push(L.marker(playerLoc));
@@ -107,10 +50,56 @@ while ( 1 == 1 ) { // endless loop runs the games
         //circle[i].bindPopup(name[i],location[i]);
     };
 
+    //make the map pan to follow the player location?
+    mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
+}; // end updatemap
 
-//make the map pan to follow the player location?
-//mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here?
-     mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
-//});
 
-}; // end of while loop    
+
+// Allow streetview and satellite view on the map
+var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         id: 'mapbox/streets-v11',
+         maxZoom: 18,
+	 tileSize: 256,
+         zoomOffset: -1,
+         accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGRlenM3enRlMnRsM2s3NXl4cGRyIn0._X0tZf-JwyMdPCtZ8WHAMw' //public token
+	// accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
+  }),
+  satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         id: 'mapbox/satellite-v9',
+         maxZoom: 18,
+	 tileSize: 512,
+         zoomOffset: -1,
+	  accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGRlenM3enRlMnRsM2s3NXl4cGRyIn0._X0tZf-JwyMdPCtZ8WHAMw' //public token
+         // accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
+     });
+var baseMaps = {
+	"Streetmap": streetmap,
+	"Satellite": satellite
+};
+
+// Initial display of map centred on the current player (or coords -27,153 as the startup values?)
+var mymap = L.map('mapid', {
+	layers: [streetmap]
+}).setView([latitude, longitude],13);
+
+L.control.layers(baseMaps).addTo(mymap);
+L.control.scale().addTo(mymap);
+
+// I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
+// *** not needed in final release (although clicking on objects will popup some info)
+var popup = L.popup();
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(mymap);
+}
+mymap.on('click', onMapClick);
+
+
+const interval = setInterval(function() {
+          updatemap()
+}, 10000); // update map every 10 seconds
