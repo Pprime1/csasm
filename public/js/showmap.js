@@ -30,7 +30,7 @@ function updatemap() {
 
     //--- display each waypoint and target radius as a circle
     for (var i = 0; i < displaytable.length; i++) { 
-        if (display_information[i].distance != null) { // if it is null there is an error somewhere
+        if (displaytable[i].distance != null) { // if it is null there is an error somewhere
 	    console.log("Mapping", displaytable[i]);
             var WPcircle[i] = L.circle(location[i], {
                 color: 'red',
@@ -42,7 +42,7 @@ function updatemap() {
 	    //--- for each circle clicking on it will display the centre coordinates
             circle[i].bindPopup(name[i],location[i]);
 	} else {
-	    console.log("mapping table is null", display_information)
+	    console.log("mapping table is null", displaytable)
 	};
     };
     
