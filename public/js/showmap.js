@@ -22,9 +22,9 @@ function updatemap() {
    // Display the current player location 
    var playerLoc = L.marker([latitude,longitude]) //current player location
         .addTo(mymap)
-        .bindPopup("<b>Current Player</b><br>" + MYID + Latitude + Longitude)
+        .bindPopup("<b>Current Player</b><br>" + MYID + latitude + longitude)
         .openPopup();
-   console.log("Current Player",MYID,Latitude,Longitude)
+   console.log("Current Player",MYID,latitude,longitude)
    //--- display the player's direction of travel/facing? how? Not a feature it seems
 
    var WPcircle=[]
