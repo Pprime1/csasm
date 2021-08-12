@@ -74,7 +74,7 @@ mymap.on('click', onMapClick);
 
 
 while ( 1 == 1 ) { // endless loop runs the games
-    wait(10000); // wait 10 seconds between performing map updates
+    delay(10000); // wait 10 seconds between performing map updates
 
     // create an array of objects and zoom the map to show them all?
 	// var maparray = [];
