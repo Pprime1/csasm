@@ -52,43 +52,6 @@ var mymap = L.map('mapid', {
 
 L.control.layers(baseMaps).addTo(mymap);
 L.control.scale().addTo(mymap);
- 
-// create an array of objects and zoom the map to show them all?
-	// var maparray = [];
-	// maparray.push(L.marker(playerLoc));
-	// var mapgroup = new L.featureGroup(maparray).addTo(mymap);
-	// mapgroup.union(waypointcircles.getBounds());
-	// mymap.fitBounds(mapgroup.getBounds());
-
-
-// Display the current player location 
-var playerLoc = L.marker([latitude,longitude]) //current player location
-     .addTo(mymap)
-     .bindPopup("<b>Current Player</b><br>",MYID)
-     .openPopup();
-console.log("Current Player",MYID)
-//--- display the player's direction of travel/facing? how? Not a feature it seems
-
-
-//--- display each waypoint and target radius as a circle
-for (var i = 0; i < displaytable.length; i++) { // not displaying, not running. displaytable.length=0?
-      console.log("Mapping", displaytable[i]);
-      //var WPcircle[i] = L.circle(location[i], {
-      //    color: 'red',
-      //   fillColor: '#f03',
-      //    fillOpacity: 0.5,
-      //    radius: radius[i]
-      //}).addTo(mymap);
-     
-      //--- for each circle clicking on it will display the centre coordinates
-      //circle[i].bindPopup(name[i],location[i]);
-};
-
-
-//make the map pan to follow the player location?
-//mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here?
-     mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
-//});
 
 
 
@@ -102,3 +65,46 @@ function onMapClick(e) {
         .openOn(mymap);
 }
 mymap.on('click', onMapClick);
+
+
+while ( 1 == 1 ) { // endless loop runs the games
+    await delay(10000); // wait 10 seconds between performing map updates
+
+    // create an array of objects and zoom the map to show them all?
+	// var maparray = [];
+	// maparray.push(L.marker(playerLoc));
+	// var mapgroup = new L.featureGroup(maparray).addTo(mymap);
+	// mapgroup.union(waypointcircles.getBounds());
+	// mymap.fitBounds(mapgroup.getBounds());
+
+
+    // Display the current player location 
+    var playerLoc = L.marker([latitude,longitude]) //current player location
+        .addTo(mymap)
+        .bindPopup("<b>Current Player</b><br>",MYID)
+        .openPopup();
+    console.log("Current Player",MYID)
+    //--- display the player's direction of travel/facing? how? Not a feature it seems
+
+
+    //--- display each waypoint and target radius as a circle
+    for (var i = 0; i < displaytable.length; i++) { // not displaying, not running. displaytable.length=0?
+        console.log("Mapping", displaytable[i]);
+        //var WPcircle[i] = L.circle(location[i], {
+        //    color: 'red',
+        //   fillColor: '#f03',
+        //    fillOpacity: 0.5,
+        //    radius: radius[i]
+        //}).addTo(mymap);
+    
+	//--- for each circle clicking on it will display the centre coordinates
+        //circle[i].bindPopup(name[i],location[i]);
+    };
+
+
+//make the map pan to follow the player location?
+//mymap.timeDimesion.on('timeload', function(){ //triggered when a new time is displayed? nope, not a defined function here?
+     mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
+//});
+
+}; // end of while loop    
