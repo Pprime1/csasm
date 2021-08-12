@@ -19,20 +19,20 @@
 // displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
 
 function updatemap() {
-    // Display the current player location 
-    var playerLoc = L.marker([latitude,longitude]) //current player location
+   // Display the current player location 
+   var playerLoc = L.marker([latitude,longitude]) //current player location
         .addTo(mymap)
         .bindPopup("<b>Current Player</b><br>" + MYID + Latitude + Longitude)
         .openPopup();
-    console.log("Current Player",MYID,Latitude,Longitude)
-    //--- display the player's direction of travel/facing? how? Not a feature it seems
+   console.log("Current Player",MYID,Latitude,Longitude)
+   //--- display the player's direction of travel/facing? how? Not a feature it seems
 
-
-    //--- display each waypoint and target radius as a circle
-    for (var i = 0; i < displaytable.length; i++) { 
+   var WPcircle=[]
+   //--- display each waypoint and target radius as a circle
+   for (var i = 0; i < displaytable.length; i++) { 
         if (displaytable[i].distance != null) { // if it is null there is an error somewhere
 	    console.log("Mapping", displaytable[i]);
-            var WPcircle[i] = L.circle(location[i], {
+            WPcircle[i] = L.circle(location[i], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
@@ -44,18 +44,17 @@ function updatemap() {
 	} else {
 	    console.log("mapping table is null", displaytable)
 	};
-    };
+   };
     
-    // create an array of objects and zoom the map to show them all?
-    // var maparray = [];
-    // maparray.push(L.marker(playerLoc));
-    // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
-    // mapgroup.union(WPcircle.getBounds());
-    // mymap.fitBounds(mapgroup.getBounds());
+   // create an array of objects and zoom the map to show them all?
+   // var maparray = [];
+   // maparray.push(L.marker(playerLoc));
+   // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
+   // mapgroup.union(WPcircle.getBounds());
+   // mymap.fitBounds(mapgroup.getBounds());
     
-    //make the map pan to follow the player location?
-    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
-	
+   //make the map pan to follow the player location?
+   mymap.flyTo([latitude,longitude]); // pan the map to follow the player
 }; // end updatemap
 
 
