@@ -19,39 +19,39 @@
 // displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
 
 function updatemap() {
-    // create an array of objects and zoom the map to show them all?
-	// var maparray = [];
-	// maparray.push(L.marker(playerLoc));
-	// var mapgroup = new L.featureGroup(maparray).addTo(mymap);
-	// mapgroup.union(waypointcircles.getBounds());
-	// mymap.fitBounds(mapgroup.getBounds());
-
-
     // Display the current player location 
     var playerLoc = L.marker([latitude,longitude]) //current player location
         .addTo(mymap)
-        .bindPopup("<b>Current Player</b><br>",MYID)
+        .bindPopup("<b>Current Player</b><br>" + MYID + Latitude + Longitude)
         .openPopup();
-    console.log("Current Player",MYID)
+    console.log("Current Player",MYID,Latitude,Longitude)
     //--- display the player's direction of travel/facing? how? Not a feature it seems
 
 
     //--- display each waypoint and target radius as a circle
     for (var i = 0; i < displaytable.length; i++) { // not displaying, not running. displaytable.length=0?
         console.log("Mapping", displaytable[i]);
-        //var WPcircle[i] = L.circle(location[i], {
-        //    color: 'red',
-        //   fillColor: '#f03',
-        //    fillOpacity: 0.5,
-        //    radius: radius[i]
-        //}).addTo(mymap);
+        var WPcircle[i] = L.circle(location[i], {
+            color: 'red',
+           fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: radius[i]
+        }).addTo(mymap);
     
 	//--- for each circle clicking on it will display the centre coordinates
         //circle[i].bindPopup(name[i],location[i]);
     };
-
+    
+    // create an array of objects and zoom the map to show them all?
+    // var maparray = [];
+    // maparray.push(L.marker(playerLoc));
+    // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
+    // mapgroup.union(WPcircle.getBounds());
+    // mymap.fitBounds(mapgroup.getBounds());
+    
     //make the map pan to follow the player location?
-    mymap.flyTo([latitude,longitude]); // pan the map to follow the player - but how to get it to keep updating?
+    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
+	
 }; // end updatemap
 
 
