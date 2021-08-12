@@ -36,11 +36,11 @@ function updatemap() {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: radius[i]
+                radius: displaytable[i].radius
             }).addTo(mymap);
     
 	    //--- for each circle clicking on it will display the centre coordinates
-            circle[i].bindPopup(name[i],location[i]);
+            WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
 	} else {
 	    console.log("mapping table is null", displaytable)
 	};
