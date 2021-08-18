@@ -97,7 +97,8 @@ L.tileLayer(
 
 // L.control.layers(baseMaps).addTo(mymap);
 L.control.scale().addTo(mymap);
-mymap.invalidateSize();
+// mymap.invalidateSize();
+setTimeout(mymap.invalidateSize.bind(mymap));
 
 // I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
 // *** not needed in final release (although clicking on objects will popup some info)
