@@ -46,6 +46,7 @@ function updatemap() {
     
    //make the map pan to follow the player location?
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
+   mymap.invalidateSize();
 }; // end updatemap
 
 
@@ -92,8 +93,8 @@ L.tileLayer(
 
 // L.control.layers(baseMaps).addTo(mymap);
 L.control.scale().addTo(mymap);
-// mymap.invalidateSize();
-setTimeout(mymap.invalidateSize.bind(mymap));
+mymap.invalidateSize();
+//setTimeout(mymap.invalidateSize.bind(mymap));
 
 
 // I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
