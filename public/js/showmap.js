@@ -10,47 +10,25 @@
 
 
 function updatemap() {
-   // Display the current player location 
-   var playerLoc = L.marker([latitude,longitude]) //current player location ... this isn't updating each time around, it is creating a new extra playerloc marker?
-        .addTo(mymap)
-        .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + longitude)
-        //.openPopup();
+   // Update the current player location 
+   PlayerLoc.setLatLng(latitude, longitude);
    console.log("Current Player",MYID,latitude,longitude)
    //--- display the player's direction of travel/facing? how? Not a feature it seems
 
-   var WPcircle=[]
-   //--- display each waypoint and target radius as a circle
-   for (var i = 0; i < displaytable.length; i++) { 
-        if (displaytable[i].distance != null) { // if it is null there is an error somewhere
-	    console.log("Targetting:", displaytable[i].name, displaytable[i].location, displaytable[i].radius);
-          //  WPcircle[i] = L.circle(displaytable[i].location, {  // location doesn't appear to be in a usable format here
-          //      color: 'red',
-          //      fillColor: '#f03',
-          //      fillOpacity: 0.25,
-          //      radius: displaytable[i].radius
-           // }).addTo(mymap);
-    
-	    //--- for each circle clicking on it will display the centre coordinates
-           // WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-	} else {
-	    console.log("Target table is null", displaytable)  //why? how? should never occur
-	};
-   };
-    
-   // create an array of objects and zoom the map to show them all?
+   // ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
    // maparray.push(L.marker(playerLoc));
    // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
    // mapgroup.union(WPcircle.getBounds());
    // mymap.fitBounds(mapgroup.getBounds());
     
-   //make the map pan to follow the player location?
+   //PAN: make the map pan to follow the player location?
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
-   mymap.invalidateSize();
+   mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
 
-// FAIL - why doesn't the map tiles show in the window? Only showing top left until I pan the display?
+// FAIL - why doesn't the map tiles show in the window? Only showing top left until I manually pan the display?
 
 // Allow streetview and satellite view on the map
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -81,8 +59,7 @@ var baseMaps = {
 //	layers: [streetmap]
 //}).setView([latitude, longitude],14);
 
-//Simplify it by just using a single layer and revert to Openstreetmaps
-
+//Simplify it by just using a single layer and reverting to Openstreetmaps
 var mymap = L.map('mapid').setView([latitude, longitude],14);
 mapLink = 'a href="https://openstreetmap.org">OpenStreetMap</a>';
 L.tileLayer(
@@ -91,11 +68,36 @@ L.tileLayer(
      maxZoom: 18,
 }).addTo(mymap);
 
-// L.control.layers(baseMaps).addTo(mymap);
-L.control.scale().addTo(mymap);
-mymap.invalidateSize();
+// L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+L.control.scale().addTo(mymap); //show scale bar
+
+//mymap.invalidateSize(); //set map view
 //setTimeout(mymap.invalidateSize.bind(mymap));
 
+//Initialise things on the map
+// Display the current player location 
+var playerLoc = L.marker([latitude,longitude]) //current player location ... this isn't updating each time around, it is creating a new extra playerloc marker?
+    .addTo(mymap)
+    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + longitude);
+    
+//--- display each waypoint and target radius as a circle
+var WPcircle=[]
+for (var i = 0; i < displaytable.length; i++) { 
+     if (displaytable[i].distance != null) { // if it is null there is an error somewhere
+        console.log("Targetting:", displaytable[i].name, displaytable[i].location, displaytable[i].radius);
+        //  WPcircle[i] = L.circle(displaytable[i].location, {  // location doesn't appear to be in a usable format here
+        //      color: 'red',
+        //      fillColor: '#f03',
+        //      fillOpacity: 0.25,
+        //      radius: displaytable[i].radius
+        // }).addTo(mymap);
+    
+        //--- for each circle clicking on it will display the centre coordinates
+        // WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+    } else {
+	console.log("Target table is null", displaytable)  //why? how? should never occur
+    };
+}; //For each waypoint
 
 // I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
 // *** not needed in final release (although clicking on objects will popup some info)
@@ -111,4 +113,4 @@ mymap.on('click', onMapClick);
 
 const interval = setInterval(function() {
           updatemap()
-}, 10000); // update map every 10 seconds with current player location and circles for each target waypoint
+}, 10000); // update map every 10 seconds with current player location.
