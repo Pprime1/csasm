@@ -32,15 +32,15 @@ function updatemap() {
    for (var i = 0; i < displaytable.length; i++) { 
         if (displaytable[i].distance != null) { // if it is null there is an error somewhere
 	    console.log("Targetting", displaytable[i]);
-            WPcircle[i] = L.circle(location[i], {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.25,
-                radius: displaytable[i].radius
-            }).addTo(mymap);
+          //  WPcircle[i] = L.circle(location[i], {  //location coords are not being sent?
+          //      color: 'red',
+          //      fillColor: '#f03',
+          //      fillOpacity: 0.25,
+          //      radius: displaytable[i].radius
+          //  }).addTo(mymap);
     
 	    //--- for each circle clicking on it will display the centre coordinates
-            WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+          //  WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
 	} else {
 	    console.log("Target table is null", displaytable)  //why? how?
 	};
