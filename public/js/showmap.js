@@ -2,24 +2,16 @@
 	//Display a marker showing the location of the current user
 	//Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
 
-// FAIL - why doesn't the map tiles show in the window? Only showing top left until I pan the display?
-     //--- Alternative: Use straight openstreetmap. Not really any better? no good at all actually
-     //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-     //   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	   //    maxZoom: 18,
-     //    tileSize: 512,
-     //    zoomOffset: -1,
-     //}).addTo(map);
-          
 // *** Global variables of note out of client.js ***
 // latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
 // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+
 //FAIL - wp.location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"
 
 
 function updatemap() {
    // Display the current player location 
-   var playerLoc = L.marker([latitude,longitude]) //current player location
+   var playerLoc = L.marker([latitude,longitude]) //current player location ... this isn't updating each time around, it is creating a new extra playerloc marker?
         .addTo(mymap)
         .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + longitude)
         //.openPopup();
@@ -31,7 +23,7 @@ function updatemap() {
    for (var i = 0; i < displaytable.length; i++) { 
         if (displaytable[i].distance != null) { // if it is null there is an error somewhere
 	    console.log("Targetting:", displaytable[i].name, displaytable[i].location, displaytable[i].radius);
-          //  WPcircle[i] = L.circle(displaytable[i].location, {
+          //  WPcircle[i] = L.circle(displaytable[i].location, {  // location doesn't appear to be in a usable format here
           //      color: 'red',
           //      fillColor: '#f03',
           //      fillOpacity: 0.25,
@@ -57,6 +49,7 @@ function updatemap() {
 }; // end updatemap
 
 
+// FAIL - why doesn't the map tiles show in the window? Only showing top left until I pan the display?
 
 // Allow streetview and satellite view on the map
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -87,6 +80,8 @@ var baseMaps = {
 //	layers: [streetmap]
 //}).setView([latitude, longitude],14);
 
+//Simplify it by just using a single layer and revert to Openstreetmaps
+
 var mymap = L.map('mapid').setView([latitude, longitude],14);
 mapLink = 'a href="https://openstreetmap.org">OpenStreetMap</a>';
 L.tileLayer(
@@ -99,6 +94,7 @@ L.tileLayer(
 L.control.scale().addTo(mymap);
 // mymap.invalidateSize();
 setTimeout(mymap.invalidateSize.bind(mymap));
+
 
 // I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
 // *** not needed in final release (although clicking on objects will popup some info)
