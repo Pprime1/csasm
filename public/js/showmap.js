@@ -31,18 +31,18 @@ function updatemap() {
    //--- display each waypoint and target radius as a circle
    for (var i = 0; i < displaytable.length; i++) { 
         if (displaytable[i].distance != null) { // if it is null there is an error somewhere
-	    console.log("Mapping", displaytable[i]);
+	    console.log("Targetting", displaytable[i]);
             WPcircle[i] = L.circle(location[i], {
                 color: 'red',
                 fillColor: '#f03',
-                fillOpacity: 0.5,
+                fillOpacity: 0.25,
                 radius: displaytable[i].radius
             }).addTo(mymap);
     
 	    //--- for each circle clicking on it will display the centre coordinates
             WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
 	} else {
-	    console.log("mapping table is null", displaytable)
+	    console.log("Target table is null", displaytable)  //why? how?
 	};
    };
     
@@ -84,11 +84,19 @@ var baseMaps = {
 };
 
 // Initial display of map centred on the current player (or coords -27,153 as the startup values?)
-var mymap = L.map('mapid', {
-	layers: [streetmap]
-}).setView([latitude, longitude],13);
+//var mymap = L.map('mapid', {
+//	layers: [streetmap]
+//}).setView([latitude, longitude],14);
 
-L.control.layers(baseMaps).addTo(mymap);
+var mymap = L.map('mapid').setView([latitude, longitude],14);
+mapLink = 'a href="http://openstreetmap.org">OpenStreetMap</a>';
+L.tileLayer(
+    'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+     attribution: '&copy; ' + mapLink + ' Contributors',
+     maxZoom: 18,
+}).addTo(mymap);
+
+// L.control.layers(baseMaps).addTo(mymap);
 L.control.scale().addTo(mymap);
 
 // I keep getting lost because map tiles aren't being displayed, click on map to see where you are 
@@ -105,4 +113,4 @@ mymap.on('click', onMapClick);
 
 const interval = setInterval(function() {
           updatemap()
-}, 10000); // update map every 10 seconds
+}, 10000); // update map every 10 seconds with current player location and circles for each target waypoint
