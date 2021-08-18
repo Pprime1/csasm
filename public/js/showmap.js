@@ -11,19 +11,18 @@
      //    zoomOffset: -1,
      //}).addTo(map);
           
-  
-// FAIL - displaytable probably containing the data I want to display, but it's not populated in client.js quickly enough? I need to put this into some sort of loop perhaps?
- 
 // *** Global variables of note out of client.js ***
 // latitude, longitude == of current player  **** NOT UPDATING. IS HARD SET TO THE PRE-USER-UPDATE VALUES OF -27,153 ****
-// displaytable == array per waypoint of: waypoint name, location, radius and player id, game ID and distance from this wp.
+// displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+//FAIL - wp.location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"
+
 
 function updatemap() {
    // Display the current player location 
    var playerLoc = L.marker([latitude,longitude]) //current player location
         .addTo(mymap)
-        .bindPopup("<b>Current Player</b><br>" + MYID + latitude + longitude)
-        .openPopup();
+        .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + longitude)
+        //.openPopup();
    console.log("Current Player",MYID,latitude,longitude)
    //--- display the player's direction of travel/facing? how? Not a feature it seems
 
@@ -31,18 +30,18 @@ function updatemap() {
    //--- display each waypoint and target radius as a circle
    for (var i = 0; i < displaytable.length; i++) { 
         if (displaytable[i].distance != null) { // if it is null there is an error somewhere
-	    console.log("Targetting", displaytable[i]);
-          //  WPcircle[i] = L.circle(location[i], {  //location coords are not being sent?
-          //      color: 'red',
-          //      fillColor: '#f03',
-          //      fillOpacity: 0.25,
-          //      radius: displaytable[i].radius
-          //  }).addTo(mymap);
+	    console.log("Targetting", displaytable[i].name);
+            WPcircle[i] = L.circle(displaytable[i].location, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.25,
+                radius: displaytable[i].radius
+            }).addTo(mymap);
     
 	    //--- for each circle clicking on it will display the centre coordinates
-          //  WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+            WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
 	} else {
-	    console.log("Target table is null", displaytable)  //why? how?
+	    console.log("Target table is null", displaytable)  //why? how? should never occur
 	};
    };
     
