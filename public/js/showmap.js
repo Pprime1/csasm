@@ -30,16 +30,16 @@ function updatemap() {
    //--- display each waypoint and target radius as a circle
    for (var i = 0; i < displaytable.length; i++) { 
         if (displaytable[i].distance != null) { // if it is null there is an error somewhere
-	    console.log("Targetting", displaytable[i].name);
-            WPcircle[i] = L.circle(displaytable[i].location, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.25,
-                radius: displaytable[i].radius
-            }).addTo(mymap);
+	    console.log("Targetting:", displaytable[i].name, displaytable[i].location, displaytable[i].radius);
+          //  WPcircle[i] = L.circle(displaytable[i].location, {
+          //      color: 'red',
+          //      fillColor: '#f03',
+          //      fillOpacity: 0.25,
+          //      radius: displaytable[i].radius
+           // }).addTo(mymap);
     
 	    //--- for each circle clicking on it will display the centre coordinates
-            WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+           // WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
 	} else {
 	    console.log("Target table is null", displaytable)  //why? how? should never occur
 	};
