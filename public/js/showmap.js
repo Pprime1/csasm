@@ -77,7 +77,7 @@ var playerLoc = L.marker([latitude,longitude]) //current player location ... thi
     .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
     
 //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
-if (displaytable[i].distance != null) { // once populated display the circles
+if (displaytable != null) { // once populated display the circles
    for (var i = 0; i < displaytable.length; i++) { 
         console.log("Targetting:", displaytable[i].name, displaytable[i].location, displaytable[i].radius);
         //  WPcircle[i] = L.circle(displaytable[i].location, {  // location doesn't appear to be in a usable format here
