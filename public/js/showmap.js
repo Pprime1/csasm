@@ -58,7 +58,7 @@ function updatemap() {  // Update the current player location on map
        for (var i = 0; i < displaytable.length; i++) { 
            console.log("Target:", displaytable[i].name, displaytable[i].location, displaytable[i].radius,displaytable[i].distance);
            WPcircle[i] = L.circle(displaytable[i].location, {  // location doesn't appear to be in a usable format here
-                radius: displaytable[i].radius
+                radius: displaytable[i].radius,
 		color: 'red', //if distance<radius set color to green?
            //      fillColor: '#f03',
            //      fillOpacity: 0.25,
