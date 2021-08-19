@@ -64,7 +64,7 @@ var mymap = L.map('mapid').setView([latitude, longitude],14);
 L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
       attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
       maxZoom: 17,
-}).addTo(map);
+}).addTo(mymap);
 
 // L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
