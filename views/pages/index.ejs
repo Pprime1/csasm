@@ -52,14 +52,18 @@
 
      <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
      <pre><span id="displayinfo" width: device-width></span></pre>
-
-     <div id="mapid"></div>       <!-- Display map -->
-     <!-- TODO - display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves
-	Display a marker showing the location of the current user
-	Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.   
      
-     *** Has to be called after the <div id="mapid> declaration
-     -->
+     <style type="text/css"> 
+     #map_canvas{
+         overflow: hidden;
+         position: absolute;
+         top: 0;
+         right: 0;
+         bottom: 0;
+         left: 0;
+     }
+     </style> 
+     <div id="mapid"></div>       <!-- Display map -->
      <script type="text/javascript" src="/js/showmap.js"></script>
   </div>
   
