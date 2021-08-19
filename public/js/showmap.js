@@ -8,22 +8,6 @@
     // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
 var WPcircle=[]; // Store all game waypoints shown as map circles
 
-function updatemap() {  // Update the current player location on map
-   console.log("Update current player:",MYID,latitude,longitude)
-   playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
-
-   // ZOOM: create an array of the objects and zoom the map to show them all?
-   // var maparray = [];
-   // maparray.push(L.marker(playerLoc));
-   // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
-   // mapgroup.union(WPcircle.getBounds());
-   // mymap.fitBounds(mapgroup.getBounds());
-    
-   //PAN: make the map pan to follow the player location?
-   mymap.flyTo([latitude,longitude]); // pan the map to follow the player
-   mymap.invalidateSize(); //reset map view
-}; // end updatemap
 
 //***SHOW MAP***
 // FAIL - why doesn't the map tiles show in the window? Only showing top left until I manually pan the display?
@@ -74,10 +58,10 @@ L.control.scale().addTo(mymap); //show scale bar
 
 //Initialise things on the map
 // Display the current player location 
-console.log("Set current player:",MYID,latitude,longitude)
-var playerLoc = L.marker([latitude,longitude]) //current player location - or more likely still just the initialising values?
-    .addTo(mymap)
-    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
+//console.log("Set current player:",MYID,latitude,longitude)
+//var playerLoc = new L.marker([latitude,longitude]) //current player location - or more likely still just the initialising values?
+//    .addTo(mymap)
+//    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
     
 //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
 if (displaytable != null) { // once populated display the circles
@@ -115,3 +99,25 @@ mymap.on('click', onMapClick);
 const interval = setInterval(function() {
           updatemap()
 }, 5000); // update map every 5 seconds with current player location.
+
+function updatemap() {  // Update the current player location on map
+   console.log("Update current player:",MYID,latitude,longitude)
+   if (playerLoc) { playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
+   } else {
+       var playerLoc = new L.marker([latitude,longitude]) //mark current player location
+            .addTo(mymap)
+            .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude); // is this updating above?
+   };                  
+   //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
+
+   // ZOOM: create an array of the objects and zoom the map to show them all?
+   // var maparray = [];
+   // maparray.push(L.marker(playerLoc));
+   // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
+   // mapgroup.union(WPcircle.getBounds());
+   // mymap.fitBounds(mapgroup.getBounds());
+    
+   //PAN: make the map pan to follow the player location?
+   mymap.flyTo([latitude,longitude]); // pan the map to follow the player
+   mymap.invalidateSize(); //reset map view
+}; // end updatemap
