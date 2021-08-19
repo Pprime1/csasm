@@ -61,8 +61,8 @@ var baseMaps = {
 var mymap = L.map('mapid').setView([latitude, longitude],14);
 //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
-L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
-      attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
+L.tileLayer('https://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
+      attribution: 'Tiles by <a href="https://mapc.org">MAPC</a>, Data by <a href="https://mass.gov/mgis">MassGIS</a>',
       maxZoom: 17,
 }).addTo(mymap);
 
