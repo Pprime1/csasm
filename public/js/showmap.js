@@ -9,8 +9,8 @@
 var WPcircle=[]; // Store all game waypoints shown as map circles
 
 function updatemap() {  // Update the current player location on map
+   console.log("Update current Player:",MYID,latitude,longitude)
    playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   console.log("Current Player:",MYID,latitude,longitude)
    //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
 
    // ZOOM: create an array of the objects and zoom the map to show them all?
@@ -72,6 +72,7 @@ L.control.scale().addTo(mymap); //show scale bar
 
 //Initialise things on the map
 // Display the current player location 
+console.log("Set current Player:",MYID,latitude,longitude)
 var playerLoc = L.marker([latitude,longitude]) //current player location ... this isn't updating each time around, it is creating a new extra playerloc marker?
     .addTo(mymap)
     .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
