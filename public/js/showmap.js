@@ -57,11 +57,12 @@ function updatemap() {  // Update the current player location on map
    if (displaytable) { // display the circles only once populated
        for (var i = 0; i < displaytable.length; i++) { 
            console.log("Target:", displaytable[i].name, displaytable[i].location, displaytable[i].radius,displaytable[i].distance);
+	   if (displaytable[i].distance<displaytable[i].radius) {colour='green'}else{colour='red'};
            WPcircle[i] = L.circleMarker(displaytable[i].location, {  // location doesn't appear to be in a usable format here
                 radius: displaytable[i].radius,
-		color: 'red', //if distance<radius set color to green?
-           //      fillColor: '#f03',
-           //      fillOpacity: 0.25,
+		color: colour, //if distance<radius set color to green?
+                fillColor: colour,
+                fillOpacity: 0.25,
            }).addTo(mymap)
 	   //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);;
 //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"
