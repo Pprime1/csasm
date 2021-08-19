@@ -9,7 +9,7 @@
 var WPcircle=[]; // Store all game waypoints shown as map circles
 
 function updatemap() {  // Update the current player location on map
-   console.log("Update current Player:",MYID,latitude,longitude)
+   console.log("Update current player:",MYID,latitude,longitude)
    playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
    //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
 
@@ -57,12 +57,14 @@ var baseMaps = {
 //	layers: [streetmap]
 //}).setView([latitude, longitude],14);
 
-//Simplify it by just using a single layer and reverting to Openstreetmaps no special tiles
+//Simplify it by just using a single layer and reverting to no special tiles
 var mymap = L.map('mapid').setView([latitude, longitude],14);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-     attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
-     maxZoom: 18,
-}).addTo(mymap);
+//L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a>',
+L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
+      attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
+      maxZoom: 17,
+}).addTo(map);
 
 // L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
@@ -72,8 +74,8 @@ L.control.scale().addTo(mymap); //show scale bar
 
 //Initialise things on the map
 // Display the current player location 
-console.log("Set current Player:",MYID,latitude,longitude)
-var playerLoc = L.marker([latitude,longitude]) //current player location ... this isn't updating each time around, it is creating a new extra playerloc marker?
+console.log("Set current player:",MYID,latitude,longitude)
+var playerLoc = L.marker([latitude,longitude]) //current player location - or more likely still just the initialising values?
     .addTo(mymap)
     .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
     
@@ -87,8 +89,7 @@ if (displaytable != null) { // once populated display the circles
         //      fillOpacity: 0.25,
         //      radius: displaytable[i].radius
         // }).addTo(mymap);
-
-//FAIL - wp.location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"
+//FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"
 
         //--- for each circle clicking on it will display the centre coordinates
         // WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
@@ -113,4 +114,4 @@ mymap.on('click', onMapClick);
 
 const interval = setInterval(function() {
           updatemap()
-}, 1000); // update map every second with current player location.
+}, 5000); // update map every 5 seconds with current player location.
