@@ -5,11 +5,13 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 
 # TODO
-[] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-[] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
+[ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+
+[x] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
 - [x] Centre on the current player's location
-- [] Have Markers for each waypoint
-- [] do we show other players? ... no:sleeping_bed:
+- [ ] Have Circles for each waypoint
+-- [ ] needs to convert geometry waypoint locations to WKT
+- [x] do we show other players? ... no:sleeping_bed:
 
 
 # Key files
