@@ -17,7 +17,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] navigation from a distance
   - [ ] navigationing when close
   - [ ] jitter?
-[ ] document/diagram of code flow
+- [ ] document/diagram of code flow
 
 # Key files
 
