@@ -72,7 +72,7 @@ function updatemap() {  // Update the current player location on map
         console.log("Target displaytable is null", displaytable)  // if not yet populated
     };
 	
-	WPcircle[0] = L.circleMarker([-27.2792  152.975867], {
+	WPcircle[0] = L.circleMarker([-27.2792, 152.975867], {
               radius: 150,
 	      color: green,
               fillColor: green,
