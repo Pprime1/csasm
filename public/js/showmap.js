@@ -12,14 +12,14 @@ var WPcircle=[]; // Store all game waypoints shown as map circles
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       id: 'mapbox/streets-v11',
-      maxZoom: 18,
+      //maxZoom: 18,
       // accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGRlenM3enRlMnRsM2s3NXl4cGRyIn0._X0tZf-JwyMdPCtZ8WHAMw' //public token
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
    }),
    satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       id: 'mapbox/satellite-v9',
-      maxZoom: 18,
+      //maxZoom: 18,
 
       // accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGRlenM3enRlMnRsM2s3NXl4cGRyIn0._X0tZf-JwyMdPCtZ8WHAMw' //public token
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
@@ -35,7 +35,7 @@ var mymap = L.map('mapid', {
 }).setView([latitude, longitude],17);
 L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
-mymap.invalidateSize(); //reset map view
+//mymap.invalidateSize(); //reset map view
    
 const interval = setInterval(function() {
           updatemap()
@@ -90,5 +90,5 @@ function updatemap() {  // Update the current player location on map
     
    //PAN: make the map pan to follow the player location?
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
-   mymap.invalidateSize(); //reset map view
+   //mymap.invalidateSize(); //reset map view
 }; // end updatemap
