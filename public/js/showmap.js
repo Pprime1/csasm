@@ -36,11 +36,35 @@ var mymap = L.map('mapid', {
 L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 //mymap.invalidateSize(); //reset map view
-   
-const interval = setInterval(function() {
-          updatemap()
-}, 5000); // update map every 5 seconds with current player location.
-
+  
+ //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
+ //console.log("Circles",displaytable);
+ if (displaytable) { // display the circles only once populated
+    for (var i = 0; i < displaytable.length; i++) { 
+        if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'};
+        latlon=ST_AsText(displaytable[i].location);
+        console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
+        //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
+        //   radius: displaytable[i].radius,
+	//   color: colour,
+        //   fillColor: colour,
+        //   fillOpacity: 0.25
+        //}).addTo(mymap)
+	//.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+    //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
+    }; //For each waypoint
+    } else {
+        console.log("Target displaytable is null", displaytable)  // if not yet populated
+    };
+	
+WPcircle[0] = L.circleMarker([-27.2792, 152.975867], {
+       radius: 150,
+       color: green,
+       fillColor: green,
+       fillOpacity: 0.25
+}).addTo(mymap)
+WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+       
 
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude)
@@ -52,34 +76,7 @@ function updatemap() {  // Update the current player location on map
    };                  
    //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
 
-   //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
-   //console.log("Circles",displaytable);
-   if (displaytable) { // display the circles only once populated
-       for (var i = 0; i < displaytable.length; i++) { 
-           if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'};
-           latlon=ST_AsText(displaytable[i].location);
-	   console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
-	   //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
-           //   radius: displaytable[i].radius,
-	   //   color: colour,
-           //   fillColor: colour,
-           //   fillOpacity: 0.25
-           //}).addTo(mymap)
-	   //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-//FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
-    }; //For each waypoint
-    } else {
-        console.log("Target displaytable is null", displaytable)  // if not yet populated
-    };
-	
-	WPcircle[0] = L.circleMarker([-27.2792, 152.975867], {
-              radius: 150,
-	      color: green,
-              fillColor: green,
-              fillOpacity: 0.25
-        }).addTo(mymap)
-        WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
-       
+  
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
@@ -92,3 +89,10 @@ function updatemap() {  // Update the current player location on map
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
    //mymap.invalidateSize(); //reset map view
 }; // end updatemap
+
+
+
+//UPDATE THE MAP EVERY FIVE SECONDS
+const interval = setInterval(function() {
+          updatemap()
+}, 5000); // update map every 5 seconds with current player location.
