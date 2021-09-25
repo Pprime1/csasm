@@ -65,15 +65,21 @@ function updatemap() {  // Update the current player location on map
            //   fillColor: colour,
            //   fillOpacity: 0.25
            //}).addTo(mymap)
-	   //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);;
-//FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"
-
-           //--- for each circle clicking on it will display the centre coordinates
-           // WPcircle[i].bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-       }; //For each waypoint
+	   //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+//FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
+    }; //For each waypoint
     } else {
         console.log("Target displaytable is null", displaytable)  // if not yet populated
     };
+	
+	WPcircle[0] = L.circleMarker([-27.2792  152.975867], {
+              radius: 150,
+	      color: green,
+              fillColor: green,
+              fillOpacity: 0.25
+        }).addTo(mymap)
+        WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+       
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
