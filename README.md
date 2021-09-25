@@ -15,6 +15,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] why doesn't the actual map tiles display by default?
   - [ ] why doesn't it clear the playerloc pin once it updates?
   - [ ] why doesn't the map update/pan on movement?
+  - [ ] can we make the displayed map bigger on screen? 1000px or 50% device-height? x full device-width?
   - [x] do we show other players? ... no:sleeping_bed:
 - [ ] create a live, outdoors, example for testing
   - [ ] iphone testing
