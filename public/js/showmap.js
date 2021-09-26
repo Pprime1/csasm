@@ -88,15 +88,17 @@ async function main() { // Initial display of map centred on the current player 
     //     fillOpacity: 0.2
     //}).addTo(mymap);
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+
+    //UPDATE THE MAP EVERY FIVE SECONDS
+    const interval = setInterval(function() {
+          updatemap()
+          mymap.invalidateSize(); //reset map view
+    }, 5000); // update map every 5 seconds with current player location.
 }; //end main 
 
-const interval = setInterval(function() {
-  if (is_joined) { // we need to know when the game has started
-     main(); //start the map only once there is data to display
-     //UPDATE THE MAP EVERY FIVE SECONDS
-     const interval = setInterval(function() {
-       updatemap()
-       mymap.invalidateSize(); //reset map view
-     }, 5000); // update map every 5 seconds with current player location.
-  }
-}, 5000); // Try to start map every 5 seconds until there is current player location data.
+
+while (!is_joined) { // we need to know when the game has started
+    const interval = setInterval(function() {
+    }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
+};
+main(); //start the map only once there is data to display
