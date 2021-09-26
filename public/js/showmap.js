@@ -41,7 +41,7 @@ var map_joined = false;
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
    //playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   playerLoc = L.marker(latitude, longitude).update(marker);
+   playerLoc = L.marker(latitude, longitude).update(playerLoc);
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
