@@ -56,7 +56,7 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
-    playerLoc = L.marker(latitude, longitude]).addTo(mymap); // set player location variable
+    playerLoc = L.marker(latitude, longitude).addTo(mymap); // set player location variable
 	
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
