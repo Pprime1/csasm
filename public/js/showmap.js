@@ -99,7 +99,7 @@ function main() { // Initial display of map centred on the current player locati
 
 while (!is_joined) { // we need to know when the game has started
     const interval = setInterval(function() {
-	    console.log("is_joined:"is_joined);
+	    console.log("is_joined:",is_joined);
     }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
 };
 main(); //start the map only once there is data to display
