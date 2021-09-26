@@ -24,7 +24,8 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
    });
 var baseMaps = {
      "Streetmap": streetmap,
-     "Satellite": satellite
+     "Satellite": satellite,
+     "altOSM": altOSM
 };
 
 // Initial display of map centred on the current player (or coords -27,153 as the startup values?)
@@ -59,6 +60,7 @@ if (displaytable) { // display the circles only once populated
    };
 	
 //Test a static circle
+colour='#ff0000' 
 WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
        radius: 150,
        color: colour,
