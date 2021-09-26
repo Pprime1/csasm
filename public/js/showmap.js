@@ -61,8 +61,8 @@ var playerLoc = new L.marker([latitude,longitude]) //mark current player locatio
 //Test a static circle ... why does this not show at all?
 var WPcircletst = new L.circle([-27.2792, 152.975867], {
        radius: 150,
-       color: #00FF00,
-       fillColor: #00FF00,
+       color: '#00FF00',
+       fillColor: '#00FF00',
        fillOpacity: 0.25
 }).addTo(mymap);
 //WPcircletst.bindPopup("HOME CIRCLE" + "<br>" + "location");
