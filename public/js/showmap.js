@@ -62,7 +62,7 @@ function startmap() { // Initial display of map centred on the current player lo
     for (var i = 0; i < displaytable.length; i++) { 
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
        //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
-          latlon= L.latlng(-27.2792, 152.975867); // for troubleshooting purposes  
+          latlon= "[-27.2792, 152.975867]"; // for troubleshooting purposes  
           console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
           WPcircle[i] = L.circleMarker(latlon, { 
              radius: displaytable[i].radius,
