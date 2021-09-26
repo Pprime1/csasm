@@ -10,18 +10,18 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] Centre on the current player's location
   - [ ] Have Circles for each waypoint
     - [ ] needs to convert geometry waypoint locations to WKT?
-    - [ ] why isn't it showing at all?
+    - [ ] why isn't it showing any circles at all?
   - [ ] can we zoom map further in than 50m?
   - [ ] why doesn't the actual map tiles display by default?
   - [ ] why doesn't it clear the playerloc pin once it updates?
   - [ ] why doesn't the map update/pan on movement?
-  - [ ] can we make the displayed map bigger on screen? 1000px or 50% device-height? x full device-width?
+  - [x] can we make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
   - [x] do we show other players? ... no:sleeping_bed:
 - [ ] create a live, outdoors, example for testing
-  - [ ] iphone testing
-  - [ ] accuracy of location
-  - [ ] navigation from a distance
-  - [ ] navigationing when close
+  - [x] iphone testing
+  - [ ] accuracy of location ... 13m?
+  - [ ] usability for navigation from a distance
+  - [ ] usability for navigationing when close
   - [ ] jitter?
 - [ ] document/diagram of code flow
 
