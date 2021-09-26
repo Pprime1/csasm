@@ -56,17 +56,13 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
-    console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
-    playerLoc = L.marker(latitude, longitude).addTo(mymap);
-	
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
     console.log("Circles data",displaytable,is_joined);
     for (var i = 0; i < displaytable.length; i++) { 
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
        //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
-          latlon= L.latlng(-27.2792, 152.975867); // for troubleshooting purposes
-	    
+          latlon= L.latlng(-27.2792, 152.975867); // for troubleshooting purposes  
           console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
           WPcircle[i] = L.circleMarker(latlon, { 
              radius: displaytable[i].radius,
@@ -86,6 +82,8 @@ function startmap() { // Initial display of map centred on the current player lo
     //}).addTo(mymap);
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
 
+    console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
+    playerLoc = L.marker(latitude, longitude).addTo(mymap);
     map_joined=true;
 }; //end startmap 
 
