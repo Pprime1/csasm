@@ -1,10 +1,9 @@
 //***SHOW MAP*** Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves ***//
+
 // *** Global variables out of client.js ***
     // latitude, longitude == geolocation of current player
+    // MYID
     // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
-
-//TODO     //Display circles showing the waypoints and their target radius (not too opaque). Popup the name and coordinates of each waypoint on mouse click/hover/something.
-var WPcircle=[]; // Store all game waypoints shown as map circles
 
 // Define streetview and satellite layer views on the map
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -33,16 +32,13 @@ var mymap = L.map('mapid', { // Define the map
 L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 
+var WPcircle=[]; // Store all game waypoints shown as map circles
+var playerLoc = new L.marker([-27.5,153]).addTo(mymap); // set player location variable as a declared variable
+
 
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",is_joined,MYID,latitude,longitude); //Update not re-create
-   //if (playerLoc) { 
-	playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   //} else {
-   //    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
-   //         .addTo(mymap)
-   //         .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude); // is this updating above?
-   //};                  
+   playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
    //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
@@ -60,14 +56,14 @@ function updatemap() {  // Update the current player location on map
 function startmap() { // Initial display of map centred on the current player location
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
-    console.log("Circles",displaytable,is_joined);
+    console.log("Circles data",displaytable,is_joined);
     for (var i = 0; i < displaytable.length; i++) { 
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
-       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
-          latlon="-27.2792, 152.975867"
+       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
+          latlon="[-27.2792, 152.975867]" // for troubleshooting purposes
 	    
           console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
-          WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
+          WPcircle[i] = L.circleMarker(latlon, { 
              radius: displaytable[i].radius,
              color: colour,
              fillColor: colour,
@@ -89,22 +85,17 @@ function startmap() { // Initial display of map centred on the current player lo
 
 async function main() {
     console.log("is_joined:",is_joined);
-    const interval0 = setInterval(function() {
-        if (is_joined) { // we need to know when the game has started
-	    console.log("is_joined:",is_joined);
-	    startmap(); //start the map only once there is data to display
-	    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
-        	.addTo(mymap)
-    	  //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
-    	    console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
-	    exit;
-	}
-    }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
-    //UPDATE THE MAP EVERY FIVE SECONDS
+    // TODO wait here until is_joined is true then do the rest
+    if (!is_joined) {main()}; 
+	
+    startmap(); //start the map only once there is data to display  
+//UPDATE THE MAP EVERY FIVE SECONDS
     const interval = setInterval(function() {
           console.log("um is_joined:",is_joined);
           mymap.invalidateSize(); //reset map view
-          updatemap()
+          if (is_joined) { // we need to know that the game has started
+		 updatemap()
+	  }
     }, 5000); // update map every 5 seconds with current player location.
 };
 main();
