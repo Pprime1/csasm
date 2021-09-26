@@ -42,7 +42,7 @@ var playerLoc = new L.marker([latitude,longitude]) //mark current player locatio
 //console.log("Circles",displaytable);
 //if (displaytable) { // display the circles only once populated
 //   for (var i = 0; i < displaytable.length; i++) { 
-//       if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'};
+//       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
 //       latlon=ST_AsText(displaytable[i].location);
 //       console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
        //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
@@ -61,9 +61,9 @@ var playerLoc = new L.marker([latitude,longitude]) //mark current player locatio
 //Test a static circle ... why does this not show at all?
 var WPcircletst = new L.circle([-27.2792, 152.975867], {
        radius: 150,
-       //color: green,
-       //fillColor: green,
-       //fillOpacity: 0.25
+       color: #00FF00,
+       fillColor: #00FF00,
+       fillOpacity: 0.25
 }).addTo(mymap);
 //WPcircletst.bindPopup("HOME CIRCLE" + "<br>" + "location");
        
