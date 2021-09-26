@@ -101,7 +101,7 @@ async function main() { // Initial display of map centred on the current player 
 }; //end main 
 
 const interval = setInterval(function() {
-  if (playerLoc) { 
+  if (displaytable) { 
      main(); //start the map only once there is data to display
   }
 }, 5000); // Try to start map every 5 seconds until there is current player location data.
