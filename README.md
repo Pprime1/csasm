@@ -10,7 +10,6 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] Centre on the current player's location
   - [ ] Have Circles for each waypoint
     - [ ] needs to convert geometry waypoint locations to WKT?
-    - [ ] why isn't it showing any circles at all?
   - [ ] can we zoom map further in than 50m?
   - [ ] why doesn't the actual map tiles display by default?
   - [ ] why doesn't it clear the playerloc pin once it updates?
