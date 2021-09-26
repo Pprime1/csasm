@@ -56,6 +56,7 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
+    map_joined=true;
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
     console.log("Circles data",displaytable,is_joined);
@@ -84,7 +85,6 @@ function startmap() { // Initial display of map centred on the current player lo
 
     console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
     playerLoc = L.marker(latitude, longitude).addTo(mymap);
-    map_joined=true;
 }; //end startmap 
 
 
