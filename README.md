@@ -16,7 +16,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] why doesn't the map update/pan on movement?
   - [x] can we make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
   - [x] do we show other players? ... no:sleeping_bed:
-  - [ ] can we delay showmap.js from even starting until the game actually starts?
+  - [ ] can we delay showmap.js from even starting until the game actually starts? cf: https://stackoverflow.com/questions/5999100/is-there-a-block-until-condition-becomes-true-function-in-java
 - [ ] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
