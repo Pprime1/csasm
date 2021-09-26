@@ -94,7 +94,7 @@ function startmap() { // Initial display of map centred on the current player lo
 
 async function main() {
     console.log("is_joined:",is_joined);
-    const interval = setInterval(function() {
+    const interval0 = setInterval(function() {
         if (is_joined) { // we need to know when the game has started
 	    console.log("is_joined:",is_joined);
 	    startmap(); //start the map only once there is data to display
