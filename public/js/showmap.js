@@ -1,5 +1,4 @@
 //***SHOW MAP*** Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves ***//
-console.log("Starting the showmap scripts");
 
 // *** Global variables out of client.js ***
     // latitude, longitude == geolocation of current player
@@ -57,24 +56,25 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
-    map_joined=true;
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
     console.log("Circles data",displaytable,is_joined);
-    for (var i = 0; i < displaytable.length; i++) { 
-       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
-       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
-          latlon= "[-27.2792, 152.975867]"; // for troubleshooting purposes  
-          console.log("Target:",i, displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
-          WPcircle[i] = L.circle(latlon, { 
-             radius: displaytable[i].radius,
-             color: colour,
-             fillColor: colour,
-             fillOpacity: 0.25
-          }).addTo(mymap)
-          //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-     }; //For each waypoint 
-	
+    if (displaytable.length>1) {
+      map_joined=true;
+      for (var i = 0; i < displaytable.length; i++) { 
+         if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
+         //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
+            latlon= "[-27.2792, 152.975867]"; // for troubleshooting purposes  
+            console.log("Target:",i, displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
+            WPcircle[i] = L.circle(latlon, { 
+               radius: displaytable[i].radius,
+               color: colour,
+               fillColor: colour,
+               fillOpacity: 0.25
+            }).addTo(mymap)
+            //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+       }; //For each waypoint 
+    };
     //Test a static circle
     //WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
     //     radius: 150,
