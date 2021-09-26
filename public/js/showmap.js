@@ -63,14 +63,14 @@ function startmap() { // Initial display of map centred on the current player lo
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
        //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
           latlon= "[-27.2792, 152.975867]"; // for troubleshooting purposes  
-          console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
-          WPcircle[i] = L.circleMarker(latlon, { 
+          console.log("Target:",i, displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
+          WPcircle[i] = L.circle(latlon, { 
              radius: displaytable[i].radius,
              color: colour,
              fillColor: colour,
              fillOpacity: 0.25
           }).addTo(mymap)
-          .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+          //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
      }; //For each waypoint 
 	
     //Test a static circle
@@ -88,12 +88,12 @@ function startmap() { // Initial display of map centred on the current player lo
 }; //end startmap 
 
 
-//async function main() {
+async function main() {
     const interval = setInterval(function() {
          if (is_joined) { // we need to know that the game has started before updating the map
 	     if (!map_joined) { startmap()}; //start the map only once 
 	     updatemap(); 
 	  }
     }, 5000); // update map every 5 seconds with current player location.
-//};
-//main();
+};
+main();
