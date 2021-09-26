@@ -2,7 +2,8 @@
 
 // *** Global variables out of client.js ***
     // latitude, longitude == geolocation of current player
-    // MYID
+    // MYID == ID of current player
+    // is_joined == boolean set true once the player is joined to a game
     // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
 
 // Define streetview and satellite layer views on the map
@@ -33,7 +34,7 @@ L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
-var playerLoc = new L.marker([-27.5,153]).addTo(mymap); // set player location variable as a declared variable
+var playerLoc = new L.marker([-27.5,153]); // set player location variable as a declared variable
 var map_joined = false;
 
 
@@ -55,6 +56,8 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
+    playerLoc = L.marker(latitude, longitude]).addTo(mymap); // set player location variable
+	
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
     console.log("Circles data",displaytable,is_joined);
@@ -88,7 +91,6 @@ function startmap() { // Initial display of map centred on the current player lo
 
 async function main() {
     const interval = setInterval(function() {
-          console.log("main is_joined:",is_joined);
           mymap.invalidateSize(); //reset map view
           if (is_joined) { // we need to know that the game has started before updating the map
 	     if (!map_joined) { startmap()}; //start the map only once 
