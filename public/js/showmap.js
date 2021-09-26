@@ -88,12 +88,12 @@ function startmap() { // Initial display of map centred on the current player lo
 }; //end startmap 
 
 
-async function main() {
+//async function main() {
     const interval = setInterval(function() {
          if (is_joined) { // we need to know that the game has started before updating the map
 	     if (!map_joined) { startmap()}; //start the map only once 
 	     updatemap(); 
 	  }
     }, 5000); // update map every 5 seconds with current player location.
-};
-main();
+//};
+//main();
