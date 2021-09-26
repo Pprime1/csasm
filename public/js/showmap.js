@@ -63,45 +63,40 @@ async function main() { // Initial display of map centred on the current player 
     console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
 
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
+    colour='#0000ff' // Blue for default
     console.log("Circles",displaytable);
-    if (displaytable) { // display the circles only once populated .... because this is running only the one time, long before anything is populated, it is always empty!
-       for (var i = 0; i < displaytable.length; i++) { 
-           if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
-              latlon=ST_AsText(displaytable[i].location);
-              console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
-              //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
-              //   radius: displaytable[i].radius,
-              //   color: colour,
-              //   fillColor: colour,
-              //   fillOpacity: 0.25
-              //}).addTo(mymap)
-              //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-        //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
-       }; //For each waypoint
-       } else {
-           console.log("Target displaytable is null", displaytable)  // if not yet populated
-       };
+    for (var i = 0; i < displaytable.length; i++) { 
+       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
+       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
+          latlon="-27.2792, 152.975867"
+	    
+          console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
+          WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
+             radius: displaytable[i].radius,
+             color: colour,
+             fillColor: colour,
+             fillOpacity: 0.25
+          }).addTo(mymap)
+          .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+     }; //For each waypoint 
 	
     //Test a static circle
-    colour='#ff0000' 
-    WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
-         radius: 150,
-         color: colour,
-         fillColor: colour,
-         fillOpacity: 0.2
-    }).addTo(mymap);
-    WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
-	
-    //UPDATE THE MAP EVERY FIVE SECONDS
-    const interval = setInterval(function() {
-       updatemap()
-       mymap.invalidateSize(); //reset map view
-    }, 5000); // update map every 5 seconds with current player location.
-
+    //WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
+    //     radius: 150,
+    //     color: colour,
+    //     fillColor: colour,
+    //     fillOpacity: 0.2
+    //}).addTo(mymap);
+    //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
 }; //end main 
 
 const interval = setInterval(function() {
   if (is_joined) { // we need to know when the game has started
      main(); //start the map only once there is data to display
+     //UPDATE THE MAP EVERY FIVE SECONDS
+     const interval = setInterval(function() {
+       updatemap()
+       mymap.invalidateSize(); //reset map view
+     }, 5000); // update map every 5 seconds with current player location.
   }
 }, 5000); // Try to start map every 5 seconds until there is current player location data.
