@@ -28,49 +28,6 @@ var baseMaps = {
      "altOSM": altOSM
 };
 
-// Initial display of map centred on the current player (or coords -27,153 as the startup values?)
-var mymap = L.map('mapid', {
-	layers: [altOSM]
-}).setView([latitude, longitude],17);
-L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
-L.control.scale().addTo(mymap); //show scale bar
- 
-var playerLoc = new L.marker([latitude,longitude]) //mark current player location
-    .addTo(mymap)
-//    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
-console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
-
-//--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
-console.log("Circles",displaytable);
-if (displaytable) { // display the circles only once populated .... because this is running only the one time, long before anything is populated, it is always empty!
-   for (var i = 0; i < displaytable.length; i++) { 
-       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
-          latlon=ST_AsText(displaytable[i].location);
-          console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
-       //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
-       //   radius: displaytable[i].radius,
-       //   color: colour,
-       //   fillColor: colour,
-       //   fillOpacity: 0.25
-       //}).addTo(mymap)
-       //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-   //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
-   }; //For each waypoint
-   } else {
-       console.log("Target displaytable is null", displaytable)  // if not yet populated
-   };
-	
-//Test a static circle
-colour='#ff0000' 
-WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
-       radius: 150,
-       color: colour,
-       fillColor: colour,
-       fillOpacity: 0.2
-}).addTo(mymap);
-WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
-       
-
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
    if (playerLoc) { 
@@ -93,10 +50,58 @@ function updatemap() {  // Update the current player location on map
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
 }; // end updatemap
 
+async function main() { // Initial display of map centred on the current player (or coords -27,153 as the startup values?)
+    var mymap = L.map('mapid', {
+	layers: [altOSM]
+    }).setView([latitude, longitude],17);
+    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+    L.control.scale().addTo(mymap); //show scale bar
+ 
+    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
+        .addTo(mymap)
+    //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
+    console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
 
+    //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
+    console.log("Circles",displaytable);
+    if (displaytable) { // display the circles only once populated .... because this is running only the one time, long before anything is populated, it is always empty!
+       for (var i = 0; i < displaytable.length; i++) { 
+           if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
+              latlon=ST_AsText(displaytable[i].location);
+              console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
+              //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
+              //   radius: displaytable[i].radius,
+              //   color: colour,
+              //   fillColor: colour,
+              //   fillOpacity: 0.25
+              //}).addTo(mymap)
+              //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+        //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
+       }; //For each waypoint
+       } else {
+           console.log("Target displaytable is null", displaytable)  // if not yet populated
+       };
+	
+      //Test a static circle
+      colour='#ff0000' 
+      WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
+         radius: 150,
+         color: colour,
+         fillColor: colour,
+         fillOpacity: 0.2
+      }).addTo(mymap);
+      WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+	
+    //UPDATE THE MAP EVERY FIVE SECONDS
+    const interval = setInterval(function() {
+       updatemap()
+       mymap.invalidateSize(); //reset map view
+    }, 5000); // update map every 5 seconds with current player location.
 
-//UPDATE THE MAP EVERY FIVE SECONDS
+}; //end main 
+
 const interval = setInterval(function() {
-   updatemap()
-   mymap.invalidateSize(); //reset map view
-}, 5000); // update map every 5 seconds with current player location.
+  if (playerLoc) { 
+     main(); //start the map only once there is data to display
+  }
+}, 5000); // Try to start map every 5 seconds until there is current player location data.
