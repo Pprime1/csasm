@@ -54,9 +54,10 @@ function updatemap() {  // Update the current player location on map
     
    //PAN: make the map pan to follow the player location?
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
+   mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
-function main() { // Initial display of map centred on the current player location
+function startmap() { // Initial display of map centred on the current player location
     var playerLoc = new L.marker([latitude,longitude]) //mark current player location
         .addTo(mymap)
     //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
@@ -88,18 +89,21 @@ function main() { // Initial display of map centred on the current player locati
     //     fillOpacity: 0.2
     //}).addTo(mymap);
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+}; //end startmap 
 
+
+async function main() {
+    console.log("is_joined:",is_joined);
+    const interval = setInterval(function() {
+        if (is_joined) { // we need to know when the game has started
+	    console.log("is_joined:",is_joined);
+	    startmap(); //start the map only once there is data to display
+	    break;
+    }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
     //UPDATE THE MAP EVERY FIVE SECONDS
     const interval = setInterval(function() {
-          updatemap()
           mymap.invalidateSize(); //reset map view
+          updatemap()
     }, 5000); // update map every 5 seconds with current player location.
-}; //end main 
-
-
-while (!is_joined) { // we need to know when the game has started
-    const interval = setInterval(function() {
-	    console.log("is_joined:",is_joined);
-    }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
 };
-main(); //start the map only once there is data to display
+main();
