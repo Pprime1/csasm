@@ -38,6 +38,7 @@ L.control.scale().addTo(mymap); //show scale bar
 var playerLoc = new L.marker([latitude,longitude]) //mark current player location
     .addTo(mymap)
     .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
+console.log("Create current player marker:",MYID,latitude,longitude); //Create first time
 
 //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
 console.log("Circles",displaytable);
@@ -71,10 +72,10 @@ WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
        
 
 function updatemap() {  // Update the current player location on map
-   console.log("Update current player:",MYID,latitude,longitude);
-   //if (playerLoc) { 
+   console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
+   if (playerLoc) { 
 	playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   //} else {
+   } //else {
    //    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
    //         .addTo(mymap)
    //         .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude); // is this updating above?
