@@ -39,12 +39,12 @@ var playerLoc = new L.marker([latitude,longitude]) //mark current player locatio
     .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
 
 //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
-//console.log("Circles",displaytable);
-//if (displaytable) { // display the circles only once populated
-//   for (var i = 0; i < displaytable.length; i++) { 
-//       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
-//       latlon=ST_AsText(displaytable[i].location);
-//       console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
+console.log("Circles",displaytable);
+if (displaytable) { // display the circles only once populated
+   for (var i = 0; i < displaytable.length; i++) { 
+       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
+          latlon=ST_AsText(displaytable[i].location);
+          console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
        //WPcircle[i] = L.circleMarker(latlon, {  // location doesn't appear to be in a usable format here?
        //   radius: displaytable[i].radius,
        //   color: colour,
@@ -53,29 +53,30 @@ var playerLoc = new L.marker([latitude,longitude]) //mark current player locatio
        //}).addTo(mymap)
        //.bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
    //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
- //  }; //For each waypoint
- //  } else {
- //      console.log("Target displaytable is null", displaytable)  // if not yet populated
- //  };
+   }; //For each waypoint
+   } else {
+       console.log("Target displaytable is null", displaytable)  // if not yet populated
+   };
 	
-//Test a static circle ... why does this not show at all?
-var WPcircletst = new L.circle([-27.2792, 152.975867], {
+//Test a static circle
+var WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
        radius: 150,
-       color: '#00FF00',
-       fillColor: '#00FF00',
-       fillOpacity: 0.25
+       color: colour,
+       fillColor: colour,
+       fillOpacity: 0.2
 }).addTo(mymap);
-//WPcircletst.bindPopup("HOME CIRCLE" + "<br>" + "location");
+WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
        
 
 function updatemap() {  // Update the current player location on map
-   console.log("Update current player:",MYID,latitude,longitude); //is this even running?
-   if (playerLoc) { playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   } else {
-       var playerLoc = new L.marker([latitude,longitude]) //mark current player location
-            .addTo(mymap)
-            .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude); // is this updating above?
-   };                  
+   console.log("Update current player:",MYID,latitude,longitude);
+   //if (playerLoc) { 
+	playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
+   //} else {
+   //    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
+   //         .addTo(mymap)
+   //         .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude); // is this updating above?
+   //};                  
    //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
