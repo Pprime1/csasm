@@ -24,6 +24,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] usability for navigationing when close
   - [ ] jitter?
 - [ ] document/diagram of code flow
+- [ ] https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
 
 # Key files
 
