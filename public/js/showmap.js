@@ -35,7 +35,7 @@ L.control.scale().addTo(mymap); //show scale bar
 
 
 function updatemap() {  // Update the current player location on map
-   console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
+   console.log("Update current player:",is_joined,MYID,latitude,longitude); //Update not re-create
    //if (playerLoc) { 
 	playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
    //} else {
@@ -58,14 +58,9 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
-    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
-        .addTo(mymap)
-    //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
-    console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
-
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
-    console.log("Circles",displaytable);
+    console.log("Circles",displaytable,is_joined);
     for (var i = 0; i < displaytable.length; i++) { 
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
        //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in weird format: location: "0101000020110F00003A0664AF77473BC037548CF3371F6340"      
@@ -98,11 +93,16 @@ async function main() {
         if (is_joined) { // we need to know when the game has started
 	    console.log("is_joined:",is_joined);
 	    startmap(); //start the map only once there is data to display
+	    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
+        	.addTo(mymap)
+    	  //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
+    	    console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
 	    exit;
 	}
     }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
     //UPDATE THE MAP EVERY FIVE SECONDS
     const interval = setInterval(function() {
+          console.log("um is_joined:",is_joined);
           mymap.invalidateSize(); //reset map view
           updatemap()
     }, 5000); // update map every 5 seconds with current player location.
