@@ -59,7 +59,7 @@ if (displaytable) { // display the circles only once populated
    };
 	
 //Test a static circle
-var WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
+WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
        radius: 150,
        color: colour,
        fillColor: colour,
