@@ -98,7 +98,7 @@ async function main() {
         if (is_joined) { // we need to know when the game has started
 	    console.log("is_joined:",is_joined);
 	    startmap(); //start the map only once there is data to display
-	    break;
+	    exit;
     }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
     //UPDATE THE MAP EVERY FIVE SECONDS
     const interval = setInterval(function() {
