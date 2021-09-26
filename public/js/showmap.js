@@ -56,7 +56,7 @@ function updatemap() {  // Update the current player location on map
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
 }; // end updatemap
 
-async function main() { // Initial display of map centred on the current player location
+function main() { // Initial display of map centred on the current player location
     var playerLoc = new L.marker([latitude,longitude]) //mark current player location
         .addTo(mymap)
     //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
@@ -99,6 +99,7 @@ async function main() { // Initial display of map centred on the current player 
 
 while (!is_joined) { // we need to know when the game has started
     const interval = setInterval(function() {
+	    console.log("is_joined:"is_joined);
     }, 5000); // wait 5 seconds - keep waiting until there is current player location data.
 };
 main(); //start the map only once there is data to display
