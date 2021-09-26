@@ -37,12 +37,12 @@ L.control.scale().addTo(mymap); //show scale bar
  
 var playerLoc = new L.marker([latitude,longitude]) //mark current player location
     .addTo(mymap)
-    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
-console.log("Create current player marker:",MYID,latitude,longitude); //Create first time
+//    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
+console.log("Create current player marker:",MYID,latitude,longitude); //Create first time ... this is running way too early - before the game is started even?
 
 //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
 console.log("Circles",displaytable);
-if (displaytable) { // display the circles only once populated
+if (displaytable) { // display the circles only once populated .... because this is running only the one time, long before anything is populated, it is always empty!
    for (var i = 0; i < displaytable.length; i++) { 
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'};
           latlon=ST_AsText(displaytable[i].location);
