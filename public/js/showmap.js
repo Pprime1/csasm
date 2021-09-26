@@ -27,12 +27,18 @@ var baseMaps = {
      "Satellite": satellite,
      "altOSM": altOSM
 };
+var mymap = L.map('mapid', { // Define the map
+    layers: [altOSM] //default layer
+}).setView([-27.5,153],17); //start nearby in SEQ
+L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+L.control.scale().addTo(mymap); //show scale bar
+
 
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
-   if (playerLoc) { 
+   //if (playerLoc) { 
 	playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   } //else {
+   //} else {
    //    var playerLoc = new L.marker([latitude,longitude]) //mark current player location
    //         .addTo(mymap)
    //         .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude); // is this updating above?
@@ -50,13 +56,7 @@ function updatemap() {  // Update the current player location on map
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
 }; // end updatemap
 
-async function main() { // Initial display of map centred on the current player (or coords -27,153 as the startup values?)
-    var mymap = L.map('mapid', {
-	layers: [altOSM]
-    }).setView([latitude, longitude],17);
-    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
-    L.control.scale().addTo(mymap); //show scale bar
- 
+async function main() { // Initial display of map centred on the current player location
     var playerLoc = new L.marker([latitude,longitude]) //mark current player location
         .addTo(mymap)
     //    .bindPopup("<b>Current Player</b><br>" + MYID + "<br>" +latitude + ", " + longitude);
@@ -82,15 +82,15 @@ async function main() { // Initial display of map centred on the current player 
            console.log("Target displaytable is null", displaytable)  // if not yet populated
        };
 	
-      //Test a static circle
-      colour='#ff0000' 
-      WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
+    //Test a static circle
+    colour='#ff0000' 
+    WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
          radius: 150,
          color: colour,
          fillColor: colour,
          fillOpacity: 0.2
-      }).addTo(mymap);
-      WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+    }).addTo(mymap);
+    WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
 	
     //UPDATE THE MAP EVERY FIVE SECONDS
     const interval = setInterval(function() {
@@ -101,7 +101,7 @@ async function main() { // Initial display of map centred on the current player 
 }; //end main 
 
 const interval = setInterval(function() {
-  if (displaytable) { 
+  if (is_joined) { // we need to know when the game has started
      main(); //start the map only once there is data to display
   }
 }, 5000); // Try to start map every 5 seconds until there is current player location data.
