@@ -1,4 +1,5 @@
 //***SHOW MAP*** Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves ***//
+console.log("Starting the showmap scripts");
 
 // *** Global variables out of client.js ***
     // latitude, longitude == geolocation of current player
