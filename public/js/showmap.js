@@ -34,14 +34,13 @@ L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
-var playerLoc = new L.marker([-27.5,153]); // set player location variable as a declared variable
+var playerLoc = new L.marker([-27.5,153]).addTo(mymap); // set player location variable as a declared variable
 var map_joined = false;
 
 
 function updatemap() {  // Update the current player location on map
-   console.log("Update current player:",is_joined,MYID,latitude,longitude); //Update not re-create
+   console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
    playerLoc.setLatLng(latitude, longitude); //update current player marker instead of creating new ones
-   //--- TODO: display the player's direction of travel/facing? how? Not a feature it seems :-(
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
@@ -50,14 +49,15 @@ function updatemap() {  // Update the current player location on map
    // mapgroup.union(WPcircle.getBounds());
    // mymap.fitBounds(mapgroup.getBounds());
     
-   //PAN: make the map pan to follow the player location?
+   //PAN: make the map pan to follow the player location
    mymap.flyTo([latitude,longitude]); // pan the map to follow the player
    mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
 function startmap() { // Initial display of map centred on the current player location
-    console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
-    playerLoc = new L.marker(latitude, longitude).addTo(mymap);
+    map_joined=true;
+    //console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
+    //playerLoc = new L.marker(latitude, longitude).addTo(mymap);
 	
     //--- display each waypoint and target radius as a circle ... need to delay this until displaytable is set
     colour='#0000ff' // Blue for default
@@ -65,7 +65,7 @@ function startmap() { // Initial display of map centred on the current player lo
     for (var i = 0; i < displaytable.length; i++) { 
        if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
        //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
-          latlon="[-27.2792, 152.975867]" // for troubleshooting purposes
+          var latlon= new L.latlng(-27.2792, 152.975867); // for troubleshooting purposes
 	    
           console.log("Target:", displaytable[i].name, displaytable[i].location, latlon, displaytable[i].radius, displaytable[i].distance, colour);
           WPcircle[i] = L.circleMarker(latlon, { 
@@ -85,8 +85,6 @@ function startmap() { // Initial display of map centred on the current player lo
     //     fillOpacity: 0.2
     //}).addTo(mymap);
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
-	
-    map_joined=true;
 }; //end startmap 
 
 
