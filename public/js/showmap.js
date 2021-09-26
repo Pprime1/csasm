@@ -34,6 +34,7 @@ L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var playerLoc = new L.marker([-27.5,153]).addTo(mymap); // set player location variable as a declared variable
+var map_joined = false;
 
 
 function updatemap() {  // Update the current player location on map
@@ -80,21 +81,18 @@ function startmap() { // Initial display of map centred on the current player lo
     //     fillOpacity: 0.2
     //}).addTo(mymap);
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
+	
+    map_joined=true;
 }; //end startmap 
 
 
 async function main() {
-    console.log("is_joined:",is_joined);
-    // TODO wait here until is_joined is true then do the rest
-    if (!is_joined) {main()}; 
-	
-    startmap(); //start the map only once there is data to display  
-//UPDATE THE MAP EVERY FIVE SECONDS
     const interval = setInterval(function() {
-          console.log("um is_joined:",is_joined);
+          console.log("main is_joined:",is_joined);
           mymap.invalidateSize(); //reset map view
-          if (is_joined) { // we need to know that the game has started
-		 updatemap()
+          if (is_joined) { // we need to know that the game has started before updating the map
+	     if (!map_joined) { startmap()}; //start the map only once 
+	     updatemap();
 	  }
     }, 5000); // update map every 5 seconds with current player location.
 };
