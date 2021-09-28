@@ -1,3 +1,4 @@
+//***CLIENT.js***//
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
 var latitude =-27;    // make available to global variable in Displaymap.js
