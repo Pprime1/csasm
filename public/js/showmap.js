@@ -1,6 +1,7 @@
-//***SHOW MAP*** Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves ***//
+//***SHOWMAP.js***//
+//Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves ***//
 
-// *** Global variables out of client.js ***
+//Global variables out of client.js
     // latitude, longitude == geolocation of current player
     // MYID == ID of current player
     // is_joined == boolean set true once the player is joined to a game
