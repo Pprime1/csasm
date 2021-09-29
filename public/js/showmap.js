@@ -30,7 +30,11 @@ L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
-var playerLoc = new L.marker([latitude,longitude]); // set player location marker as a declared variable but don't put it on the map yet
+var personicon = L.icon({
+    iconUrl: '/personicon.png',
+    iconSize: [20, 20]
+    });
+var playerLoc = new L.marker([latitude,longitude], {icon: personicon}); // set player location marker as a declared variable but don't put it on the map yet
 var map_started = false;
 
 
@@ -53,13 +57,13 @@ function updatemap() {  // Update the current player location on map
 function startmap() { //Initial display of map centred on the current player location
     //display each waypoint and target radius as a circle
     colour='#0000ff' // Blue for default - if a circle is blue something is broken
-    console.log("Circles data",displaytable,is_running);
+    //console.log("Circles data",displaytable,is_running);
     if (displaytable.length>1) {  // should always be the case if is_running  
       for (var i = 0; i < displaytable.length; i++) { 
          if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
          //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
             latlon= "[-27.2792,152.975867]"; // for troubleshooting purposes  --- Also failed?
-            console.log("Target:",i, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+            console.log("Target Circle:",i, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
             WPcircle[i] = L.circle([-27.2792,152.975867], { //This should be the displaytable.location[i] once that's in a useful format
                radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
                color: colour,
