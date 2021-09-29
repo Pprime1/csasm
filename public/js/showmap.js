@@ -4,7 +4,7 @@
 //Global variables out of client.js
     // latitude, longitude == geolocation of current player
     // MYID == ID of current player
-    // is_joined == boolean set true once the player is joined to a game
+    // is_running == boolean set true once the player is joined to a game and main variables are first populated
     // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
 
 // Define streetview and satellite layer views on the map
@@ -92,7 +92,7 @@ function startmap() { // Initial display of map centred on the current player lo
 
 async function main() {
     const interval = setInterval(function() {
-         if (is_joined) { // we need to know that the game has started before updating the map
+         if (is_running) { // we need to know that there is data populated before updating the map with it
 	     if (!map_joined) { startmap()}; //start the map only once 
 	     updatemap(); 
 	  }
