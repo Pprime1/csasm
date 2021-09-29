@@ -31,7 +31,7 @@ L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
-    iconUrl: 'https://github.com/Pprime1/csasm/blob/Live-Map/personicon.png',
+    iconUrl: '../../personicon.png',
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}); // set player location marker as a declared variable but don't put it on the map yet
