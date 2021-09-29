@@ -60,7 +60,7 @@ function startmap() { //Initial display of map centred on the current player loc
          //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
             latlon= "[-27.2792,152.975867]"; // for troubleshooting purposes  --- Also failed?
             console.log("Target:",i, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
-            WPcircle[i] = L.circleMarker([-27.2792,152.975867], { //This should be the displaytable.location[i] once that's in a useful format
+            WPcircle[i] = L.circle([-27.2792,152.975867], { //This should be the displaytable.location[i] once that's in a useful format
                radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
                color: colour,
                fillColor: colour,
