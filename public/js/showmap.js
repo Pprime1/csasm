@@ -41,8 +41,8 @@ var map_joined = false;
 
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
-   playerLoc.setLatLng(latitude,longitude); //update current player marker instead of creating new ones
-   //playerLoc = L.marker(latitude,longitude).update(playerLoc);
+   playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
+   //playerLoc = L.marker([latitude,longitude]).update(playerLoc);
 	
    // ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
@@ -77,7 +77,7 @@ function startmap() { // Initial display of map centred on the current player lo
        }; //For each waypoint 
     };
     //Test a static circle
-    //WPcircle[0] = new L.circleMarker([-27.2792, 152.975867], {
+    //WPcircle[0] = new L.circleMarker([-27.2792,152.975867], {
     //     radius: 150,
     //     color: colour,
     //     fillColor: colour,
@@ -86,7 +86,7 @@ function startmap() { // Initial display of map centred on the current player lo
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
 
     console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
-    playerLoc = L.marker(latitude, longitude).addTo(mymap);
+    playerLoc = L.marker([latitude,longitude]).addTo(mymap);
 }; //end startmap 
 
 
