@@ -35,7 +35,7 @@ L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
-var playerLoc = new playerLoc = L.marker([latitude,longitude])//.addTo(mymap); // set player location variable as a declared variable
+var playerLoc = new L.marker([latitude,longitude])//.addTo(mymap); // set player location variable as a declared variable
 var map_joined = false;
 
 
