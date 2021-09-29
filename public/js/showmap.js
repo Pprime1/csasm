@@ -52,7 +52,7 @@ function updatemap() {  // Update the current player location on map
    // mymap.fitBounds(mapgroup.getBounds());
     
    //PAN: make the map pan to follow the player location
-   mymap.flyTo([latitude,longitude]); // pan the map to follow the player
+   mymap.flyTo([latitude,longitude],mymap.getZoom()); // pan the map to follow the player
    mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
