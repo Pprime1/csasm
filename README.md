@@ -12,11 +12,11 @@ If so, returns hidden REWARD text value (clues/directions to the final container
     - [ ] needs to convert geometry waypoint locations to WKT?
   - [ ] can we zoom map further in than 50m?
   - [ ] why doesn't the actual map tiles display by default?
-  - [ ] why doesn't it clear the playerloc pin once it updates?
-  - [ ] why doesn't the map update/pan on movement?
-  - [x] can we make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
-  - [x] do we show other players? ... no:sleeping_bed:
-  - [ ] can we delay showmap.js from even starting until the game actually starts? cf: https://stackoverflow.com/questions/5999100/is-there-a-block-until-condition-becomes-true-function-in-java
+  - [x] clear the playerloc pin once it updates?
+  - [x] map update/pan on movement?
+  - [x] make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
+  - [X] do we show other players? ... no:sleeping_bed:
+  - [x] delay showmap.js from starting until the game actually starts
 - [ ] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
