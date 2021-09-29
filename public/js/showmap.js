@@ -37,8 +37,23 @@ var map_started = false;
 function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-	
-   // ZOOM: create an array of the objects and zoom the map to show them all?
+
+   //display each waypoint and target radius as a circle
+   for (var i = 0; i < displaytable.length; i++) { 
+      if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
+      //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
+      latlon= "[-27.2792,152.975867]"; // for troubleshooting purposes  --- Also failed?
+      console.log("Target Circle:",i, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+      WPcircle[i] = L.circle([-27.2792,152.975867], { //This should be the displaytable.location[i] once that's in a useful format
+   	 radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
+   	 color: colour,
+   	 fillColor: colour,
+   	 fillOpacity: 0.25
+      }).addTo(mymap)
+      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+   }; //For each target circle
+   
+   // ???ZOOM: create an array of the objects and zoom the map to show them all?
    // var maparray = [];
    // maparray.push(L.marker(playerLoc));
    // var mapgroup = new L.featureGroup(maparray).addTo(mymap);
@@ -77,7 +92,7 @@ function startmap() { //Initial display of map centred on the current player loc
        map_started=true;
     };
 
-    console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
+    console.log("Create current player marker:",MYID,latitude,longitude); 
     playerLoc.setLatLng([latitude,longitude]).addTo(mymap); //update current player marker, and show on map
 }; //end startmap 
 
@@ -85,9 +100,18 @@ function startmap() { //Initial display of map centred on the current player loc
 async function main() {
     const interval = setInterval(function() {
          if (is_running) { // we need to know that there is data populated before updating the map with it
-	     if (!map_started) { startmap()}; //start the map only once 
-	     updatemap(); 
-	  }
+	     if (!map_started) {  //start the map only once 
+		var mymap = L.map('mapid', { // Define the map
+        		layers: [streetmap] //default layer
+    		}).setView([latitude,longitude],17); //start in SEQ
+    		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+    		L.control.scale().addTo(mymap); //show scale bar
+		console.log("Create current player marker:",MYID,latitude,longitude); 
+    		playerLoc.setLatLng([latitude,longitude]).addTo(mymap); //update current player marker, and now show it on the map
+       		map_started=true;
+    	     }; //start the map only once
+	  updatemap(); 
+	}
     }, 5000); // update map every 5 seconds with current player location.
 };
 main();
