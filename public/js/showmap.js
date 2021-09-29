@@ -23,18 +23,14 @@ var baseMaps = {
      "Streetmap": streetmap,
      "Satellite": satellite
 };
-var mymap = L.map('mapid', { // Define the map
-    layers: [streetmap] //default layer
-}).setView([latitude,longitude],17); //start in SEQ
-L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
-L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
-    iconUrl: '../../personicon.png',
+    iconUrl: '../personicon.png',
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}); // set player location marker as a declared variable but don't put it on the map yet
+var colour='#0000ff' // Blue for default - if a circle is blue something is broken
 var map_started = false;
 
 
@@ -55,8 +51,14 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 function startmap() { //Initial display of map centred on the current player location
+    var mymap = L.map('mapid', { // Define the map
+        layers: [streetmap] //default layer
+    }).setView([latitude,longitude],17); //start in SEQ
+    
+    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+    L.control.scale().addTo(mymap); //show scale bar
+
     //display each waypoint and target radius as a circle
-    colour='#0000ff' // Blue for default - if a circle is blue something is broken
     //console.log("Circles data",displaytable,is_running);
     if (displaytable.length>1) {  // should always be the case if is_running  
       for (var i = 0; i < displaytable.length; i++) { 
