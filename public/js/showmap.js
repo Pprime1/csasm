@@ -35,7 +35,7 @@ L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
 L.control.scale().addTo(mymap); //show scale bar
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
-var playerLoc = new L.marker([-27.5,153]).addTo(mymap); // set player location variable as a declared variable
+var playerLoc = new playerLoc = L.marker([latitude,longitude])//.addTo(mymap); // set player location variable as a declared variable
 var map_joined = false;
 
 
@@ -52,7 +52,7 @@ function updatemap() {  // Update the current player location on map
    // mymap.fitBounds(mapgroup.getBounds());
     
    //PAN: make the map pan to follow the player location
-   mymap.flyTo([latitude,longitude],mymap.getZoom()); // pan the map to follow the player
+   mymap.panTo([latitude,longitude]); // pan the map to follow the player
    mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
@@ -86,7 +86,7 @@ function startmap() { // Initial display of map centred on the current player lo
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
 
     console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
-    playerLoc = L.marker([latitude,longitude]).addTo(mymap);
+    //playerLoc = L.marker([latitude,longitude]).addTo(mymap);
 }; //end startmap 
 
 
