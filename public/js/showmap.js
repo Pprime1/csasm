@@ -86,6 +86,7 @@ function startmap() { // Initial display of map centred on the current player lo
     //WPcircle[0].bindPopup("HOME CIRCLE" + "<br>" + "location");
 
     console.log("Create current player marker:",is_joined,MYID,latitude,longitude); 
+    playerLoc.setLatLng([latitude,longitude]).addTo(mymap); //update current player marker and show on map
     //playerLoc = L.marker([latitude,longitude]).addTo(mymap);
 }; //end startmap 
 
