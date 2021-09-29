@@ -17,6 +17,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
   - [X] do we show other players? ... no:sleeping_bed:
   - [x] delay showmap.js from starting until the game actually starts
+  - [ ] change the person marker icon to be a person ... why does     iconUrl: '../../personicon.png'  not work? 404 Not found?
 - [ ] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
