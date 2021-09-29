@@ -3,6 +3,8 @@ const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
 var latitude =-27;    // make available to global variable in Displaymap.js
 var longitude =153;   // make available to global variable in Displaymap.js
+var is_joined = false; // status for being part of a game
+var is_running = false; // status for once all main variables are first populated
 var displaytable =[]; // make available to global variable in Displaymap.js
 var MYID = socket.id; // this is current player, make available to global variable in Displaymap.js
 for (var entry of urlParams) { 
@@ -85,7 +87,6 @@ function PosError(error) { // handle/display get geolocation errors
     };
 }; // GeoLocation Error handler
 
-var is_joined = false;
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
       socket.emit('join-a-game', $("#current-game-id").text());
@@ -147,6 +148,7 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table);
+  is_running = true;
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
