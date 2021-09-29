@@ -1,7 +1,7 @@
 //***CLIENT.js***//
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
-var latitude =-27;    // make available to global variable in Displaymap.js
+var latitude =-27.5;    // make available to global variable in Displaymap.js
 var longitude =153;   // make available to global variable in Displaymap.js
 var is_joined = false; // status for being part of a game
 var is_running = false; // status for once all main variables are first populated
