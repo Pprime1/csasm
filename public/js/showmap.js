@@ -23,10 +23,14 @@ var baseMaps = {
      "Streetmap": streetmap,
      "Satellite": satellite
 };
+var mymap = L.map('mapid', { // Define the map
+    layers: [streetmap] //default layer
+}).setView([latitude,longitude],17); //start in SEQ
+    
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
-    iconUrl: '../personicon.png',
+    iconUrl: 'https://raw.githubusercontent.com/Pprime1/csasm/Live-Map/personicon.png',
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}); // set player location marker as a declared variable but don't put it on the map yet
@@ -38,7 +42,7 @@ function updatemap() {  // Update the current player location on map
    console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
 
-   //display each waypoint and target radius as a circle
+   //display each waypoint and target radius as a circle ... change colour once occupied by current player
    for (var i = 0; i < displaytable.length; i++) { 
       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
@@ -48,7 +52,7 @@ function updatemap() {  // Update the current player location on map
    	 radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
    	 color: colour,
    	 fillColor: colour,
-   	 fillOpacity: 0.25
+   	 fillOpacity: 0.2
       }).addTo(mymap)
       .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
    }; //For each target circle
@@ -65,14 +69,10 @@ function updatemap() {  // Update the current player location on map
    mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
-function startmap() { //Initial display of map centred on the current player location
-    var mymap = L.map('mapid', { // Define the map
-        layers: [streetmap] //default layer
-    }).setView([latitude,longitude],17); //start in SEQ
-    
+function startmap() { //Initial display of map centred on the current player location // MAY NOT NEED THIS FUNCTION ANY MORE???
+    mymap.invalidateSize(); //reset map view
     L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
     L.control.scale().addTo(mymap); //show scale bar
-
     //display each waypoint and target radius as a circle
     //console.log("Circles data",displaytable,is_running);
     if (displaytable.length>1) {  // should always be the case if is_running  
@@ -91,7 +91,6 @@ function startmap() { //Initial display of map centred on the current player loc
        }; //For each waypoint circle
        map_started=true;
     };
-
     console.log("Create current player marker:",MYID,latitude,longitude); 
     playerLoc.setLatLng([latitude,longitude]).addTo(mymap); //update current player marker, and show on map
 }; //end startmap 
@@ -99,11 +98,9 @@ function startmap() { //Initial display of map centred on the current player loc
 
 async function main() {
     const interval = setInterval(function() {
-         if (is_running) { // we need to know that there is data populated before updating the map with it
+         if (is_running) { // we need to know that there is data populated before showing or updating the map with it
 	     if (!map_started) {  //start the map only once 
-		var mymap = L.map('mapid', { // Define the map
-        		layers: [streetmap] //default layer
-    		}).setView([latitude,longitude],17); //start in SEQ
+  	        mymap.invalidateSize(); //reset map view
     		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
     		L.control.scale().addTo(mymap); //show scale bar
 		console.log("Create current player marker:",MYID,latitude,longitude); 
