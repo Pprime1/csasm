@@ -23,15 +23,12 @@ var baseMaps = {
      "Streetmap": streetmap,
      "Satellite": satellite
 };
-//var mymap = L.map('mapid', { // Define the map
-//    layers: [streetmap] //default layer
-//}).setView([latitude,longitude],17); //start in SEQ
     
 var mymap = L.map('mapid', { // Define the map
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap] //default layer
-}); //start the map, it will be grey and incomplete until the is_running catches up (up to 5 seconds)
+}); //TODO CAN THIS ALSO BE DELAYED?   starts the map, it will be grey and incomplete until the is_running catches up (up to 5 seconds)
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
@@ -39,35 +36,15 @@ var personicon = L.icon({
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set player location marker as a declared variable but don't put it on the map yet
-var colour='#0000ff' // Blue for default - if a circle is blue something is broken
+var colour='blue' // Blue for default before data is populated
 var map_started = false;
 
-
 function updatemap() {  // Update the current player location on map
-   //console.log("Update current player:",MYID,latitude,longitude); //Update not re-create
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-
-   //display each waypoint and target radius as a circle ... change colour once occupied by current player
-   for (var i = 0; i < displaytable.length; i++) { 
-    console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
-    if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
-      if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red
-      
-      //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
-      clat= -27.2792+(i/10); // for troubleshooting purposes
-      clon= 152.975867+(i/10); // for troubleshooting purposes
-	    
-      	    //WPcircle.setStyle({color: 'green'});
-      WPcircle[i] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
-   	    radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
-   	    color: colour,
-   	    fillColor: colour,
-   	    fillOpacity: 0.2
-      }).addTo(mymap)
-      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-    };
-   }; //For each target circle
-    
+   for (var i = 0; i < displaytable.length; i++) { //set circle colour based on if occupied by current player
+    	if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
+      	WPcircle[i].setStyle({color: colour, fillcolor: colour});
+   };
    //PAN: make the map pan to follow the player location
    mymap.panTo([latitude,longitude]); // pan the map to follow the player
 }; // end updatemap
@@ -80,11 +57,28 @@ async function main() {
     		L.control.scale().addTo(mymap); //show scale bar
 		console.log("Create current player marker:",MYID,latitude,longitude); 
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
-       		map_started=true;
+		
+   		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
+    		  console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+    		  if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
+//    		      if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red
+      
+      		      //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
+	      	      clat= -27.2792+(i/10); // for troubleshooting purposes
+      		      clon= 152.975867+(i/10); // for troubleshooting purposes
+				
+     		      WPcircle[i] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
+   		         radius: displaytable[i].radius,
+   		         fillOpacity: 0.2
+    		      }).addTo(mymap)
+   		      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+  		  };
+ 		}; //For each target circle		     
+       	        map_started=true;
     	     }; //start the map only once
-	  updatemap(); 
-	  mymap.invalidateSize(); //reset map view
-	}
+	     updatemap(); 
+	     mymap.invalidateSize(); //reset map view
+	  };
     }, 5000); // update map every 5 seconds with current player location.
 };
 main();
