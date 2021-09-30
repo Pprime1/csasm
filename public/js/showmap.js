@@ -45,10 +45,10 @@ function updatemap() {  // Update the current player location on map
    //display each waypoint and target radius as a circle ... change colour once occupied by current player
    for (var i = 0; i < displaytable.length; i++) { 
     if (displaytable[i].ID == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
+      console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
       latlon= "-27.2792,152.975867"; // for troubleshooting purposes  --- Also failed?
-      console.log("Target Circle:",i, displaytable[i].ID, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
       WPcircle[i] = L.circle([latlon], { //This should be the displaytable.location[i] once that's in a useful format
    	 radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
    	 color: colour,
