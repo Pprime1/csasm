@@ -18,7 +18,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
       - do we show other players? ... no:sleeping_bed:
   - [x] delay showmap.js from starting until the game actually starts
   - [ ] why doesn't the actual map tiles display by default at startup? Maybe delay first display until is_running? 
-change the person marker icon to be a person ... why does     iconUrl: '../../personicon.png'  not work? 404 Not found?
+  - [ ] change the person marker icon to be a person ... why does     iconUrl: '../../personicon.png'  not work? 404 Not found?
 - [ ] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
@@ -28,7 +28,7 @@ change the person marker icon to be a person ... why does     iconUrl: '../../pe
   - [ ] does it work with multiple games?
   - [ ] check that no reward if not occupying a circle
 - [x] document/diagram of code flow
-- [ ] can Heroku auto-restart the dyno on application crash?
+- [x] can Heroku auto-restart the dyno on application crash?
    - it does usually. https://devcenter.heroku.com/articles/dynos
    - only usecase it doesn't is a crashed build (eg: attemnpt to build whilst a player still active)
 - [ ] do I care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
