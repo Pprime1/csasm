@@ -54,8 +54,8 @@ function updatemap() {  // Update the current player location on map
       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
       
       //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
-      clat= -27.2792+i; // for troubleshooting purposes
-      clon= 152.975867+i; // for troubleshooting purposes
+      clat= -27.2792+(i/10); // for troubleshooting purposes
+      clon= 152.975867+(i/10; // for troubleshooting purposes
 	    
       WPcircle[i] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
    	 radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
