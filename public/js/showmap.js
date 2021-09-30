@@ -31,7 +31,7 @@ var mymap = L.map('mapid', { // Define the map
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap] //default layer
-}); //start in SEQ
+}); //start the map, it will be grey and incomplete until the is_running catches up (up to 5 seconds)
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
@@ -51,13 +51,13 @@ function updatemap() {  // Update the current player location on map
    for (var i = 0; i < displaytable.length; i++) { 
     console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
     if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
-      if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
+      if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red
       
       //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
       clat= -27.2792+(i/10); // for troubleshooting purposes
       clon= 152.975867+(i/10); // for troubleshooting purposes
 	    
-      mymap.removeLayer(WPcircle[i]); //remove the circle before re-drawing it potentially in a different colour    
+      	    //WPcircle.setStyle({color: 'green'});
       WPcircle[i] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
    	    radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
    	    color: colour,
