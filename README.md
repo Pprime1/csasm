@@ -10,14 +10,14 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] Centre on the current player's location
   - [ ] Have Circles for each waypoint
     - [ ] needs to convert geometry waypoint locations to WKT?
-    - [ ] need to update the colour of them with updatemap updates
+    - [x] need to update the colour of them with updatemap updates
   - [ ] can we zoom map further in than 50m?
   - [x] clear the playerloc pin once it updates?
   - [x] map update/pan on movement?
   - [x] make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
       - do we show other players? ... no:sleeping_bed:
   - [x] delay showmap.js from starting until the game actually starts
-  - [ ] why doesn't the actual map tiles display by default at startup? Maybe delay first display until startmap function?
+  - [ ] why doesn't the actual map tiles display by default at startup? Maybe delay first display until is_running? 
 change the person marker icon to be a person ... why does     iconUrl: '../../personicon.png'  not work? 404 Not found?
 - [ ] create a live, outdoors, example for testing
   - [x] iphone testing
@@ -27,8 +27,10 @@ change the person marker icon to be a person ... why does     iconUrl: '../../pe
   - [ ] jitter?
   - [ ] does it work with multiple games?
   - [ ] check that no reward if not occupying a circle
-- [ ] document/diagram of code flow
+- [x] document/diagram of code flow
 - [ ] can Heroku auto-restart the dyno on application crash?
+   - it does usually. https://devcenter.heroku.com/articles/dynos
+   - only usecase it doesn't is a crashed build (eg: attemnpt to build whilst a player still active)
 - [ ] do I care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
 
 # Key files
