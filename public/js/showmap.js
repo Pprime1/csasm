@@ -41,8 +41,8 @@ var map_started = false;
 
 function updatemap() {  // Update the current player location on map
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
+   n=0;
    for (var i = 0; i < displaytable.length; i++) { //set circle colour based on if occupied by current player
-     n=0;
      if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
         if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
 	console.log("Update Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
@@ -63,8 +63,8 @@ async function main() {
 		console.log("Create current player marker:",MYID,latitude,longitude); 
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
-   		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
-    		  n=0;
+    		n=0;
+		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
     		  if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
   		      console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
 
