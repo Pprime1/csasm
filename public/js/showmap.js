@@ -34,7 +34,6 @@ var personicon = L.icon({
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set player location marker as a declared variable but don't put it on the map yet
-      .bindPopup(MYID);
 var colour='#0000ff' // Blue for default - if a circle is blue something is broken
 var map_started = false;
 
@@ -45,11 +44,11 @@ function updatemap() {  // Update the current player location on map
 
    //display each waypoint and target radius as a circle ... change colour once occupied by current player
    for (var i = 0; i < displaytable.length; i++) { 
-    if (displaytable[i].playerID == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
+    if (displaytable[i].ID == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
       if (displaytable[i].distance <= displaytable[i].radius) {colour='#00FF00'} else {colour='#ff0000'}; //green if occupied, otherwise red
       //   latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords
       latlon= "-27.2792,152.975867"; // for troubleshooting purposes  --- Also failed?
-      console.log("Target Circle:",i, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+      console.log("Target Circle:",i, displaytable[i].ID, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
       WPcircle[i] = L.circle([latlon], { //This should be the displaytable.location[i] once that's in a useful format
    	 radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
    	 color: colour,
@@ -62,21 +61,21 @@ function updatemap() {  // Update the current player location on map
     
    //PAN: make the map pan to follow the player location
    mymap.panTo([latitude,longitude]); // pan the map to follow the player
-   mymap.invalidateSize(); //reset map view
+   //mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
 async function main() {
     const interval = setInterval(function() {
          if (is_running) { // we need to know that there is data populated before showing or updating the map with it
 	     if (!map_started) {  //start the map only once 
-  	        mymap.invalidateSize(); //reset map view
     		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
     		L.control.scale().addTo(mymap); //show scale bar
 		console.log("Create current player marker:",MYID,latitude,longitude); 
-    		playerLoc.setLatLng([latitude,longitude]).addTo(mymap); //update current player marker, and now show it on the map
+    		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
        		map_started=true;
     	     }; //start the map only once
 	  updatemap(); 
+	  mymap.invalidateSize(); //reset map view
 	}
     }, 5000); // update map every 5 seconds with current player location.
 };
