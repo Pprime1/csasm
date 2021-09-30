@@ -57,11 +57,12 @@ function updatemap() {  // Update the current player location on map
       clat= -27.2792+(i/10); // for troubleshooting purposes
       clon= 152.975867+(i/10); // for troubleshooting purposes
 	    
+      mymap.removeLayer(WPcircle[i]); //remove the circle before re-drawing it potentially in a different colour    
       WPcircle[i] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
-   	 radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
-   	 color: colour,
-   	 fillColor: colour,
-   	 fillOpacity: 0.2
+   	    radius: displaytable[i].radius, //radius is in metres, but it is not displaying like that as the zoom level of map is changing it?
+   	    color: colour,
+   	    fillColor: colour,
+   	    fillOpacity: 0.2
       }).addTo(mymap)
       .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
     };
