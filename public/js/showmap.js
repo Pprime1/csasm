@@ -44,9 +44,10 @@ function updatemap() {  // Update the current player location on map
    for (var i = 0; i < displaytable.length; i++) { //set circle colour based on if occupied by current player
      n=0;
      if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
-	if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
+        if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
+	console.log("Update Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
       	WPcircle[n].setStyle({color: colour, fillcolor: colour});
-     n++;
+        n++;
      };
    };
    //PAN: make the map pan to follow the player location
@@ -64,10 +65,10 @@ async function main() {
 		
    		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
     		  n=0;
-		  console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
     		  if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
-//    		      if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red
-      		      //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
+  		      console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+
+		      //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
 	      	      clat= -27.2792+(i/10); // for troubleshooting purposes
       		      clon= 152.975867+(i/10); // for troubleshooting purposes
 				
@@ -76,7 +77,7 @@ async function main() {
    		         fillOpacity: 0.2
     		      }).addTo(mymap)
    		      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-      		  n++;
+      		      n++;
 		  };
  		}; //For each target circle		     
        	        map_started=true;
