@@ -42,8 +42,12 @@ var map_started = false;
 function updatemap() {  // Update the current player location on map
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    for (var i = 0; i < displaytable.length; i++) { //set circle colour based on if occupied by current player
-    	if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
-      	WPcircle[i].setStyle({color: colour, fillcolor: colour});
+     n=0;
+     if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
+	if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
+      	WPcircle[n].setStyle({color: colour, fillcolor: colour});
+     n++;
+     };
    };
    //PAN: make the map pan to follow the player location
    mymap.panTo([latitude,longitude]); // pan the map to follow the player
@@ -59,20 +63,21 @@ async function main() {
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
    		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
-    		  console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+    		  n=0;
+		  console.log("Target Circle:",i, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
     		  if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
 //    		      if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red
-      
       		      //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
 	      	      clat= -27.2792+(i/10); // for troubleshooting purposes
       		      clon= 152.975867+(i/10); // for troubleshooting purposes
 				
-     		      WPcircle[i] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
+     		      WPcircle[n] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
    		         radius: displaytable[i].radius,
    		         fillOpacity: 0.2
     		      }).addTo(mymap)
    		      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
-  		  };
+      		  n++;
+		  };
  		}; //For each target circle		     
        	        map_started=true;
     	     }; //start the map only once
