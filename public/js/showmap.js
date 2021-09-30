@@ -23,10 +23,15 @@ var baseMaps = {
      "Streetmap": streetmap,
      "Satellite": satellite
 };
-var mymap = L.map('mapid', { // Define the map
-    layers: [streetmap] //default layer
-}).setView([latitude,longitude],17); //start in SEQ
+//var mymap = L.map('mapid', { // Define the map
+//    layers: [streetmap] //default layer
+//}).setView([latitude,longitude],17); //start in SEQ
     
+var mymap = L.map('mapid', { // Define the map
+   center: [latitude,longitude],
+   zoom: 17,
+   layers: [streetmap] //default layer
+}); //start in SEQ
 
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
@@ -69,7 +74,8 @@ async function main() {
     const interval = setInterval(function() {
          if (is_running) { // we need to know that there is data populated before showing or updating the map with it
 	     if (!map_started) {  //start the map only once 
-    		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+    		baseMaps.addTo(mymap);
+		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
     		L.control.scale().addTo(mymap); //show scale bar
 		console.log("Create current player marker:",MYID,latitude,longitude); 
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
