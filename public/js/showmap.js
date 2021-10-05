@@ -83,8 +83,8 @@ async function main() {
        	        map_started=true;
     	     }; //start the map only once
 	     updatemap(); 
-	     mymap.invalidateSize(); //reset map view
 	  };
+          mymap.invalidateSize(); //reset map view
     }, 5000); // update map every 5 seconds with current player location.
 };
 main();
