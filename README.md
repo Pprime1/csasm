@@ -11,6 +11,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] Have Circles for each waypoint
     - [ ] needs to convert geometry waypoint locations to WKT?
     - [x] need to update the colour of them with updatemap updates
+    - [ ] can we colour a circle yellow(?) if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone?
   - [ ] can we zoom map further in than 50m?
   - [x] clear the playerloc pin once it updates?
   - [x] map update/pan on movement?
@@ -19,7 +20,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] delay showmap.js from starting until the game actually starts
   - [x] why doesn't the actual map tiles display by default at startup? Maybe delay first display until is_running? 
   - [x] change the person marker icon to be a person 
-    - [ ] simplify the icon URL ... why does iconUrl: '../../personicon.png'  not work? 404 Not found?
+    - [x] simplify the icon URL ... use '/js/personicon.png' not '../../personicon.png' 
 - [ ] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
