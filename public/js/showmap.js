@@ -1,5 +1,5 @@
 //***SHOWMAP.js***//
-//Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan etc. Update the map as the player moves ***//
+//Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan/layers etc. Update the map as the player moves ***//
 
 //Global variables out of client.js
     // latitude, longitude == geolocation of current player
@@ -24,33 +24,33 @@ var baseMaps = {
      "Satellite": satellite
 };
     
-var mymap = L.map('mapid', { // Define the map
+// Define the map ... it will start displaying it at the default location which is in UQ somewhere before variables get populated
+var mymap = L.map('mapid', { 
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap] //default layer
-}); //TODO CAN THIS ALSO BE DELAYED?   starts the map, it will be grey and incomplete until the is_running catches up (up to 5 seconds)
+}); 
 
-var WPcircle=[]; // Store all game waypoints shown as map circles
 var personicon = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/Pprime1/csasm/Live-Map/personicon.png', //is this the best way to reference this image icon?
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set player location marker as a declared variable but don't put it on the map yet
+var WPcircle=[]; // Store all game waypoints shown as map circles
 var colour='blue' // Blue for default before data is populated
 var map_started = false;
 
 function updatemap() {  // Update the current player location on map
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    n=0;
-   for (var i = 0; i < displaytable.length; i++) { //set circle colour based on if occupied by current player
+   for (var i = 0; i < displaytable.length; i++) { 
      if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
         if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
 	console.log("Update Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
-      	WPcircle[n].setStyle({color: colour, fillcolor: colour});
+      	WPcircle[n].setStyle({color: colour, fillcolor: colour}); //set circle colour based on if occupied by current player
         n++;
      };
    };
-   //PAN: make the map pan to follow the player location
    mymap.panTo([latitude,longitude]); // pan the map to follow the player
 }; // end updatemap
 
@@ -86,5 +86,5 @@ async function main() {
 	  };
           mymap.invalidateSize(); //reset map view
     }, 5000); // update map every 5 seconds with current player location.
-};
+}; //end main
 main();
