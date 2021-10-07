@@ -32,7 +32,8 @@ var mymap = L.map('mapid', {
 }); 
 
 var personicon = L.icon({
-    iconUrl: 'https://raw.githubusercontent.com/Pprime1/csasm/Live-Map/personicon.png', //is this the best way to reference this image icon?
+    // iconUrl: 'https://raw.githubusercontent.com/Pprime1/csasm/Live-Map/personicon.png', //is this the best way to reference this image icon?
+    iconUrl: 'personicon.png',
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set player location marker as a declared variable but don't put it on the map yet
