@@ -34,6 +34,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
    - it does usually. https://devcenter.heroku.com/articles/dynos
    - only usecase it doesn't is a crashed build (eg: attemnpt to build whilst a player still active)
 - [ ] do I care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
+- [ ] how to have a development environment that is seperate from the production environment
 
 # Key files
 
