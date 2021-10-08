@@ -1,0 +1,12 @@
+**ERROR-HANDLING branch**
+      -merged 19 Jul 2021
+-[x] Routine to check if chosen game is a valid one, and to error/restart if not
+-[x] Check the timeouts - time to refresh player location (should be 5000ms?), refresh room contents (should be 10000ms?)
+-[x] Throw players to an error when they do not allow locations to be grabbed, and inform them how to fix this.
+-[x] Check that update location is actually updating - inside house tests it is never changing location
+-[x] Only display Reward to those players currently occupying any waypoint (thwart game-jumpers)
+-[x] Once Reward is displayed, stop all screen and location updates
+-[x] grab the Game Description and display it
+-[] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values?
+-[] Is it possible to include some form of live map view on the screen? cf: https://github.com/googlemaps/js-samples/blob/master/dist/samples/map-geolocation/index.js
+-[x] Can we start the game directly to a pre-filled GC code eg: https://csasm.herokuapp.com/?GCTEST ?
