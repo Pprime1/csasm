@@ -1,3 +1,5 @@
+#**HISTORY OF CODE DEVELOPMENT BRANCHES**#
+
 **ERROR-HANDLING #22 branch**
       -merged 19 Jul 2021
 - [x] Routine to check if chosen game is a valid one, and to error/restart if not
@@ -20,8 +22,8 @@
 **MERGE GROUPS #18 branch**
       - merged 25 Jun 2021
 - [x] Renamed Groups as Games in Index.ejs + relevant client.js
-- [x] Failed to send Game Description to be displayed
-- [x] No error checking working for a valid game code
+- [ ] Failed to send Game Description to be displayed
+- [ ] No error checking working for a valid game code
 - [x] Created Reward display output, including a copy button
 - [x] Tested Room Reward system
 
