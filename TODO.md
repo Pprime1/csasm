@@ -1,4 +1,4 @@
-#**HISTORY OF CODE DEVELOPMENT BRANCHES**#
+**HISTORY OF CODE DEVELOPMENT BRANCHES**
 
 **ERROR-HANDLING #22 branch**
       -merged 19 Jul 2021
@@ -92,3 +92,15 @@
 - [x] disable validate checksum for postgrator... and update readme
 - [x] impl: add api, and websocket functionality
 - [x] create code base
+
+**IMPLEMENT VISION**
+- 1 - geocache table contains information about points of interest - e.g "Andrews Place"... if we wanted we could add a third table to link them to a "GCCODE" then look for all players updated in last 5 minutes and see whether they're near any of the places for our GCCODE, if any are send that as an update to all users for same GCCODE 2.2 - When all players occupy the correct locations send further information in the "distance" update to congratulate them?
+
+- 2A - Implement a "which game' feature, possibly as a command line call ie: https://csasm.herokuapp.com/?GCCODE
+- 2B - Compare current player's location to both waypoint locations in the ASM table for the current 'game' ... display distance from each, and display current time as reference
+- 2C - IF player is closer to either waypoint location than the specified 'radius' distance, then update the timestamp of that waypoint to current time
+- 2D - AND THEN check if the timestamp for the other waypoint location is also within 30 seconds of current time, if it is then both locations are occupied, = SUCCESS
+- 2E - IF NOT SUCCESS, display an encouragement message and re-poll
+- 2F - IF SUCCESS, ie: both waypoint locations are currently occupied by a player, THEN display SUCCESS MESSAGE and halt.
+
+- 3 Budget Concerns - Postgres allows for 10k rows, we store player information in the database whilst they're connected. X This means we are allowed to have (10k - geocache.rows - othertables.rows) players X This should be tracked to whether it is still appropriate
