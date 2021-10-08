@@ -9,14 +9,14 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [x] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
   - [x] Centre on the current player's location
   - [ ] Have Circles for each waypoint
-    - [ ] needs to convert geometry waypoint locations to WKT?
+    - [ ] needs to convert geometry waypoint locations to WKT
     - [x] need to update the colour of them with updatemap updates
-    - [ ] can we colour a circle yellow(?) if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone?
+    - [ ] colour the circle yellow if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone
   - [ ] can we zoom map further in than 50m?
   - [x] clear the playerloc pin once it updates?
   - [x] map update/pan on movement?
   - [x] make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
-      - do we show other players? ... no:sleeping_bed:
+      - do we show other players on map? ... no:sleeping_bed:
   - [x] delay showmap.js from starting until the game actually starts
   - [x] why doesn't the actual map tiles display by default at startup? Maybe delay first display until is_running? 
   - [x] change the person marker icon to be a person 
@@ -29,13 +29,16 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] jitter?
   - [ ] does it work with multiple games?
   - [ ] check that no reward if not occupying a circle
+  - [ ] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
+  - [ ] review console.logs to ensure it's useful and not overly communicative
 - [x] document/diagram of code flow
 - [x] can Heroku auto-restart the dyno on application crash?
    - it does usually. https://devcenter.heroku.com/articles/dynos
    - only usecase it doesn't is a crashed build (eg: attemnpt to build whilst a player still active)
 - [ ] do I care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
 - [ ] how to have a development environment that is seperate from the production environment
-- [ ] Can I track down all the todo's from earlier branches and store them in a seperate file perhaps? There is a bit of a history of development emerging here
+- [x] track down all the todo's from earlier branches and store them in a seperate file perhaps? There is a bit of a history of development emerging here
+    - [ ] make them to-dones only
 
 # Key files
 
