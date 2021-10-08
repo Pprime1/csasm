@@ -113,7 +113,7 @@ async function update_game(room, io, db_connection, games_result) {
 
    let WPLoc_query = `SELECT st_x(location), st_y(location) FROM waypoint`;
    let WPLoc_result = await db_connection.query(WPLoc_query);
-   console_log("getting WPLoc",WPLoc_result);
+   console.log("getting WPLoc",WPLoc_result);
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
