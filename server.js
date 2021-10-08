@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 function getGameByCode(games_result, game_id) {
     for (var i = 0; i < games_result.length; i++) {
       if (games_result[i]["game_code"] == game_id) {
-         // console.log("Game is: ", games_result[i]);
 	  return games_result[i];
       };
     };
@@ -111,7 +110,10 @@ async function update_game(room, io, db_connection, games_result) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
-   // console.log("Game description in update game function are: ", game_details["description"]);
+
+   let WPLoc_query = `SELECT st_x(location), st_y(location) FROM waypoint`;
+   let WPLoc_result = await db_connection.query(WPLoc_query);
+   console_log("getting WPLoc",WPLoc_result);
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
@@ -122,7 +124,6 @@ async function update_game(room, io, db_connection, games_result) {
     `;
     let display_result = await db_connection.query(display_query);
     io.to(room).emit('display-update', display_result.rows);
-    // io.to(room).emit('display-update', gamedesc, display_result.rows);
 
     // How many waypoints are there in this game?
     let minimum_player_count = game_details["minimum_players"]
