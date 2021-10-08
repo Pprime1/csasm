@@ -32,7 +32,6 @@ var mymap = L.map('mapid', {
 }); 
 
 var personicon = L.icon({
-    // iconUrl: 'https://raw.githubusercontent.com/Pprime1/csasm/Live-Map/personicon.png', //is this the best way to reference this image icon?
     iconUrl: '/js/personicon.png',
     iconSize: [20, 20]
     });
@@ -45,9 +44,10 @@ function updatemap() {  // Update the current player location on map
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    n=0;
    for (var i = 0; i < displaytable.length; i++) { 
+     if (displaytable[i].distance <= displaytable[i].radius) {colour='yellow'} else {colour='red'}; //yellow if occupied by someone, otherwise red 
      if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
-        if (displaytable[i].distance <= displaytable[i].radius) {colour='green'} else {colour='red'}; //green if occupied, otherwise red 
-	console.log("Update Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
+        if (displaytable[i].distance <= displaytable[i].radius) {colour='green'}; //green if occupied by this player
+	console.log("Update Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);
       	WPcircle[n].setStyle({color: colour, fillcolor: colour}); //set circle colour based on if occupied by current player
         n++;
      };
