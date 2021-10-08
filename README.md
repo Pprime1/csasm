@@ -8,8 +8,8 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
   - [x] Centre on the current player's location
-  - [ ] Have Circles for each waypoint
-    - [ ] needs to convert geometry waypoint locations to WKT
+  - [x] Have Circles for each waypoint
+    - [x] needs to convert geometry waypoint locations to WKT
     - [x] need to update the colour of them with updatemap updates
     - [ ] colour the circle yellow if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone
   - [ ] can we zoom map further in than 50m?
