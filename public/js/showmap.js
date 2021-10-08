@@ -67,17 +67,12 @@ async function main() {
     		n=0;
 		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
     		  if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
-  		      console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].location, displaytable[i].radius, displaytable[i].distance, colour);
-
-		      //latlon=ST_AsText(displaytable[i].location);      //FAIL - location is in GEOM format: eg location: "0101000020110F00003A0664AF77473BC037548CF3371F6340" need to convert back to coords    
-	      	      clat= -27.2792+(i/10); // for troubleshooting purposes
-      		      clon= 152.975867+(i/10); // for troubleshooting purposes
-				
-     		      WPcircle[n] = L.circle([clat,clon], { //This should be the displaytable.location[i] once that's in a useful format
+  		      console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);	
+     		      WPcircle[n] = L.circle([displaytable[i].x,displaytable[i].y], { 
    		         radius: displaytable[i].radius,
    		         fillOpacity: 0.2
     		      }).addTo(mymap)
-   		      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].location);
+   		      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].x + "," + displaytable[i].y);
       		      n++;
 		  };
  		}; //For each target circle		     
