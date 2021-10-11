@@ -41,18 +41,31 @@ var colour='blue' // Blue for default before data is populated
 var map_started = false;
 
 function updatemap() {  // Update the current player location on map
-   playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-   n=0;
-   for (var i = 0; i < displaytable.length; i++) { 
-     if (displaytable[i].distance <= displaytable[i].radius) {colour='yellow'} else {colour='red'}; //yellow if occupied by someone, otherwise red 
-     console.log("Update Circle:", i, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);
-     if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
-        if (displaytable[i].distance <= displaytable[i].radius) {colour='green'}; //green if occupied by this player
-      	WPcircle[n].setStyle({color: colour, fillcolor: colour}); //set circle colour based on if occupied by current player
-        n++;
-     };
-   };
-   mymap.panTo([latitude,longitude]); // pan the map to follow the player
+   	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
+   	//n=0;
+   	//for (var i = 0; i < displaytable.length; i++) { 
+   	//  if (displaytable[i].distance <= displaytable[i].radius) {colour='yellow'} else {colour='red'}; //yellow if occupied by someone, otherwise red 
+   	//  console.log("Update Circle:", i, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);
+   	//  if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
+   	//     if (displaytable[i].distance <= displaytable[i].radius) {colour='green'}; //green if occupied by this player
+   	//   	WPcircle[n].setStyle({color: colour, fillcolor: colour}); //set circle colour based on if occupied by current player
+   	//     n++;
+   	//  };
+   	//};
+	
+	for (var i = 0; i < displaytable.length; i++) {  //set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 
+   		colour='red';
+		if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {colour='green'};
+		if (displaytable[i].distance <= displaytable[i].radius && !displaytable[i].id == MYID) {colour='yellow'};
+		for (var n=0;n<WPN.length;n++) { // find WPN and update it's colour accordingly
+			if (displaytable[i],name == WPN[n]) {
+				if (WPC[n]=='blue') {WPC[n] = colour}; reset the colour if it's not
+				console.log("Update Circle:",n, WPN[n], WPC[n]);	
+   				WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour based on if occupied by current player
+		};
+	};
+	
+	mymap.panTo([latitude,longitude]); // pan the map to follow the player (TODO: Can we toggle pan mode?)
 }; // end updatemap
 
 async function main() {
@@ -64,18 +77,36 @@ async function main() {
 		console.log("Create current player marker:",MYID,latitude,longitude); 
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
-    		n=0;
-		for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
-    		  if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
-  		      console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);	
-     		      WPcircle[n] = L.circle([displaytable[i].x,displaytable[i].y], { 
-   		         radius: displaytable[i].radius,
-   		         fillOpacity: 0.2
-    		      }).addTo(mymap)
-   		      .bindPopup(displaytable[i].name + "<br>" + displaytable[i].x + "," + displaytable[i].y);
-      		      n++;
-		  };
- 		}; //For each target circle		     
+	for (var i=0;i<displaytable.length;i++){
+		if (!WPN.includes(displaytable[i].name) {
+	    	    WPN.push(displaytable[i].name);
+	    	    WPC.push(colour);
+	    	    WPX.push([displaytable[i].X);
+	    	    WPY.push([displaytable[i].Y);
+	    	    WPR.push([displaytable[i].radius);
+		};
+	};
+	for (var n=0;n<WPN.length;n++){
+		console.log("Target Circle:",n, WPN[n], WPX[n], , WPY[n], WPR[n], WPC[n]);	
+		WPcircle[n] = L.circle([WPX[n],WPY[n]], { 
+    	    	    radius: WPR[n],
+    	    	    fillOpacity: 0.2
+		}).addTo(mymap)
+	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
+	};
+		     
+		//n=0;
+		//for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
+    		  //if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
+  		      //console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);	
+     		      //WPcircle[n] = L.circle([displaytable[i].x,displaytable[i].y], { 
+   		      //   radius: displaytable[i].radius,
+   		     //    fillOpacity: 0.2
+    		    //  }).addTo(mymap)
+   		   //   .bindPopup(displaytable[i].name + "<br>" + displaytable[i].x + "," + displaytable[i].y);
+      		  //    n++;
+		 // };
+ 		//}; //For each target circle		     
        	        map_started=true;
     	     }; //start the map only once
 	     updatemap(); 
