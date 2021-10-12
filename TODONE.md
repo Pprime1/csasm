@@ -1,6 +1,7 @@
 **HISTORY OF CODE DEVELOPMENT BRANCHES**
 
-**LIVE-MAP #nn branch**
+**LIVE-MAP #25 branch**
+      -merged 12 October 2021
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
   - [x] Centre on the current player's location
