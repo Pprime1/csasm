@@ -89,9 +89,9 @@ async function main() {
 			if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
 	    	    	     WPN.push(displaytable[i].name);
 	    	    	     WPC.push('red');
-	    	    	     WPX.push([displaytable[i].X);
-	    	    	     WPY.push([displaytable[i].Y);
-	    	    	     WPR.push([displaytable[i].radius);
+	    	    	     WPX.push(displaytable[i].X);
+	    	    	     WPY.push(displaytable[i].Y);
+	    	    	     WPR.push(displaytable[i].radius);
 			};
 	     	};
 	     	for (var n=0; n<WPN.length; n++){
