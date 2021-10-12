@@ -52,8 +52,8 @@ function updatemap() {  // Update the current player location on map
 	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    		for (var n=0; n<WPN.length; n++) { 
 			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
-				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {colour='green'}; //set to green if I am in it
-				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {colour='yellow'}; //set to yellow if anyone is in it, and not already green
+				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {WPC[n]='green'}; //set to green if player is in it
+				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {WPC[n]='yellow'}; //set to yellow if anyone is in it, and not already green
 			};
 		};
 	}; 
