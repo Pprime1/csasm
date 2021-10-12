@@ -1,5 +1,32 @@
 **HISTORY OF CODE DEVELOPMENT BRANCHES**
 
+**LIVE-MAP ### branch**
+# TODO
+- [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+- [x] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
+  - [x] Centre on the current player's location
+  - [x] Have Circles for each waypoint
+    - [x] needs to convert geometry waypoint locations to WKT
+    - [x] need to update the colour of them with updatemap updates
+    - [x] colour the circle yellow if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone
+  - [x] map update/pan on movement?
+  - [x] make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
+      - do we show other players on map? ... no:sleeping_bed:
+  - [x] delay showmap.js from starting until the game actually starts
+    - [x] why doesn't the actual map tiles display by default at startup? Maybe delay first display until is_running? 
+  - [x] change the person marker icon to be a person 
+    - [x] simplify the icon URL ... use '/js/personicon.png' not '../../personicon.png' 
+  - [ ] can we zoom map further in than 50m?
+  - [ ] Can we have a toggle on whether to pan the map or not?
+  - [x] clear the playerloc pin once it updates?
+  - [x] iphone testing
+- [x] document/diagram of code flow
+- [x] can Heroku auto-restart the dyno on application crash?
+   - it does usually. https://devcenter.heroku.com/articles/dynos
+   - only usecase it doesn't is a crashed build (eg: attemnpt to build whilst a player still active)
+- [x] I don't care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
+- [x] track down all the todo's from earlier branches and store them in a seperate file perhaps? There is a bit of a history of development emerging here
+
 **ERROR-HANDLING #22 branch**
       -merged 19 Jul 2021
 - [x] Routine to check if chosen game is a valid one, and to error/restart if not
