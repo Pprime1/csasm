@@ -66,6 +66,7 @@ function updatemap() {  // Update the current player location on map
 				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {colour='green'}; //set to green if I am in it
 				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {colour='yellow'}; //set to yellow if anyone is in it, and not already green
 				console.log("Update Circle:",n, WPN[n], WPC[n]);	
+			};
 		};
 	}; 
 	for (var n=0;n<WPN.length;n++) {
