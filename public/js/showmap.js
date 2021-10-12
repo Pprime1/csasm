@@ -54,12 +54,12 @@ function updatemap() {  // Update the current player location on map
 			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
 				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {colour='green'}; //set to green if I am in it
 				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {colour='yellow'}; //set to yellow if anyone is in it, and not already green
-				console.log("Update Circle:",n, WPN[n], WPC[n]);	
 			};
 		};
 	}; 
 	for (var n=0;n<WPN.length;n++) {
 		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour (circles are already on map, just updating colours here)
+		console.log("Update Circle:",n, WPN[n], WPC[n]);	
 		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
 	};
 	mymap.panTo([latitude,longitude]); // pan the map to follow the player (TODO: Can we toggle pan mode?)
