@@ -48,17 +48,6 @@ var map_started = false;
 
 function updatemap() {  // Update the current player location on map
    	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-   	//n=0;
-   	//for (var i = 0; i < displaytable.length; i++) { 
-   	//  if (displaytable[i].distance <= displaytable[i].radius) {colour='yellow'} else {colour='red'}; //yellow if occupied by someone, otherwise red 
-   	//  console.log("Update Circle:", i, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);
-   	//  if (displaytable[i].id == MYID) { // only update the circles as applies to current player - displaytable lists a circle per player
-   	//     if (displaytable[i].distance <= displaytable[i].radius) {colour='green'}; //green if occupied by this player
-   	//   	WPcircle[n].setStyle({color: colour, fillcolor: colour}); //set circle colour based on if occupied by current player
-   	//     n++;
-   	//  };
-   	//};
-	
 	//set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
 	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    		for (var n=0; n<WPN.length; n++) { 
@@ -90,33 +79,19 @@ async function main() {
 			if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
 	    	    	     WPN.push(displaytable[i].name);
 	    	    	     WPC.push('red');
-	    	    	     WPX.push(displaytable[i].X);
-	    	    	     WPY.push(displaytable[i].Y);
+	    	    	     WPX.push(displaytable[i].x);
+	    	    	     WPY.push(displaytable[i].y);
 	    	    	     WPR.push(displaytable[i].radius);
 			};
 	     	};
-	     	for (var n=0; n<WPN.length; n++){
-			console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); // Create each circle once
-			WPcircle[n] = L.circle([WPX[n],WPY[n]], { 
+	     	for (var n=0; n<WPN.length; n++){ 
+			console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+			WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
     	    	    	     radius: WPR[n],
     	    	    	     fillOpacity: 0.2
 			}).addTo(mymap)
 	  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
-	     	};
-		     
-		//n=0;
-		//for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
-    		  //if (displaytable[i].id == MYID) { // only display the circles once each and as applies to current player - displaytable lists a circle per player
-  		      //console.log("Target Circle:",i,n, displaytable[i].id, displaytable[i].name, displaytable[i].x, displaytable[i].y, displaytable[i].radius, displaytable[i].distance, colour);	
-     		      //WPcircle[n] = L.circle([displaytable[i].x,displaytable[i].y], { 
-   		      //   radius: displaytable[i].radius,
-   		     //    fillOpacity: 0.2
-    		    //  }).addTo(mymap)
-   		   //   .bindPopup(displaytable[i].name + "<br>" + displaytable[i].x + "," + displaytable[i].y);
-      		  //    n++;
-		 // };
- 		//}; //For each target circle		
-		     
+	     	};	     
        	        map_started=true;
     	     }; //start the map only once
 	     updatemap(); // for current player location and circle colour.
