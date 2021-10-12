@@ -38,6 +38,8 @@ If so, returns hidden REWARD text value (clues/directions to the final container
    - only usecase it doesn't is a crashed build (eg: attemnpt to build whilst a player still active)
 - [x] I don't care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
 - [ ] how to have a development environment that is seperate from the production environment
+- [ ] Leave room is not working properly - it is not properly updating playercount. 
+  - [ ] On leave room if there are now zero players do some form of end-game acknowledgement
 - [x] track down all the todo's from earlier branches and store them in a seperate file perhaps? There is a bit of a history of development emerging here
     - [ ] make them to-dones only
 
