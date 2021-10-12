@@ -1,3 +1,4 @@
+//***DATABASE.js***//
 const POSTGRATOR = require('postgrator')
 const PG_PARSE = require('pg-connection-string').parse;
 const PG_POOL = require('pg').Pool

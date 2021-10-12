@@ -1,3 +1,4 @@
+//***SERVER.js***//
 const express = require('express');
 const app = require('express')();
 const http = require("http").createServer(app);
@@ -22,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 function getGameByCode(games_result, game_id) {
     for (var i = 0; i < games_result.length; i++) {
       if (games_result[i]["game_code"] == game_id) {
-         // console.log("Game is: ", games_result[i]);
 	  return games_result[i];
       };
     };
@@ -110,18 +110,17 @@ async function update_game(room, io, db_connection, games_result) {
    let game_code = room.replace("game-", "");
    console.log("Playing game", game_code);
    let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
-   // console.log("Game description in update game function are: ", game_details["description"]);
 
    let display_query = `
        SELECT pl.id, pl.room_id, pl.updated_at,
-              wp.name, wp.radius, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+              wp.name, wp.radius, st_x(wp.location) as "x", st_y(wp.location) as "y", round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
        FROM player as pl, waypoint as wp
        WHERE wp.game_code = '${game_code}' AND pl.room_id = '${game_code}'
        ORDER BY pl.id
     `;
     let display_result = await db_connection.query(display_query);
+    //console.log("display_table",display_result.rows);
     io.to(room).emit('display-update', display_result.rows);
-    // io.to(room).emit('display-update', gamedesc, display_result.rows);
 
     // How many waypoints are there in this game?
     let minimum_player_count = game_details["minimum_players"]
@@ -168,7 +167,7 @@ async function main() {
       Array.from( io.sockets.adapter.rooms.keys() ).forEach(roomId => { // For each concurrently running game
          update_game(roomId, io, connection, games_result.rows);
       });
-      await delay(11000); // wait 11 seconds between performing game updates
+      await delay(10000); // wait 10 seconds between performing game updates
     }; // end of while loop
 } // end of MAIN
 

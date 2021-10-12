@@ -1,7 +1,14 @@
+//***CLIENT.js***//
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
+var latitude =-27.5;    // make available to global variable in Displaymap.js
+var longitude =153;   // make available to global variable in Displaymap.js
+var is_joined = false; // status for being part of a game
+var is_running = false; // status for once all main variables are first populated
+var displaytable =[]; // make available to global variable in Displaymap.js
+var MYID = socket.id; // this is current player, make available to global variable in Displaymap.js
 for (var entry of urlParams) { 
-    var URLentry = entry[0];
+    var URLentry = entry[0]; // only the first URL paramis considered as the Game ID code
 };   
 var RtnError = null;
 if (URLentry) {  // if started with a URLParam then attempt to join that game ID
@@ -10,7 +17,7 @@ if (URLentry) {  // if started with a URLParam then attempt to join that game ID
     socket.emit('join-a-game', URLentry, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
-} else { URLentry = "GCALBURY" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
+} else { URLentry = "GCTEST" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
 
 var geoOptions = {
   enableHighAccuracy: true,
@@ -34,8 +41,8 @@ function ConvertDEGToDM(deg,dir) {
  }; // Convert DM.MMM
 
 function updatePosition(position) {
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
+  latitude = position.coords.latitude;
+  longitude = position.coords.longitude;
   var accuracy = position.coords.accuracy;
   var lat = ConvertDEGToDM(latitude,1);
   var lon = ConvertDEGToDM(longitude,0);
@@ -80,7 +87,6 @@ function PosError(error) { // handle/display get geolocation errors
     };
 }; // GeoLocation Error handler
 
-var is_joined = false;
 socket.io.on("reconnect", () => { // Reconnect is not used any more?
   if (is_joined) {
       socket.emit('join-a-game', $("#current-game-id").text());
@@ -114,8 +120,9 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 }); // end of ROOM-UPDATE
 
 socket.on("display-update", (display_information) => {
-  console.log(display_information);
-  var MYID = socket.id; // this is current player
+  displaytable=display_information; // make available to global variable in Displaymap.js
+  //console.log(displaytable);
+  MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   var game_description = localStorage.getItem ('game_description');
   $("#gamedesc").text(game_description);
@@ -124,19 +131,24 @@ socket.on("display-update", (display_information) => {
   var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
       $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
   for (var i = 0; i < display_information.length; i++) {
-      if (display_information[i].distance != null && display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
-          $table += "<tr class='table table-success'>"
-      } else {
-          $table += "<tr class='table table-light' border='1'>"
-      };
-      $table += "<td>" + display_information[i].id + "</td>"
-      $table += "<td>" + display_information[i].name + "</td>"
-      $table += "<td>" + display_information[i].radius + "m</td>"
-      $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
-      };
+      if (display_information[i].distance != null) { // if it is null there is an error somewhere
+          if (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
+              $table += "<tr class='table table-success'>"
+          } else {
+              $table += "<tr class='table table-light' border='1'>"
+          };
+          $table += "<td>" + display_information[i].id + "</td>"
+          $table += "<td>" + display_information[i].name + "</td>"
+          $table += "<td>" + display_information[i].radius + "m</td>"
+          $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
+     } else { 
+          console.log("distance is null error occurred", display_information)
+     };
+  };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table);
+  is_running = true;
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
@@ -153,8 +165,8 @@ window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
   $("#game-error").text(GmError); // Set to display any error message underneath form entry field
-  console.log("In Form join status is ", is_joined);
   if (!is_joined) { $("#lj-startup").show() }; // show the form only if not already joined to a game thanks to the URL paramater
+  console.log("Starting Game Form");
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
