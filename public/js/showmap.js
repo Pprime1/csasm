@@ -36,8 +36,14 @@ var personicon = L.icon({
     iconSize: [20, 20]
     });
 var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set player location marker as a declared variable but don't put it on the map yet
+
 var WPcircle=[]; // Store all game waypoints shown as map circles
-var colour='blue' // Blue for default before data is populated
+var WPN=[]; //define an array of all unique waypoint names
+var WPC=[]; //define an array of all unique waypoint colours
+var WPX=[]; //define an array of all unique waypoint X latitude
+var WPY=[]; //define an array of all unique waypoint Y longitude
+var WPR=[]; //define an array of all unique waypoint radius
+var colour='blue'; // Blue for default before data is populated
 var map_started = false;
 
 function updatemap() {  // Update the current player location on map
@@ -53,21 +59,23 @@ function updatemap() {  // Update the current player location on map
    	//  };
    	//};
 	
-	for (var i = 0; i < displaytable.length; i++) {  //set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 
-   		colour='red';
-		if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {colour='green'};
-		if (displaytable[i].distance <= displaytable[i].radius && !displaytable[i].id == MYID) {colour='yellow'};
-		for (var n=0;n<WPN.length;n++) { // find WPN and update it's colour accordingly
-			if (displaytable[i],name == WPN[n]) {
-				if (WPC[n]=='blue') {WPC[n] = colour}; reset the colour if it's not
+	//set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
+	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
+   		for (var n=0; n<WPN.length; n++) { 
+			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
+				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {colour='green'}; //set to green if I am in it
+				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {colour='yellow'}; //set to yellow if anyone is in it, and not already green
 				console.log("Update Circle:",n, WPN[n], WPC[n]);	
-   				WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour based on if occupied by current player
 		};
+	}; 
+	for (var n=0;n<WPN.length;n++) {
+		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour (circles are already on map, just updating colours here)
+		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
 	};
-	
 	mymap.panTo([latitude,longitude]); // pan the map to follow the player (TODO: Can we toggle pan mode?)
 }; // end updatemap
 
+	
 async function main() {
     const interval = setInterval(function() {
          if (is_running) { // we need to know that there is data populated before showing or updating the map with it
@@ -77,23 +85,23 @@ async function main() {
 		console.log("Create current player marker:",MYID,latitude,longitude); 
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
-	for (var i=0;i<displaytable.length;i++){
-		if (!WPN.includes(displaytable[i].name) {
-	    	    WPN.push(displaytable[i].name);
-	    	    WPC.push(colour);
-	    	    WPX.push([displaytable[i].X);
-	    	    WPY.push([displaytable[i].Y);
-	    	    WPR.push([displaytable[i].radius);
-		};
-	};
-	for (var n=0;n<WPN.length;n++){
-		console.log("Target Circle:",n, WPN[n], WPX[n], , WPY[n], WPR[n], WPC[n]);	
-		WPcircle[n] = L.circle([WPX[n],WPY[n]], { 
-    	    	    radius: WPR[n],
-    	    	    fillOpacity: 0.2
-		}).addTo(mymap)
-	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
-	};
+		for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
+			if (!WPN.includes(displaytable[i].name) { // ... create a single circle entry per unique waypoint
+	    	    	     WPN.push(displaytable[i].name);
+	    	    	     WPC.push('red');
+	    	    	     WPX.push([displaytable[i].X);
+	    	    	     WPY.push([displaytable[i].Y);
+	    	    	     WPR.push([displaytable[i].radius);
+			};
+	     	};
+	     	for (var n=0; n<WPN.length; n++){
+			console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); // Create each circle once
+			WPcircle[n] = L.circle([WPX[n],WPY[n]], { 
+    	    	    	     radius: WPR[n],
+    	    	    	     fillOpacity: 0.2
+			}).addTo(mymap)
+	  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
+	     	};
 		     
 		//n=0;
 		//for (var i = 0; i < displaytable.length; i++) { //display each waypoint and target radius as a circle 
@@ -106,12 +114,13 @@ async function main() {
    		   //   .bindPopup(displaytable[i].name + "<br>" + displaytable[i].x + "," + displaytable[i].y);
       		  //    n++;
 		 // };
- 		//}; //For each target circle		     
+ 		//}; //For each target circle		
+		     
        	        map_started=true;
     	     }; //start the map only once
-	     updatemap(); 
-	  };
+	     updatemap(); // for current player location and circle colour.
+	  }; //update only if is_running
           mymap.invalidateSize(); //reset map view
-    }, 5000); // update map every 5 seconds with current player location.
+    }, 5000); // update map every 5 seconds 
 }; //end main
 main();
