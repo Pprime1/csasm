@@ -6,9 +6,9 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] can we zoom map further in than 50m?
+- [x] can we zoom map further in than 50m?
 - [ ] Can we have a toggle on whether to pan the map or not? 
-- [ ] create a live, outdoors, example for testing
+- [x] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
   - [ ] usability for navigation from a distance
@@ -16,11 +16,13 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] jitter?
   - [ ] does it work with multiple games?
   - [ ] check that no reward if not occupying a circle
-  - [ ] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [ ] review console.logs to ensure it's useful and not overly communicative
 - [ ] how to have a development environment that is seperate from the production environment
 - [ ] Leave room is not working properly - it is not properly updating playercount. 
+  - [ ] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [ ] On leave room if there are now zero players do some form of end-game acknowledgement
+
+- [ ] Hide a container, create a real one
 
 # Key files
 
