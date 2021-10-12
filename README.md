@@ -11,7 +11,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] Have Circles for each waypoint
     - [x] needs to convert geometry waypoint locations to WKT
     - [x] need to update the colour of them with updatemap updates
-    - [ ] colour the circle yellow if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone
+    - [x] colour the circle yellow if anyone is occupying, colour it green if current player is occupying, otherwise red when not occupied by anyone
   - [x] map update/pan on movement?
   - [x] make the displayed map bigger on screen? 1000px height x full device-width ==> set in the css stylesheet
       - do we show other players on map? ... no:sleeping_bed:
