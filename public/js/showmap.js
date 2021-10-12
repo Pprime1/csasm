@@ -86,7 +86,7 @@ async function main() {
     		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
 		for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
-			if (!WPN.includes(displaytable[i].name) { // ... create a single circle entry per unique waypoint
+			if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
 	    	    	     WPN.push(displaytable[i].name);
 	    	    	     WPC.push('red');
 	    	    	     WPX.push([displaytable[i].X);
