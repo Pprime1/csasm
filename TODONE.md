@@ -80,7 +80,7 @@
 
 **Prime dev #9 branch**
       - merged 31 May 2021
--[x] Sorted out the output table display
+- [x] Sorted out the output table display
 
 **Prime display #6 branch**
       - merged 27 May 2021
@@ -129,4 +129,6 @@
 - 2E - IF NOT SUCCESS, display an encouragement message and re-poll
 - 2F - IF SUCCESS, ie: both waypoint locations are currently occupied by a player, THEN display SUCCESS MESSAGE and halt.
 
-- 3 Budget Concerns - Postgres allows for 10k rows, we store player information in the database whilst they're connected. X This means we are allowed to have (10k - geocache.rows - othertables.rows) players X This should be tracked to whether it is still appropriate
+- 3 Budget Concerns - Postgres allows for 10k rows, we store player information in the database whilst they're connected. 
+  - This means we are allowed to have (10k - geocache.rows - othertables.rows) players 
+  - This should be tracked to whether it is still appropriate
