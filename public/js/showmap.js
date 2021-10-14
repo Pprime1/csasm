@@ -42,10 +42,11 @@ var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set pl
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var WPN=[]; //define an array of all unique waypoint names
 var WPC=[]; //define an array of all unique waypoint colours
-var WPX=[]; //define an array of all unique waypoint X latitude
-var WPY=[]; //define an array of all unique waypoint Y longitude
+var WPX=[]; //define an array of all unique waypoint x latitude
+var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
-var colour='blue'; // Blue for default before data is populated
+var currentAutoMove = false; // needed to check in `movestart` event-listener if moved from interval or by user
+var pauseAutoMove = false; // if true -> Stops moving map
 var map_started = false;
 
 function updatemap() {  // Update the current player location on map
@@ -64,10 +65,23 @@ function updatemap() {  // Update the current player location on map
 		console.log("Update Circle:",n, WPN[n], WPC[n]);	
 		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
 	};
-	mymap.panTo([latitude,longitude]); // pan the map to follow the player (TODO: Can we toggle pan mode?)
+	if(!pauseAutoMove){ // pan the map to follow the player unless it is on pause
+       		currentAutoMove = true; // Set flag, that currently map is moved by a normal PlayerLoc update
+       		mymap.panTo([latitude,longitude]); 
+       		currentAutoMove = false; // Remove flag again
+	};		    
 }; // end updatemap
 
-	
+L.EasyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to start auto move again
+	pauseAutoMove = false;
+	mymap.panTo([latitude,longitude]); 
+}).addTo(mymap);
+
+map.on('movestart',(e)=>{// Check if map is being moved
+    console.log(e, currentAutoMove);
+    if(!currentAutoMove){pauseAutoMove = true}; // set flag to stop moving map unless it was a natural PlayerLoc update
+});
+
 async function main() {
     const interval = setInterval(function() {
          if (is_running) { // we need to know that there is data populated before showing or updating the map with it
