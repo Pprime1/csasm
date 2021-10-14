@@ -65,24 +65,25 @@ function updatemap() {  // Update the current player location on map
 		console.log("Update Circle:",n, WPN[n], WPC[n]);	
 		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
 	};
-	if(!pauseAutoMove){ // pan the map to follow the player unless it is on pause
-       		currentAutoMove = true; // Set flag, that currently map is moved by a normal PlayerLoc update
+	if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
+       		currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
        		mymap.panTo([latitude,longitude]); 
-       		currentAutoMove = false; // Remove flag again
+       		currentAutoMove = false; //Remove flag again
 	};		    
 }; // end updatemap
 
+var btn1;
 L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to start auto move again
-	pauseAutoMove = false;
-	btn.button.style='fa-crosshairs fa-lg';//change button style to have crosshairs
+	btn1=btn;
+	pauseAutoMove = false; //set flag to start Auto moving map 
+	btn1.button.style='fa-crosshairs fa-lg'; //change button style to crosshairs
 	mymap.panTo([latitude,longitude]); 
 }).addTo(mymap);
 
-mymap.on('movestart',(e)=>{// Check if map is being moved
-    console.log(e, currentAutoMove);
-    if(!currentAutoMove){
-	    pauseAutoMove = true; // set flag to stop moving map unless it was a natural PlayerLoc update
-     	    btn.button.style=' '; //change button style to remove crosshairs
+mymap.on('movestart',(e)=>{ //Check if map is being moved
+    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
+	    pauseAutoMove = true; //set flag to stop Auto moving map 
+     	    btn1.button.style='fa-sign-in fa-lg'; //change button style to remove crosshairs and have a arrow-in icon
     }
 });
 
