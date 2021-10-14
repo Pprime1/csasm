@@ -156,7 +156,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
   localStorage.setItem('reward_information', reward_information);
   console.log("Reward=",reward_information);
   setTimeout( function() {
-    location.href = "reward"; // Redirect user to reward page, disconnecting them from game session updates.
+    location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
   }, 100)
 }); // end of DISPLAY-REWARD
 
@@ -176,4 +176,10 @@ window.addEventListener("load",function(event) {
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
+    
+  $( "#join-game-form" ).on( "quit", function(e) {
+     e.preventDefault();
+     console.log(`Attempting to quit ${ game }`);
+     location.href = "https://geocaching.com"; // Redirect user to another page, disconnecting them from game and any session updates.
+  }); // end of form
 }, false); // end of JOIN-GAME listener
