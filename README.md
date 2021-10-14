@@ -8,6 +8,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] can we zoom map further in than 50m?
 - [ ] Can we have a toggle on whether to pan the map or not? 
+- [ ] Can we have an EXIT GAME button to properly stop it?
 - [x] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
