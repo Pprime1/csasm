@@ -177,9 +177,9 @@ window.addEventListener("load",function(event) {
      }); // emit join-a-game
    }); // end of form
     
-  $( "#join-game-form" ).on( "quit", function(e) {
+  $( "#quit-game-form" ).on( "quit", function(e) {
      e.preventDefault();
      console.log(`Attempting to quit ${ game }`);
      location.href = "https://geocaching.com"; // Redirect user to another page, disconnecting them from game and any session updates.
   }); // end of form
-}, false); // end of JOIN-GAME listener
+}, false); // end of GAME listener
