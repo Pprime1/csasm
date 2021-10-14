@@ -55,14 +55,20 @@ function updatemap() {  // Update the current player location on map
 	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    		for (var n=0; n<WPN.length; n++) { 
 			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
-				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {WPC[n]='green'}; //set to green if player is in it
-				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {WPC[n]='yellow'}; //set to yellow if anyone is in it, and not already green
+				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
+					WPC[n]='green';
+					console.log("Circle in play:",n, WPN[n], WPC[n]);	
+				}; //set to green if player is in it
+				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
+					WPC[n]='yellow'
+					console.log("Circle in play:",n, WPN[n], WPC[n]);
+				}; //set to yellow if anyone is in it, and not already green
 			};
 		};
 	}; 
 	for (var n=0;n<WPN.length;n++) {
 		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour (circles are already on map, just updating colours here)
-		console.log("Update Circle:",n, WPN[n], WPC[n]);	
+		//console.log("Update Circle:",n, WPN[n], WPC[n]);	
 		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
 	};
 	if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
