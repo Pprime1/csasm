@@ -74,12 +74,16 @@ function updatemap() {  // Update the current player location on map
 
 L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to start auto move again
 	pauseAutoMove = false;
+	btn.button.style='fa-crosshairs fa-lg';//change button style to have crosshairs
 	mymap.panTo([latitude,longitude]); 
 }).addTo(mymap);
 
 mymap.on('movestart',(e)=>{// Check if map is being moved
     console.log(e, currentAutoMove);
-    if(!currentAutoMove){pauseAutoMove = true}; // set flag to stop moving map unless it was a natural PlayerLoc update
+    if(!currentAutoMove){
+	    pauseAutoMove = true; // set flag to stop moving map unless it was a natural PlayerLoc update
+     	    btn.button.style=' '; //change button style to remove crosshairs
+    }
 });
 
 async function main() {
