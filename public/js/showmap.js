@@ -77,7 +77,7 @@ L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to st
 	mymap.panTo([latitude,longitude]); 
 }).addTo(mymap);
 
-map.on('movestart',(e)=>{// Check if map is being moved
+mymap.on('movestart',(e)=>{// Check if map is being moved
     console.log(e, currentAutoMove);
     if(!currentAutoMove){pauseAutoMove = true}; // set flag to stop moving map unless it was a natural PlayerLoc update
 });
