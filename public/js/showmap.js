@@ -72,7 +72,7 @@ function updatemap() {  // Update the current player location on map
 	};		    
 }; // end updatemap
 
-L.EasyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to start auto move again
+L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to start auto move again
 	pauseAutoMove = false;
 	mymap.panTo([latitude,longitude]); 
 }).addTo(mymap);
