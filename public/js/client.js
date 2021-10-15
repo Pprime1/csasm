@@ -156,7 +156,7 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
   localStorage.setItem('reward_information', reward_information);
   console.log("Reward=",reward_information);
   setTimeout( function() {
-    location.href = "reward"; // Redirect user to reward page, disconnecting them from game session updates.
+    location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
   }, 100)
 }); // end of DISPLAY-REWARD
 
@@ -164,9 +164,9 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
-  $("#game-error").text(GmError); // Set to display any error message underneath form entry field
-  if (!is_joined) { $("#lj-startup").show() }; // show the form only if not already joined to a game thanks to the URL paramater
-  console.log("Starting Game Form");
+  $("#game-error").text(GmError); //Set to display any error message underneath form entry field
+  if (!is_joined) { $("#lj-startup").show() }; //show the form only if not already joined to a game thanks to the URL paramater
+  console.log("No valid game-code supplied, Starting Game Form");
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
@@ -176,4 +176,10 @@ window.addEventListener("load",function(event) {
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
-}, false); // end of JOIN-GAME listener
+    
+  $( "#quit-game-form" ).on( "quit", function(e) {
+     e.preventDefault();
+     console.log(`Attempting to quit ${ game }`);
+     location.href = "/"; //Redirect user back to starting page, disconnecting them from current game and any session updates.
+  }); // end of form
+}, false); // end of GAME listener

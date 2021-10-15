@@ -42,11 +42,39 @@ var playerLoc = new L.marker([latitude,longitude], {icon: personicon}) // set pl
 var WPcircle=[]; // Store all game waypoints shown as map circles
 var WPN=[]; //define an array of all unique waypoint names
 var WPC=[]; //define an array of all unique waypoint colours
-var WPX=[]; //define an array of all unique waypoint X latitude
-var WPY=[]; //define an array of all unique waypoint Y longitude
+var WPX=[]; //define an array of all unique waypoint x latitude
+var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
-var colour='blue'; // Blue for default before data is populated
+var currentAutoMove = false; // needed to check in `movestart` event-listener if moved from interval or by user
+var pauseAutoMove = false; // if true -> Stops moving map
 var map_started = false;
+
+var panbtn = L.easyButton({
+  states: [{
+    stateName: 'pauseAutoMove',      
+    icon:      'fa-sign-in fa-lg',               
+    title:     'Centre display at current Player', //Tooltip
+    onClick: function(btn, map) {
+      console.log("AutoMoveButton pressed");
+      panbtn.state('AutoMove');                               
+      mymap.panTo([latitude,longitude]); 
+    }
+  }, {
+    stateName: 'AutoMove',
+    icon:      'fa-crosshairs fa-lg',
+  }]
+}).addTo(mymap);
+
+mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
+mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
+mymap.on('movestart',(e)=>{ //Check if map is being moved
+    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
+	    pauseAutoMove = true; //set flag to stop Auto moving map 
+     	    console.log("Map moved"); 
+	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
+    }
+});
+
 
 function updatemap() {  // Update the current player location on map
    	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
@@ -54,20 +82,29 @@ function updatemap() {  // Update the current player location on map
 	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    		for (var n=0; n<WPN.length; n++) { 
 			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
-				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {WPC[n]='green'}; //set to green if player is in it
-				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {WPC[n]='yellow'}; //set to yellow if anyone is in it, and not already green
+				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
+					WPC[n]='green';
+					console.log("Circle in play:",n, WPN[n], WPC[n]);	
+				}; //set to green if player is in it
+				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
+					WPC[n]='yellow'
+					console.log("Circle in play:",n, WPN[n], WPC[n]);
+				}; //set to yellow if anyone is in it, and not already green
 			};
 		};
 	}; 
 	for (var n=0;n<WPN.length;n++) {
-		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour (circles are already on map, just updating colours here)
-		console.log("Update Circle:",n, WPN[n], WPC[n]);	
-		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
+		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set and display circle colour (circles are already on map, just updating colours here)
+		WPC[n] = 'red'; //reset every circle expectation to red (unoccupied) until next updatemap
 	};
-	mymap.panTo([latitude,longitude]); // pan the map to follow the player (TODO: Can we toggle pan mode?)
+	if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
+       		currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
+       		mymap.panTo([latitude,longitude]); 
+       		currentAutoMove = false; //Remove flag again
+	};		    
 }; // end updatemap
 
-	
+
 async function main() {
     const interval = setInterval(function() {
          if (is_running) { // we need to know that there is data populated before showing or updating the map with it
@@ -94,7 +131,8 @@ async function main() {
 			}).addTo(mymap)
 	  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
 	     	};	     
-       	        map_started=true;
+       	        panbtn.state('AutoMove');
+ 	        map_started=true;
     	     }; //start the map only once
 	     updatemap(); // for current player location and circle colour.
 	  }; //update only if is_running
