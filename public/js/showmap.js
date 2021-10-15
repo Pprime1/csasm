@@ -80,6 +80,7 @@ function updatemap() {  // Update the current player location on map
 
 var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to restart Auto move
 	pauseAutoMove = false; //set flag to start Auto moving map 
+	console.log("Button pressed")
 	btn1.button.icon='fa-crosshairs fa-lg'; //change button style to crosshairs
 	mymap.panTo([latitude,longitude]); 
 }).addTo(mymap);
@@ -87,7 +88,8 @@ var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create b
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
-     	    btn1.button.icon='fa-sign-in fa-lg'; //change button style to remove crosshairs and have a arrow-in icon
+     	    console.log("Map moved")
+	    btn1.button.icon='fa-sign-in fa-lg'; //change button style to remove crosshairs and have a arrow-in icon
     }
 });
 
