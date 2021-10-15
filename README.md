@@ -6,9 +6,11 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 # TODO
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [x] can we zoom map further in than 50m?
-- [ ] Can we have a toggle on whether to pan the map or not? 
-- [ ] Can we have an EXIT GAME button to properly stop it?
+- [x] zoom map further in than 50m
+- [x] a toggle button on whether to pan the map or not
+  - [ ] change the button icon to reveal what mode it is in
+  - [ ] mousehover screen tooltip
+- [x] a QUIT GAME button to properly stop it
 - [x] create a live, outdoors, example for testing
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
@@ -22,8 +24,8 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [ ] Leave room is not working properly - it is not properly updating playercount. 
   - [ ] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [ ] On leave room if there are now zero players do some form of end-game acknowledgement
-
-- [ ] Hide a container, create a real one
+- [ ] Hide a container, create a real one and publish
+ - [ ] Extensive Beta testing before publishing for real
 
 # Key files
 
