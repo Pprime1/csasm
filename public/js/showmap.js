@@ -49,18 +49,11 @@ var currentAutoMove = false; // needed to check in `movestart` event-listener if
 var pauseAutoMove = false; // if true -> Stops moving map
 var map_started = false;
 
-//var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn1, mymap) { //create button to restart Auto move
-//	pauseAutoMove = false; //set flag to start Auto moving map 
-//	console.log("Button pressed")
-//	btn1.button.state={icon:'fa-crosshairs fa-lg'}; //change button style to crosshairs
-//	mymap.panTo([latitude,longitude]); 
-//},'Centre display at current Player').addTo(mymap);
-
 var panbtn = L.easyButton({
   states: [{
     stateName: 'pauseAutoMove',      
     icon:      'fa-sign-in fa-lg',               
-    title:     'Centre display at current Player', 
+    title:     'Centre display at current Player', //Tooltip
     onClick: function(btn, map) {
       console.log("AutoMoveButton pressed");
       panbtn.state('AutoMove');                               
@@ -72,14 +65,16 @@ var panbtn = L.easyButton({
   }]
 }).addTo(mymap);
 
+mymap.on("zoomstart", function (e) { currentAutoMove = true, e); }); //Set flag, that currently map is moved by a zoom command
+mymap.on("zoomend", function (e) { currentAutoMove = false;, e); }); //Remove flag again
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
-     	    console.log("Map moved");
-	    //btn1.button.state={icon:'fa-sign-in fa-lg'}; //change button style to remove crosshairs and have a arrow-in icon
-	    panbtn.state('pauseAutoMove');
+     	    console.log("Map moved"); 
+	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
     }
 });
+
 
 function updatemap() {  // Update the current player location on map
    	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
@@ -99,9 +94,8 @@ function updatemap() {  // Update the current player location on map
 		};
 	}; 
 	for (var n=0;n<WPN.length;n++) {
-		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set circle colour (circles are already on map, just updating colours here)
-		//console.log("Update Circle:",n, WPN[n], WPC[n]);	
-		WPC[n] = 'red'; //reset every circle to red (unoccupied) until next updatemap
+		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set and display circle colour (circles are already on map, just updating colours here)
+		WPC[n] = 'red'; //reset every circle expectation to red (unoccupied) until next updatemap
 	};
 	if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
        		currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
