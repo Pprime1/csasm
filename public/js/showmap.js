@@ -49,18 +49,34 @@ var currentAutoMove = false; // needed to check in `movestart` event-listener if
 var pauseAutoMove = false; // if true -> Stops moving map
 var map_started = false;
 
-var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to restart Auto move
-	pauseAutoMove = false; //set flag to start Auto moving map 
-	console.log("Button pressed")
-	btn1.button.state={icon:'fa-crosshairs fa-lg'}; //change button style to crosshairs
-	mymap.panTo([latitude,longitude]); 
-},'Centre display at current Player').addTo(mymap);
+//var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn1, mymap) { //create button to restart Auto move
+//	pauseAutoMove = false; //set flag to start Auto moving map 
+//	console.log("Button pressed")
+//	btn1.button.state={icon:'fa-crosshairs fa-lg'}; //change button style to crosshairs
+//	mymap.panTo([latitude,longitude]); 
+//},'Centre display at current Player').addTo(mymap);
+
+var panbtn = L.easyButton({
+  states: [{
+    stateName: 'pauseAutoMove',      
+    icon:      'fa-sign-in fa-lg',               
+    title:     'Centre display at current Player', 
+    onClick: function(btn, map) {
+      console.log("AutoMoveButton pressed");
+      panbtn.state('AutoMove');                               
+    }
+  }, {
+    stateName: 'AutoMove',
+    icon:      'fa-crosshairs fa-lg',
+  }]
+}).addTo(mymap);
 
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
-     	    console.log("Map moved")
-	    btn1.button.state={icon:'fa-sign-in fa-lg'}; //change button style to remove crosshairs and have a arrow-in icon
+     	    console.log("Map moved");
+	    //btn1.button.state={icon:'fa-sign-in fa-lg'}; //change button style to remove crosshairs and have a arrow-in icon
+	    panbtn.state('pauseAutoMove');
     }
 });
 
