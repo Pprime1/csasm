@@ -78,18 +78,18 @@ function updatemap() {  // Update the current player location on map
 	};		    
 }; // end updatemap
 
-var btn1;
-L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to start auto move again
-	btn1=btn;
+var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to restart Auto move
 	pauseAutoMove = false; //set flag to start Auto moving map 
-	btn1.style='fa-crosshairs fa-lg'; //change button style to crosshairs
+	btn1.button.style.backgroundColor = 'white';
+		//='fa-crosshairs fa-lg'; //change button style to crosshairs
 	mymap.panTo([latitude,longitude]); 
 }).addTo(mymap);
 
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
-     	    btn1.style='fa-sign-in fa-lg'; //change button style to remove crosshairs and have a arrow-in icon
+     	    btn1.button.style.backgroundColor = 'black';
+		    //='fa-sign-in fa-lg'; //change button style to remove crosshairs and have a arrow-in icon
     }
 });
 
