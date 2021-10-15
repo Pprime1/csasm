@@ -8,8 +8,8 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] zoom map further in than 50m
 - [x] a toggle button on whether to pan the map or not
-  - [ ] change the button icon to reveal what mode it is in
-  - [ ] mousehover screen tooltip
+  - [x] change the button icon to reveal what mode it is in
+  - [x] mousehover screen tooltip
 - [x] a QUIT GAME button to properly stop it
 - [x] create a live, outdoors, example for testing
   - [x] iphone testing
