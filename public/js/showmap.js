@@ -64,6 +64,7 @@ var panbtn = L.easyButton({
     onClick: function(btn, map) {
       console.log("AutoMoveButton pressed");
       panbtn.state('AutoMove');                               
+      mymap.panTo([latitude,longitude]); 
     }
   }, {
     stateName: 'AutoMove',
@@ -136,7 +137,8 @@ async function main() {
 			}).addTo(mymap)
 	  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
 	     	};	     
-       	        map_started=true;
+       	        panbtn.state('AutoMove');
+ 	        map_started=true;
     	     }; //start the map only once
 	     updatemap(); // for current player location and circle colour.
 	  }; //update only if is_running
