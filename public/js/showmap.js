@@ -49,6 +49,21 @@ var currentAutoMove = false; // needed to check in `movestart` event-listener if
 var pauseAutoMove = false; // if true -> Stops moving map
 var map_started = false;
 
+var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to restart Auto move
+	pauseAutoMove = false; //set flag to start Auto moving map 
+	console.log("Button pressed")
+	btn1.button.state{icon:'fa-crosshairs fa-lg'}; //change button style to crosshairs
+	mymap.panTo([latitude,longitude]); 
+}).addTo(mymap);
+
+mymap.on('movestart',(e)=>{ //Check if map is being moved
+    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
+	    pauseAutoMove = true; //set flag to stop Auto moving map 
+     	    console.log("Map moved")
+	    btn1.button.state{icon:'fa-sign-in fa-lg'}; //change button style to remove crosshairs and have a arrow-in icon
+    }
+});
+
 function updatemap() {  // Update the current player location on map
    	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
 	//set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
@@ -78,20 +93,6 @@ function updatemap() {  // Update the current player location on map
 	};		    
 }; // end updatemap
 
-var btn1 = L.easyButton('fa-crosshairs fa-lg', function(btn, mymap) { //create button to restart Auto move
-	pauseAutoMove = false; //set flag to start Auto moving map 
-	console.log("Button pressed")
-	btn1.button.icon='fa-crosshairs fa-lg'; //change button style to crosshairs
-	mymap.panTo([latitude,longitude]); 
-}).addTo(mymap);
-
-mymap.on('movestart',(e)=>{ //Check if map is being moved
-    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
-	    pauseAutoMove = true; //set flag to stop Auto moving map 
-     	    console.log("Map moved")
-	    btn1.button.icon='fa-sign-in fa-lg'; //change button style to remove crosshairs and have a arrow-in icon
-    }
-});
 
 async function main() {
     const interval = setInterval(function() {
