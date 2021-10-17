@@ -5,8 +5,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 
 # TODO
-- [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [x] create a live, outdoors, example for testing
+- [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
   - [ ] accuracy of location ... 13m?
   - [ ] usability for navigation from a distance
@@ -15,12 +14,20 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] does it work with multiple games?
   - [ ] check that no reward if not occupying a circle
   - [ ] review console.logs to ensure it's useful and not overly communicative
-- [ ] how to have a development environment that is seperate from the production environment
+- [ ] Quit game is not redirecting to alternate website
+- [x] Zooming switches on pauseAutoMove - detect currentmove flag needed again.
+- [x] pauseAutoMove turning itself off immediately after turning it back on - detect currentmove flag needed again.
 - [ ] Leave room is not working properly - it is not properly updating playercount. 
   - [ ] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [ ] On leave room if there are now zero players do some form of end-game acknowledgement
-- [ ] Hide a container, create a real one and publish
+- [ ] how to have a development environment that is seperate from the production environment
+- [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+- [ ]  Hide a container, create a real one
  - [ ] Extensive Beta testing before publishing for real
+ - [ ] delete GCTest and GCAlbury
+ - [ ] create GCBetaTst at QUT and 'replace' GCAlphatst with the real GC code.
+ - [ ] co-ownership?
+ - [ ] remove default game
 
 # Key files
 
