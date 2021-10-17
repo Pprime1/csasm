@@ -55,7 +55,6 @@ var panbtn = L.easyButton({
     icon:      'fa-sign-in fa-lg',               
     title:     'Centre display at current Player', //Tooltip
     onClick: function(btn, map) { //if you click the button whilst it is in pauseAutoMove, recentre map and unpause
-      console.log("AutoMoveButton pressed");
       currentAutoMove = true; //Set flag, that currently map is being moved to recentre
       mymap.panTo([latitude,longitude]); 
       currentAutoMove = false; //Remove flag again    
@@ -73,7 +72,6 @@ mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag aga
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
-     	    console.log("Map moved"); 
 	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
     }
 });
@@ -87,11 +85,11 @@ function updatemap() {  // Update the current player location on map
 			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
 				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
 					WPC[n]='green';
-					console.log("Circle in play:",n, WPN[n], WPC[n]);	
+					console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
 				}; //set to green if player is in it
 				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
 					WPC[n]='yellow'
-					console.log("Circle in play:",n, WPN[n], WPC[n]);
+					console.log("Circle in play by someone else:",n, WPN[n], WPC[n]);
 				}; //set to yellow if anyone is in it, and not already green
 			};
 		};
