@@ -26,7 +26,7 @@ function getGameByCode(games_result, game_id) {
 	  return games_result[i];
       };
     };
-    console.log("Game is null");
+    console.log("Game ", game_id, "is invalid");
     return null;
 }; // end getGameByCode
 
