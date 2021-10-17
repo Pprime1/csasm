@@ -163,11 +163,9 @@ window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
   $("#game-error").text(GmError); //Set to display any error message underneath form entry field
-  if (!URLentry) {
-      $("#lj-startup").show(); //show the form only if not already joined to a game thanks to the URL paramater
-      console.log("No valid game-code supplied, Starting Game Form");
-  };
-  
+  if (!URLentry) {console.log("No valid game-code supplied, Starting Game Form");}
+  if (!is_joined) {$("#lj-startup").show() }; //show the form only if not already joined to a game
+      
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
