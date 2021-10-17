@@ -180,7 +180,7 @@ window.addEventListener("load",function(event) {
      e.preventDefault();
      console.log(`Attempting to quit ${ game }`);
      setTimeout( function() {
-         location.href = "https://www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
+         window.location.href = "www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
      }, 100)
   }); // end of form
 }, false); // end of GAME listener
