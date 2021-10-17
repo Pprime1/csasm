@@ -95,7 +95,7 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 
 socket.on("game-join", () => {
    navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // First location update attempt, handle errors and set options
-   console.log("Geolocation Error Status", RtnError);
+   if (RtnError) {console.log("Geolocation Error Status", RtnError);}
    if (!RtnError) { 
        $("#lj-startup").hide();
        $("#lj-in-game").show();
@@ -121,7 +121,6 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 
 socket.on("display-update", (display_information) => {
   displaytable=display_information; // make available to global variable in Displaymap.js
-  //console.log(displaytable);
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   var game_description = localStorage.getItem ('game_description');
@@ -151,9 +150,8 @@ socket.on("display-update", (display_information) => {
   is_running = true;
 }); // end of DISPLAY-UPDATE
 
-socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
-  // Save Reward in Local Storage
-  localStorage.setItem('reward_information', reward_information);
+socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
+  localStorage.setItem('reward_information', reward_information); // Save Reward in Local Storage
   console.log("Reward=",reward_information);
   setTimeout( function() {
     location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
@@ -167,6 +165,7 @@ window.addEventListener("load",function(event) {
   $("#game-error").text(GmError); //Set to display any error message underneath form entry field
   if (!is_joined) { $("#lj-startup").show() }; //show the form only if not already joined to a game thanks to the URL paramater
   console.log("No valid game-code supplied, Starting Game Form");
+  
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
@@ -180,6 +179,8 @@ window.addEventListener("load",function(event) {
   $( "#quit-game-form" ).on( "quit", function(e) {
      e.preventDefault();
      console.log(`Attempting to quit ${ game }`);
-     location.href = "https://www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
+     setTimeout( function() {
+         location.href = "https://www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
+     }, 100)
   }); // end of form
 }, false); // end of GAME listener
