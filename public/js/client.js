@@ -180,6 +180,6 @@ window.addEventListener("load",function(event) {
   $( "#quit-game-form" ).on( "quit", function(e) {
      e.preventDefault();
      console.log(`Attempting to quit ${ game }`);
-     location.href = "/"; //Redirect user back to starting page, disconnecting them from current game and any session updates.
+     location.href = "https://www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
   }); // end of form
 }, false); // end of GAME listener
