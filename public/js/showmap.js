@@ -54,13 +54,16 @@ var panbtn = L.easyButton({
     stateName: 'pauseAutoMove',      
     icon:      'fa-sign-in fa-lg',               
     title:     'Centre display at current Player', //Tooltip
-    onClick: function(btn, map) {
+    onClick: function(btn, map) { //if you click the button whilst it is in pauseAutoMove, recentre map and unpause
       console.log("AutoMoveButton pressed");
-      panbtn.state('AutoMove');                               
+      currentAutoMove = true; //Set flag, that currently map is being moved to recentre
       mymap.panTo([latitude,longitude]); 
+      currentAutoMove = false; //Remove flag again    
+      pauseAutoMove = false; //set flag to stop Auto moving map 
+      panbtn.state('AutoMove');                               
     }
-  }, {
-    stateName: 'AutoMove',
+  },{
+    stateName: 'AutoMove', //clicking the button once it is doing AutoMove does nothing
     icon:      'fa-crosshairs fa-lg',
   }]
 }).addTo(mymap);
@@ -68,7 +71,7 @@ var panbtn = L.easyButton({
 mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
 mymap.on('movestart',(e)=>{ //Check if map is being moved
-    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc Auto update
+    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
      	    console.log("Map moved"); 
 	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
