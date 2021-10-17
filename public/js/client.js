@@ -11,9 +11,9 @@ for (var entry of urlParams) {
     var URLentry = entry[0]; // only the first URL paramis considered as the Game ID code
 };   
 var RtnError = null;
-if (URLentry) {  // if started with a URLParam then attempt to join that game ID
+if (URLentry) {  //if started with a URLParam then attempt to join that game ID
     URLentry = URLentry.toUpperCase();
-    console.log("URL Parameter:", URLentry);
+    console.log("Called with parameter:", URLentry);
     socket.emit('join-a-game', URLentry, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
@@ -163,8 +163,10 @@ window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
   $("#game-error").text(GmError); //Set to display any error message underneath form entry field
-  if (!is_joined) { $("#lj-startup").show() }; //show the form only if not already joined to a game thanks to the URL paramater
-  console.log("No valid game-code supplied, Starting Game Form");
+  if (!URLentry) {
+      $("#lj-startup").show(); //show the form only if not already joined to a game thanks to the URL paramater
+      console.log("No valid game-code supplied, Starting Game Form");
+  };
   
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
@@ -180,7 +182,7 @@ window.addEventListener("load",function(event) {
      e.preventDefault();
      console.log(`Attempting to quit ${ game }`);
      setTimeout( function() {
-         window.location.href = "www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
+         window.location.replace = "www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
      }, 100)
   }); // end of form
 }, false); // end of GAME listener
