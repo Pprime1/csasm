@@ -18,9 +18,9 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [x] Quit game redirecting to geocaching.com website
 - [x] Zooming switches on pauseAutoMove - detect currentmove flag needed again.
 - [x] pauseAutoMove turning itself off immediately after turning it back on - detect currentmove flag needed again.
-- [ ] Leave room is not working properly - it is not properly updating playercount as per what it tells client. Is working in server.. 
+- [x] Leave room is not working properly - it is not properly updating playercount as per what it tells client. Is working in server.. 
   - [x] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
-  - [ ] On leave room if there are now zero players do some form of end-game acknowledgement?
+  - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
 - [ ] how to have a development environment that is seperate from the production environment
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ]  Hide a container, create a real one
