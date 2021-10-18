@@ -89,7 +89,7 @@ async function configure_socketio(db_connection, games_result) {
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "left", room, room_size, "online");
 	if (room_size==0) {console.log("All players have left game now")}; //TODO: should we terminate the room now?
-	io.to(room).emit("room-update", room.replace("game-", ""), gamedesc, room_size);
+	io.to(room).emit("room-update", room.replace("game-", ""), 1, room_size);
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
       }
     }); // leave-room
