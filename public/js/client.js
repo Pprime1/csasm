@@ -175,12 +175,4 @@ window.addEventListener("load",function(event) {
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
-    
-  //$( "#quit-game-form" ).on( "quit", function(e) {
-  //   e.preventDefault();
-  //   console.log(`Attempting to quit ${ game }`);
-  //   setTimeout( function() {
-  //       window.location.replace = "www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
-  //   }, 100)
-  //}); // end of form
 }, false); // end of GAME listener
