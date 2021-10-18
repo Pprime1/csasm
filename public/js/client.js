@@ -176,11 +176,11 @@ window.addEventListener("load",function(event) {
      }); // emit join-a-game
    }); // end of form
     
-  $( "#quit-game-form" ).on( "quit", function(e) {
-     e.preventDefault();
-     console.log(`Attempting to quit ${ game }`);
-     setTimeout( function() {
-         window.location.replace = "www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
-     }, 100)
-  }); // end of form
+  //$( "#quit-game-form" ).on( "quit", function(e) {
+  //   e.preventDefault();
+  //   console.log(`Attempting to quit ${ game }`);
+  //   setTimeout( function() {
+  //       window.location.replace = "www.geocaching.com"; //Redirect user out of game, disconnecting them from current game and any session updates.
+  //   }, 100)
+  //}); // end of form
 }, false); // end of GAME listener
