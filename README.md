@@ -13,8 +13,9 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] jitter?
   - [ ] does it work with multiple games?
   - [ ] check that no reward if not occupying a circle
-  - [ ] review console.logs to ensure it's useful and not overly communicative
-- [ ] Quit game is not redirecting to alternate website
+  - [x] review console.logs to ensure it's useful and not overly communicative
+    - [ ] when player leaves a circle console.log doesn't note that.
+- [x] Quit game redirecting to geocaching.com website
 - [x] Zooming switches on pauseAutoMove - detect currentmove flag needed again.
 - [x] pauseAutoMove turning itself off immediately after turning it back on - detect currentmove flag needed again.
 - [ ] Leave room is not working properly - it is not properly updating playercount. 
