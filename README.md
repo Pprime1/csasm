@@ -26,6 +26,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [x] Leave room is not working properly - it is not properly updating playercount as per what it tells client. Is working in server.. 
   - [x] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
+- [ ] move the Quit button below the map - or into the footer bar?
 - [ ] how to have a development environment that is seperate from the production environment
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] Code review by someone ... Andrew?
