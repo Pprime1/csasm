@@ -8,6 +8,8 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
   - [ ] accuracy of location ... can I get better than 21 or 13m?
+  - [ ] why doesn't the player location actually update every 5 or 10 seconds? I move but it doesn't
+  - [x] the playericon image is too hard to spot. Can we make it a bright yellow background
   - [ ] usability for navigation from a distance
   - [ ] usability for navigationing when close
   - [ ] jitter?
@@ -43,11 +45,11 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 [SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
 
+[INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
+
 [CLIENT.JS](/public/js/client.js) : the primary controller (client side javascript called from index.ejs) - visible in console (F12). 
 
 [SHOWMAP.JS](/public/js/showmap.js) : the map code (client side javascript called from index.ejs) - visible in console (F12). 
-
-[INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
 
 [REWARD.EJS](/views/pages/reward.ejs) : the final reward display script (client side html) - visible in console (F12).
 
