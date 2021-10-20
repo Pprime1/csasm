@@ -8,7 +8,7 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
   - [ ] accuracy of location ... can I get better than 21 or 13m?
-  - [ ] why doesn't the player location actually update every 5 or 10 seconds? I move but it doesn't
+  - [ ] why doesn't the player location actually update every 5 or 10 seconds? I move but it doesn't. (see https://github.com/Pprime1/csasm/issues/27)
   - [x] the playericon image is too hard to spot. Can we make it a bright yellow background
   - [ ] usability for navigation from a distance
   - [ ] usability for navigationing when close
