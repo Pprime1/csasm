@@ -11,7 +11,6 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] usability for navigation from a distance
   - [ ] usability for navigationing when close
   - [ ] jitter?
-- [ ] Code review by someone ... Andrew?
 - [ ] create GCBetaTst at QUT - test cases with 3 players
   - [ ] check that no reward if not occupying a circle
   - [ ] Multiple players at one circle at same time works at all?
@@ -29,13 +28,15 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
 - [ ] how to have a development environment that is seperate from the production environment
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ]  Hide a container, create a real one: Production Releasing
- - [ ] Extensive Beta testing before publishing for real
- - [ ] delete GCTest, GCAlbury and GCGammaTst
- - [ ] 'replace' GCAlphatst with the real GC code.
- - [ ] co-ownership on the listing?
- - [ ] remove default game from form
-
+- [ ] Code review by someone ... Andrew?
+- [ ] Hide a container, create a real one: 
+  - [ ] Extensive Beta testing before publishing for real
+  - [ ] delete GCTest, GCAlbury and GCGammaTst
+  - [ ] 'replace' GCAlphatst with the real GC code.
+  - [ ] co-ownership on the listing?
+  - [ ] remove default game from form
+  - [ ] Production Release
+ 
 
 # Key files
 
