@@ -40,20 +40,20 @@ function ConvertDEGToDM(deg,dir) {
   return direction + degrees + "° " + minutesdecimals+ "' ";
  }; // Convert DM.MMM
 
-function updatePosition(position) {
-  latitude = position.coords.latitude;
+function updatePosition(position) { //changes the player location details in:
+  latitude = position.coords.latitude; //here as a global variable
   longitude = position.coords.longitude;
   var accuracy = position.coords.accuracy;
-  var lat = ConvertDEGToDM(latitude,1);
+  var lat = ConvertDEGToDM(latitude,1); //change display format
   var lon = ConvertDEGToDM(longitude,0);
   var acc = Math.round(accuracy);
-  $("#current-Lat").text(lat);
+  $("#current-Lat").text(lat); //index.ejs for display above the table
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
-  localStorage.setItem('my_lat', lat);
+  localStorage.setItem('my_lat', lat); //localstorage for ease of access in reward.ejs and elsewhere
   localStorage.setItem('my_lon', lon);
   localStorage.setItem('my_acc', accuracy);
-  socket.emit('location-update', latitude, longitude);
+  socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later.
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
@@ -100,13 +100,13 @@ socket.on("game-join", () => {
        $("#lj-startup").hide();
        $("#lj-in-game").show();
        is_joined = true;
-       const interval = setInterval(function() {
-          navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // update geolocation every 5 seconds
-       }, 5000);
-// or...?       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
+       //const interval = setInterval(function() {
+       //   navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // update geolocation every 5 seconds
+       //}, 5000);
+// or...?
+       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
        // put navigator.geolocation.clearWatch(???); into reward.ejs? or the call to reward in server.js perhaps?
-
-   }; //set GeoLocation
+   }; //Get and set Player GeoLocation
 }); // end of GAME-JOIN
 
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
