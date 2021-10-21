@@ -101,7 +101,7 @@ socket.on("game-join", () => {
        $("#lj-in-game").show();
        is_joined = true;
        const interval = setInterval(function() {
-          navigator.geolocation.getCurrentPosition(updatePosition, geoOptions); // update geolocation every 5 seconds
+          navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // update geolocation every 5 seconds
        }, 5000);
 // or...?       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
        // put navigator.geolocation.clearWatch(???); into reward.ejs? or the call to reward in server.js perhaps?
