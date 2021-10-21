@@ -103,6 +103,8 @@ socket.on("game-join", () => {
        const interval = setInterval(function() {
           navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds
        }, 5000);
+// or...?       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
+
    }; //set GeoLocation
 }); // end of GAME-JOIN
 
