@@ -13,10 +13,10 @@ If so, returns hidden REWARD text value (clues/directions to the final container
     - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
     - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
   - [x] the playericon image was too hard to spot. now is a bright yellow background
-  - [ ] usability for navigation from a distance
-    - [ ] is there value in creating a 'line' from playerLoc to each of the target circles? Can't easily tell which one they are going to so would have to be 2 (or more) directional lines which may look silly
+  - [x] usability for navigation from a distance
+    - [x] I don't feel there is value in creating a 'line' from playerLoc to each of the target circles? Can't easily tell which one they are going to so would have to be 2 (or more) directional lines which would look silly
   - [x] usability for navigationing when close. Zoom level is good
-    - [ ] jitter an issue? Once in the circle has to stay there until the other circles register as occupied as well.
+    - [x] jitter an issue? Once in the circle has to stay there until the other circles register as occupied as well.
 - [x] review console.logs to ensure it's useful and not overly communicative
   - [x] when player leaves a circle console.log now notes that.
 - [x] Quit game redirecting to geocaching.com website
