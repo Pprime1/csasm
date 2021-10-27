@@ -8,7 +8,10 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 - [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
   - [x] accuracy of location ... watchposition gives best accuracy
-  - [x] watchposition allows the player location actually update and not just every 5 or 10 seconds? (see https://github.com/Pprime1/csasm/issues/27)
+  - [x] watchposition allows the player location actually update (see https://github.com/Pprime1/csasm/issues/27)
+  - [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
+    - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
+    - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
   - [x] the playericon image was too hard to spot. now is a bright yellow background
   - [ ] usability for navigation from a distance
   - [ ] usability for navigationing when close
