@@ -1,11 +1,10 @@
 # csasm
 This is the source code repository for the Geocaching Anti-Social Mob application (ASM) - aka Covid Safe Anti-Social Mob (csasm).
-The app runs on multiple mobile devices, each connecting to the same source to determine if they are within a proximity radius of any waypoint location stored in a database table for a given Game-Code.
-If so, returns hidden REWARD text value (clues/directions to the final container). Otherwise restart the process (polling) to see if anything has changed.
+The app requires multiple mobile devices, each connecting to the same source to determine if they are within a proximity radius of any waypoint location stored in a database table for a given Game-Code. The app displays for the current player where they are on a map in relation to the target waypoints, highlighting if they are within one. It also keeps track of how far other players are from each waypoint, and will highlight any occupied waypoint on the map. Once all waypoints are occupied, the app returns hidden REWARD text value (clues/directions to the final container) to each player that is occupying a waypoint.
 
 
 # TODO
-- [ ] Code review by someone ... Andrew!
+- [ ] Code review by someone ... Andrew!!
 
 - [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
   - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
@@ -20,11 +19,12 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] does it work properly with 3 target circles?
   - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
-- [ ] Hide a container, create a real one: 
+- [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
   - [ ] delete GCTest, GCAlbury as they have private locations
     - [ ] keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
   - [ ] 'replace' GCAlphatst with the real GC code. Or possibly just duplicate locations
-  - [ ] Write and refine what user instructions are needed - into listing, but also should it be in the code somewhere?
+  - [ ] Write and refine what user instructions are needed - into listing,
+    - [ ] but also should it be in the code somewhere?
     - [ ] OBC co-ownership on the listing?
   - [ ] remove default game from form
   - [ ] Final production test run, before publishing for real. Use two new people.
