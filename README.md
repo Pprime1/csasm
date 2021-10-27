@@ -5,30 +5,13 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 
 
 # TODO
-- [x] create a live, outdoors, example for testing:= GCALPHATST
-  - [x] iphone testing
-  - [x] accuracy of location ... watchposition gives best accuracy
-  - [x] watchposition allows the player location actually update (see https://github.com/Pprime1/csasm/issues/27)
-  - [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
-    - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
-    - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
-  - [x] the playericon image was too hard to spot. now is a bright yellow background
-  - [x] usability for navigation from a distance
-    - [x] I don't feel there is value in creating a 'line' from playerLoc to each of the target circles? Can't easily tell which one they are going to so would have to be 2 (or more) directional lines which would look silly
-  - [x] usability for navigationing when close. Zoom level is good
-    - [x] jitter an issue? Once in the circle has to stay there until the other circles register as occupied as well.
-- [x] review console.logs to ensure it's useful and not overly communicative
-  - [x] when player leaves a circle console.log now notes that.
-- [x] Quit game redirecting to geocaching.com website
-- [x] Zooming switches on pauseAutoMove - detect currentmove flag needed again.
-- [x] pauseAutoMove turning itself off immediately after turning it back on - detect currentmove flag needed again.
-- [x] Leave room is not working properly - it is not properly updating playercount as per what it tells client. Is working in server.. 
-  - [x] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
-  - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
-- [x] moved the Quit button below the map - or into the footer bar?
+- [ ] Code review by someone ... Andrew!
+
+- [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
+  - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
+  - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
 - [ ] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] Code review by someone ... Andrew!
 - [ ] create GCBetaTst at QUT - run the test cases with 3 players
   - [ ] check that no reward if not occupying a circle
   - [ ] Multiple players at one circle at same time works at all?
