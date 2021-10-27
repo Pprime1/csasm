@@ -7,37 +7,38 @@ If so, returns hidden REWARD text value (clues/directions to the final container
 # TODO
 - [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
-  - [ ] accuracy of location ... can I get better than 21 or 13m?
-  - [ ] why doesn't the player location actually update every 5 or 10 seconds? I move but it doesn't. (see https://github.com/Pprime1/csasm/issues/27)
-  - [x] the playericon image is too hard to spot. Can we make it a bright yellow background
+  - [x] accuracy of location ... watchposition gives best accuracy
+  - [x] watchposition allows the player location actually update and not just every 5 or 10 seconds? (see https://github.com/Pprime1/csasm/issues/27)
+  - [x] the playericon image was too hard to spot. now is a bright yellow background
   - [ ] usability for navigation from a distance
   - [ ] usability for navigationing when close
   - [ ] jitter?
-- [ ] create GCBetaTst at QUT - test cases with 3 players
-  - [ ] check that no reward if not occupying a circle
-  - [ ] Multiple players at one circle at same time works at all?
-    - [ ] Do all get the reward?
-- [ ] create GCGammaTst also at QUT - test cases with 4+ players
-  - [ ] does it work with multiple concurrent games?
-    - [ ] do seperate correct rewards happen to the right players?
 - [x] review console.logs to ensure it's useful and not overly communicative
-  - [ ] when player leaves a circle console.log doesn't note that.
+  - [x] when player leaves a circle console.log now notes that.
 - [x] Quit game redirecting to geocaching.com website
 - [x] Zooming switches on pauseAutoMove - detect currentmove flag needed again.
 - [x] pauseAutoMove turning itself off immediately after turning it back on - detect currentmove flag needed again.
 - [x] Leave room is not working properly - it is not properly updating playercount as per what it tells client. Is working in server.. 
   - [x] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
-- [ ] move the Quit button below the map - or into the footer bar?
+- [x] moved the Quit button below the map - or into the footer bar?
 - [ ] how to have a development environment that is seperate from the production environment
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] Code review by someone ... Andrew?
+- [ ] create GCBetaTst at QUT - test cases with 3 players
+  - [ ] check that no reward if not occupying a circle
+  - [ ] Multiple players at one circle at same time works at all?
+    - [ ] Do all get the reward?
+- [ ] create GCGammaTst (3 waypoints) also at QUT - test cases with 4+ players
+  - [ ] does it work properly with 3 target circles?
+  - [ ] does it work with multiple concurrent games?
+      - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: 
-  - [ ] Extensive Beta testing before publishing for real
   - [ ] delete GCTest, GCAlbury and GCGammaTst
   - [ ] 'replace' GCAlphatst with the real GC code.
-  - [ ] co-ownership on the listing?
+  - [ ] OBC co-ownership on the listing?
   - [ ] remove default game from form
+  - [ ] Production testing before publishing for real
   - [ ] Production Release
  
 
