@@ -14,8 +14,9 @@ If so, returns hidden REWARD text value (clues/directions to the final container
     - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
   - [x] the playericon image was too hard to spot. now is a bright yellow background
   - [ ] usability for navigation from a distance
-  - [ ] usability for navigationing when close
-  - [ ] jitter?
+    - [ ] is there value in creating a 'line' from playerLoc to each of the target circles? Can't easily tell which one they are going to so would have to be 2 (or more) directional lines which may look silly
+  - [x] usability for navigationing when close. Zoom level is good
+    - [ ] jitter an issue? Once in the circle has to stay there until the other circles register as occupied as well.
 - [x] review console.logs to ensure it's useful and not overly communicative
   - [x] when player leaves a circle console.log now notes that.
 - [x] Quit game redirecting to geocaching.com website
@@ -25,24 +26,24 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [x] Table player_count is not updating after a player leaves (ie: 2 back down to 1)
   - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
 - [x] moved the Quit button below the map - or into the footer bar?
-- [ ] how to have a development environment that is seperate from the production environment
+- [ ] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] Code review by someone ... Andrew?
-- [ ] create GCBetaTst at QUT - test cases with 3 players
+- [ ] Code review by someone ... Andrew!
+- [ ] create GCBetaTst at QUT - run the test cases with 3 players
   - [ ] check that no reward if not occupying a circle
   - [ ] Multiple players at one circle at same time works at all?
     - [ ] Do all get the reward?
-- [ ] create GCGammaTst (3 waypoints) also at QUT - test cases with 4+ players
+- [ ] create GCGammaTst (3 waypoints) also at QUT - run the test cases with 5 players
   - [ ] does it work properly with 3 target circles?
-  - [ ] does it work with multiple concurrent games?
+  - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: 
   - [ ] delete GCTest, GCAlbury and GCGammaTst
   - [ ] 'replace' GCAlphatst with the real GC code.
   - [ ] OBC co-ownership on the listing?
   - [ ] remove default game from form
-  - [ ] Production testing before publishing for real
-  - [ ] Production Release
+  - [ ] Final production test run, before publishing for real. Use two new people.
+  - [ ] Production Release!
  
 
 # Key files
