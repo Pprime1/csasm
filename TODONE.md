@@ -1,6 +1,7 @@
 **HISTORY OF CODE DEVELOPMENT BRANCHES**
 
-**GCALPHATEST
+**GCALPHATEST #28 branch**
+      -merged 28 October 2021
 - [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
   - [x] accuracy of location ... watchposition gives best accuracy
