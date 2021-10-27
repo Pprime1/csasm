@@ -38,9 +38,11 @@ If so, returns hidden REWARD text value (clues/directions to the final container
   - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: 
-  - [ ] delete GCTest, GCAlbury and GCGammaTst
-  - [ ] 'replace' GCAlphatst with the real GC code.
-  - [ ] OBC co-ownership on the listing?
+  - [ ] delete GCTest, GCAlbury as they have private locations
+    - [ ] keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
+  - [ ] 'replace' GCAlphatst with the real GC code. Or possibly just duplicate locations
+  - [ ] Write and refine what user instructions are needed - into listing, but also should it be in the code somewhere?
+    - [ ] OBC co-ownership on the listing?
   - [ ] remove default game from form
   - [ ] Final production test run, before publishing for real. Use two new people.
   - [ ] Production Release!
