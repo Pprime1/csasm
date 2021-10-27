@@ -5,7 +5,6 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 # TODO
 - [ ] Code review by someone ... Andrew!!
-
 - [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
   - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
   - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
