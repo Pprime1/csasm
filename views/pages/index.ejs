@@ -3,23 +3,26 @@
 <head width: device-width>
   <%- include ("../partials/header.ejs") %>
  
-  <!-- Leaflet stylesheet and source code are added here -->
+  <!-- Leaflet + EasyButton stylesheets and source code are added here -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
      crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
      crossorigin="">
-  </script>
+  </script>     
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
   <script> <!-- must be https for most web browsers to access current location -->
      if (location.protocol !== 'https:') {
         location.replace(`https:${location.href.substring(location.protocol.length)}`);}
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+  <script> window.onload = function() {var clipboard = new ClipboardJS('.btn');}</script>
  
   <!-- OUR CODE -->
-  <script> window.onload = function() {var clipboard = new ClipboardJS('.btn');}</script>
   <script type="text/javascript" src="/js/client.js"></script>
 </head>
 
@@ -49,13 +52,15 @@
 
      <!-- Show all Players and Waypoints, target and current distance from each. Highlight a waypoint if "occupied"       -->
      <pre><span id="displayinfo" width: device-width></span></pre>
-     
      <div id="mapid"></div>       <!-- Display map -->
      <script type="text/javascript" src="/js/showmap.js"></script>
   </div>
   
   <div class="alert alert-info text-center" role="alert" width: device-width>
      <i>Developed by Pprime` with a hell of a lot of effort.  Hosted by Heroku. (c) 2021 All rights reserved.</i>
+     <form action="https://www.geocaching.com" method="get">
+         <input type="submit" class="btn btn-danger btn-sm" value="Quit Game" name="Quit" id="frm_quit" style="float: right;"/> 
+     </form>
   </div>
 </body>
 </html>

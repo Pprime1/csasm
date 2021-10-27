@@ -11,13 +11,13 @@ for (var entry of urlParams) {
     var URLentry = entry[0]; // only the first URL paramis considered as the Game ID code
 };   
 var RtnError = null;
-if (URLentry) {  // if started with a URLParam then attempt to join that game ID
+if (URLentry) {  //if started with a URLParam then attempt to join that game ID
     URLentry = URLentry.toUpperCase();
-    console.log("URL Parameter:", URLentry);
+    console.log("Called with parameter:", URLentry);
     socket.emit('join-a-game', URLentry, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
-} else { URLentry = "GCTEST" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
+} else { URLentry = "GCALPHATST" }; // set a default to simplify testing. Revert this to } else { URLentry = "" }; once released
 
 var geoOptions = {
   enableHighAccuracy: true,
@@ -40,20 +40,20 @@ function ConvertDEGToDM(deg,dir) {
   return direction + degrees + "° " + minutesdecimals+ "' ";
  }; // Convert DM.MMM
 
-function updatePosition(position) {
-  latitude = position.coords.latitude;
+function updatePosition(position) { //changes the player location details in:
+  latitude = position.coords.latitude; //here as a global variable
   longitude = position.coords.longitude;
   var accuracy = position.coords.accuracy;
-  var lat = ConvertDEGToDM(latitude,1);
+  var lat = ConvertDEGToDM(latitude,1); //change display format
   var lon = ConvertDEGToDM(longitude,0);
   var acc = Math.round(accuracy);
-  $("#current-Lat").text(lat);
+  $("#current-Lat").text(lat); //index.ejs for display above the table
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
-  localStorage.setItem('my_lat', lat);
+  localStorage.setItem('my_lat', lat); //localstorage for ease of access in reward.ejs and elsewhere
   localStorage.setItem('my_lon', lon);
   localStorage.setItem('my_acc', accuracy);
-  socket.emit('location-update', latitude, longitude);
+  socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later.
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
@@ -95,15 +95,18 @@ socket.io.on("reconnect", () => { // Reconnect is not used any more?
 
 socket.on("game-join", () => {
    navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // First location update attempt, handle errors and set options
-   console.log("Geolocation Error Status", RtnError);
+   if (RtnError) {console.log("Geolocation Error Status", RtnError);}
    if (!RtnError) { 
        $("#lj-startup").hide();
        $("#lj-in-game").show();
        is_joined = true;
-       const interval = setInterval(function() {
-          navigator.geolocation.getCurrentPosition(updatePosition); // update geolocation every 5 seconds
-       }, 5000);
-   }; //set GeoLocation
+       //const interval = setInterval(function() {
+       //   navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // update geolocation every 5 seconds
+       //}, 5000);
+// or...?
+       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
+       // put navigator.geolocation.clearWatch(???); into reward.ejs? or the call to reward in server.js perhaps?
+   }; //Get and set Player GeoLocation
 }); // end of GAME-JOIN
 
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
@@ -121,7 +124,6 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 
 socket.on("display-update", (display_information) => {
   displaytable=display_information; // make available to global variable in Displaymap.js
-  //console.log(displaytable);
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   var game_description = localStorage.getItem ('game_description');
@@ -151,12 +153,11 @@ socket.on("display-update", (display_information) => {
   is_running = true;
 }); // end of DISPLAY-UPDATE
 
-socket.on("display-reward", (reward_information) => { // if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
-  // Save Reward in Local Storage
-  localStorage.setItem('reward_information', reward_information);
+socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
+  localStorage.setItem('reward_information', reward_information); // Save Reward in Local Storage
   console.log("Reward=",reward_information);
   setTimeout( function() {
-    location.href = "reward"; // Redirect user to reward page, disconnecting them from game session updates.
+    location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
   }, 100)
 }); // end of DISPLAY-REWARD
 
@@ -164,9 +165,10 @@ socket.on("display-reward", (reward_information) => { // if all waypoints are in
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   var GmError = localStorage.getItem('RtnError') || "Clear skies";
-  $("#game-error").text(GmError); // Set to display any error message underneath form entry field
-  if (!is_joined) { $("#lj-startup").show() }; // show the form only if not already joined to a game thanks to the URL paramater
-  console.log("Starting Game Form");
+  $("#game-error").text(GmError); //Set to display any error message underneath form entry field
+  if (!URLentry) {console.log("No valid game-code supplied, Starting Game Form");}
+  if (!is_joined) {$("#lj-startup").show() }; //show the form only if not already joined to a game
+      
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
@@ -176,4 +178,4 @@ window.addEventListener("load",function(event) {
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
    }); // end of form
-}, false); // end of JOIN-GAME listener
+}, false); // end of GAME listener

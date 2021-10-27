@@ -26,7 +26,7 @@ function getGameByCode(games_result, game_id) {
 	  return games_result[i];
       };
     };
-    console.log("Game is null");
+    console.log("Game ", game_id, "is invalid");
     return null;
 }; // end getGameByCode
 
@@ -88,7 +88,8 @@ async function configure_socketio(db_connection, games_result) {
       if(room !== id) {
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "left", room, room_size, "online");
-        io.to(room).emit("room-update", room.replace("game-", ""), room_size);
+	if (room_size==0) {console.log("All players have left game: ", room)};
+	io.to(room).emit("room-update", room.replace("game-", ""), 1, room_size);
         db_connection.query(`DELETE FROM player WHERE id = '${id}'`).catch(err => console.log(err));
       }
     }); // leave-room
