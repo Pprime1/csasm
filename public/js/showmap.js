@@ -1,7 +1,7 @@
 //***SHOWMAP.js***//
 //Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan/layers etc. Update the map as the player moves ***//
 
-//Global variables out of client.js
+//Global variables out of client.js //POOR PRACTICE, can we move function calls to client.js, or use them as function parameters at least?
     // latitude, longitude == geolocation of current player
     // MYID == ID of current player
     // is_running == boolean set true once the player is joined to a game and main variables are first populated
@@ -102,12 +102,15 @@ function updatemap() {  // Update the current player location on map
        		currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
        		mymap.panTo([latitude,longitude]); 
        		currentAutoMove = false; //Remove flag again
-	};		    
+	};
+        mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
 
-async function main() {
+async function main() { //MOVE THIS INTO client.js as well?
     const interval = setInterval(function() {
+
+//TODO make this a startupmap() function so it can be called from client.js as well
          if (is_running) { // we need to know that there is data populated before showing or updating the map with it
 	     if (!map_started) {  //start the map only once 
 		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
@@ -135,9 +138,10 @@ async function main() {
        	        panbtn.state('AutoMove');
  	        map_started=true;
     	     }; //start the map only once
-	     updatemap(); // for current player location and circle colour.
+	     //updatemap(); // for current player location and circle colour. MOVED TO client.js watchposition
 	  }; //update only if is_running
           mymap.invalidateSize(); //reset map view
-    }, 5000); // update map every 5 seconds 
+//-----------
+    }, 5000); // check to start map every 5 seconds //TODO this can then stop running once it's started?
 }; //end main
 main();
