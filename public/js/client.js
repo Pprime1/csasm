@@ -55,7 +55,8 @@ function updatePosition(position) { //changes the player location details in:
   localStorage.setItem('my_acc', accuracy);
   socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later
   //if (map_started)
-  if (is_running) {updatemap()}; //update the map display if the map has been created already
+  if (is_running) {updatemap();
+                  console.log("updating map based on watchposition change")}; //update the map display if the map has been created already
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
