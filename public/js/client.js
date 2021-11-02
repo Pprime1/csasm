@@ -53,7 +53,9 @@ function updatePosition(position) { //changes the player location details in:
   localStorage.setItem('my_lat', lat); //localstorage for ease of access in reward.ejs and elsewhere
   localStorage.setItem('my_lon', lon);
   localStorage.setItem('my_acc', accuracy);
-  socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later.
+  socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later
+  //if (map_started)
+  if (is_running) {updatemap()}; //update the map display if the map has been created already
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
@@ -99,11 +101,7 @@ socket.on("game-join", () => {
    if (!RtnError) { 
        $("#lj-startup").hide();
        $("#lj-in-game").show();
-       is_joined = true;
-       //const interval = setInterval(function() {
-       //   navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // update geolocation every 5 seconds
-       //}, 5000);
-// or...?
+       is_joined = true; 
        navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
        // put navigator.geolocation.clearWatch(???); into reward.ejs? or the call to reward in server.js perhaps?
    }; //Get and set Player GeoLocation
@@ -150,12 +148,11 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table);
-  is_running = true;
+  is_running = true; //TODO first time this is called, startupmap();
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   localStorage.setItem('reward_information', reward_information); // Save Reward in Local Storage
-  console.log("Reward=",reward_information);
   setTimeout( function() {
     location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
   }, 100)
