@@ -113,39 +113,37 @@ function updatemap() {  // Update the current player location on map
 
 
 function startupmap() {  // Create the initial map display
-     if (!map_started) {  //start the map only once 
-	L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
-	L.control.scale().addTo(mymap); //show scale bar
-	console.log("Create current player marker:",MYID,latitude,longitude); 
-	playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
+    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+    L.control.scale().addTo(mymap); //show scale bar
+    console.log("Create current player marker:",MYID,latitude,longitude); 
+    playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
-	for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
-		if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
-    	    	     WPN.push(displaytable[i].name);
-    	    	     WPC.push('red');
-    	    	     WPX.push(displaytable[i].x);
-    	    	     WPY.push(displaytable[i].y);
-    	    	     WPR.push(displaytable[i].radius);
-		};
-     	};
-     	for (var n=0; n<WPN.length; n++){ 
-		console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
-		WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
-    	    	     radius: WPR[n],
-    	    	     fillOpacity: 0.2
-		}).addTo(mymap)
-  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
-     	};	     
-        panbtn.state('AutoMove');
-        map_started=true;
-        mymap.invalidateSize(); //reset map view
-     }; //start the map only once
+    for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
+	if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
+    	     WPN.push(displaytable[i].name);
+    	     WPC.push('red');
+    	     WPX.push(displaytable[i].x);
+    	     WPY.push(displaytable[i].y);
+    	     WPR.push(displaytable[i].radius);
+	};
+    };
+    for (var n=0; n<WPN.length; n++){ 
+        console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+        WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
+           radius: WPR[n],
+           fillOpacity: 0.2
+        }).addTo(mymap)
+          .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
+    };	     
+    panbtn.state('AutoMove');
+    map_started=true; //don't start it again
+    mymap.invalidateSize(); //reset map view
 } // end startupmap
 
 //-----------
 async function main() { 
     const interval = setInterval(function() {
-          if (is_running) {startupmap()}; // we need to know that there is data populated before showing (or updating) the map with it //TODO MOVE THIS INTO client.js?
+          if (is_running && !map_started) {startupmap()}; // we need to know that there is data populated before showing (or updating) the map with it //TODO MOVE THIS INTO client.js?
     }, 5000); // check to start map every 5 seconds //TODO this can then stop running once it's started?
 }; //end main
-main();
+//main();
