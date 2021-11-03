@@ -36,8 +36,8 @@ var baseMaps = {
 var mymap = L.map('mapid', { 
    center: [latitude,longitude],
    zoom: 17,
-   layers: [streetmap], //default layer
-   dragging: !L.Browser.mobile //twofinger map movement, one finger page scrolling
+   layers: [streetmap] //default layer
+   //dragging: !L.Browser.mobile, //twofinger map movement, one finger page scrolling
 }); 
 
 var personicon = L.icon({
