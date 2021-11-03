@@ -22,10 +22,15 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
       id: 'mapbox/satellite-v9',
       maxZoom: 20,
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
-   });
+   }),
+   qglobe = L.tileLayer('https://spatial-img.information.qld.gov.au/arcgis/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{id}/tiles/{z}/{x}/{y}, {
+      attribution: 'Map data &copy; <a href="https://qldglobe.information.qld.gov.au/"</a>,
+      maxZoom: 20
+    });
 var baseMaps = {
      "Streetmap": streetmap,
-     "Satellite": satellite
+     "Satellite": satellite,
+     "QLD Globe": qglobe
 };
     
 // Define the map ... it will start displaying it at the default location which is in UQ somewhere before variables get populated
@@ -81,6 +86,8 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
 
 
 function updatemap() {  // Update the current player location on map
+//??updatemap(latitude,longitude,displaytable)
+	
    	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
 	console.log("watchposition change to map",latitude,longitude);
 	
@@ -113,6 +120,8 @@ function updatemap() {  // Update the current player location on map
 
 
 function startupmap() {  // Create the initial map display
+//??startupmap(latitude,longitude,displaytable,MYID)
+	
     L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
     L.control.scale().addTo(mymap); //show scale bar
     console.log("Create current player marker:",MYID,latitude,longitude); 
