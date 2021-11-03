@@ -90,15 +90,14 @@ mymap.on('touchmove', (e) => {
   //}
 });
 mymap.on('movestart',(e)=>{ //Check if map is being moved
-    console.log("manual move"); 
-  var popup = L.popup()
-    .setLatLng([latitude,longitude])
-    .setContent("manual move.")
-    .openOn(mymap);
-
-	if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
-	    pauseAutoMove = true; //set flag to stop Auto moving map 
-	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
+    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
+    	console.log("manual move"); 
+  	var popup = L.popup()
+    	   .setLatLng([latitude,longitude])
+    	   .setContent("manual move.")
+    	   .openOn(mymap);
+	pauseAutoMove = true; //set flag to stop Auto moving map 
+	panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
     }
 });
 
