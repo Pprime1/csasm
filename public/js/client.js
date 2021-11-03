@@ -57,7 +57,7 @@ function updatePosition(position) { //changes the player location details:
   localStorage.setItem('my_acc', accuracy);
   socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later
   console.log("watchposition change", lat,lon);
-  if (map_started) {updatemap()}; //the map display - if the map has been created already
+  if (map_started) {updatemap(latitude,longitude,displaytable)}; //the map display - if the map has been created already
     //??updatemap(latitude,longitude,displaytable)
 }; // UpdatePosition
 
@@ -151,12 +151,8 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table); //needed in reward.ejs later? Could this be moved to the display-reward function?
-  if (!map_started) {startupmap();
-       map_started=true}; //startup the map, but just the first time we get here;
-
-    //??startupmap(latitude,longitude,displaytable,MYID)
-    //map_started is a global variable out of showmap.js now
-    
+  if (!map_started) {startupmap(latitude,longitude,displaytable,MYID);
+       map_started=true}; //startup the map, but just the first time we get here;    
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
