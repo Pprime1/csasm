@@ -6,6 +6,8 @@
     // MYID == ID of current player
     // is_running == boolean set true once the player is joined to a game and main variables are first populated
     // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+//??updatemap(latitude,longitude,displaytable)
+//??startupmap(latitude,longitude,displaytable,MYID)
 
 // Define streetview and satellite layer views on the map
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -108,11 +110,8 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 
-async function main() { //MOVE THIS INTO client.js as well?
-    const interval = setInterval(function() {
-
-//TODO make this a startupmap() function so it can be called from client.js as well
-         if (is_running) { // we need to know that there is data populated before showing or updating the map with it
+function startupmap() {  // Create the inisital map display
+         if (is_running) { // we need to know that there is data populated before showing (or updating) the map with it
 	     if (!map_started) {  //start the map only once 
 		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
     		L.control.scale().addTo(mymap); //show scale bar
@@ -142,7 +141,12 @@ async function main() { //MOVE THIS INTO client.js as well?
 	     //updatemap(); // for current player location and circle colour. MOVED TO client.js watchposition
 	  }; //update only if is_running
           mymap.invalidateSize(); //reset map view
+} // end startupmap
+
 //-----------
+async function main() { 
+    const interval = setInterval(function() {
+        startupmap() //TODO MOVE THIS INTO client.js?
     }, 5000); // check to start map every 5 seconds //TODO this can then stop running once it's started?
 }; //end main
 main();
