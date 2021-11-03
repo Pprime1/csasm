@@ -82,7 +82,9 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
 
 function updatemap() {  // Update the current player location on map
    	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-	//set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
+	console.log("watchposition change to map",latitude,longitude);
+	
+	//set circle colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
 	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    		for (var n=0; n<WPN.length; n++) { 
 			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
@@ -110,43 +112,40 @@ function updatemap() {  // Update the current player location on map
 }; // end updatemap
 
 
-function startupmap() {  // Create the inisital map display
-         if (is_running) { // we need to know that there is data populated before showing (or updating) the map with it
-	     if (!map_started) {  //start the map only once 
-		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
-    		L.control.scale().addTo(mymap); //show scale bar
-		console.log("Create current player marker:",MYID,latitude,longitude); 
-    		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
+function startupmap() {  // Create the initial map display
+     if (!map_started) {  //start the map only once 
+	L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+	L.control.scale().addTo(mymap); //show scale bar
+	console.log("Create current player marker:",MYID,latitude,longitude); 
+	playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
-		for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
-			if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
-	    	    	     WPN.push(displaytable[i].name);
-	    	    	     WPC.push('red');
-	    	    	     WPX.push(displaytable[i].x);
-	    	    	     WPY.push(displaytable[i].y);
-	    	    	     WPR.push(displaytable[i].radius);
-			};
-	     	};
-	     	for (var n=0; n<WPN.length; n++){ 
-			console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
-			WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
-    	    	    	     radius: WPR[n],
-    	    	    	     fillOpacity: 0.2
-			}).addTo(mymap)
-	  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
-	     	};	     
-       	        panbtn.state('AutoMove');
- 	        map_started=true;
-    	     }; //start the map only once
-	     //updatemap(); // for current player location and circle colour. MOVED TO client.js watchposition
-	  }; //update only if is_running
-          mymap.invalidateSize(); //reset map view
+	for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
+		if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
+    	    	     WPN.push(displaytable[i].name);
+    	    	     WPC.push('red');
+    	    	     WPX.push(displaytable[i].x);
+    	    	     WPY.push(displaytable[i].y);
+    	    	     WPR.push(displaytable[i].radius);
+		};
+     	};
+     	for (var n=0; n<WPN.length; n++){ 
+		console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+		WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
+    	    	     radius: WPR[n],
+    	    	     fillOpacity: 0.2
+		}).addTo(mymap)
+  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
+     	};	     
+        panbtn.state('AutoMove');
+        map_started=true;
+        mymap.invalidateSize(); //reset map view
+     }; //start the map only once
 } // end startupmap
 
 //-----------
 async function main() { 
     const interval = setInterval(function() {
-        startupmap() //TODO MOVE THIS INTO client.js?
+                 if (is_running) {startupmap() // we need to know that there is data populated before showing (or updating) the map with it //TODO MOVE THIS INTO client.js?
     }, 5000); // check to start map every 5 seconds //TODO this can then stop running once it's started?
 }; //end main
 main();
