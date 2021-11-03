@@ -23,7 +23,7 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
       maxZoom: 20,
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
    }),
-   qglobe = L.tileLayer('https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/MapServer/tile/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
+   qglobe = L.tileLayer('https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
       attribution: 'Map data &copy; <a href="https://qldglobe.information.qld.gov.au/"</a>',
       maxZoom: 20
     });
@@ -55,7 +55,6 @@ var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
 var currentAutoMove = false; // needed to check in `movestart` event-listener if moved from interval or by user
 var pauseAutoMove = false; // if true -> Stops moving map
-var map_started = false;
 
 var panbtn = L.easyButton({
   states: [{
@@ -145,11 +144,11 @@ function startupmap() {  // Create the initial map display
           .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
     };	     
     panbtn.state('AutoMove');
-    map_started=true; //don't start it again
+    //map_started=true; //don't start it again, but allows updatemap() to now run
     mymap.invalidateSize(); //reset map view
 } // end startupmap
 
-//-----------
+//-----------//no longer called
 async function main() { 
     const interval = setInterval(function() {
           if (is_running && !map_started) {startupmap()}; // we need to know that there is data populated before showing (or updating) the map with it //TODO MOVE THIS INTO client.js?
