@@ -77,14 +77,26 @@ mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
 
 mymap.on('touchmove', (e) => {
-  // if (!e.touches || e.touches.length !== 2) { return; }
+  console.log("touchmove"); 
+  var popup = L.popup()
+    .setLatLng([latitude,longitude])
+    .setContent("touchmove.")
+    .openOn(mymap);
+	
+	// if (!e.touches || e.touches.length !== 2) { return; }
   // if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
 	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
   //}
 });
 mymap.on('movestart',(e)=>{ //Check if map is being moved
-    if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
+    console.log("manual move"); 
+  var popup = L.popup()
+    .setLatLng([latitude,longitude])
+    .setContent("manual move.")
+    .openOn(mymap);
+
+	if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
 	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
     }
