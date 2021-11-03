@@ -37,7 +37,7 @@ var mymap = L.map('mapid', {
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap], //default layer
-   dragging: !L.Browser.mobile, tap: !L.Browser.mobile //twofinger map controls, one finger page scrolling
+   dragging: !L.Browser.mobile //twofinger map movement, one finger page scrolling
 }); 
 
 var personicon = L.icon({
@@ -76,12 +76,12 @@ var panbtn = L.easyButton({
 mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
 
-mymap.on('touchstart', (e) => {
-  //if (!e.touches || e.touches.length !== 2) { return; }
-   // if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
+mymap.on('touchmove', (e) => {
+  // if (!e.touches || e.touches.length !== 2) { return; }
+  // if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
 	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
-    //}
+  //}
 });
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
