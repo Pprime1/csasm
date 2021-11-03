@@ -102,7 +102,7 @@ socket.on("game-join", () => {
        $("#lj-startup").hide();
        $("#lj-in-game").show();
        is_joined = true; 
-       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a 5 second loop
+       navigator.geolocation.watchPosition(updatePosition, PosError, geoOptions); //keep updating geolocation when it changes, rather than on a loop
        // put navigator.geolocation.clearWatch(???); into reward.ejs? or the call to reward in server.js perhaps?
    }; //Get and set Player GeoLocation
 }); // end of GAME-JOIN
@@ -148,7 +148,8 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table);
-  is_running = true; //TODO first time this is called, startupmap();
+  is_running = true; //no longer required?
+  if (!map_started) {startupmap()}; //startup the map, but just the first time we get here;
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
