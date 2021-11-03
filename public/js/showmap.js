@@ -29,7 +29,7 @@ var baseMaps = {
 var mymap = L.map('mapid', { 
    center: [latitude,longitude],
    zoom: 17,
-   layers: [streetmap] //default layer
+   layers: [streetmap], //default layer
    dragging: !L.Browser.mobile, //twofinger map movement, one finger page scrolling
    tap: !L.Browser.mobile
 }); 
