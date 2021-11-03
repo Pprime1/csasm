@@ -1,12 +1,5 @@
 //***SHOWMAP.js***//
-//Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan/layers etc. Update the map as the player moves ***//
-
-//Global variables out of client.js //POOR PRACTICE, can we move function calls to client.js, or use them as function parameters at least?
-    // latitude, longitude == geolocation of current player
-    // MYID == ID of current player
-    // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
-//??updatemap(latitude,longitude,displaytable)
-//??startupmap(latitude,longitude,displaytable,MYID)
+//***Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan/layers etc. Update the map as the player moves ***//
 
 // Define streetview and satellite layer views on the map
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -25,7 +18,7 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
    qglobe = L.tileLayer('https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
       attribution: 'Map data &copy; <a href="https://qldglobe.information.qld.gov.au/"</a>',
       maxZoom: 20
-    });
+    }); //QGlobe not working yet
 var baseMaps = {
      "Streetmap": streetmap,
      "Satellite": satellite,
@@ -37,7 +30,8 @@ var mymap = L.map('mapid', {
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap] //default layer
-   //dragging: !L.Browser.mobile, //twofinger map movement, one finger page scrolling
+   dragging: !L.Browser.mobile, //twofinger map movement, one finger page scrolling
+   tap: !L.Browser.mobile
 }); 
 
 var personicon = L.icon({
@@ -77,21 +71,21 @@ mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
 
 mymap.on('dragstart', (e) => {
-  // if (!e.touches || e.touches.length !== 2) { return; } //ignore accidental touches
-  console.log("dragstart"); 
-  var popup = L.popup()
-    .setLatLng([latitude,longitude])
-    .setContent("dragstart.")
-    .openOn(mymap);
+  if (!e.touches || e.touches.length !== 2) { return; } //ignore accidental touches
+  //console.log("dragstart"); 
+  //var popup = L.popup()
+  //  .setLatLng([latitude,longitude])
+  //  .setContent("dragstart.")
+  //  .openOn(mymap);
   pauseAutoMove = true; //set flag to stop Auto moving map 
   panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
 });
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
-  	var popup = L.popup()
-    	   .setLatLng([latitude,longitude])
-    	   .setContent("manual move.")
-    	   .openOn(mymap);
+  	//var popup = L.popup()
+    	//   .setLatLng([latitude,longitude])
+    	//   .setContent("manual move.")
+    	//   .openOn(mymap);
 	pauseAutoMove = true; //set flag to stop Auto moving map 
 	panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
     }
