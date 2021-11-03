@@ -56,6 +56,7 @@ function updatePosition(position) { //changes the player location details in:
   socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later
   console.log("watchposition change", lat,lon);
   if (map_started) {updatemap()}; //update the map display if the map has been created already
+    //??updatemap(latitude,longitude,displaytable)
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
@@ -150,6 +151,9 @@ socket.on("display-update", (display_information) => {
   localStorage.setItem('display_update', $table);
   is_running = true; //no longer required?
   if (!map_started) {startupmap()}; //startup the map, but just the first time we get here;
+
+    //??startupmap(latitude,longitude,displaytable,MYID)
+    
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
