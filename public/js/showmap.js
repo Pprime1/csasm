@@ -4,7 +4,6 @@
 //Global variables out of client.js //POOR PRACTICE, can we move function calls to client.js, or use them as function parameters at least?
     // latitude, longitude == geolocation of current player
     // MYID == ID of current player
-    // is_running == boolean set true once the player is joined to a game and main variables are first populated
     // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
 //??updatemap(latitude,longitude,displaytable)
 //??startupmap(latitude,longitude,displaytable,MYID)
@@ -53,7 +52,7 @@ var WPC=[]; //define an array of all unique waypoint colours
 var WPX=[]; //define an array of all unique waypoint x latitude
 var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
-var currentAutoMove = false; // needed to check in `movestart` event-listener if moved from interval or by user
+var currentAutoMove = false; // needed to check in `movestart` and 'touchmove' event-listeners if moved from interval or by user
 var pauseAutoMove = false; // if true -> Stops moving map
 
 var panbtn = L.easyButton({
@@ -77,7 +76,7 @@ var panbtn = L.easyButton({
 mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
 
-mymap.on('touchmove', (e) => {
+mymap.on('touchstart', (e) => {
   if (!e.touches || e.touches.length !== 2) { return; }
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	    pauseAutoMove = true; //set flag to stop Auto moving map 
