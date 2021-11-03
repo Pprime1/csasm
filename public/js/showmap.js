@@ -52,8 +52,8 @@ var WPC=[]; //define an array of all unique waypoint colours
 var WPX=[]; //define an array of all unique waypoint x latitude
 var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
-var currentAutoMove = false; // needed to check in `movestart` and 'touchmove' event-listeners if moved from interval or by user
-var pauseAutoMove = false; // if true -> Stops moving map
+var currentAutoMove = false; // needed to check in `movestart` and 'touchmove' event-listeners if moved by user, or programmatically
+var pauseAutoMove = false; // if true -> Stops moving map to auto follow the player location
 
 var panbtn = L.easyButton({
   states: [{
@@ -76,22 +76,18 @@ var panbtn = L.easyButton({
 mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
 
-mymap.on('touchmove', (e) => {
-  console.log("touchmove"); 
+mymap.on('dragstart', (e) => {
+  // if (!e.touches || e.touches.length !== 2) { return; } //ignore accidental touches
+  console.log("dragstart"); 
   var popup = L.popup()
     .setLatLng([latitude,longitude])
-    .setContent("touchmove.")
+    .setContent("dragstart.")
     .openOn(mymap);
-	
-	// if (!e.touches || e.touches.length !== 2) { return; }
-  // if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
-	    pauseAutoMove = true; //set flag to stop Auto moving map 
-	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
-  //}
+  pauseAutoMove = true; //set flag to stop Auto moving map 
+  panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
 });
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
-    	console.log("manual move"); 
   	var popup = L.popup()
     	   .setLatLng([latitude,longitude])
     	   .setContent("manual move.")
