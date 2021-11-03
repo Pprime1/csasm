@@ -145,7 +145,7 @@ function startupmap() {  // Create the initial map display
 //-----------
 async function main() { 
     const interval = setInterval(function() {
-                 if (is_running) {startupmap() // we need to know that there is data populated before showing (or updating) the map with it //TODO MOVE THIS INTO client.js?
+          if (is_running) {startupmap()}; // we need to know that there is data populated before showing (or updating) the map with it //TODO MOVE THIS INTO client.js?
     }, 5000); // check to start map every 5 seconds //TODO this can then stop running once it's started?
 }; //end main
 main();
