@@ -8,6 +8,7 @@ var map_started = false; //set once the map has been started up
 var game_description = "Clear skies: choose a game to play";
 var displaytable =[]; 
 var MYID = socket.id; 
+var RtnError="Clear Skies";
 
 for (var entry of urlParams) { 
     var URLentry = entry[0]; // only the first URL param is considered as the Game ID code
@@ -58,14 +59,13 @@ function updatePosition(position) { //changes the player location details:
   socket.emit('location-update', latitude, longitude); //server.js, which updates database for use in display-update later
   console.log("watchposition change", lat,lon);
   if (map_started) {updatemap(latitude,longitude,displaytable)}; //the map display - if the map has been created already
-    //??updatemap(latitude,longitude,displaytable)
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
     switch (error.code) {
         case error.PERMISSION_DENIED:
             RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart";
-            localStorage.setItem('RtnError', RtnError);
+            //localStorage.setItem('RtnError', RtnError);
             window.alert(RtnError);
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
@@ -73,19 +73,19 @@ function PosError(error) { // handle/display get geolocation errors
             break;
         case error.POSITION_UNAVAILABLE:
             RtnError = "GeoLocation error: Location information is unavailable \n Please correct and then refresh screen to restart.";
-            localStorage.setItem('RtnError', RtnError);
+            //localStorage.setItem('RtnError', RtnError);
             window.alert(RtnError);
             location.href = "/";
             break;
         case error.TIMEOUT:
             RtnError = "GeoLocation error: The request to get user location timed out. \n Please refresh screen to restart";
-            localStorage.setItem('RtnError', RtnError);
+            //localStorage.setItem('RtnError', RtnError);
             window.alert(RtnError);
             location.href = "/";
             break;
         default:
             RtnError = "GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart";
-            localStorage.setItem('RtnError', RtnError);
+            //localStorage.setItem('RtnError', RtnError);
             window.alert(RtnError);
             location.href = "/";
             break;
@@ -124,10 +124,9 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 }); // end of ROOM-UPDATE
 
 socket.on("display-update", (display_information) => {
-  displaytable=display_information; // make available as global variable in showmap.js
+  displaytable=display_information;
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
-  //game_description = localStorage.getItem ('game_description');
   $("#gamedesc").text(game_description);
 
   // Display game status including any occupied status lines
@@ -150,7 +149,7 @@ socket.on("display-update", (display_information) => {
   };
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
-  localStorage.setItem('display_update', $table); //needed in reward.ejs later? Could this be moved to the display-reward function?
+  localStorage.setItem('display_update', $table); //needed in reward.ejs
   if (!map_started) {startupmap(latitude,longitude,displaytable,MYID);
        map_started=true}; //startup the map, but just the first time we get here;    
 }); // end of DISPLAY-UPDATE
@@ -165,8 +164,8 @@ socket.on("display-reward", (reward_information) => { //if all waypoints are in 
 // Bind Submit Event for Start Page Game-Joining form.
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
-  var GmError = localStorage.getItem('RtnError') || "Clear skies";
-  $("#game-error").text(GmError); //Set to display any error message underneath form entry field
+  //var GmError = localStorage.getItem('RtnError') || "Clear skies";
+  $("#game-error").text(RtnError); //Set to display any error message underneath form entry field
   if (!URLentry) {console.log("No valid game-code supplied, Starting Game Form");}
   if (!is_joined) {$("#lj-startup").show() }; //show the form only if not already joined to a game
       
