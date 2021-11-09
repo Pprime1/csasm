@@ -7,20 +7,20 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [x] Code review by someone ... Andrew!!
   - [ ] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing
   - [ ] also a case where data is being set again when it shouldn't have changed, and if it had the original method should have handled it.i.e. L129var game_description = localStorage.getItem ('game_description');$("#gamedesc").text(game_description);
-  - [ ] storing display_update in local storage at L152 - I might be missing the purpose?
-  - [ ] Communicating with the map via global variables is bad practice. Goal is to have minimal global variables. 
-  - [ ] from a gameplay perspective - clearing the local storage on reward so quickly might cause issues aka maybe they close their phone and it refreshes the browser window.. then they lose the information and have to play the game again. 
-  - [ ] personally, I would have had the map start-up with minimal logic related to our app then expose it via global variable object (like jQuery's $ function).
+  - [ ] storing display_update in local storage at L152 - needed for Reward.ejs
+  - [x] Communicating with the map via global variables is bad practice. Goal is to have minimal global variables. 
+  - [x] from a gameplay perspective - clearing the local storage on reward so quickly might cause issues aka maybe they close their phone and it refreshes the browser window.. then they lose the information and have to play the game again. 
+  - [x] personally, I would have had the map start-up with minimal logic related to our app then expose it via global variable object (like jQuery's $ function).
   - [ ] We would then be able to call it via that function to make changes from our client.js.. e.g $MAP.update_table(...), $MAP.update_player(...)
   - [x] Merging the two js files is a bad idea, making the code more complex, and if you decide in future that the map isn't working it makes removing much harder.
-- [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
+- [x] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
   - [x] call the updatemap function (at least) from within the watchposition function in client.js - and therefore it would update constantly as the player moves around. 
-  - [x] this is ok. Constant database update calls and all else happening rather than a more staid every 5 seconds is acceptable and normal
-  - [x] code restructure would be needed to call all of startupmap inside client.js
+  - [x] this is ok: Constant database update calls and all else happening rather than a more staid every 5 seconds is acceptable and normal
+  - [x] code restructure to call all of startupmap inside client.js as well
 - [ ] Can (and should?) I add a QLD Globe map layer. Just because?
 - [ ] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
   - [x] csasm is now pipeline to 'staging' and 'production' is now named asmhub
-  - [ ] Production promotion fails every time. referecnes csasm variables?
+  - [ ] Production promotion fails every time. references csasm variables?
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] create GCBetaTst at QUT - run the test cases with 3 players
   - [ ] check that no reward if not occupying a circle
