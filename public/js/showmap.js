@@ -90,7 +90,7 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
 
 function updatemap(latitude,longitude,displaytable) {  // Update the current player location on map	
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-   console.log("watchposition change to map",latitude,longitude);
+   console.log("watchposition change to map display",latitude,longitude);
 	
    //set circle colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
    for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
@@ -107,9 +107,10 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
 	   };
 	};
    }; 
-   for (var n=0;n<WPN.length;n++) {
-	WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set and display circle colour (circles are already on map, just updating colours here)
-	WPC[n] = 'red'; //reset every circle expectation to red (unoccupied) until next updatemap
+   for (var n=0;n<WPCircle.length;n++) { //set and display circle colour (circles are already on map, just updating colours here)
+	WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); 
+	console.log("Update Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+	WPC[n] = 'red'; //reset every circle expectation colour back to red (unoccupied) until next updatemap
    };
    if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
    	currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
@@ -140,6 +141,7 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
      WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
         radius: WPR[n],
         fillOpacity: 0.2
+	     //colour is blue until Updatemap first runs
      }).addTo(mymap)
        .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
    };	     
