@@ -107,7 +107,7 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
 	   };
 	};
    }; 
-   for (var n=0;n<WPCircle.length;n++) { //set and display circle colour (circles are already on map, just updating colours here)
+   for (var n=0;n<WPcircle.length;n++) { //set and display circle colour (circles are already on map, just updating colours here)
 	WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); 
 	console.log("Update Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
 	WPC[n] = 'red'; //reset every circle expectation colour back to red (unoccupied) until next updatemap
