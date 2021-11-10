@@ -16,6 +16,10 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [x] this is ok: Constant database update calls and all else happening rather than a more staid every 5 seconds is acceptable and normal
   - [x] code restructure to call all of startupmap inside client.js as well
 - [ ] Can (and should?) I add a QLD Globe map layer. Just because?
+- [ ] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
+  - [ ] Could use two-finger dragging for map movements, but that fails with the panBtn logic
+  - [x] Try a 80% width for map, but then user can just zoom further. still breaks
+  - [ ] Try a dynamic 80% of device-width?
 - [ ] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
   - [x] csasm is now pipeline to 'staging' and 'production' is now named asmhub
   - [ ] Production promotion fails every time. references csasm variables?
