@@ -5,9 +5,9 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [x] Code review by someone ... Andrew!!
-  - [ ] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing
+  - [x] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing
   - [ ] also a case where data is being set again when it shouldn't have changed, and if it had the original method should have handled it.i.e. L129var game_description = localStorage.getItem ('game_description');$("#gamedesc").text(game_description);
-  - [ ] storing display_update in local storage at L152 - needed for Reward.ejs
+  - [x] storing display_update in local storage at L152 - needed for Reward.ejs
   - [x] Communicating with the map via global variables is bad practice. Goal is to have minimal global variables. 
   - [x] from a gameplay perspective - clearing the local storage on reward so quickly might cause issues aka maybe they close their phone and it refreshes the browser window.. then they lose the information and have to play the game again. 
   - [x] personally, I would have had the map start-up with minimal logic related to our app then expose it via global variable object (like jQuery's $ function).
