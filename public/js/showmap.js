@@ -146,5 +146,5 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
        .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
    };	     
    panbtn.state('AutoMove');
-   mymap.invalidateSize(); //reset map view
+   updatemap(latitude,longitude,displaytable); //update the map to get it started
 } //end startupmap
