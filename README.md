@@ -20,9 +20,9 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] Could use two-finger dragging for map movements, but that fails with the panBtn logic
   - [x] Try a 80% width for map, but then user can just zoom further. still breaks
   - [ ] Try a dynamic 80% of device-width?
-- [ ] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
+- [x] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
   - [x] csasm is now pipeline to 'staging' and 'production' is now named asmhub
-  - [ ] Production promotion fails every time. references csasm variables?
+  - [x] Production promotion fails every time. (see https://github.com/Pprime1/csasm/issues/29)
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] Rerun GCAlphatsts
 - [ ] create GCBetaTst at QUT - run the test cases with 3 players
