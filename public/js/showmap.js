@@ -15,7 +15,8 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
       maxZoom: 20,
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
    }),
-   qglobe = L.tileLayer('https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
+   qglobe = L.tileLayer(https://spatial-img.information.qld.gov.au/arcgis/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
+// 'https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
       attribution: 'Map data &copy; <a href="https://qldglobe.information.qld.gov.au/"</a>',
       maxZoom: 20
     }); //QGlobe not working yet
