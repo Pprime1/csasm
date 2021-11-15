@@ -5,6 +5,9 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] Can (and should?) I add a QLD Globe map layer. Just because?
+- [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
+  - [x] put a "Go Top" button inside the map - use the player icon popup.
+  - [ ] Add a note about this in the userguide html
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] Rerun GCAlphatsts
 - [ ] create GCBetaTst at QUT - run the test cases with 3 players
