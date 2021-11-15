@@ -25,8 +25,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] delete GCTest, GCAlbury as they have private locations
     - [ ] keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
   - [ ] 'replace' GCAlphatst with the real GC code. Or possibly just duplicate locations
-  - [ ] Write and refine what user instructions are needed - into listing,
-    - [ ] but also as a html (ejs?) page accessible from here?
+  - [ ] Write and refine what user instructions are needed - in listing, or as a link?
     - [ ] OBC co-ownership on the listing?
   - [ ] remove default game from form
   - [ ] Final production test run, before publishing for real. Use two new people.
