@@ -7,14 +7,17 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [ ] Can (and should?) I add a QLD Globe map layer. Just because?
 - [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
   - [x] put a "Go Top" button inside the map - use the player icon popup.
-  - [ ] Add a note about this in the userguide html
+  - [x] Add a note about this in the userguide html
+- [ ] publish asmhubGuide.html on Google Drive 2 Web
+  - [ ] Test run with OBC and proposed Beta/Gamma testers
+  - [ ] Test with reviewers
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] Rerun GCAlphatsts
-- [ ] create GCBetaTst at QUT - run the test cases with 3 players
+- [ ] create GCBetaTst at QUT - run the test cases with 3 players = OBC, Fang, 1MM
   - [ ] check that no reward if not occupying a circle
   - [ ] Multiple players at one circle at same time works at all?
     - [ ] Do all get the reward?
-- [ ] create GCGammaTst (3 waypoints) also at QUT - run the test cases with 5 players
+- [ ] create GCGammaTst (3 waypoints) also at QUT - run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
   - [ ] does it work properly with 3 target circles?
   - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
