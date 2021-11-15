@@ -127,7 +127,7 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
    console.log("Create current player marker:",MYID,latitude,longitude); 
    playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID + "<br/><a href='#' class='toplink'>Go Top</a>"); //update current player marker, and now show it on the map
 	
-   map.on('popupopen', function() {
+   mymap.on('popupopen', function() {
      $('.toplink').click(function() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0 });
