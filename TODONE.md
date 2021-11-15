@@ -1,6 +1,6 @@
 **HISTORY OF CODE DEVELOPMENT BRANCHES**
 
-**Code-Review #29 branch**
+**Code-Review #30 branch**
       -merged 16 November 2021
 - [x] Code review by someone ... Andrew!!
   - [x] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing ... needed in reward.ejs
@@ -13,7 +13,6 @@
   - [x] call the updatemap function (at least) from within the watchposition function in client.js - and therefore it would update constantly as the player moves around. 
   - [x] this is ok: Constant database update calls and all else happening rather than a more staid every 5 seconds is acceptable and normal
   - [x] code restructure to call all of startupmap inside client.js as well
-- [ ] Can (and should?) I add a QLD Globe map layer. Just because?
 - [ ]👎 How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
   - [ ]👎 Could use two-finger dragging for map movements, but that fails with the panBtn logic ... probably not fixable 
   - [x] Try a 80% width for map, but then user can just zoom further. still breaks!
