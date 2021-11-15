@@ -14,16 +14,10 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
       id: 'mapbox/satellite-v9',
       maxZoom: 20,
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
-   }),
-   qglobe = L.tileLayer('https://spatial-img.information.qld.gov.au/arcgis/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
-//'https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
-      attribution: 'Map data &copy; <a href="https://qldglobe.information.qld.gov.au/"</a>',
-      maxZoom: 20
-    }); //QGlobe not working yet
+   });
 var baseMaps = {
      "Streetmap": streetmap,
-     "Satellite": satellite,
-     "QLD Globe": qglobe
+     "Satellite": satellite
 };
     
 // Define the map ... it will start displaying it at the default location which is in UQ somewhere before variables get populated
@@ -31,8 +25,6 @@ var mymap = L.map('mapid', {
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap] //default layer
-   //dragging: !L.Browser.mobile, //twofinger map movement, one finger page scrolling
-   //tap: !L.Browser.mobile
 }); 
 
 var personicon = L.icon({
