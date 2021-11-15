@@ -4,24 +4,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 
 ## TODO ##
-- [x] Code review by someone ... Andrew!!
-  - [x] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing ... needed in reward.ejs
-  - [x] Communicating with the map via global variables is bad practice. Goal is to have minimal global variables. 
-  - [x] from a gameplay perspective - clearing the local storage on reward so quickly might cause issues aka maybe they close their phone and it refreshes the browser window.. then they lose the information and have to play the game again. sucks to be them then.
-  - [x] personally, I would have had the map start-up with minimal logic related to our app 
-  - [x] Expose map via global variable object? (like jQuery's $ function). We would then be able to call it via that function to make changes from our client.js.. e.g $MAP.update_table(...), $MAP.update_player(...) - it is working fine as it is
-  - [x] Merging the two js files is a bad idea, making the code more complex, and if you decide in future that the map isn't working it makes removing much harder.
-- [x] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
-  - [x] call the updatemap function (at least) from within the watchposition function in client.js - and therefore it would update constantly as the player moves around. 
-  - [x] this is ok: Constant database update calls and all else happening rather than a more staid every 5 seconds is acceptable and normal
-  - [x] code restructure to call all of startupmap inside client.js as well
 - [ ] Can (and should?) I add a QLD Globe map layer. Just because?
-- [ ]👎 How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
-  - [ ]👎 Could use two-finger dragging for map movements, but that fails with the panBtn logic ... probably not fixable 
-  - [x] Try a 80% width for map, but then user can just zoom further. still breaks!
-- [x] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
-  - [x] csasm is now pipeline to 'staging' and 'production' is now named asmhub
-  - [x] Production promotion fails every time. (see https://github.com/Pprime1/csasm/issues/29)
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] Rerun GCAlphatsts
 - [ ] create GCBetaTst at QUT - run the test cases with 3 players
