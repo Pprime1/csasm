@@ -1,11 +1,5 @@
 //***SHOWMAP.js***//
-//Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan/layers etc. Update the map as the player moves ***//
-
-//Global variables out of client.js
-    // latitude, longitude == geolocation of current player
-    // MYID == ID of current player
-    // is_running == boolean set true once the player is joined to a game and main variables are first populated
-    // displaytable == array per waypoint of: pl.id, pl.room_id, pl.updated_at, wp.name, wp.radius, wp.location, round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance"
+//***Display a map centred on the current player's geolocation, with usual controls in place for zoom/pan/layers etc. Update the map as the player moves ***//
 
 // Define streetview and satellite layer views on the map
 var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -20,10 +14,15 @@ var streetmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
       id: 'mapbox/satellite-v9',
       maxZoom: 20,
       accessToken: 'pk.eyJ1IjoicHByaW1lMSIsImEiOiJja3JuNGdsNTYxcTR2MnB0amYzNnd1OHRhIn0.kcfA6jL1Be-qidECml4O4w' //my token
-   });
+   }),
+   qglobe = L.tileLayer('https://gisservices.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/{z}/{y}/{x}?blankTile=false&browserCache=Map', {
+      attribution: 'Map data &copy; <a href="https://qldglobe.information.qld.gov.au/"</a>',
+      maxZoom: 20
+    }); //QGlobe not working yet
 var baseMaps = {
      "Streetmap": streetmap,
-     "Satellite": satellite
+     "Satellite": satellite,
+     "QLD Globe": qglobe
 };
     
 // Define the map ... it will start displaying it at the default location which is in UQ somewhere before variables get populated
@@ -31,6 +30,8 @@ var mymap = L.map('mapid', {
    center: [latitude,longitude],
    zoom: 17,
    layers: [streetmap] //default layer
+   //dragging: !L.Browser.mobile, //twofinger map movement, one finger page scrolling
+   //tap: !L.Browser.mobile
 }); 
 
 var personicon = L.icon({
@@ -45,9 +46,8 @@ var WPC=[]; //define an array of all unique waypoint colours
 var WPX=[]; //define an array of all unique waypoint x latitude
 var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
-var currentAutoMove = false; // needed to check in `movestart` event-listener if moved from interval or by user
-var pauseAutoMove = false; // if true -> Stops moving map
-var map_started = false;
+var currentAutoMove = false; // needed to check in `movestart` and 'touchmove' event-listeners if moved by user, or programmatically
+var pauseAutoMove = false; // if true -> Stops moving map to auto follow the player location
 
 var panbtn = L.easyButton({
   states: [{
@@ -69,75 +69,82 @@ var panbtn = L.easyButton({
 
 mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
+
+//mymap.on('dragstart', (e) => {
+  //if (!e.touches || e.touches.length !== 2) { return; } //ignore accidental touches
+  //console.log("dragstart"); 
+  //var popup = L.popup()
+  //  .setLatLng([latitude,longitude])
+  //  .setContent("dragstart.")
+  //  .openOn(mymap);
+ //pauseAutoMove = true; //set flag to stop Auto moving map 
+ // panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
+//});
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
-	    pauseAutoMove = true; //set flag to stop Auto moving map 
-	    panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
+	pauseAutoMove = true; //set flag to stop Auto moving map 
+	panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
     }
 });
 
 
-function updatemap() {  // Update the current player location on map
-   	playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
-	//set colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
-	for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
-   		for (var n=0; n<WPN.length; n++) { 
-			if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
-				if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
-					WPC[n]='green';
-					console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
-				}; //set to green if player is in it
-				if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
-					WPC[n]='yellow'
-					console.log("Circle in play by someone else:",n, WPN[n], WPC[n]);
-				}; //set to yellow if anyone is in it, and not already green
-			};
-		};
-	}; 
-	for (var n=0;n<WPN.length;n++) {
-		WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); //set and display circle colour (circles are already on map, just updating colours here)
-		WPC[n] = 'red'; //reset every circle expectation to red (unoccupied) until next updatemap
+function updatemap(latitude,longitude,displaytable) {  // Update the current player location on map	
+   playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
+   console.log("watchposition change to map display",latitude,longitude);
+	
+   //set circle colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
+   for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
+   	for (var n=0; n<WPN.length; n++) { 
+   	   if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
+		if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
+			WPC[n]='green';
+			console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
+		}; //set to green if player is in it
+		if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
+			WPC[n]='yellow'
+			console.log("Circle in play by someone else:",n, WPN[n], WPC[n]);
+		}; //set to yellow if anyone is in it, and not already green
+	   };
 	};
-	if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
-       		currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
-       		mymap.panTo([latitude,longitude]); 
-       		currentAutoMove = false; //Remove flag again
-	};		    
+   }; 
+   for (var n=0;n<WPcircle.length;n++) { //set and display circle colour (circles are already on map, just updating colours here)
+	WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); 
+	console.log("Update Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+	WPC[n] = 'red'; //reset every circle expectation colour back to red (unoccupied) until next updatemap
+   };
+   if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
+   	currentAutoMove = true; //Set flag, that currently map is moved by a normal PlayerLoc Auto update
+   	mymap.panTo([latitude,longitude]); 
+   	currentAutoMove = false; //Remove flag again
+   };
+   mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
 
-async function main() {
-    const interval = setInterval(function() {
-         if (is_running) { // we need to know that there is data populated before showing or updating the map with it
-	     if (!map_started) {  //start the map only once 
-		L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
-    		L.control.scale().addTo(mymap); //show scale bar
-		console.log("Create current player marker:",MYID,latitude,longitude); 
-    		playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
+function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initial map display
+   L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
+   L.control.scale().addTo(mymap); //show scale bar
+   console.log("Create current player marker:",MYID,latitude,longitude); 
+   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
 		
-		for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
-			if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
-	    	    	     WPN.push(displaytable[i].name);
-	    	    	     WPC.push('red');
-	    	    	     WPX.push(displaytable[i].x);
-	    	    	     WPY.push(displaytable[i].y);
-	    	    	     WPR.push(displaytable[i].radius);
-			};
-	     	};
-	     	for (var n=0; n<WPN.length; n++){ 
-			console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
-			WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
-    	    	    	     radius: WPR[n],
-    	    	    	     fillOpacity: 0.2
-			}).addTo(mymap)
-	  	  	  .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
-	     	};	     
-       	        panbtn.state('AutoMove');
- 	        map_started=true;
-    	     }; //start the map only once
-	     updatemap(); // for current player location and circle colour.
-	  }; //update only if is_running
-          mymap.invalidateSize(); //reset map view
-    }, 5000); // update map every 5 seconds 
-}; //end main
-main();
+   for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
+      if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
+    	  WPN.push(displaytable[i].name);
+    	  WPC.push('red');
+    	  WPX.push(displaytable[i].x);
+    	  WPY.push(displaytable[i].y);
+    	  WPR.push(displaytable[i].radius);
+      };
+   };
+   for (var n=0; n<WPN.length; n++){ 
+     console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+     WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
+        radius: WPR[n],
+        fillOpacity: 0.2
+	     //colour is blue until Updatemap first runs
+     }).addTo(mymap)
+       .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
+   };	     
+   panbtn.state('AutoMove');
+   updatemap(latitude,longitude,displaytable); //update the map to get it started
+} //end startupmap

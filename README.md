@@ -1,16 +1,29 @@
-# csasm
-This is the source code repository for the Geocaching Anti-Social Mob application (ASM) - aka Covid Safe Anti-Social Mob (csasm).
-The app requires multiple mobile devices, each connecting to the same source to determine if they are within a proximity radius of any waypoint location stored in a database table for a given Game-Code. The app displays for the current player where they are on a map in relation to the target waypoints, highlighting if they are within one. It also keeps track of how far other players are from each waypoint, and will highlight any occupied waypoint on the map. Once all waypoints are occupied, the app returns hidden REWARD text value (clues/directions to the final container) to each player that is occupying a waypoint.
+# CSASM -> ASMHUB #
+**This is the Code Source repository for the Geocaching Anti-Social Mob Hub application (ASMHUB).**
+The app requires multiple mobile devices, each connecting to the same source to determine if they are within a defined proximity radius of any waypoint location stored in a database table for a given Game-Code. The app displays _for the current player_ where they are on a map in relation to the target waypoints, highlighting if they are within one. It also keeps track of how far other players are from each waypoint, and will highlight any occupied waypoint on the map. Once all waypoints are occupied, the app returns hidden REWARD text value (eg: clues/directions to the final container) to each player that is occupying a waypoint.
 
 
-# TODO
-- [ ] Code review by someone ... Andrew!!
-- [ ] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
-  - [ ] is this even wise? Constant database update calls and all else happening rather than a more staid every 5 seconds
-  - [ ] code restructure would be needed to place at least updatemap if not all of createmap inside client.js
-- [ ] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
-- [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+## TODO ##
+- [x] Code review by someone ... Andrew!!
+  - [x] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing ... needed in reward.ejs
+  - [x] Communicating with the map via global variables is bad practice. Goal is to have minimal global variables. 
+  - [x] from a gameplay perspective - clearing the local storage on reward so quickly might cause issues aka maybe they close their phone and it refreshes the browser window.. then they lose the information and have to play the game again. sucks to be them then.
+  - [x] personally, I would have had the map start-up with minimal logic related to our app 
+  - [x] Expose map via global variable object? (like jQuery's $ function). We would then be able to call it via that function to make changes from our client.js.. e.g $MAP.update_table(...), $MAP.update_player(...) - it is working fine as it is
+  - [x] Merging the two js files is a bad idea, making the code more complex, and if you decide in future that the map isn't working it makes removing much harder.
+- [x] the map updates on a 5 second loop. Can it be called from watchposition(success,,) instead now?
+  - [x] call the updatemap function (at least) from within the watchposition function in client.js - and therefore it would update constantly as the player moves around. 
+  - [x] this is ok: Constant database update calls and all else happening rather than a more staid every 5 seconds is acceptable and normal
+  - [x] code restructure to call all of startupmap inside client.js as well
 - [ ] Can (and should?) I add a QLD Globe map layer. Just because?
+- [ ]👎 How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
+  - [ ]👎 Could use two-finger dragging for map movements, but that fails with the panBtn logic ... probably not fixable 
+  - [x] Try a 80% width for map, but then user can just zoom further. still breaks!
+- [x] how to have a development environment that is seperate from the production environment in case I want to make changes once we are live
+  - [x] csasm is now pipeline to 'staging' and 'production' is now named asmhub
+  - [x] Production promotion fails every time. (see https://github.com/Pprime1/csasm/issues/29)
+- [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+- [ ] Rerun GCAlphatsts
 - [ ] create GCBetaTst at QUT - run the test cases with 3 players
   - [ ] check that no reward if not occupying a circle
   - [ ] Multiple players at one circle at same time works at all?
@@ -31,7 +44,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] Production Release!
  
 
-# Key files
+## Key files ##
 
 [SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
 
@@ -45,7 +58,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 
 
-## Running Locally 
+### Running Locally ###
 ... unreliable still. code doesn't stay in sync with github?
 
 ```
@@ -53,7 +66,7 @@ heroku login -i \\ userID is prefilled but type the password
 heroku pg:psql -a csasm \\ for database commands
 ```
 
-### Installing
+**Installing**
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
@@ -64,7 +77,7 @@ $ heroku local
 ```
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-### Deploying to Heroku
+**Deploying to Heroku**
 
 ```
 $ heroku git:remote -a csasm
@@ -75,7 +88,7 @@ or
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Documentation
+## Documentation ##
 
 For more information about using Node.js on Heroku, see these Dev Center articles:
 
@@ -91,7 +104,7 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [csasm · Logs | Heroku	](https://dashboard.heroku.com/apps/csasm/logs)
 - [Heroku Dashboard csasm 	](https://dashboard.heroku.com/apps/csasm/deploy/heroku-git)
 - [Heroku Database page	](https://data.heroku.com/dataclips)
-- [eroku | CSASM appsite	](https://csasm.herokuapp.com/)
+- [Heroku | ASMHUB appsite	](https://asmhub.herokuapp.com/)
 - [Stack Overflow	](https://stackoverflow.com/questions)
 - [Badges · Bootstrap	](https://getbootstrap.com/docs/4.4/components/badge/)
 - [SHint, a JavaScript Code Quality Tool	](https://jshint.com/)
