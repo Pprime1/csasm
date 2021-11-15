@@ -12,23 +12,25 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] Test run with OBC and proposed Beta/Gamma testers
   - [ ] Test with reviewers
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] Rerun GCAlphatsts
-- [ ] create GCBetaTst at QUT - run the test cases with 3 players = OBC, Fang, 1MM
+- [x] Rerun GCAlphatsts
+- [ ] remove default game from form - make it 'GC'?
+- [x] create GCBetaTst at QUT 
+  - [ ] run the test cases with 3 players = OBC, Fang, 1MM
   - [ ] check that no reward if not occupying a circle
   - [ ] Multiple players at one circle at same time works at all?
     - [ ] Do all get the reward?
-- [ ] create GCGammaTst (3 waypoints) also at QUT - run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
+- [x] create GCGammaTst (3 waypoints) also at QUT
+  - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
   - [ ] does it work properly with 3 target circles?
   - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
   - [ ] delete GCTest, GCAlbury as they have private locations
-    - [ ] keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
+    - keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
   - [ ] 'replace' GCAlphatst with the real GC code. Or possibly just duplicate locations
   - [ ] Write and refine what user instructions are needed - in listing, or as a link?
     - [ ] OBC co-ownership on the listing?
-  - [ ] remove default game from form
-  - [ ] Final production test run, before publishing for real. Use two new people.
+    - [ ] Final production test run, before publishing for real. Use two new people.
   - [ ] Production Release!
  
 
