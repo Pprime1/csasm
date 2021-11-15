@@ -125,7 +125,7 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
    L.control.scale().addTo(mymap); //show scale bar
    console.log("Create current player marker:",MYID,latitude,longitude); 
-   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID, <br/><a href="#" class="toplink">Go Top</a>'); //update current player marker, and now show it on the map
+   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID + "<br/><a href='#' class='toplink'>Go Top</a>"); //update current player marker, and now show it on the map
 	
    map.on('popupopen', function() {
      $('.toplink').click(function() {
