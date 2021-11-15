@@ -129,8 +129,8 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
 	
    map.on('popupopen', function() {
      $('.toplink').click(function() {
-     document.body.scrollTop = 0;
-     document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0};
    });
 		
    for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
