@@ -70,17 +70,6 @@ var panbtn = L.easyButton({
 
 mymap.on("zoomstart", function (e) { currentAutoMove = true }); //Set flag, that currently map is moved by a zoom command
 mymap.on("zoomend", function (e) { currentAutoMove = false }); //Remove flag again
-
-//mymap.on('dragstart', (e) => {
-  //if (!e.touches || e.touches.length !== 2) { return; } //ignore accidental touches
-  //console.log("dragstart"); 
-  //var popup = L.popup()
-  //  .setLatLng([latitude,longitude])
-  //  .setContent("dragstart.")
-  //  .openOn(mymap);
- //pauseAutoMove = true; //set flag to stop Auto moving map 
- // panbtn.state('pauseAutoMove'); //change button style to remove crosshairs and have a arrow-in icon
-//});
 mymap.on('movestart',(e)=>{ //Check if map is being moved
     if(!currentAutoMove){ //ignore if it was a natural PlayerLoc or programmatic update
 	pauseAutoMove = true; //set flag to stop Auto moving map 
@@ -91,7 +80,6 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
 function updatemap(latitude,longitude,displaytable) {  // Update the current player location on map	
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    console.log("watchposition change to map display",latitude,longitude);
-	
    //set circle colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
    for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    	for (var n=0; n<WPN.length; n++) { 
@@ -120,19 +108,16 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
    mymap.invalidateSize(); //reset map view
 }; // end updatemap
 
-
 function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initial map display
    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
    L.control.scale().addTo(mymap); //show scale bar
    console.log("Create current player marker:",MYID,latitude,longitude); 
-   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID + "<br/><a href='#' class='toplink'>Go Top</a>"); //update current player marker, and now show it on the map
-	
-   mymap.on('popupopen', function() {
-     $('.toplink').click(function() {
+   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID + "<br/><a href='#' class='toplink'>Go Top</a>"); //update current player marker, and now show it on the map	
+   mymap.on('popupopen', function() { // create a way to jump to top of page from within the map 
+     $('.toplink').click(function() { // - especially useful if the map has been zoomed to commandeer the entire phone window view that prevents access outside the map otherwise
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0 });
-   });
-		
+   });		
    for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
       if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
     	  WPN.push(displaytable[i].name);
