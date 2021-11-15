@@ -88,7 +88,6 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
     }
 });
 
-
 function updatemap(latitude,longitude,displaytable) {  // Update the current player location on map	
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    console.log("watchposition change to map display",latitude,longitude);
@@ -126,7 +125,13 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
    L.control.scale().addTo(mymap); //show scale bar
    console.log("Create current player marker:",MYID,latitude,longitude); 
-   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID); //update current player marker, and now show it on the map
+   playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID, <br/><a href="#" class="toplink">Go Top</a>'); //update current player marker, and now show it on the map
+	
+   map.on('popupopen', function() {
+     $('.toplink').click(function() {
+     document.body.scrollTop = 0;
+     document.documentElement.scrollTop = 0;
+   });
 		
    for (var i=0; i<displaytable.length; i++){ //for every line of the displaytable (multiple players mean each waypoint has more than one entry), 
       if (!WPN.includes(displaytable[i].name)) { // ... create a single circle entry per unique waypoint
