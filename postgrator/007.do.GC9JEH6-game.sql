@@ -10,9 +10,9 @@ SELECT
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GC9JEH6', 'Goodwill', 'SRID=3857; POINT(-27.480867  153.026933)', 25;
+    'GC9JEH6', 'Goodwill', 'SRID=3857; POINT(-27.4795837 153.0279846)', 25;
     
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GC9JEH6', 'Kurilpa', 'SRID=3857; POINT( -27.469567  153.017617)', 25;
+    'GC9JEH6', 'Kurilpa', 'SRID=3857; POINT(-27.4695668 153.0176361)', 25;
