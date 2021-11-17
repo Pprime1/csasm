@@ -4,16 +4,18 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 
 ## TODO ##
-- [ ] Can (and should?) I add a QLD Globe map layer. Just because?
+- [x] 🦖👎 Can (and should?) I add a QLD Globe map layer. Just because? No! maybe a future release
 - [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
   - [x] put a "Go Top" button inside the map - use the player icon popup.
   - [x] Add a note about this in the userguide html
-- [ ] publish asmhubGuide.html on Google Drive 2 Web
+- [x] publish asmhubGuide.html on Google Drive 2 Web
   - [ ] Test run with OBC and proposed Beta/Gamma testers
   - [ ] Test with reviewers
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Rerun GCAlphatsts
-- [ ] remove default game from form - make it 'GC'?
+- [x] remove default game from form - make it 'GC'?
+- [ ] Create formalised test plans for use on testing day
+  - [ ] Book testing day
 - [x] create GCBetaTst at QUT 
   - [ ] run the test cases with 3 players = OBC, Fang, 1MM
   - [ ] check that no reward if not occupying a circle
@@ -25,10 +27,13 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
-  - [ ] delete GCTest, GCAlbury as they have private locations
+  - [ ] Find a final GZ (S27° 28.327' E153° 1.373') 
+    - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
+  - [ ] [ ] delete GCTest, GCAlbury as they have private locations
     - keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
-  - [ ] 'replace' GCAlphatst with the real GC code. Or possibly just duplicate locations
-  - [ ] Write and refine what user instructions are needed - in listing, or as a link?
+  - [x] replicate GCAlphatst with the real GC9JEH6 code.
+    - [ ] user guide into listing
+  - [x] Write and refine what user instructions are needed - in listing, or as a link?
     - [ ] OBC co-ownership on the listing?
     - [ ] Final production test run, before publishing for real. Use two new people.
   - [ ] Production Release!
