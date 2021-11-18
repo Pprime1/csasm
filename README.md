@@ -14,7 +14,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Rerun GCAlphatsts
 - [x] remove default game from form - make it 'GC'?
-- [ ] Create formalised test plans for use on testing day
+- [x] Create formalised test plans for use on testing day
   - [ ] Book testing day
 - [x] create GCBetaTst at QUT 
   - [ ] run the test cases with 3 players = OBC, Fang, 1MM
@@ -29,12 +29,12 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
   - [ ] Find a final GZ (S27° 28.327' E153° 1.373') 
     - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
-  - [ ] [ ] delete GCTest, GCAlbury as they have private locations
+  - [ ] delete GCTest, GCAlbury as they have private locations
     - keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
   - [x] replicate GCAlphatst with the real GC9JEH6 code.
     - [ ] user guide into listing
   - [x] Write and refine what user instructions are needed - in listing, or as a link?
-    - [ ] OBC co-ownership on the listing?
+    - [x] OBC co-ownership on the listing?
     - [ ] Final production test run, before publishing for real. Use two new people.
   - [ ] Production Release!
  
