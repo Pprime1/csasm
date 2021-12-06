@@ -12,6 +12,7 @@
         navigator.geolocation.clearWatch(); //stop phone's GPS Locator service
         var clipboard = new ClipboardJS('.btn');
         var reward_information = localStorage.getItem('reward_information');
+        console.log("Receive Reward:",reward_information);
         $("#rewardinfo").text(reward_information);
         var display_update = localStorage.getItem('display_update');
         $("#displayinfo").empty().append(display_update);
