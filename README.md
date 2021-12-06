@@ -18,10 +18,16 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [x] remove default game from form - make it 'GC'?
 - [x] Create formalised test plans for use on testing day
   - [x] reBook testing day
+  - [ ] Test old iphone
+  - [x] Test iphone Go To Top exit button
+  - [x] Test landscape on iphone
+  - [ ] Test ipad
+  - [ ] Test Android tablet
+  - [ ] Test Android landscape
   - [x] create GCBeta at QUT 
     - [x] run the test cases with 3 players = OBC, Fang, 1MM
-    - [ ] check that no reward if not occupying a circle
-    - [ ] Multiple players at one circle at same time works at all?
+    - [x] check that no reward if not occupying a circle
+    - [x] Multiple players at one circle at same time works at all?
       - [ ] Do all get the reward?
   - [x] create GCGamma (3 waypoints) also at QUT
     - [x] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
@@ -31,19 +37,19 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - 👎👎 TESTING FAILED 👎👎
 - [👎] Reward data is not being pushed through to reward screen at all
 - [👎] App Crashes repeatedly. "TypeError: callback is not a function" in server.js line 54
-
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
     - [x] replicate GCAlphatst with the real GC9JEH6 code.
     - [x] user guide into listing
     - [x] OBC co-ownership on the listing
     - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
     - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
-    - [ ] build and test container, logbook and stash note
+    - [x] build container, logbook and stash note
+    - [ ] test container in place
     - [ ] FTF prizes? Coffee Club vouchers perhaps?
   - [ ] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
     - keep GCBeta and GCGamma for future code testing. QUT is safe ground
-  - [ ] Final production test run, before publishing for real. Use two new people.
-  - [ ] Production Release!
+  - [ ] Final production test run, before publishing for real. Use new people.
+  - [ ] Production Release submission!
  
 
 ## Key files ##
