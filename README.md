@@ -10,24 +10,28 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [x] Add a note about this in the userguide html
 - [x] Write and refine what user instructions are needed - in listing, also available as a link
   - [x] publish asmhubGuide.html on Google Drive 2 Web
-  - [🦖] Test run with OBC
-  - [ ] test with proposed Beta/Gamma testers
+  - [x] Test run with OBC
+  - [x] test with proposed Beta/Gamma testers
   - [x] Test with reviewers
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Rerun GCAlphatsts
 - [x] remove default game from form - make it 'GC'?
 - [x] Create formalised test plans for use on testing day
-  - [🦖] reBook testing day
+  - [x] reBook testing day
   - [x] create GCBeta at QUT 
-    - [ ] run the test cases with 3 players = OBC, Fang, 1MM
+    - [x] run the test cases with 3 players = OBC, Fang, 1MM
     - [ ] check that no reward if not occupying a circle
     - [ ] Multiple players at one circle at same time works at all?
       - [ ] Do all get the reward?
   - [x] create GCGamma (3 waypoints) also at QUT
-    - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
-    - [ ] does it work properly with 3 target circles?
-    - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
+    - [x] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
+    - [x] does it work properly with 3 target circles?
+    - [x] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
+- 👎👎 TESTING FAILED 👎👎
+- [👎] Reward data is not being pushed through to reward screen at all
+- [👎] App Crashes repeatedly. "TypeError: callback is not a function" in server.js line 54
+
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
     - [x] replicate GCAlphatst with the real GC9JEH6 code.
     - [x] user guide into listing
