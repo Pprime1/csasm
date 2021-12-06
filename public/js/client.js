@@ -156,6 +156,7 @@ socket.on("display-update", (display_information) => {
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   localStorage.setItem('reward_information', reward_information); // Save Reward Info into Local Storage
+  console.log("Sending Reward:",reward_information);
   setTimeout( function() {
     location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
   }, 100)
@@ -164,7 +165,6 @@ socket.on("display-reward", (reward_information) => { //if all waypoints are in 
 // Bind Submit Event for Start Page Game-Joining form.
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
-  //var GmError = localStorage.getItem('RtnError') || "Clear skies";
   $("#game-error").text(RtnError); //Set to display any error message underneath form entry field
   if (!URLentry) {console.log("No valid game-code supplied, Starting Game Form");}
   if (!is_joined) {$("#lj-startup").show() }; //show the form only if not already joined to a game
