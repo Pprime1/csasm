@@ -35,8 +35,10 @@ The app requires multiple mobile devices, each connecting to the same source to 
     - [x] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - 👎👎 TESTING FAILED 👎👎
-- [👎] Reward data is not being pushed through to reward screen at all
-- [👎] App Crashes repeatedly. "TypeError: callback is not a function" in server.js line 54
+- 👎Reward data is not being pushed through to reward screen at all
+    - [x] removed clearwatch from reward.ejs as it was failing. Reward data now flowing through
+- 👎App Crashes repeatedly. "TypeError: callback is not a function" in server.js line 54
+- see issue#31 [https://github.com/Pprime1/csasm/issues/31]
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
     - [x] replicate GCAlphatst with the real GC9JEH6 code.
     - [x] user guide into listing
