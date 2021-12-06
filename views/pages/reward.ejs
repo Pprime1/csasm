@@ -9,7 +9,7 @@
   } </script>
   <script>
      window.onload = function() {
-        navigator.geolocation.clearWatch(); //stop phone's GPS Locator service
+        //navigator.geolocation.clearWatch(); //stop phone's GPS Locator service
         var clipboard = new ClipboardJS('.btn');
         var reward_information = localStorage.getItem('reward_information');
         console.log("Receive Reward:",reward_information);
