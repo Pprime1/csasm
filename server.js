@@ -41,7 +41,7 @@ async function configure_socketio(db_connection, games_result) {
               WHERE id = '${socket.id}'
            `;
            db_connection.query(location_update_query).catch(err => console.log(err));
-           console.log(socket.id, "performed location update", args);
+           //console.log(socket.id, "performed location update", args);
         }); // location-update
 
         socket.on('join-a-game', (chosen_game, callback) => {
@@ -51,7 +51,7 @@ async function configure_socketio(db_connection, games_result) {
                 var gamedesc = game_details["description"];
                 console.log("Chosen Game is", chosen_game, ":", gamedesc); 
 		socket.join("game-" + chosen_game);
-                callback({ status: "Success", message: gamedesc });
+                callback({ status: "Success", message: gamedesc }); //WHY DOES THIS FAIL AND CRASH THE DYNO? CAN WE CATCH IT?
             } else {
 		var game_error = "Invalid Game Code: " + chosen_game + " Please try again!"    
                 callback({ status: "Error", message: game_error });  // Invalid game, leave form on screen with error message below
@@ -128,15 +128,15 @@ async function update_game(room, io, db_connection, games_result) {
     console.log(game_code, "requires", minimum_player_count, "waypoints to be occupied.");
 
     // Determine whether they have "met the criteria" to succeed in the game!
-    var within_radius = [];
-    var winning_player =[];
+    var within_radius = []; //lists all target waypoints that are occupied, uniquely
+    var winning_player =[]; //lists all players occupying a target waypoint
     for (var i = 0; i < display_result.rows.length; i++) {
 	var row = display_result.rows[i];
 	var distance = row.distance;
 	var radius = row.radius;
 	if(distance != null && distance <= radius ) { // error check, should never be null at this point
 		console.log(row.id, "is occupying waypoint", row.name);
-		winning_player.push(row.id);
+		winning_player.push(row.id); //add a winning player if they are inside a waypoint 
 		if ( !within_radius.includes(row.name) && distance <= radius ) { // only include a waypoint if not already occupied
 			within_radius.push(row.name); 
 		};
@@ -144,11 +144,10 @@ async function update_game(room, io, db_connection, games_result) {
     };
     console.log(within_radius.length, "waypoints are currently occupied.");
 
-    if (within_radius.length == minimum_player_count) { // If the number of occupied waypoints == the number required we have success
-    // if (within_radius.length == 1) { // for solo testing purposes
-    	let reward = game_details["reward"];
-	// Emit the reward ONLY to an occupying player, not the whole room
-	for (var p = 0; p < winning_player.length; p++) {
+    if (within_radius.length == minimum_player_count) { //If the number of occupied waypoints == the number required we have success
+       	let reward = game_details["reward"];
+	for (var p = 0; p < winning_player.length; p++) { //Emit the reward ONLY to an occupying player, not the whole room
+	    console.log("REWARD goes to:", winning_player[p], reward); //this will display the actual reward data on to the server console log
 	    io.to(winning_player[p]).emit('display-reward', reward);
 	};
     }; // Send reward
