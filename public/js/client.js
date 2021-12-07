@@ -92,9 +92,12 @@ function PosError(error) { // handle/display get geolocation errors
     };
 }; // GeoLocation Error handler
 
-socket.io.on("reconnect", () => { // Reconnect is not used any more?
-  if (is_joined) {
-      socket.emit('join-a-game', $("#current-game-id").text());
+socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for some reason but game was in progress
+  if (is_joined) { 
+      console.log(`RECONNECTING CLIENT ${current-game-id}`);
+      socket.emit('join-a-game', $("#current-game-id").text(),(response) => {
+        $("#game-error").text(response.message); // Set to display an error message underneath form entry field
+      }); // emit join-a-game again
   };
 });
 
