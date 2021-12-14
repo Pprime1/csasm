@@ -94,7 +94,10 @@ function PosError(error) { // handle/display get geolocation errors
 
 socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for some reason but game was in progress
   if (is_joined) { 
-      console.log(`RECONNECTING CLIENT ${current-game-id}`);
+      console.log(`RECONNECTING CLIENT ${ "#current-game-id" }`);
+      
+           //var game = $("#current-game-id").val();
+      
       socket.emit('join-a-game', $("#current-game-id").text(),(response) => {
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
       }); // emit join-a-game again
