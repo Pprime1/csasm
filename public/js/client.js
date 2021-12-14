@@ -169,7 +169,7 @@ socket.on("display-reward", (reward_information) => { //if all waypoints are in 
 
 // Bind Submit Event for Start Page Game-Joining form.
 window.addEventListener("load",function(event) {
-  document.querySelector("#gameId").value = URLentry;
+  document.querySelector("#gameId").value = game;
   $("#game-error").text(RtnError); //Set to display any error message underneath form entry field
   if (game=="GC") {console.log("No valid game-code supplied, Starting Game Form");}
   if (!is_joined) {$("#lj-startup").show() }; //show the form only if not already joined to a game
