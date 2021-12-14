@@ -5,21 +5,22 @@ var latitude =-27.5;    // defaults to UQ St Lucia
 var longitude =153;   // defaults to UQ St Lucia
 var is_joined = false; // status for being part of a game
 var map_started = false; //set once the map has been started up
+var game=null; //current game ID
 var game_description = "Clear skies: choose a game to play";
 var displaytable =[]; 
 var MYID = socket.id; 
 var RtnError="Clear Skies";
 
 for (var entry of urlParams) { 
-    var URLentry = entry[0]; // only the first URL param is considered as the Game ID code
+    game = entry[0]; // only the first URL param is considered as the Game ID code
 };   
-if (URLentry) {  //if started with a URLParam then attempt to join that game ID
-    URLentry = URLentry.toUpperCase();
-    console.log("Called with parameter:", URLentry);
-    socket.emit('join-a-game', URLentry, (response) => {         
+if (game) { //if started with a URLParam then attempt to join that game ID
+    game = game.toUpperCase();
+    console.log("Called with parameter:", game);
+    socket.emit('join-a-game', game, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
-} else { URLentry = "GC" }; // set default form entry content for if no valid game parameter is provided
+} else { game = "GC" }; // set default form entry content for if no valid game parameter is provided
 
 var RtnError = null;
 var geoOptions = {
@@ -94,12 +95,10 @@ function PosError(error) { // handle/display get geolocation errors
 
 socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for some reason but game was in progress
   if (is_joined) { 
-      console.log(`RECONNECTING CLIENT ${ "#current-game-id" }`);
-      
-           //var game = $("#current-game-id").val();
-      
-      socket.emit('join-a-game', $("#current-game-id").text(),(response) => {
-        $("#game-error").text(response.message); // Set to display an error message underneath form entry field
+      game = $("#gameId").val();
+      console.log(`RECONNECTING CLIENT ${ game }`);
+      socket.emit('join-a-game', game, (response) => {
+      $("#game-error").text(response.message); // Set to display an error message underneath form entry field
       }); // emit join-a-game again
   };
 });
@@ -118,7 +117,7 @@ socket.on("game-join", () => {
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
-  $("#current-game-id").text(game_id);
+  $("#gameId").text(game_id);
   if (gamedesc != 1) { // don't update if this was called by a room-leave command
     localStorage.setItem('game_description', gamedesc); //?
     localStorage.setItem('current_game', game_id); //?
@@ -172,7 +171,7 @@ socket.on("display-reward", (reward_information) => { //if all waypoints are in 
 window.addEventListener("load",function(event) {
   document.querySelector("#gameId").value = URLentry;
   $("#game-error").text(RtnError); //Set to display any error message underneath form entry field
-  if (!URLentry) {console.log("No valid game-code supplied, Starting Game Form");}
+  if (game=="GC") {console.log("No valid game-code supplied, Starting Game Form");}
   if (!is_joined) {$("#lj-startup").show() }; //show the form only if not already joined to a game
       
   $( "#join-game-form" ).on( "submit", function(e) {
