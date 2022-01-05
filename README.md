@@ -16,8 +16,17 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Rerun GCAlphatsts
 - [x] remove default game from form - make it 'GC'?
+- 👎👎 TESTING FAILED 👎👎
+- 👎Reward data is not being pushed through to reward screen at all
+    - [x] removed clearwatch from reward.ejs as it was failing. Reward data now flowing through
+- 👎App Crashes repeatedly. "TypeError: callback is not a function" in server.js
+- see issue#31 [https://github.com/Pprime1/csasm/issues/31]
+    - [x] updated the socket.io.on("reconnect" function to ensure there is a callback included in the  socket.emit('join-a-game'  command
+    - [x] tested with sending phone offline and forcing a reconnect
 - [x] Create formalised test plans for use on testing day
-  - [x] reBook testing day
+ - [ ] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
+    - keep GCBeta and GCGamma for future code testing. QUT is safe ground
+ - [ ] reBook/rerun Testing Day
   - [ ] Test old iphone
   - [x] Test iphone Go To Top exit button
   - [x] Test landscape on iphone
@@ -25,22 +34,15 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] Test Android tablet
   - [ ] Test Android landscape
   - [x] create GCBeta at QUT 
-    - [x] run the test cases with 3 players = OBC, Fang, 1MM
-    - [x] check that no reward if not occupying a circle
-    - [x] Multiple players at one circle at same time works at all?
+    - [ ] run the test cases with 3 players = OBC, Fang, 1MM
+    - [ ] check that no reward if not occupying a circle
+    - [ ] Multiple players at one circle at same time works at all?
       - [ ] Do all get the reward?
   - [x] create GCGamma (3 waypoints) also at QUT
-    - [x] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
-    - [x] does it work properly with 3 target circles?
-    - [x] does it work with multiple concurrent games? (along with GCBetaTst)
+    - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
+    - [ ] does it work properly with 3 target circles?
+    - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
-- 👎👎 TESTING FAILED 👎👎
-- 👎Reward data is not being pushed through to reward screen at all
-    - [x] removed clearwatch from reward.ejs as it was failing. Reward data now flowing through
-- 👎App Crashes repeatedly. "TypeError: callback is not a function" in server.js
-- see issue#31 [https://github.com/Pprime1/csasm/issues/31]
-- [x] updated the socket.io.on("reconnect" function to ensure there is a callback included in the  socket.emit('join-a-game'  command
-- [ ] tested with sending phone offline and forcing a reconnect
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
     - [x] replicate GCAlphatst with the real GC9JEH6 code.
     - [x] user guide into listing
@@ -50,8 +52,6 @@ The app requires multiple mobile devices, each connecting to the same source to 
     - [x] build container, logbook and stash note
     - [ ] test container in place
     - [ ] FTF prizes? Coffee Club vouchers perhaps?
-  - [ ] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
-    - keep GCBeta and GCGamma for future code testing. QUT is safe ground
   - [ ] Final production test run, before publishing for real. Use new people.
   - [ ] Production Release submission!
  
