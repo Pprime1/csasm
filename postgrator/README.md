@@ -5,8 +5,8 @@ heroku login (and then follow the web screen prompts to login, uses authenticate
 heroku pg:psql -a=csasm
 
 DROP TABLE player;
-DROP TABLE games;
 DROP TABLE waypoint;
+DROP TABLE games CASCADE;
 DROP TABLE schemaversion;
 DROP extension PostGIS CASCADE;
 
