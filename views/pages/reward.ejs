@@ -9,7 +9,6 @@
   } </script>
   <script>
      window.onload = function() {
-        // navigator.geolocation.clearWatch(); //stop phone's GPS Locator service
         var clipboard = new ClipboardJS('.btn');
         var reward_information = localStorage.getItem('reward_information');
         console.log("Receive Reward:",reward_information);
@@ -41,9 +40,9 @@
     <pre><small><span id="displayinfo"></span></small></pre>
   </div>
   
-  <div class="alert alert-success text-center" role="alert">
+  <div class="alert alert-success text-center" role="alert" width: device-width>
     <!-- Show the Reward information -->
-    <pre><H1><strong><span id="rewardinfo"></span></strong></H1></pre>
+    <pre><H2><strong><span id="rewardinfo" width: device-width></span></strong></H2></pre>
     <span><button type="button" class="btn btn-secondary btn-sm btn-clipboard" data-clipboard-target="#rewardinfo">Copy</button></span>
   </div>
  

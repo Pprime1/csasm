@@ -4,34 +4,56 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 
 ## TODO ##
-- [ ] Can (and should?) I add a QLD Globe map layer. Just because?
+- [👎] Can (and should?) I add a QLD Globe map layer. Just because? No! maybe a future release
 - [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
   - [x] put a "Go Top" button inside the map - use the player icon popup.
   - [x] Add a note about this in the userguide html
-- [ ] publish asmhubGuide.html on Google Drive 2 Web
-  - [ ] Test run with OBC and proposed Beta/Gamma testers
-  - [ ] Test with reviewers
+- [x] Write and refine what user instructions are needed - in listing, also available as a link
+  - [x] publish asmhubGuide.html on Google Drive 2 Web
+  - [x] Test run with OBC
+  - [x] test with proposed Beta/Gamma testers
+  - [x] Test with reviewers
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Rerun GCAlphatsts
-- [ ] remove default game from form - make it 'GC'?
-- [x] create GCBetaTst at QUT 
-  - [ ] run the test cases with 3 players = OBC, Fang, 1MM
-  - [ ] check that no reward if not occupying a circle
-  - [ ] Multiple players at one circle at same time works at all?
-    - [ ] Do all get the reward?
-- [x] create GCGammaTst (3 waypoints) also at QUT
-  - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
-  - [ ] does it work properly with 3 target circles?
-  - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
+- [x] remove default game from form - make it 'GC'?
+- 👎👎 TESTING FAILED 👎👎
+- 👎Reward data is not being pushed through to reward screen at all
+    - [x] removed clearwatch from reward.ejs as it was failing. Reward data now flowing through
+- 👎App Crashes repeatedly. "TypeError: callback is not a function" in server.js
+- see issue#31 [https://github.com/Pprime1/csasm/issues/31]
+    - [x] updated the socket.io.on("reconnect" function to ensure there is a callback included in the  socket.emit('join-a-game'  command
+    - [x] tested with sending phone offline and forcing a reconnect
+- [x] Create formalised test plans for use on testing day
+ - [x] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
+    - keep GCBeta and GCGamma for future code testing. QUT is safe ground
+ - [ ] reBook/rerun Testing Day
+  - [ ] Test old iphone
+  - [x] Test iphone Go To Top exit button
+  - [x] Test landscape on iphone
+  - [ ] Test ipad
+  - [ ] Test Android tablet
+  - [ ] Test Android landscape
+  - [x] create GCBeta at QUT 
+    - [ ] run the test cases with 3 players = OBC, Fang, 1MM
+    - [ ] check that no reward if not occupying a circle
+    - [ ] Multiple players at one circle at same time works at all?
+      - [ ] Do all get the reward?
+  - [x] create GCGamma (3 waypoints) also at QUT
+    - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
+    - [ ] does it work properly with 3 target circles?
+    - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
-  - [ ] delete GCTest, GCAlbury as they have private locations
-    - keep GCBetaTst and GCGammaTst for future code testing. QUT is safe ground
-  - [ ] 'replace' GCAlphatst with the real GC code. Or possibly just duplicate locations
-  - [ ] Write and refine what user instructions are needed - in listing, or as a link?
-    - [ ] OBC co-ownership on the listing?
-    - [ ] Final production test run, before publishing for real. Use two new people.
-  - [ ] Production Release!
+    - [x] replicate GCAlphatst with the real GC9JEH6 code.
+    - [x] user guide into listing
+    - [x] OBC co-ownership on the listing
+    - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
+    - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
+    - [x] build container, logbook and stash note
+    - [ ] test container in place
+    - [ ] FTF prizes? Coffee Club vouchers perhaps?
+  - [ ] Final production test run, before publishing for real. Use new people.
+  - [ ] Production Release submission!
  
 
 ## Key files ##
