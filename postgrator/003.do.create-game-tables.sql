@@ -5,6 +5,7 @@ CREATE TABLE games (
   reward          TEXT
 );
 
+
 CREATE TABLE waypoint (
   waypoint_id   SERIAL,
   game_code     VARCHAR(10) REFERENCES games (game_code) ON DELETE CASCADE,
@@ -14,5 +15,5 @@ CREATE TABLE waypoint (
   PRIMARY KEY (waypoint_id, game_code)
 );
 
--- Update SRID to WGS84 (World Geodetic System 1984) - Standard for most calcluations worldwide
+-- Update SRID to WGS84 (World Geodetic System 1984)
 SELECT UpdateGEometrySRID('waypoint', 'location', 3857);
