@@ -1,11 +1,11 @@
 -- --------------------------------------------------------------------------------------------
--- TEST GAME GCALPHATST - a seperate postgrator file per geocache following the below format --
+-- TEST GAME GCALPHA - a seperate postgrator file per geocache following the below format --
 -- --------------------------------------------------------------------------------------------
 
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
-  'GCALPHATST', 'The Anti-Social-Mob cache: Alpha testing', 2, 'VICTORY IS MINE!!! A coffee shall be our reward, where will I meet you? ;-)';
+  'GCALPHA', 'The Anti-Social-Mob cache: Alpha testing', 2, 'VICTORY IS MINE!!! A coffee shall be our reward, where will I meet you? ;-)';
 
 INSERT INTO
     waypoint (game_code, name, location, radius)
@@ -19,7 +19,7 @@ SELECT
 
 
 -- --------------------------------------------------------------------------------------------
--- TEST GAME GCBETATST - a seperate postgrator file per geocache following the below format --
+-- TEST GAME GCBETA - a seperate postgrator file per geocache following the below format --
 -- --------------------------------------------------------------------------------------------
 
 INSERT INTO
@@ -39,7 +39,7 @@ SELECT
     
     
 -- --------------------------------------------------------------------------------------------
--- TEST GAME GCGAMMATST - a seperate postgrator file per geocache following the below format --
+-- TEST GAME GCGAMMA - a seperate postgrator file per geocache following the below format --
 -- --------------------------------------------------------------------------------------------
 
 INSERT INTO
