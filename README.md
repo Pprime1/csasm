@@ -4,28 +4,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 
 ## TODO ##
-- [👎] Can (and should?) I add a QLD Globe map layer. Just because? No! maybe a future release
-- [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
-  - [x] put a "Go Top" button inside the map - use the player icon popup.
-  - [x] Add a note about this in the userguide html
-- [x] Write and refine what user instructions are needed - in listing, also available as a link
-  - [x] publish asmhubGuide.html on Google Drive 2 Web
-  - [x] Test run with OBC
-  - [x] test with proposed Beta/Gamma testers
-  - [x] Test with reviewers
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [x] Rerun GCAlphatsts
-- [x] remove default game from form - make it 'GC'?
-- 👎👎 TESTING FAILED 👎👎
-- 👎Reward data is not being pushed through to reward screen at all
-    - [x] removed clearwatch from reward.ejs as it was failing. Reward data now flowing through
-- 👎App Crashes repeatedly. "TypeError: callback is not a function" in server.js
-- see issue#31 [https://github.com/Pprime1/csasm/issues/31]
-    - [x] updated the socket.io.on("reconnect" function to ensure there is a callback included in the  socket.emit('join-a-game'  command
-    - [x] tested with sending phone offline and forcing a reconnect
-- [x] Create formalised test plans for use on testing day
- - [x] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
-    - keep GCBeta and GCGamma for future code testing. QUT is safe ground
  - [ ] reBook/rerun Testing Day
   - [ ] Test old iphone
   - [x] Test iphone Go To Top exit button
@@ -44,20 +23,17 @@ The app requires multiple mobile devices, each connecting to the same source to 
     - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
-    - [x] replicate GCAlphatst with the real GC9JEH6 code.
-    - [x] user guide into listing
-    - [x] OBC co-ownership on the listing
+    - [x] Create for real GC9JEH6 code.
     - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
     - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
     - [x] build container, logbook and stash note
     - [ ] test container in place
     - [ ] FTF prizes? Coffee Club vouchers perhaps?
-  - [ ] Final production test run, before publishing for real. Use new people.
+  - [ ] Final production test run, before publishing for real.
   - [ ] Production Release submission!
  
 
 ## Key files ##
-
 [SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
 
 [INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
@@ -69,41 +45,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 [REWARD.EJS](/views/pages/reward.ejs) : the final reward display script (client side html) - visible in console (F12).
 
 
-
-### Running Locally ###
-... unreliable still. code doesn't stay in sync with github?
-
-```
-heroku login -i \\ userID is prefilled but type the password
-heroku pg:psql -a csasm \\ for database commands
-```
-
-**Installing**
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
-```sh
-$ git clone https://github.com/Pprime1/csasm # or clone your own fork
-$ cd csasm
-$ npm install
-$ heroku local
-```
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-**Deploying to Heroku**
-
-```
-$ heroku git:remote -a csasm
-$ git push heroku main
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
 ## Documentation ##
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
 - [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
 - [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
 - [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
