@@ -1,7 +1,6 @@
--- --------------------------------------------------------------------------------------------
--- RELEASE GAME GC9JEH6 - a seperate postgrator file per geocache following the below format --
--- --------------------------------------------------------------------------------------------
-
+-- -----------------------
+-- RELEASE GAME GC9JEH6 --
+-- -----------------------
 INSERT INTO
   games (game_code, description, minimum_players, reward)
 SELECT
@@ -10,8 +9,7 @@ SELECT
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
-    'GC9JEH6', 'Goodwill', 'SRID=3857; POINT(-27.4795837 153.0279846)', 25;
-    
+    'GC9JEH6', 'Goodwill', 'SRID=3857; POINT(-27.4795837 153.0279846)', 25;  
 INSERT INTO
     waypoint (game_code, name, location, radius)
 SELECT
