@@ -24,7 +24,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
     - [x] updated the socket.io.on("reconnect" function to ensure there is a callback included in the  socket.emit('join-a-game'  command
     - [x] tested with sending phone offline and forcing a reconnect
 - [x] Create formalised test plans for use on testing day
- - [ ] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
+ - [x] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
     - keep GCBeta and GCGamma for future code testing. QUT is safe ground
  - [ ] reBook/rerun Testing Day
   - [ ] Test old iphone
