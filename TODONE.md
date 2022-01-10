@@ -1,5 +1,34 @@
 **HISTORY OF CODE DEVELOPMENT BRANCHES**
 
+**Pre-Prod #31 branch**
+      -merged 11 January 2022
+- [👎] Can (and should?) I add a QLD Globe map layer. Just because? No! maybe a future release
+- [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
+  - [x] put a "Go Top" button inside the map - use the player icon popup.
+  - [x] Add a note about this in the userguide html
+- [x] Write and refine what user instructions are needed - in listing, also available as a link
+  - [x] publish asmhubGuide.html on Google Drive 2 Web
+  - [x] Test run with OBC
+  - [x] test with proposed Beta/Gamma testers
+  - [x] Test with reviewers
+- [👎] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+- [x] Rerun GCAlphatsts
+- [x] remove default game from form - make it 'GC'?
+  - [x] Test iphone Go To Top exit button
+  - [x] Test landscape on iphone
+- 👎👎 TESTING FAILED 👎👎
+- 👎Reward data is not being pushed through to reward screen at all
+    - [x] removed clearwatch from reward.ejs as it was failing. Reward data now flowing through
+- 👎App Crashes repeatedly. "TypeError: callback is not a function" in server.js
+- see issue#31 [https://github.com/Pprime1/csasm/issues/31]
+    - [x] updated the socket.io.on("reconnect" function to ensure there is a callback included in the  socket.emit('join-a-game'  command
+    - [x] tested with sending phone offline and forcing a reconnect
+- [x] Create formalised test plans for use on testing day
+ - [x] delete GCTest, GCAlbury and also GCAlphaTST, GCBetaTST GCGammaTSTS as they have private locations or are redundant now
+    - keep GCBeta and GCGamma for future code testing. QUT is safe ground
+    - Renamed GCAlphaTST as GCAlpha for consistency
+   
+
 **Code-Review #30 branch**
       -merged 16 November 2021
 - [x] Code review by someone ... Andrew!!
