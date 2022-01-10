@@ -1,10 +1,10 @@
-##TEST GAMES##
+## TEST GAMES ##
 - GCALPHA
 - GCBETA
 - GCGAMMA
  
 
-##To rebaseline postgrator:##
+## To rebaseline postgrator: ##
 - from the Git CMD prompt:
 ```
 heroku login (and then follow the web screen prompts to login, uses authenticater)
