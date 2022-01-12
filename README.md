@@ -6,7 +6,8 @@ The app requires multiple mobile devices, each connecting to the same source to 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] GC Code input validation to also strip spaces, or at least trailling spaces?
-- [ ] reBook/rerun Testing Day
+- [ ] rerun Testing Day 
+  - booked for Friday 14/1/22 16:30
   - [ ] Test old iphone
   - [x] Test iphone Go To Top exit button
   - [x] Test landscape on iphone
