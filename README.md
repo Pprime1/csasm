@@ -5,32 +5,33 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
- - [ ] reBook/rerun Testing Day
-  - [ ] Test old iphone
-  - [x] Test iphone Go To Top exit button
-  - [x] Test landscape on iphone
-  - [ ] Test ipad
-  - [ ] Test Android tablet
-  - [ ] Test Android landscape
-  - [x] create GCBeta at QUT 
-    - [ ] run the test cases with 3 players = OBC, Fang, 1MM
-    - [ ] check that no reward if not occupying a circle
-    - [ ] Multiple players at one circle at same time works at all?
-      - [ ] Do all get the reward?
-  - [x] create GCGamma (3 waypoints) also at QUT
-    - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
-    - [ ] does it work properly with 3 target circles?
-    - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
-      - [ ] do seperate correct rewards happen to the right players?
+- [ ] GC Code input validation to also strip spaces, or at least trailling spaces?
+- [ ] reBook/rerun Testing Day
+ - [ ] Test old iphone
+ - [x] Test iphone Go To Top exit button
+ - [x] Test landscape on iphone
+ - [ ] Test ipad
+ - [ ] Test Android tablet
+ - [ ] Test Android landscape
+ - [x] create GCBeta at QUT 
+  - [ ] run the test cases with 3 players = OBC, Fang, 1MM
+  - [ ] check that no reward if not occupying a circle
+  - [ ] Multiple players at one circle at same time works at all?
+    - [ ] Do all get the reward?
+ - [x] create GCGamma (3 waypoints) also at QUT
+  - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
+  - [ ] does it work properly with 3 target circles?
+  - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
+    - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
-    - [x] Create for real GC9JEH6 code.
-    - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
-    - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
-    - [x] build container, logbook and stash note
-    - [ ] test container in place
-    - [ ] FTF prizes? Coffee Club vouchers perhaps?
-  - [ ] Final production test run, before publishing for real.
-  - [ ] Production Release submission!
+  - [x] Create for real GC9JEH6 code.
+  - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
+  - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
+  - [x] build container, logbook and stash note
+  - [ ] test container in place
+  - [ ] FTF prizes? Coffee Club vouchers perhaps?
+- [ ] Final production test run, before publishing for real.
+- [ ] Production Release submission!
  
 
 ## Key files ##
