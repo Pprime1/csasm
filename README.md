@@ -5,8 +5,8 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] GC Code input validation to also strip spaces, or at least trailling spaces?
-  - Use the Str.trim() method, removes whitespaces before and after the string. ... ie: let trimStr = str.trim(); console.log(str, "-->", trimStr); // " Hello World! " --> "Hello World!"
+- [x] GC Code input validation to also strip spaces, or at least trailling spaces = use str.trim()
+- [ ] Why is the Game Code not displaying on the main output?
 - [ ] rerun Testing Day 
   - booked for Friday 14/1/22 16:30
   - [ ] Test old iphone
