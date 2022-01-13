@@ -14,16 +14,18 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [x] Test landscape on iphone
   - [ ] Test ipad
   - [ ] Test Android tablet
-  - [ ] Test Android landscape
-  - [x] create GCBeta at QUT 
-    - [ ] run the test cases with 3 players = OBC, Fang, 1MM
+  - [ ] Test tablets in landscape
+  - [ ] Test Browser drop outs/reconnect
+  - [x] test a refresh does an actual restart
+  - [x] create GCBeta (2 waypoints) at QUT 
+    - [ ] run the test cases with 3 players
     - [ ] check that no reward if not occupying a circle
     - [ ] Multiple players at one circle at same time works at all?
       - [ ] Do all get the reward?
   - [x] create GCGamma (3 waypoints) also at QUT
-    - [ ] run the test cases with 5 players = OBC, Fang, 1MM, Kab?, p11? Ruz? X?
+    - [ ] run the test cases with 5 players
     - [ ] does it work properly with 3 target circles?
-    - [ ] does it work with multiple concurrent games? (along with GCBetaTst)
+    - [ ] does it work with multiple concurrent games? (along with GCBeta)
       - [ ] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
   - [x] Create for real GC9JEH6 code.
