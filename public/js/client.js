@@ -180,6 +180,7 @@ window.addEventListener("load",function(event) {
      game = game.trim();
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
+     $("#gameId").text(game);
      socket.emit('join-a-game', game, (response) => {
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
      }); // emit join-a-game
