@@ -177,6 +177,7 @@ window.addEventListener("load",function(event) {
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
+     game = game.trim();
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
      socket.emit('join-a-game', game, (response) => {
