@@ -65,28 +65,24 @@ function updatePosition(position) { //changes the player location details:
 function PosError(error) { // handle/display get geolocation errors
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart";
-            //localStorage.setItem('RtnError', RtnError);
+            RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart.";
             window.alert(RtnError);
             // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
             window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
             location.href = "/";
             break;
         case error.POSITION_UNAVAILABLE:
-            RtnError = "GeoLocation error: Location information is unavailable \n Please correct and then refresh screen to restart.";
-            //localStorage.setItem('RtnError', RtnError);
+            RtnError = "GeoLocation error: Location information is unavailable \n Please correct and then refresh screen to restart. \n\n If you opened the game from a Facebook messenger link, please re-open it from a full Internet browser app such as Chrome, Safari, Samsung, Firefox or Edge.";
             window.alert(RtnError);
             location.href = "/";
             break;
         case error.TIMEOUT:
-            RtnError = "GeoLocation error: The request to get user location timed out. \n Please refresh screen to restart";
-            //localStorage.setItem('RtnError', RtnError);
+            RtnError = "GeoLocation error: The request to get user location timed out. \n Please refresh screen to restart.";
             window.alert(RtnError);
             location.href = "/";
             break;
         default:
-            RtnError = "GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart";
-            //localStorage.setItem('RtnError', RtnError);
+            RtnError = "GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart.";
             window.alert(RtnError);
             location.href = "/";
             break;
@@ -95,7 +91,7 @@ function PosError(error) { // handle/display get geolocation errors
 
 socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for some reason but game was in progress
   if (is_joined) { 
-      game = $("#gameId").val();
+      game = $("#current-gameId").val();
       console.log(`RECONNECTING CLIENT ${ game }`);
       socket.emit('join-a-game', game, (response) => {
       $("#game-error").text(response.message); // Set to display an error message underneath form entry field
@@ -117,7 +113,7 @@ socket.on("game-join", () => {
 socket.on("room-update", (game_id, gamedesc, new_player_count) => {
   is_joined = true;
   $("#lj-startup").hide();
-  $("#gameId").text(game_id);
+  $("#current-gameId").text(game_id);
   if (gamedesc != 1) { // don't update if this was called by a room-leave command
     localStorage.setItem('game_description', gamedesc); //?
     localStorage.setItem('current_game', game_id); //?
