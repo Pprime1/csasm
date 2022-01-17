@@ -6,27 +6,28 @@ The app requires multiple mobile devices, each connecting to the same source to 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] GC Code input validation to also strip spaces, or at least trailling spaces = use str.trim()
-- [ ] Why is the Game Code not displaying on the main output?
-- [ ] rerun Testing Day 
+- [x] Why is the Game Code not displaying on the main output? use current-GameID and GameId separately
+- [ ] Add extra GeoLocation error message/helpnote for users of Facebook Messenger (Android) - use a real browser!
+- [x] rerun Testing Day 
   - booked for Friday 14/1/22 16:30
-  - [ ] Test old iphone
+  - [x] Test old iphone
   - [x] Test iphone Go To Top exit button
   - [x] Test landscape on iphone
   - [ ] Test ipad
-  - [ ] Test Android tablet
-  - [ ] Test tablets in landscape
+  - [x] Test Android tablet
+  - [x] Test tablets in landscape
   - [ ] Test Browser drop outs/reconnect
   - [x] test a refresh does an actual restart
   - [x] create GCBeta (2 waypoints) at QUT 
-    - [ ] run the test cases with 3 players
-    - [ ] check that no reward if not occupying a circle
-    - [ ] Multiple players at one circle at same time works at all?
-      - [ ] Do all get the reward?
+    - [x] run the test cases with 3 players
+    - [x] check that no reward if not occupying a circle
+    - [x] Multiple players at one circle at same time works at all?
+      - [x] Do all get the reward?
   - [x] create GCGamma (3 waypoints) also at QUT
-    - [ ] run the test cases with 5 players
-    - [ ] does it work properly with 3 target circles?
-    - [ ] does it work with multiple concurrent games? (along with GCBeta)
-      - [ ] do seperate correct rewards happen to the right players?
+    - [x] run the test cases with 5 players
+    - [x] does it work properly with 3 target circles?
+    - [x] does it work with multiple concurrent games? (along with GCBeta)
+      - [x] do seperate correct rewards happen to the right players?
 - [ ] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
   - [x] Create for real GC9JEH6 code.
   - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
