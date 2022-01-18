@@ -65,10 +65,9 @@ function updatePosition(position) { //changes the player location details:
 function PosError(error) { // handle/display get geolocation errors
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please allow location sharing and then refresh screen to restart.";
+            RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please un-block location sharing for this webpage, and then refresh screen to restart.";
             window.alert(RtnError);
-            // //not this one// window.open('https://docs.buddypunch.com/en/articles/919258-how-to-enable-location-services-for-chrome-safari-edge-and-android-ios-devices-gps-setting', '_blank');
-            window.open('https://help.digiquatics.com/en/articles/648416-how-do-i-enable-location-services-on-my-mobile-tablet-device-or-browser', '_blank'); // popup in new tab/window
+            window.open('https://aaml.org/page/locationpermission', '_blank'); // popup in new tab/window
             location.href = "/";
             break;
         case error.POSITION_UNAVAILABLE:
@@ -77,12 +76,12 @@ function PosError(error) { // handle/display get geolocation errors
             location.href = "/";
             break;
         case error.TIMEOUT:
-            RtnError = "GeoLocation error: The request to get user location timed out. \n Please refresh screen to restart.";
+            RtnError = "GeoLocation error: The request to get user location timed out. \n Please ensure you are not inside a concrete bunker, and then refresh screen to restart.";
             window.alert(RtnError);
             location.href = "/";
             break;
         default:
-            RtnError = "GeoLocation error: An unknown error occurred. \n Please correct and then refresh screen to restart.";
+            RtnError = "GeoLocation error: An unknown error occurred. \n Please reboot your smartphone and restart.";
             window.alert(RtnError);
             location.href = "/";
             break;
