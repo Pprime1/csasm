@@ -1,5 +1,32 @@
 **HISTORY OF CODE DEVELOPMENT BRANCHES**
 
+**Production-Ready #33 branch**
+     -committed 19 January 2022
+- [x] GC Code input validation to also strip spaces, or at least trailling spaces = use str.trim()
+- [x] Why is the Game Code not displaying on the main output? use current-GameID and GameId separately
+- [x] Add extra GeoLocation error message/helpnote for users of Facebook Messenger (Android) - use a real browser!
+- [x] rerun Testing Day 
+  - booked for Friday 14/1/22 16:30
+  - [x] Test old iphone
+  - [x] Test iphone Go To Top exit button
+  - [x] Test landscape on iphone
+  - [ ] Test ipad
+  - [x] Test Android tablet
+  - [x] Test tablets in landscape
+  - [x] Test Browser drop outs/reconnect
+  - [x] test a refresh does an actual restart
+  - [x] create GCBeta (2 waypoints) at QUT 
+    - [x] run the test cases with 3 players
+    - [x] check that no reward if not occupying a circle
+    - [x] Multiple players at one circle at same time works at all?
+      - [x] Do all get the reward?
+  - [x] create GCGamma (3 waypoints) also at QUT
+    - [x] run the test cases with 5 players
+    - [x] does it work properly with 3 target circles?
+    - [x] does it work with multiple concurrent games? (along with GCBeta)
+      - [x] do seperate correct rewards happen to the right players?
+
+
 **Pre-Prod #32 branch**
       -merged 11 January 2022
 - [👎] Can (and should?) I add a QLD Globe map layer. Just because? No! maybe a future release
