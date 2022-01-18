@@ -67,7 +67,7 @@ function PosError(error) { // handle/display get geolocation errors
         case error.PERMISSION_DENIED:
             RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please un-block location sharing for this webpage, and then refresh screen to restart.";
             window.alert(RtnError);
-            window.open('https://aaml.org/page/locationpermission', '_blank'); // popup in new tab/window
+            window.open('https://enblesp1msgzhmk140wukq-on.drv.tw/ASMHUB/BrowserSettings.html', '_blank'); // popup in new tab/window
             location.href = "/";
             break;
         case error.POSITION_UNAVAILABLE:
