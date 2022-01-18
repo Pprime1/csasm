@@ -1,10 +1,9 @@
-**HISTORY OF CODE DEVELOPMENT BRANCHES**
+***HISTORY OF CODE DEVELOPMENT BRANCHES***
 
-**Production-Ready #33 branch**
-     -committed 19 January 2022
-2022-01-18T23:21:24.320714+00:00 app[api]: Build Release v1000 created by user pprime@live.com.au
-Production Release v18
-
+**PRODUCTION RELEASE v1.0.0**
+ - committed 19 January 2022
+ - Build Release v1000 created by user pprime@live.com.au 2022-01-18T23:21:24.320714+00:00
+ - Production Code Release v18
 - [x] GC Code input validation to also strip spaces, or at least trailling spaces = use str.trim()
 - [x] Why is the Game Code not displaying on the main output? use current-GameID and GameId separately
 - [x] Add extra GeoLocation error message/helpnote for users of Facebook Messenger (Android) - use a real browser!
