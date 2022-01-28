@@ -5,7 +5,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] shorten console.log for leaving game game-ID code (remove 'game-'
+- [x] shorten console.log for leaving game game-ID code (remove 'game-'
   - 2022-01-28T03:40:15.553001+00:00 app[web.1]: nNb7pC3X4vhRDbl1AAAD left game-GC9JEH6 0 online
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
 - [ ] Can we push client console.logs to the server for centralised display?
