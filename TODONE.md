@@ -27,6 +27,15 @@
     - [x] does it work properly with 3 target circles?
     - [x] does it work with multiple concurrent games? (along with GCBeta)
       - [x] do seperate correct rewards happen to the right players?
+- [x] Hide a container, create a real one: The Covid-Safe Anti Social Mob Cache
+  - [x] Create for real GC9JEH6 code.
+  - [x] Find a final GZ (S27° 28.327' E153° 1.373') 
+    - Take a seat and reach behind the bottom outside corner of the metal plate behind you. Small (not micro) sized magnetic thin container
+  - [x] build container, logbook and stash note
+  - [x] test container in place
+  - [x] FTF prizes? Coffee Club vouchers perhaps?
+- [x] Final production test run, before publishing for real.
+- [x] Production Release!!! 27 January 2022
 
 
 **Pre-Prod #32 branch**
