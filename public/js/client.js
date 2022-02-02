@@ -9,9 +9,14 @@ var game=null; //current game ID
 var game_description = "Clear skies: choose a game to play";
 var displaytable =[]; 
 var MYID = socket.id; 
-var RtnError="Clear Skies";
+var RtnError = null;
+var geoOptions = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
 var spoof = false; //status for detection of locational spoofing activities
-var spoofMsg = "Geolocation spoofing detected. \n This game is a physical location game, please ensure you are physically visiting the locations. \n If you believe this is a mistaken detection, please contact the game owner."
+var spoofMsg = "Geolocation spoofing detected. \n This game is a physical location game, please ensure you are physically visiting the locations. \n If you believe this is a mistaken detection, please contact the game owner.";
 
 for (var entry of urlParams) { 
     game = entry[0]; // only the first URL param is considered as the Game ID code
@@ -23,13 +28,6 @@ if (game) { //if started with a URLParam then attempt to join that game ID
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
 } else { game = "GC" }; // set default form entry content for if no valid game parameter is provided
-
-var RtnError = null;
-var geoOptions = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
 
 function ConvertDEGToDM(deg,dir) {
   var absolute = Math.abs(deg);
@@ -128,10 +126,10 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 
 socket.on("display-update", (display_information) => {
   if (spoof) {
-      window.alert(spoofMsg);
+      //window.alert(spoofMsg);
       console.log("Spoofing detected");
-      location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
-      break 
+      //location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
+      //break 
   };
   displaytable=display_information;
   MYID = socket.id; // this is current player
