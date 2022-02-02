@@ -79,6 +79,7 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
 		if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
 			WPC[n]='green';
 			console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
+			socket.emit('LOGTX',`${socket.id} :-> ${WPN[n]} occupied by this player`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 		}; //set to green if player is in it
 		if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
 			WPC[n]='yellow'
@@ -90,6 +91,7 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
    for (var n=0;n<WPcircle.length;n++) { //set and display circle colour (circles are already on map, just updating colours here)
 	WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); 
 	console.log("Update Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+	socket.emit('LOGTX',`${socket.id} :-> Update Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
 	WPC[n] = 'red'; //reset every circle expectation colour back to red (unoccupied) until next updatemap
    };
    if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
@@ -103,7 +105,7 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
 function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initial map display
    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
    L.control.scale().addTo(mymap); //show scale bar
-   console.log("Create current player marker:",MYID,latitude,longitude); 
+   //console.log("Create current player marker:",MYID,latitude,longitude); 
    playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID + "<br/><a href='#' class='toplink'>Go Top</a>"); //update current player marker, and now show it on the map	
    mymap.on('popupopen', function() { // create a way to jump to top of page from within the map 
      $('.toplink').click(function() { // - especially useful if the map has been zoomed to commandeer the entire phone window view that prevents access outside the map otherwise
@@ -121,6 +123,7 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
    };
    for (var n=0; n<WPN.length; n++){ 
      console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
+     socket.emit('LOGTX',`${socket.id} :-> Target Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
      WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
         radius: WPR[n],
         fillOpacity: 0.2
