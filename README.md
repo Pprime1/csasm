@@ -6,11 +6,13 @@ The app requires multiple mobile devices, each connecting to the same source to 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [ ] make github code hidden from everyone except Andrew and me
+- [ ] Place Release and Build Info in here somewhere using a variable?
 - [x] shorten console.log for leaving game game-ID code (remove 'game-')
   - 2022-01-28T03:40:15.553001+00:00 app[web.1]: nNb7pC3X4vhRDbl1AAAD left game-GC9JEH6 0 online
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
 - [x] Push certain client console.logs to the server for centralised display
-- [ ] Can we push certain showmap console.logs to the server for centralised display?
+- [x] Push certain showmap console.logs to the server for centralised display
+  -[ ] May need to reduce the Update Circle logs?
 - [x] Reduce server console log entries in the ten second cycle
   - 2022-02-02T04:27:03.286916+00:00 app[web.1]: new player: aYDBQZvsPmGR0tqQAAAB
   - 2022-02-02T04:27:03.287646+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB connected
@@ -27,6 +29,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [x] accuracy checker for the chrome dev console (exactly 150m)
   - [x] android position.ismockprovider is true
   - [ ] lack of movement detector?
+  - [ ] Can Gary test?
 
  
 
