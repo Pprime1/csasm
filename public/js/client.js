@@ -52,7 +52,7 @@ function updatePosition(position) { //changes the player location details:
   var lon = ConvertDEGToDM(longitude,0);
   var acc = Math.round(accuracy);
   if (acc==150) {spoof=true}; //devtools in client browser uses a fixed accuracy of 150m
-  if (position.isFromMockProvider) {spoof=true}; //android option only .... except this doesn't work on FakeGPS?
+  if (position.isFromMockProvider) {spoof=true}; //android option only .... except this doesn't work on FakeGPS?  ?
   $("#current-Lat").text(lat); //index.ejs for display above the table
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
@@ -162,11 +162,12 @@ socket.on("display-update", (display_information) => {
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
-  localStorage.setItem('reward_information', reward_information); // Save Reward Info into Local Storage
-  console.log("Sending Reward:",reward_information);
-  setTimeout( function() {
-    location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
-  }, 100)
+  if !(spoof) {localStorage.setItem('reward_information', reward_information); // Save Reward Info into Local Storage
+    //console.log("Sending Reward:",reward_information);
+    setTimeout( function() {
+      location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
+    }, 100);
+  } else {console.log("Reward failed due to spoof detected)};
 }); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Start Page Game-Joining form.
