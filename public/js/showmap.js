@@ -123,7 +123,7 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
    };
    for (var n=0; n<WPN.length; n++){ 
      console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
-     socket.emit('LOGTX',`${socket.id} :-> Target Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+     //socket.emit('LOGTX',`${socket.id} :-> Target Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
         radius: WPR[n],
         fillOpacity: 0.2
