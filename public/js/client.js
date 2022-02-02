@@ -162,7 +162,7 @@ socket.on("display-update", (display_information) => {
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
-  if !(spoof) {localStorage.setItem('reward_information', reward_information); // Save Reward Info into Local Storage
+  if (!spoof) {localStorage.setItem('reward_information', reward_information); // Save Reward Info into Local Storage
     //console.log("Sending Reward:",reward_information);
     setTimeout( function() {
       location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
