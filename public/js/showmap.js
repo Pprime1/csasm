@@ -91,7 +91,7 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
    for (var n=0;n<WPcircle.length;n++) { //set and display circle colour (circles are already on map, just updating colours here)
 	WPcircle[n].setStyle({color: WPC[n], fillcolor: WPC[n]}); 
 	console.log("Update Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
-	socket.emit('LOGTX',`${socket.id} :-> Update Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+	socket.emit('LOGTX',`${socket.id} :-> Update Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 	WPC[n] = 'red'; //reset every circle expectation colour back to red (unoccupied) until next updatemap
    };
    if(!pauseAutoMove){ //pan the map to follow the player unless it is on pause
@@ -123,7 +123,7 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
    };
    for (var n=0; n<WPN.length; n++){ 
      console.log("Target Circle:",n, WPN[n], WPX[n], WPY[n], WPR[n], WPC[n]); 
-     socket.emit('LOGTX',`${socket.id} :-> Target Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+     socket.emit('LOGTX',`${socket.id} :-> Target Circle: ${n}, ${WPN[n]}, ${WPX[n]}, ${WPY[n]}, ${WPR[n]}, ${WPC[n]}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      WPcircle[n] = L.circle([WPX[n],WPY[n]], { // Create each circle once
         radius: WPR[n],
         fillOpacity: 0.2
