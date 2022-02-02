@@ -10,6 +10,8 @@ var game_description = "Clear skies: choose a game to play";
 var displaytable =[]; 
 var MYID = socket.id; 
 var RtnError="Clear Skies";
+var spoof = false; //status for detection of locational spoofing activities
+var spoofMsg = "Geolocation spoofing detected. \n This game is a physical location game, please ensure you are physically visiting the locations. \n If you believe this is a mistaken detection, please contact the game owner."
 
 for (var entry of urlParams) { 
     game = entry[0]; // only the first URL param is considered as the Game ID code
@@ -51,6 +53,7 @@ function updatePosition(position) { //changes the player location details:
   var lat = ConvertDEGToDM(latitude,1); //change display format
   var lon = ConvertDEGToDM(longitude,0);
   var acc = Math.round(accuracy);
+  if (acc==150) {spoof=true};
   $("#current-Lat").text(lat); //index.ejs for display above the table
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
@@ -124,6 +127,12 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 }); // end of ROOM-UPDATE
 
 socket.on("display-update", (display_information) => {
+  if (spoof) {
+      window.alert(spoofMsg);
+      console.log("Spoofing detected");
+      location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
+      break 
+  };
   displaytable=display_information;
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
