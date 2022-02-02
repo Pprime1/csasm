@@ -16,7 +16,7 @@ var geoOptions = {
   maximumAge: 0
 };
 var spoof = false; //status for detection of locational spoofing activities
-var spoofMsg = "Geolocation spoofing detected. \n This game is a physical location game, please ensure you are physically visiting the locations. If you believe this is a mistaken detection, please contact the game owner.";
+var spoofMsg = "Anti Gary mode enabled. \n This game is a physical location game, please ensure you are physically visiting the locations. If you believe this is a mistaken detection, please contact the game owner.";
 
 for (var entry of urlParams) { 
     game = entry[0]; // only the first URL param is considered as the Game ID code
