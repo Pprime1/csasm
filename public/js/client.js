@@ -23,7 +23,7 @@ for (var entry of urlParams) {
 };   
 if (game) { //if started with a URLParam then attempt to join that game ID
     game = game.toUpperCase();
-    console.log("Called with parameter:", game);
+    console.log("Client session called with parameter:", game);
     socket.emit('join-a-game', game, (response) => {         
         $("#game-error").text(response.message); // Set to display an error message underneath form entry field
      }); // emit join-a-game
@@ -94,6 +94,8 @@ socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for
   if (is_joined) { 
       game = $("#gameId").val();
       console.log(`RECONNECTING CLIENT ${ game }`);
+      socket.emit('LOGTX',`${socket.id} :-> Reconnecting Client to existing game`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+    
       socket.emit('join-a-game', game, (response) => {
       $("#game-error").text(response.message); // Set to display an error message underneath form entry field
       }); // emit join-a-game again
