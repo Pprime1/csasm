@@ -33,7 +33,7 @@ function getGameByCode(games_result, game_id) {
 // SOCKET FUNCTIONAL CODE
 async function configure_socketio(db_connection, games_result) {
    io.on("connection", (socket) => {
-        console.log(socket.id, "connected");
+        //console.log(socket.id, "connected");
         socket.on('location-update', (...args) => {
            let location_update_query = `
               UPDATE player
@@ -74,7 +74,7 @@ async function configure_socketio(db_connection, games_result) {
       if(room !== id) {
         db_connection.query(`INSERT INTO player(id, room_id) VALUES('${id}', '${room.replace("game-", "")}')`).catch(err => console.log(err));
         let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
-        console.log(id, "joined", room, room_size, "online");
+        console.log(id, "joined", room, ",", room_size, "players online");
         var game_details = getGameByCode(games_result, room.replace("game-", ""));
 	var gamedesc = game_details["description"];
 	io.to(room).emit("room-update", room.replace("game-", ""), gamedesc, room_size);
@@ -109,7 +109,7 @@ async function update_game(room, io, db_connection, games_result) {
     };
 	
    let game_code = room.replace("game-", "");
-   console.log("Playing game", game_code);
+   //console.log("Playing game", game_code);
    let game_details = getGameByCode(games_result, game_code); // still needed here to populate the game_details variable again?
 
    let display_query = `
@@ -120,12 +120,10 @@ async function update_game(room, io, db_connection, games_result) {
        ORDER BY pl.id
     `;
     let display_result = await db_connection.query(display_query);
-    //console.log("display_table",display_result.rows);
     io.to(room).emit('display-update', display_result.rows);
 
     // How many waypoints are there in this game?
     let minimum_player_count = game_details["minimum_players"]
-    console.log(game_code, "requires", minimum_player_count, "waypoints to be occupied.");
 
     // Determine whether they have "met the criteria" to succeed in the game!
     var within_radius = []; //lists all target waypoints that are occupied, uniquely
@@ -142,7 +140,7 @@ async function update_game(room, io, db_connection, games_result) {
 		};
 	};
     };
-    console.log(within_radius.length, "waypoints are currently occupied.");
+    console.log(game_code, ":", within_radius.length, "of", minimum_player_count, "waypoints occupied.");
 
     if (within_radius.length == minimum_player_count) { //If the number of occupied waypoints == the number required we have success
        	let reward = game_details["reward"];
