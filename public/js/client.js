@@ -16,7 +16,7 @@ var geoOptions = {
   maximumAge: 0
 };
 var spoof = false; //status for detection of locational spoofing activities
-var spoofMsg = "Geolocation spoofing detected. \n This game is a physical location game, please ensure you are physically visiting the locations. \n If you believe this is a mistaken detection, please contact the game owner.";
+var spoofMsg = "Geolocation spoofing detected. \n This game is a physical location game, please ensure you are physically visiting the locations. If you believe this is a mistaken detection, please contact the game owner.";
 
 for (var entry of urlParams) { 
     game = entry[0]; // only the first URL param is considered as the Game ID code
@@ -128,8 +128,7 @@ socket.on("display-update", (display_information) => {
   if (spoof) {
       window.alert(spoofMsg);
       console.log("Spoofing detected");
-      location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
-      //break ...this is an illegal statement?
+      location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
   displaytable=display_information;
   MYID = socket.id; // this is current player
