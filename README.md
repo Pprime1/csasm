@@ -5,6 +5,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+- [ ] make github code hidden from everyone except Andrew and me
 - [x] shorten console.log for leaving game game-ID code (remove 'game-')
   - 2022-01-28T03:40:15.553001+00:00 app[web.1]: nNb7pC3X4vhRDbl1AAAD left game-GC9JEH6 0 online
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
@@ -24,10 +25,11 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - 2022-02-02T04:27:25.972407+00:00 app[web.1]: GCBETA requires 2 waypoints to be occupied.
   - 2022-02-02T04:27:25.972453+00:00 app[web.1]: 0 waypoints are currently occupied.
 - [ ] Can we siphon off the server console.logs for post action review? 
-- [ ] Use a logging addon
-  - [ ] Need to add a valid credit card to Heroku
+  - [ ] Use a logging addon
+    - [ ] Need to add a valid credit card to Heroku
 - [x] Can we create a spoofing detector?
   - [x] accuracy checker for the chrome dev console (exactly 150m)
+  - [x] android position.ismockprovider is true
   - [ ] lack of movement detector?
 
  
