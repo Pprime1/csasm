@@ -95,7 +95,6 @@ socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for
       game = $("#gameId").val();
       console.log(`RECONNECTING CLIENT ${ game }`);
       socket.emit('LOGTX',`${socket.id} :-> Reconnecting Client to existing game`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-    
       socket.emit('join-a-game', game, (response) => {
       $("#game-error").text(response.message); // Set to display an error message underneath form entry field
       }); // emit join-a-game again
@@ -104,7 +103,8 @@ socket.io.on("reconnect", () => { // Reconnect if the client has dropped out for
 
 socket.on("game-join", () => {
    navigator.geolocation.getCurrentPosition(updatePosition, PosError, geoOptions); // First location update attempt, handle errors
-   if (RtnError) {console.log("Geolocation Error Status", RtnError)
+   if (RtnError) {console.log("Geolocation Error Status", RtnError);
+     socket.emit('LOGTX',`${socket.id} :-> Geolocation Error`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
    } else { 
        $("#lj-startup").hide();
        $("#lj-in-game").show();
@@ -129,9 +129,9 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 
 socket.on("display-update", (display_information) => {
   if (spoof) {
-      window.alert(spoofMsg);
       console.log("Spoofing detected");
       socket.emit('LOGTX',`${socket.id} :-> Spoofing detected`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+      window.alert(spoofMsg);
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
   displaytable=display_information;
@@ -154,7 +154,8 @@ socket.on("display-update", (display_information) => {
           $table += "<td>" + display_information[i].radius + "m</td>"
           $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
      } else { 
-          console.log("distance is null error occurred", display_information)
+          console.log("distance is null error occurred", display_information);
+          socket.emit('LOGTX',`${socket.id} :-> distance is null error occurred`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      };
   };
   $table += "</tr></tbody></table>";
@@ -171,7 +172,8 @@ socket.on("display-reward", (reward_information) => { //if all waypoints are in 
     setTimeout( function() {
       location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
     }, 100);
-  } else {console.log("Reward failed due to spoof detected")};
+  } else {console.log("Reward failed due to spoof attempt");
+         socket.emit('LOGTX',`${socket.id} :-> Reward failed due to spoofing attempt`); //clientlogdata should always be in the format of `${socket.id} :-> log message`};
 }); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Start Page Game-Joining form.
