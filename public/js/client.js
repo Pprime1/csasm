@@ -174,6 +174,7 @@ socket.on("display-reward", (reward_information) => { //if all waypoints are in 
     }, 100);
   } else {console.log("Reward failed due to spoof attempt");
          socket.emit('LOGTX',`${socket.id} :-> Reward failed due to spoofing attempt`); //clientlogdata should always be in the format of `${socket.id} :-> log message`};
+  }
 }); // end of DISPLAY-REWARD
 
 // Bind Submit Event for Start Page Game-Joining form.
