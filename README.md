@@ -1,5 +1,6 @@
 # CSASM -> ASMHUB #
 **This is the Code Source repository for the Geocaching Anti-Social Mob Hub application (ASMHUB).**
+
 The app requires multiple mobile devices, each connecting to the same source to determine if they are within a defined proximity radius of any waypoint location stored in a database table for a given Game-Code. The app displays _for the current player_ where they are on a map in relation to the target waypoints, highlighting if they are within one. It also keeps track of how far other players are from each waypoint, and will highlight any occupied waypoint on the map. Once all waypoints are occupied, the app returns hidden REWARD text value (eg: clues/directions to the final container) to each player that is occupying a waypoint.
 
 ## TODO ##
