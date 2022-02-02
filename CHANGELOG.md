@@ -1,6 +1,6 @@
 # HISTORY OF CODE DEVELOPMENT RELEASES #
 
-**PRODUCTION RELEASE v1.0.0**
+**PRODUCTION RELEASE v1.0.18**
  - committed 19 January 2022
  - Build Release v1000 created by user pprime@live.com.au 2022-01-18T23:21:24.320714+00:00
  - Production Code Release v18
@@ -38,7 +38,7 @@
 - [x] Production Release!!! 27 January 2022
 
 
-**Pre-Prod #32 branch**
+**Pre-Prod v0.0.17 Branch #32**
       -merged 11 January 2022
 - [👎] Can (and should?) I add a QLD Globe map layer. Just because? No! maybe a future release
 - [x] How to deal with user making the map fullscreen? Can no longer see/scroll outside of the map. 
@@ -67,7 +67,7 @@
     - Renamed GCAlphaTST as GCAlpha for consistency
    
 
-**Code-Review #30 branch**
+**Code-Review 0.0.16 Branch #30**
       -merged 16 November 2021
 - [x] Code review by someone ... Andrew!!
   - [x] There are a few occasions where storage of items in local storage looks excessive, there might be a purpose that I'm missing ... needed in reward.ejs
@@ -88,7 +88,7 @@
   - [x] Production promotion fails every time. (see https://github.com/Pprime1/csasm/issues/29)
 
 
-**GCALPHATEST #28 branch**
+**GCALPHATEST 0.0.15 Branch #28**
       -merged 28 October 2021
 - [x] create a live, outdoors, example for testing:= GCALPHATST
   - [x] iphone testing
@@ -112,7 +112,7 @@
   - [x] On leave room if there are now zero players do some form of end-game acknowledgement?
 - [x] moved the Quit button below the map - or into the footer bar?
 
-**panTo-Control-button #26 branch**
+**panTo-Control-button 0.0.14 Branch #26**
       -merged 15 October 2021
 - [x] zoom map further in than 50m
 - [x] a toggle button on whether to pan the map or not
@@ -120,7 +120,7 @@
   - [x] mousehover screen tooltip
 - [x] a QUIT GAME button to properly stop it
 
-**LIVE-MAP #25 branch**
+**LIVE-MAP 0.0.13 Branch #25**
       -merged 12 October 2021
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
 - [x] Include some form of live map view on the screen cf: https://leafletjs.com/examples/quick-start/
@@ -147,7 +147,7 @@
 - [x] I don't care? https://stackoverflow.com/questions/47581575/only-request-geolocation-information-in-response-to-a-user-gesture/49406009#49406009
 - [x] track down all the todo's from earlier branches and store them in a seperate file perhaps? There is a bit of a history of development emerging here
 
-**ERROR-HANDLING #22 branch**
+**ERROR-HANDLING v0.0.12 Branch #22**
       -merged 19 Jul 2021
 - [x] Routine to check if chosen game is a valid one, and to error/restart if not
 - [x] Check the timeouts - time to refresh player location (should be 5000ms?), refresh room contents (should be 10000ms?)
@@ -160,13 +160,13 @@
 - [ ] Is it possible to include some form of live map view on the screen? cf: https://github.com/googlemaps/js-samples/blob/master/dist/samples/map-geolocation/index.js
 - [x] Can we start the game directly to a pre-filled GC code eg: https://csasm.herokuapp.com/?GCTEST ?
 
-**MERGE GROUPS #19 branch**
+**MERGE GROUPS v0.0.11 Branch #19**
       -merged 30 Jun 2021
 - [x] merged the concepts of 'game', and 'group', they are the same thing
 - [x] created display-reward
 - [ ] started looking at error-handling (work to do)
 
-**MERGE GROUPS #18 branch**
+**MERGE GROUPS v0.0.10 Branch #18**
       - merged 25 Jun 2021
 - [x] Renamed Groups as Games in Index.ejs + relevant client.js
 - [ ] Failed to send Game Description to be displayed
@@ -174,21 +174,18 @@
 - [x] Created Reward display output, including a copy button
 - [x] Tested Room Reward system
 
-**Redo potgrator #17 branch**
+**Redo potgrator v0.0.09 Branch #17**
       - merged 22 Jun 2021
 - [x] Rebaselined the database, updated postgrator files
 - [ ] validatechecksums is still false in app\database.js.
 
-**Tidy code display #16 branch**
+**Tidy code display v0.0.08 Branch #16**
       - merged 15 Jun 2021
 - [x] fix the minor fixes that are now lost in the games-groups-rooms branch that is falling apart.
-
-**Postgrator updating to add GCALBURY test game #13 branch**
-      - merged 7 Jun 2021
 - [ ] has removed checksum checks in the app\database.js file as a workaround to Issue #8 NOT resolved, but can be ignored for now
 - [x] Add a game using Albury as a location for testing
 
-**Set occupied state #12 branch**
+**Set occupied state v0.0.07 Branch #12**
       - merged 7 Jun 2021
 - [x] Updated tabular output to highlight any row that has a player within the radius of a waypoint
 - [x] Updated server.js to detect any waypoint with a player located within it's radius
@@ -199,16 +196,16 @@
 - [ ] need a routine to check if chosen 'room/group/game' is a valid one, and to error/restart if not
 - [ ] Main display banner/footer (and table???) do not resize on smaller/mobile screens
 
-**Prime dev #9 branch**
+**Prime dev v0.0.06 Branch #9**
       - merged 31 May 2021
 - [x] Sorted out the output table display
 
-**Prime display #6 branch**
+**Prime display v0.0.05 Branch #6**
       - merged 27 May 2021
 - [x] created a display table in a user friendly format.
 - [ ] still need to sort the current ID (socket.id isn't it apparently) and also how to display current date time properly.
 
-**Feature/pivot #3 branch**
+**Feature/pivot v0.0.04 Branch #3**
       - merged 11 May 2021
       - _@andrewjud-daf_
 - [x] Added communication between client and server for reward and location information.
@@ -226,11 +223,13 @@
 - [x] impl query for distances from each waypoint, and add todo statements … 
 - [x] remove nodemon, and revert to using node for production
 
-**Delete pre-existing-files directory #1 branch**
+**Delete pre-existing-files directory v0.0.03 Branch #1**
       - merged 7 May 2021
+      - _@Pprime1_
 - [x] Delete pre-existing-files directory
+- [x] First Pprime1 build, use workflows and processes
 
-**Initial Build main**
+**Initial Heroku Build v0.0.02**
       - created 11 April 2021
       - _@andrewjud-daf_
 - [x] fix: readme update, and added files from peters existing git
@@ -240,7 +239,7 @@
 - [x] impl: add api, and websocket functionality
 - [x] create code base
 
-**IMPLEMENT VISION**
+**IMPLEMENT VISION v0.0.01**
 - 1 - geocache table contains information about points of interest - e.g "Andrews Place"... if we wanted we could add a third table to link them to a "GCCODE" then look for all players updated in last 5 minutes and see whether they're near any of the places for our GCCODE, if any are send that as an update to all users for same GCCODE 2.2 - When all players occupy the correct locations send further information in the "distance" update to congratulate them?
 
 - 2A - Implement a "which game' feature, possibly as a command line call ie: https://csasm.herokuapp.com/?GCCODE
