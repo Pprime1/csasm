@@ -45,7 +45,7 @@ async function configure_socketio(db_connection, games_result) {
         }); // location-update
 
 	socket.on('LOGTX', (clientlogdata) => {console.log($clientlogdata)}; //Receive console log data from client to drop on server console
-		  //clientlogdata should always be in the format of `$socket_id, ":->", $log_message`
+		  //clientlogdata should always be in the format of `${socket.id} :-> log message`
 		     
         socket.on('join-a-game', (chosen_game, callback) => {
             // Start Chosen Game ...
