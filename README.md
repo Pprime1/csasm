@@ -15,7 +15,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
    - `socket.emit('LOGTX',"console message or perhaps a variable")`
    - and then I will need a function? in server.js such as
    - `socket.on('LOGTX', (clientlogdata) => {console.log($clientlogdata)};`
-- [ ] can we reduce server console log entries in the ten second cycle?
+- [x] can we reduce server console log entries in the ten second cycle?
   - 2022-02-02T04:27:03.286916+00:00 app[web.1]: new player: aYDBQZvsPmGR0tqQAAAB
   - 2022-02-02T04:27:03.287646+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB connected
   - 2022-02-02T04:27:18.532435+00:00 app[web.1]: Chosen Game is GCBETA : The Anti-Social-Mob cache: Beta test
