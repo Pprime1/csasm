@@ -52,8 +52,7 @@ function updatePosition(position) { //changes the player location details:
   var lon = ConvertDEGToDM(longitude,0);
   var acc = Math.round(accuracy);
   if (acc==150) {spoof=true}; //devtools in client browser uses a fixed accuracy of 150m
-  var isMock = position.isFromMockProvider();
-  if (isMock) {spoof=true}; //android option only
+  if (position.isFromMockProvider) {spoof=true}; //android option only .... except this doesn't work on FakeGPS?
   $("#current-Lat").text(lat); //index.ejs for display above the table
   $("#current-Lon").text(lon);
   $("#current-Acc").text(acc);
