@@ -131,6 +131,7 @@ socket.on("display-update", (display_information) => {
   if (spoof) {
       window.alert(spoofMsg);
       console.log("Spoofing detected");
+      socket.emit('LOGTX',`${socket.id} :-> Spoofing detected`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
   displaytable=display_information;
