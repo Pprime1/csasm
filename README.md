@@ -9,6 +9,11 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - 2022-01-28T03:40:15.553001+00:00 app[web.1]: nNb7pC3X4vhRDbl1AAAD left game-GC9JEH6 0 online
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
 - [ ] Can we push client console.logs to the server for centralised display?
+- [ ] Wanting to capture some of the client.js console.log entries and pass them to the server log dump.
+   -I think I would use a line wherever I want it in client.js such as
+   - `socket.emit('LOGTX',"console message or perhaps a variable")`
+   - and then I will need a function? in server.js such as
+   - `socket.on('LOGTX', (clientlogdata) => {console.log($clientlogdata)};`
 - [ ] can we reduce server console log entries in the ten second cycle?
   - 2022-02-02T04:27:03.286916+00:00 app[web.1]: new player: aYDBQZvsPmGR0tqQAAAB
   - 2022-02-02T04:27:03.287646+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB connected
