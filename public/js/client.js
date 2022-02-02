@@ -126,10 +126,10 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
 
 socket.on("display-update", (display_information) => {
   if (spoof) {
-      //window.alert(spoofMsg);
+      window.alert(spoofMsg);
       console.log("Spoofing detected");
-      //location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
-      //break 
+      location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
+      break 
   };
   displaytable=display_information;
   MYID = socket.id; // this is current player
