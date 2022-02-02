@@ -1,4 +1,4 @@
-//***CLIENT.js***//
+//***CLIENT.js***// 
 const socket = io(); // or io("/"), the main namespace
 const urlParams = new URLSearchParams(location.search);
 var latitude =-27.5;    // defaults to UQ St Lucia
