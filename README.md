@@ -5,14 +5,25 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [x] shorten console.log for leaving game game-ID code (remove 'game-'
+- [x] shorten console.log for leaving game game-ID code (remove 'game-')
   - 2022-01-28T03:40:15.553001+00:00 app[web.1]: nNb7pC3X4vhRDbl1AAAD left game-GC9JEH6 0 online
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
 - [ ] Can we push client console.logs to the server for centralised display?
-- [ ] Can we siphon off the server console.logs for post action review? Use a logging addon?
-- [ ] Can we create a spoofing detector?
-  - [ ] either accuracy checker for the chrome dev console?
-  - [ ] or lack of movement detector?
+- [ ] can we reduce server console log entries in the ten second cycle?
+  - 2022-02-02T04:27:03.286916+00:00 app[web.1]: new player: aYDBQZvsPmGR0tqQAAAB
+  - 2022-02-02T04:27:03.287646+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB connected
+  - 2022-02-02T04:27:18.532435+00:00 app[web.1]: Chosen Game is GCBETA : The Anti-Social-Mob cache: Beta test
+  - 2022-02-02T04:27:18.532495+00:00 app[web.1]: new game: GCBETA
+  - 2022-02-02T04:27:18.533278+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB joined game-GCBETA 1 online
+  - 2022-02-02T04:27:25.968680+00:00 app[web.1]: Playing game GCBETA
+  - 2022-02-02T04:27:25.972407+00:00 app[web.1]: GCBETA requires 2 waypoints to be occupied.
+  - 2022-02-02T04:27:25.972453+00:00 app[web.1]: 0 waypoints are currently occupied.
+- [ ] Can we siphon off the server console.logs for post action review? 
+- [ ] Use a logging addon
+  - [ ] Need to add a valid credit card to Heroku
+- [x] Can we create a spoofing detector?
+  - [x] accuracy checker for the chrome dev console (exactly 150m)
+  - [ ] lack of movement detector?
 
  
 
