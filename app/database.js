@@ -14,7 +14,7 @@ function db(connectionString) {
             driver: 'pg',
             ssl: { rejectUnauthorized: false },
             connectionString
-      })
+      });
 
       postgrator.on("migration-started", () => console.info("Migration started"));
       postgrator.on("migration-finished", () => console.info("Migration finished"));
