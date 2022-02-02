@@ -129,7 +129,7 @@ socket.on("display-update", (display_information) => {
       window.alert(spoofMsg);
       console.log("Spoofing detected");
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46";
-      break 
+      //break ...this is an illegal statement?
   };
   displaytable=display_information;
   MYID = socket.id; // this is current player
