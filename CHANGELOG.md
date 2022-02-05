@@ -1,5 +1,16 @@
 # HISTORY OF CODE DEVELOPMENT RELEASES #
 
+**PRODUCTION RELEASE v1.0.20**
+ - committed 6 February 2022
+ - Build Release v1050 created by user pprime@live.com.au 2022-02-05T21:30:10
+ - Production Code Release v20
+- [x] Improve client logging transferred to server console 
+  - [x] null distance trap
+  - [x] capture form use for when URL param not used
+  - [x] remove the Update Circle log spam
+  - [x] circle distance once occupying
+- [👎] Get emailed alerts on Chosen Game and Game REWARD events ... unreliable?
+
 **PRODUCTION RELEASE v1.0.19**
  - committed 4 February 2022
  - Build Release v1045 created by user pprime@live.com.au 2022-02-03T22:38:50
@@ -11,7 +22,6 @@
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
 - [x] Push certain client console.logs to the server for centralised display
 - [x] Push certain showmap console.logs to the server for centralised display
-  -[🦖] and remove the Update Circle logs
 - [x] Reduce server console log entries in the ten second cycle
   - 2022-02-02T04:27:03.286916+00:00 app[web.1]: new player: aYDBQZvsPmGR0tqQAAAB
   - 2022-02-02T04:27:03.287646+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB connected
