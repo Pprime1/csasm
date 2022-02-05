@@ -4,7 +4,10 @@ DRAFT: **PRODUCTION RELEASE v1.0.20**
  - committed 6 February 2022
  - Build Release v1050 created by user pprime@live.com.au 2022-02-05T21:56:10
  - Production Code Release v20
-- [🚱] npm audit ... fix?
+- [x] npm audit ... fix
+   - + socket.io@4.4.1
+   - added 1 package from 1 contributor, removed 1 package and updated 12 packages in 2.761s
+   - fixed 2 of 2 vulnerabilities in 116 scanned packages
 - [x] Improve client logging transferred to server console 
   - [x] null distance trap
   - [x] capture form use for when URL param not used
