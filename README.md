@@ -5,7 +5,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] Email alerts on Game start and Game Reward - not happening?
+- [ ] Email alerts on Game start and Game Reward - not happening reliably
  
 
 ## Key files ##
