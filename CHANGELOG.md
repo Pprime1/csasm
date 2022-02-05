@@ -11,7 +11,7 @@
   - 2022-01-28T03:40:15.553127+00:00 app[web.1]: All players have left game:  game-GC9JEH6
 - [x] Push certain client console.logs to the server for centralised display
 - [x] Push certain showmap console.logs to the server for centralised display
-  -[🦖] May need to reduce the Update Circle logs?
+  -[🦖] and remove the Update Circle logs
 - [x] Reduce server console log entries in the ten second cycle
   - 2022-02-02T04:27:03.286916+00:00 app[web.1]: new player: aYDBQZvsPmGR0tqQAAAB
   - 2022-02-02T04:27:03.287646+00:00 app[web.1]: aYDBQZvsPmGR0tqQAAAB connected
@@ -25,7 +25,7 @@
   - [x] Use a logging addon = LogEntries
     - [x] Need to add a valid credit card to Heroku
   - [x] Setup dashboards, tags, filters ... learn to use LogEntries addon
-  - [👎] Email alerts on Game start and Game Reward - not happening?
+  - [👎] Email alerts on Game start and Game Reward - not happening reliably
 - [x] Can we create a spoofing detector? "Anti-Gary mode enabled"
   - [x] accuracy checker for the chrome dev console (exactly 150m)
   - [x] android position.ismockprovider is true ... not sure this is overly reliable, but it's there
