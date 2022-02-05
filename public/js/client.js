@@ -156,6 +156,7 @@ socket.on("display-update", (display_information) => {
      } else { 
           console.log("distance is null error occurred", display_information);
           socket.emit('LOGTX',`${socket.id} :-> distance is null error occurred`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+          socket.emit('LOGTX',`${socket.id} :-> at ${latitude},${longitude},and ${displaytable}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      };
   };
   $table += "</tr></tbody></table>";
@@ -187,6 +188,7 @@ window.addEventListener("load",function(event) {
   $( "#join-game-form" ).on( "submit", function(e) {
      e.preventDefault();
      var game = $("#gameId").val();
+     socket.emit('LOGTX',`${socket.id} :-> Form entry used= ${game}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      game = game.trim();
      game = game.toUpperCase();
      console.log(`Attempting to join ${ game }`)
