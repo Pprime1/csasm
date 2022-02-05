@@ -1,15 +1,16 @@
 # HISTORY OF CODE DEVELOPMENT RELEASES #
 
-**PRODUCTION RELEASE v1.0.20**
+DRAFT: **PRODUCTION RELEASE v1.0.20**
  - committed 6 February 2022
- - Build Release v1050 created by user pprime@live.com.au 2022-02-05T21:30:10
+ - Build Release v1050 created by user pprime@live.com.au 2022-02-05T21:56:10
  - Production Code Release v20
+- [🚱] npm audit ... fix?
 - [x] Improve client logging transferred to server console 
   - [x] null distance trap
   - [x] capture form use for when URL param not used
   - [x] remove the Update Circle log spam
   - [x] circle distance once occupying
-- [👎] Get emailed alerts on Chosen Game and Game REWARD events ... unreliable?
+- [📧] Get emailed alerts on Chosen Game and Game REWARD events ... unreliable?
 
 **PRODUCTION RELEASE v1.0.19**
  - committed 4 February 2022
