@@ -5,11 +5,16 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [ ] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [ ] Email alerts on Game start and Game Reward - not happening reliably
+- [ ] Email alerts on Game start and Game Reward - not happening reliably? Or perhaps only alerting once per minute and only if LogEntries screen is not active?
+- [ ] Create a new game form
+- [ ] Update versioning to be :  v[Functionality Release].[active Geocache games].[Release number]   {Build number} == v1.1.20 currently
+- [ ] Put a 'Help' button top right of screen to UserGuide
+- [ ] What causes the "distance is null error"s? 
+  - [ ] Can I create a workaround or a helpful log?
  
 
 ## Key files ##
-[SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to client side javascript
+[SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to and from client side javascripts
 
 [INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
 
