@@ -65,6 +65,7 @@ function updatePosition(position) { //changes the player location details:
 }; // UpdatePosition
 
 function PosError(error) { // handle/display get geolocation errors
+    socket.emit('LOGTX',`${socket.id} :-> Geolocation Error ${error.code}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
     switch (error.code) {
         case error.PERMISSION_DENIED:
             RtnError = "GeoLocation error: User denied the request for Geolocation. \n Please un-block location sharing for this webpage, and then refresh screen to restart.";
