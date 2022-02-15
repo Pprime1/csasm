@@ -9,6 +9,10 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [ ] Create a new game form
 - [ ] Update versioning to be :  v[Functionality Release].[active Geocache games].[Release number]   {Build number} == v1.1.20 currently
 - [ ] Put a 'Help' button top right of screen to UserGuide
+- [ ] Improve server log (GCALPHA : 0 of 2 waypoints occupied.) to indicate number of current players
+- [x] Upgrade all npm audit componentry
+  - [x] update engine.io and socket.io using an npm install command? Or npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
+    - [x] Install Github Desktop and sync a clone of csasm
 - [ ] What causes the "distance is null error"s? 
   - [ ] Can I create a workaround or a helpful log?
  
