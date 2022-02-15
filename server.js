@@ -5,6 +5,7 @@ const http = require("http").createServer(app);
 const io = require('socket.io')(http);
 const path = require('path')
 const randomstring = require ('randomstring');
+var room_size = 0; //current number of playing players
 
 // Our Database
 const boot_database = require('./app/database').db;
@@ -89,7 +90,7 @@ async function configure_socketio(db_connection, games_result) {
     // Leave a game room - Inform users within game of changes (i.e. count of active players)
     io.of("/").adapter.on("leave-room", (room, id) => {
       if(room !== id) {
-        let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
+        room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "left", room.replace("game-", ""), room_size, "online");
 	if (room_size==0) {console.log("All players have left game: ", room.replace("game-", ""))};
 	io.to(room).emit("room-update", room.replace("game-", ""), 1, room_size);
@@ -143,7 +144,7 @@ async function update_game(room, io, db_connection, games_result) {
 		};
 	};
     };
-    console.log(game_code, ":", within_radius.length, "of", minimum_player_count, "waypoints occupied.");
+    console.log(game_code, ":", within_radius.length, "of", minimum_player_count, "waypoints occupied." room_size, "Players online");
 
     if (within_radius.length == minimum_player_count) { //If the number of occupied waypoints == the number required we have success
        	let reward = game_details["reward"];
