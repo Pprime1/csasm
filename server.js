@@ -144,7 +144,7 @@ async function update_game(room, io, db_connection, games_result) {
 		};
 	};
     };
-    console.log(game_code, ":", within_radius.length, "of", minimum_player_count, "waypoints occupied." room_size, "Players online");
+    console.log(game_code, ":", within_radius.length, "of", minimum_player_count, "waypoints occupied.", room_size, "Players online.");
 
     if (within_radius.length == minimum_player_count) { //If the number of occupied waypoints == the number required we have success
        	let reward = game_details["reward"];
