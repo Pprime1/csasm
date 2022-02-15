@@ -77,7 +77,7 @@ async function configure_socketio(db_connection, games_result) {
     io.of("/").adapter.on("join-room", (room, id) => {
       if(room !== id) {
         db_connection.query(`INSERT INTO player(id, room_id) VALUES('${id}', '${room.replace("game-", "")}')`).catch(err => console.log(err));
-        let room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
+        room_size = io.sockets.adapter.rooms.get(room).size; // number of currently connected players to the game
         console.log(id, "joined", room, ",", room_size, "players online");
         var game_details = getGameByCode(games_result, room.replace("game-", ""));
 	var gamedesc = game_details["description"];
