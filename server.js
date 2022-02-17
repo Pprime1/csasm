@@ -124,7 +124,7 @@ async function update_game(room, io, db_connection, games_result) {
        ORDER BY pl.id
     `;
     let display_result = await db_connection.query(display_query);
-    console.table(display_result);
+    console.table(display_result.rows);
     io.to(room).emit('display-update', display_result.rows);
 
     // How many waypoints are there in this game?
