@@ -135,6 +135,11 @@ socket.on("display-update", (display_information) => {
       window.alert(spoofMsg);
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
+  if (displaytable==null) {
+      socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+  }
+  // else { //skip this socket function
+  
   displaytable=display_information;
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
