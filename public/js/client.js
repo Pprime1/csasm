@@ -139,6 +139,7 @@ socket.on("display-update", (display_information) => {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display with null distances`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
   } else { 
     MYID = socket.id; // this is current player
+    displaytable=display_information; //used for updatemap in update position function 
     var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
     $("#gamedesc").text(game_description);
 
