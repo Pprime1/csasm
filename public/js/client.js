@@ -135,23 +135,18 @@ socket.on("display-update", (display_information) => {
       window.alert(spoofMsg);
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
-  if (display_information==null) {
-      socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-  } else { //console.table(display_information);
-          let displaytable = JSON.stringify(display_information);
-          socket.emit('LOGTX',`${socket.id} :-> Display ${JSON.stringify(display_information)}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-          //else skip this entire socket function
-  };
-  
-  MYID = socket.id; // this is current player
-  var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
-  $("#gamedesc").text(game_description);
+  if (display_information[0].distance==null) {
+      socket.emit('LOGTX',`${socket.id} :-> Trying to display with null distances`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+  } else { 
+    MYID = socket.id; // this is current player
+    var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
+    $("#gamedesc").text(game_description);
 
-  // Display game status including any occupied status lines
-  var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
-      $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
-  for (var i = 0; i < display_information.length; i++) {
-      if (display_information[i].distance != null) { // if it is null there is an error somewhere
+    // Display game status including any occupied status lines
+    var $table = "<table border='1'> <caption>Current Player: " + MYID + " at " + DTStamp + "</caption>"
+        $table += "<thead><tr class='table table-primary'><th>Player</th><th>Waypoint</th><th>Radius</th><th>Distance</th></tr></thead><tbody>"
+    for (var i = 0; i < display_information.length; i++) {
+      //if (display_information[i].distance != null) { // if it is null there is an error somewhere
           if (display_information[i].distance <= display_information[i].radius) {  // For display purposes only, not used for success determination here
               $table += "<tr class='table table-success'>"
           } else {
@@ -161,17 +156,16 @@ socket.on("display-update", (display_information) => {
           $table += "<td>" + display_information[i].name + "</td>"
           $table += "<td>" + display_information[i].radius + "m</td>"
           $table += "<td>" + display_information[i].distance.toLocaleString() + "m</td></tr>"
-     } else { 
-          console.log("distance is null error occurred", display_information);
-          socket.emit('LOGTX',`${socket.id} :-> distance is null error occurred`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-          socket.emit('LOGTX',`${socket.id} :-> at ${latitude},${longitude},and ${displaytable}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      };
-  };
-  $table += "</tr></tbody></table>";
-  $('#displayinfo').empty().append($table);
-  localStorage.setItem('display_update', $table); //needed in reward.ejs
-  if (!map_started) {startupmap(latitude,longitude,display_information,MYID);
-       map_started=true}; //startup the map, but just the first time we get here;    
+    $table += "</tr></tbody></table>";
+    $('#displayinfo').empty().append($table);
+    localStorage.setItem('display_update', $table); //needed in reward.ejs
+    socket.emit('LOGTX',`${socket.id} :-> Display ${table}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+    if (!map_started) {
+         startupmap(latitude,longitude,display_information,MYID);
+         map_started=true //startup the map, but just the first time we get here;    
+    }
+  }; //only if distance != null
 }); // end of DISPLAY-UPDATE
 
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
