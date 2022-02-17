@@ -123,7 +123,7 @@ socket.on("room-update", (game_id, gamedesc, new_player_count) => {
     localStorage.setItem('current_game', game_id); //?
     game_description = gamedesc;
   };
-  console.log(new_player_count, "are joined to", game_id, ":", gamedesc);  
+  console.log(new_player_count, "players are joined to", game_id, ":", gamedesc);  
   $("#current-game-player-count").text(new_player_count);
   $("#lj-in-game").show();
 }); // end of ROOM-UPDATE
@@ -135,7 +135,7 @@ socket.on("display-update", (display_information) => {
       window.alert(spoofMsg);
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
-  if (display_information[0].distance==null) {
+  if (display_information[0].distance==null) { //don't do anything if the player's location hasn't been found yet
       socket.emit('LOGTX',`${socket.id} :-> Trying to display with null distances`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
   } else { 
     MYID = socket.id; // this is current player
@@ -160,7 +160,7 @@ socket.on("display-update", (display_information) => {
     $table += "</tr></tbody></table>";
     $('#displayinfo').empty().append($table);
     localStorage.setItem('display_update', $table); //needed in reward.ejs
-    socket.emit('LOGTX',`${socket.id} :-> Display ${$table}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+    //socket.emit('LOGTX',`${socket.id} :-> Displaying ${JSON.stringify(display_information)}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
     if (!map_started) {
          startupmap(latitude,longitude,display_information,MYID);
          map_started=true //startup the map, but just the first time we get here;    
