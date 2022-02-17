@@ -5,7 +5,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [?] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [?] Email alerts on Game start and Game Reward - not happening reliably? Or perhaps only alerting once per minute and only if LogEntries screen is not active?
+- [?] Email alerts on Game start and Game Reward - only alerting once per minute and only if LogEntries screen is not active
 - [ ] Create a new game form
 - [ ] Update versioning to be :  v[Functionality Release].[active Geocache games].[Release number]   {Build number}      is v1.1.20 {1050} currently
 - [x] Put a 'Help' button top right of screen to UserGuide
