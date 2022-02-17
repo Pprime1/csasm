@@ -135,10 +135,10 @@ socket.on("display-update", (display_information) => {
       window.alert(spoofMsg);
       location.href = "https://www.geocaching.com/help/index.php?pg=kb.chapter&id=141&pgid=46"
   };
-  if (displaytable[0].distance==null) {
+  if (display_information==null) {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-  } else { console.table(displaytable);
-           socket.emit('LOGTX',`${socket.id} :-> Display ${displaytable}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+  } else { console.table(display_information);
+           socket.emit('LOGTX',`${socket.id} :-> Display ${display_information}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
     //else skip this socket function
   
   displaytable=display_information;
