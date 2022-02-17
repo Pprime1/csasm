@@ -5,24 +5,26 @@ The app requires multiple mobile devices, each connecting to the same source to 
 
 ## TODO ##
 - [?] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [?] Email alerts on Game start and Game Reward - only alerting once per minute and only if LogEntries screen is not active
-- [ ] Create a new game form
+- [x] Email alerts on Game start and Game Reward - only alerting once per minute and only if LogEntries screen is not active
+- [x] Create a new game form
 - [ ] Update versioning to be :  v[Functionality Release].[active Geocache games].[Release number]   {Build number}      is v1.1.20 {1050} currently
 - [x] Put a 'Help' button top right of screen to UserGuide
 - [x] Improve server log (GCALPHA : 0 of 2 waypoints occupied.) to indicate number of current players
 - [x] Upgrade all npm audit componentry
-  - [x] update engine.io and socket.io using an npm install command? Or npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
+  - [x] update engine.io and socket.io using npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
     - [x] Install Github Desktop and sync a clone of csasm
+- [ ] reduce further the F12 - client console.logs
 - [ ] Update a LOGTX to show distance from each waypoint on startupmap
 - [ ] startupmap is being run from client.js before displaytable is populated? Can we delay startupmap until it is?
 - [ ] What causes the "distance is null error"s?
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
+- [ ] How is the null error log even being called? Is the socket.emit(display-update) sending a null display_results.rows?
  
 
 ## Key files ##
-[SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to and from client side javascripts
+[SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to and from client side javascripts (c.f. socket.on(LOGX))
 
 [INDEX.EJS](/views/pages/index.ejs) : the calling script (client side html) to display stuff  - visible in console (F12).
 
