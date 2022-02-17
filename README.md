@@ -14,6 +14,7 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [x] update engine.io and socket.io using an npm install command? Or npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
     - [x] Install Github Desktop and sync a clone of csasm
 - [ ] Update a LOGTX to show distance from each waypoint on startupmap
+- [ ] startupmap is being run from client.js before displaytable is populated? Can we delay startupmap until it is?
 - [ ] What causes the "distance is null error"s?
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
