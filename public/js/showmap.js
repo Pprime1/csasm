@@ -70,6 +70,7 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
 });
 
 function updatemap(latitude,longitude,displaytable) {  // Update the current player location on map	
+   socket.emit('LOGTX',`${socket.id} :-> Mapping ${JSON.stringify(displaytable)}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    //set circle colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
    for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
@@ -127,5 +128,6 @@ function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initi
        .bindPopup(WPN[n] + "<br>" + WPX[n] + "," + WPY[n]);
    };	     
    panbtn.state('AutoMove');
+   socket.emit('LOGTX',`${socket.id} :-> Start Mapping`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
    updatemap(latitude,longitude,displaytable); //update the map to get it started
 } //end startupmap
