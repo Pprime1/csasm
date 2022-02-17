@@ -76,12 +76,12 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
    for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    	for (var n=0; n<WPN.length; n++) { 
    	   if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
-		if (displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
+		if (displaytable[i].distance != null && displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
 			WPC[n]='green';
 			console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
 			socket.emit('LOGTX',`${socket.id} :-> ${WPN[n]} occupying at distance ${displaytable[i].distance}m`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 		}; //set to green if player is in it
-		if (displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
+		if (displaytable[i].distance != null && displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
 			WPC[n]='yellow'
 			console.log("Circle in play by someone else:",n, WPN[n], WPC[n]);
 		}; //set to yellow if anyone is in it, and not already green
