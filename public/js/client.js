@@ -138,8 +138,8 @@ socket.on("display-update", (display_information) => {
   if (display_information==null) {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
   } else { console.table(display_information);
-          Let DTSTR= display_information.toString();
-          socket.emit('LOGTX',`${socket.id} :-> Display ${DTSTR}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+          //Let DTSTR = display_information.toString();
+          socket.emit('LOGTX',`${socket.id} :-> Display display_information Table`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
     //else skip this socket function
   
   displaytable=display_information;
