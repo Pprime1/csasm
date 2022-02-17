@@ -13,14 +13,15 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [x] Upgrade all npm audit componentry
   - [x] update engine.io and socket.io using npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
     - [x] Install Github Desktop and sync a clone of csasm
-- [ ] reduce further the F12 - client console.logs
+- [x] reduce further the F12 - client console.logs
 - [ ] Update a LOGTX to show distance from each waypoint on startupmap
 - [ ] What causes the "distance is null error"s?
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
-- [ ] round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance" is returning null sometimes (early on)
- - [ ] startupmap is being run from client.js before displaytable is populated? Can we delay startupmap until it is?
+- [ ] Delay first display-updates until player's location has been determined
+  - round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance" is returning null sometimes (early on)
+  - [x] Delay startupmap until player location is known
 
  
 
