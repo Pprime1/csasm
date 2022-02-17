@@ -137,8 +137,8 @@ socket.on("display-update", (display_information) => {
   };
   if (displaytable==null) {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-  }
-  // else { //skip this socket function
+  } else { socket.emit('LOGTX',`${socket.id} :-> Display ${displaytable}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+    //else skip this socket function
   
   displaytable=display_information;
   MYID = socket.id; // this is current player
