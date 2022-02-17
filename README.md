@@ -15,12 +15,13 @@ The app requires multiple mobile devices, each connecting to the same source to 
     - [x] Install Github Desktop and sync a clone of csasm
 - [ ] reduce further the F12 - client console.logs
 - [ ] Update a LOGTX to show distance from each waypoint on startupmap
-- [ ] startupmap is being run from client.js before displaytable is populated? Can we delay startupmap until it is?
 - [ ] What causes the "distance is null error"s?
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
-- [ ] How is the null error log even being called? Is the socket.emit(display-update) sending a null display_results.rows?
+- [ ] round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance" is returning null sometimes (early on)
+ - [ ] startupmap is being run from client.js before displaytable is populated? Can we delay startupmap until it is?
+
  
 
 ## Key files ##
