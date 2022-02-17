@@ -105,7 +105,8 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
 function startupmap(latitude,longitude,displaytable,MYID) {  // Create the initial map display
    L.control.layers(baseMaps).addTo(mymap); //show choice of layer views
    L.control.scale().addTo(mymap); //show scale bar
-   //console.log("Create current player marker:",MYID,latitude,longitude); 
+   socket.emit('LOGTX',`${socket.id} :-> ${displaytable}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+
    playerLoc.setLatLng([latitude,longitude]).addTo(mymap).bindPopup(MYID + "<br/><a href='#' class='toplink'>Go Top</a>"); //update current player marker, and now show it on the map	
    mymap.on('popupopen', function() { // create a way to jump to top of page from within the map 
      $('.toplink').click(function() { // - especially useful if the map has been zoomed to commandeer the entire phone window view that prevents access outside the map otherwise
