@@ -138,11 +138,10 @@ socket.on("display-update", (display_information) => {
   if (display_information==null) {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
   } else { //console.table(display_information);
-          Let DTSTR = display_information.rows;
-          socket.emit('LOGTX',`${socket.id} :-> Display display_information ${DTSTR}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+          Let displaytable = display_information;
+          socket.emit('LOGTX',`${socket.id} :-> Display display_information ${displaytable}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
     //else skip this socket function
   
-  displaytable=display_information;
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
   $("#gamedesc").text(game_description);
@@ -170,7 +169,7 @@ socket.on("display-update", (display_information) => {
   $table += "</tr></tbody></table>";
   $('#displayinfo').empty().append($table);
   localStorage.setItem('display_update', $table); //needed in reward.ejs
-  if (!map_started) {startupmap(latitude,longitude,displaytable,MYID);
+  if (!map_started) {startupmap(latitude,longitude,display_information,MYID);
        map_started=true}; //startup the map, but just the first time we get here;    
 }); // end of DISPLAY-UPDATE
 
