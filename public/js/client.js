@@ -139,8 +139,9 @@ socket.on("display-update", (display_information) => {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
   } else { //console.table(display_information);
           let displaytable = JSON.stringify(display_information);
-          socket.emit('LOGTX',`${socket.id} :-> Display ${JSON.stringify(display_information}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
-    //else skip this socket function
+          socket.emit('LOGTX',`${socket.id} :-> Display ${JSON.stringify(display_information)}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+          //else skip this entire socket function
+  };
   
   MYID = socket.id; // this is current player
   var DTStamp = new Date(display_information[0].updated_at).toLocaleTimeString('en-GB'); // Last Room update timestamp
