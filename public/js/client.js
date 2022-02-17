@@ -160,7 +160,7 @@ socket.on("display-update", (display_information) => {
     $table += "</tr></tbody></table>";
     $('#displayinfo').empty().append($table);
     localStorage.setItem('display_update', $table); //needed in reward.ejs
-    socket.emit('LOGTX',`${socket.id} :-> Display ${table}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+    socket.emit('LOGTX',`${socket.id} :-> Display ${$table}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
     if (!map_started) {
          startupmap(latitude,longitude,display_information,MYID);
          map_started=true //startup the map, but just the first time we get here;    
@@ -171,7 +171,6 @@ socket.on("display-update", (display_information) => {
 socket.on("display-reward", (reward_information) => { //if all waypoints are in occupied state, show Success! ONLY SENT TO VALID PLAYERS
   if (!spoof) {
     localStorage.setItem('reward_information', reward_information); // Save Reward Info into Local Storage
-    //console.log("Sending Reward:",reward_information);
     setTimeout( function() {
       location.href = "reward"; // Redirect user to reward page, disconnecting them from game and any session updates.
     }, 100);
@@ -193,7 +192,6 @@ window.addEventListener("load",function(event) {
      socket.emit('LOGTX',`${socket.id} :-> Form entry used= ${game}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
      game = game.trim();
      game = game.toUpperCase();
-     console.log(`Attempting to join ${ game }`)
      $("#gameId").text(game);
      socket.emit('join-a-game', game, (response) => {
         $("#game-error").text(response.message); // Set to display any error message underneath form entry field
