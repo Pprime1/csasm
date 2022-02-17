@@ -139,7 +139,7 @@ socket.on("display-update", (display_information) => {
       socket.emit('LOGTX',`${socket.id} :-> Trying to display a null table`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
   } else { //console.table(display_information);
           let displaytable = JSON.stringify(display_information);
-          socket.emit('LOGTX',`${socket.id} :-> Display display_information ${displaytable}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
+          socket.emit('LOGTX',`${socket.id} :-> Display ${JSON.stringify(display_information}`)}; //clientlogdata should always be in the format of `${socket.id} :-> log message`
     //else skip this socket function
   
   MYID = socket.id; // this is current player
