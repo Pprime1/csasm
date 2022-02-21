@@ -4,25 +4,10 @@
 The app requires multiple mobile devices, each connecting to the same source to determine if they are within a defined proximity radius of any waypoint location stored in a database table for a given Game-Code. The app displays _for the current player_ where they are on a map in relation to the target waypoints, highlighting if they are within one. It also keeps track of how far other players are from each waypoint, and will highlight any occupied waypoint on the map. Once all waypoints are occupied, the app returns hidden REWARD text value (eg: clues/directions to the final container) to each player that is occupying a waypoint.
 
 ## TODO ##
-- [?] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
-- [x] Email alerts on Game start and Game Reward - only alerting once per minute and only if LogEntries screen is not active
-- [x] Create a new game form
-- [ ] Update versioning to be :  v[Functionality Release].[active Geocache games].[Release number]   {Build number}      is v1.1.20 {1050} currently
-- [x] Put a 'Help' button top right of screen to UserGuide
-- [x] Improve server log (GCALPHA : 0 of 2 waypoints occupied.) to indicate number of current players
-- [x] Upgrade all npm audit componentry
-  - [x] update engine.io and socket.io using npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
-    - [x] Install Github Desktop and sync a clone of csasm
-- [x] reduce further/cleanup the F12 - client console.logs
-- [x] Update a LOGTX to show distance from each waypoint on updatemap
 - [ ] What causes the "distance is null error"s?
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
-- [x] Delay first display-updates until player's location has been determined
-  - round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance" is returning null sometimes (early on)
-  - [x] Delay startupmap until player location is known
-
  
 
 ## Key files ##
