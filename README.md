@@ -13,13 +13,13 @@ The app requires multiple mobile devices, each connecting to the same source to 
 - [x] Upgrade all npm audit componentry
   - [x] update engine.io and socket.io using npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
     - [x] Install Github Desktop and sync a clone of csasm
-- [x] reduce further the F12 - client console.logs
-- [ ] Update a LOGTX to show distance from each waypoint on startupmap
+- [x] reduce further/cleanup the F12 - client console.logs
+- [x] Update a LOGTX to show distance from each waypoint on updatemap
 - [ ] What causes the "distance is null error"s?
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
-- [ ] Delay first display-updates until player's location has been determined
+- [x] Delay first display-updates until player's location has been determined
   - round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance" is returning null sometimes (early on)
   - [x] Delay startupmap until player location is known
 
@@ -37,30 +37,11 @@ The app requires multiple mobile devices, each connecting to the same source to 
 [REWARD.EJS](/views/pages/reward.ejs) : the final reward display script (client side html) - visible in console (F12).
 
 
-## Documentation ##
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
-
-- [markdown cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md)
-
+## LINKS ##
 - [Github Pprime1/csasm	](https://github.com/Pprime1/csasm)
+- [Heroku Pipeline](https://dashboard.heroku.com/pipelines/8ac5b1b3-7f26-4c08-a927-f54f4c14888f)
 - [csasm · Logs | Heroku	](https://dashboard.heroku.com/apps/csasm/logs)
-- [Heroku Dashboard csasm 	](https://dashboard.heroku.com/apps/csasm/deploy/heroku-git)
 - [Heroku Database page	](https://data.heroku.com/dataclips)
 - [Heroku | ASMHUB appsite	](https://asmhub.herokuapp.com/)
-- [Stack Overflow	](https://stackoverflow.com/questions)
-- [Badges · Bootstrap	](https://getbootstrap.com/docs/4.4/components/badge/)
-- [SHint, a JavaScript Code Quality Tool	](https://jshint.com/)
-- [Rooms | Socket.IO	](https://socket.io/docs/v3/rooms/index.html)
-- [Emitting events | Socket.IO	](https://socket.io/docs/v4/emitting-events/#Acknowledgements)
-- [js-samples/index.js at 8c8a2e163d4df2279cc9aa54948b798b80d95056 · googlemaps/js-samples · GitHub 	](https://github.com/googlemaps/js-samples/blob/8c8a2e163d4df2279cc9aa54948b798b80d95056/dist/samples/map-geolocation/index.js)
-- [Account | Mapbox	](https://account.mapbox.com/access-tokens)
-- [Quick Start Guide - Leaflet - a JavaScript library for interactive maps	](https://leafletjs.com/examples/quick-start/)
-- [Documentation - Leaflet - a JavaScript library for interactive maps 	](https://leafletjs.com/reference-1.6.0.html#control)
-- [Read Leaflet Tips and Tricks | Leanpub 	](https://leanpub.com/leaflet-tips-and-tricks/read)
-- [javascript - How to update multiple marker location simultaneously using JSON data? Leaflet JS - Stack Overflow 	](https://stackoverflow.com/questions/32731916/how-to-update-multiple-marker-location-simultaneously-using-json-data-leaflet-js)
-- [Zoom further in than level 19 with leaflet javascript API? - Geographic Information Systems Stack Exchange 	](https://gis.stackexchange.com/questions/78843/zoom-further-in-than-level-19-with-leaflet-javascript-api)
-- [Edit fiddle - JSFiddle - Code Playground 	](http://jsfiddle.net/fqt7L/1/)
+- [The Anti-Social Mob Cache](https://www.geocaching.com/geocache/GC9JEH6_the-anti-social-mob?guid=c7d27f31-980c-42ea-bd66-545bb5d77874)
+- [asmhub GUIDE](https://enblesp1msgzhmk140wukq-on.drv.tw/asmhub/asmhubGuide.html)
