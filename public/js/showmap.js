@@ -70,16 +70,17 @@ mymap.on('movestart',(e)=>{ //Check if map is being moved
 });
 
 function updatemap(latitude,longitude,displaytable) {  // Update the current player location on map	
-   socket.emit('LOGTX',`${socket.id} :-> Mapping ${JSON.stringify(displaytable)}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+   //socket.emit('LOGTX',`${socket.id} :-> Mapping ${JSON.stringify(displaytable)}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
    playerLoc.setLatLng([latitude,longitude]); //update current player marker instead of creating new ones
    //set circle colour yellow if occupied by anyone, green if occupied by this player, otherwise red 	
    for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    	for (var n=0; n<WPN.length; n++) { 
    	   if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
+		socket.emit('LOGTX',`${socket.id} :-> Mapping ${displaytable[i].room_id}${displaytable[i].name} at distance ${displaytable[i].distance}m. As at ${displaytable[i].updated_at}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 		if (displaytable[i].distance != null && displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
 			WPC[n]='green';
 			console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
-			socket.emit('LOGTX',`${socket.id} :-> ${WPN[n]} occupying at distance ${displaytable[i].distance}m`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+			socket.emit('LOGTX',`${socket.id} :-> is occupying ${WPN[n]}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 		}; //set to green if player is in it
 		if (displaytable[i].distance != null && displaytable[i].distance <= displaytable[i].radius && WPC[n] != 'green') {
 			WPC[n]='yellow'
