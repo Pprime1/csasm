@@ -1,6 +1,26 @@
 # HISTORY OF CODE DEVELOPMENT RELEASES #
 
-**PRODUCTION RELEASE v1.0.20**
+**PRODUCTION RELEASE v1.1.21**
+ - committed 21 February 2022
+ - Build Release v1101 created by user pprime@live.com.au 2022-02-21T04:40
+ - Production Code Release v21
+- [x] reintroduce validatechecksums = true for the database tables. how to set/reset md5 values? (see https://github.com/Pprime1/csasm/issues/15)
+- [x] Email alerts on Game start and Game Reward - only alerting once per minute and only if LogEntries screen is not active
+- [x] Create a new game form
+- [x] Update versioning to be :  v[Functionality Release].[active Geocache games].[Release number]   {Build number}      is v1.1.21 {1100} currently
+- [x] Put a 'Help' button top right of screen to UserGuide
+- [x] Improve server log (GCALPHA : 0 of 2 waypoints occupied.) to indicate number of current players
+- [x] Upgrade all npm audit componentry
+  - [x] update engine.io and socket.io using npm audit fix (see issue https://github.com/Pprime1/csasm/issues/34_)
+    - [x] Install Github Desktop and sync a clone of csasm
+- [x] reduce further/cleanup the F12 - client console.logs
+- [x] Update a LOGTX to show distance from each waypoint on updatemap
+- [x] Delay first display-updates until player's location has been determined
+  - round(ST_DISTANCE(wp.location, pl.location) * 100000) as "distance" is returning null sometimes (early on)
+  - [x] Delay startupmap until player location is known
+
+ 
+ **PRODUCTION RELEASE v1.0.20**
  - committed 6 February 2022
  - Build Release v1052 created by user pprime@live.com.au 2022-02-05T22:22:22
  - Production Code Release v20
