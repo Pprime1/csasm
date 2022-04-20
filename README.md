@@ -8,6 +8,8 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
+ - [ ] What does the removal of OAuth connector to Heroku mean?
+ - [ ] Shrewsbury Park'n'Ride ASM cache for Mega?
  
 
 ## Key files ##
