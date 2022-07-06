@@ -8,9 +8,14 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [?] possibly running up on a computer with no GPS at all? 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
- - [x] OAuth connector to Heroku reconnected after Github OAuth security issue
  - [ ] Shrewsbury Park'n'Ride ASM cache for Mega?
  
+## Versioning vN.G.PR ##
+Where:
+- N = Game Version (1 until a major change)
+- G = Number of Production Games (not counting test games)
+- PR = Production Code Release version from Heroku
+and the Development Code release number is noted in changelog.md document as well.
 
 ## Key files ##
 [SERVER.JS](/server.js) : the primary engine (server side javascript creates and runs index.ejs) - no visibility of goings on to enduser (can only be seen in heroku console). Must socket.emit to communicate to and from client side javascripts (c.f. socket.on(LOGX))
