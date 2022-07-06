@@ -1,8 +1,14 @@
 # HISTORY OF CODE DEVELOPMENT RELEASES #
 
+**PRODUCTION RELEASE v1.1.22**
+ - committed 06 July 2022
+ - Build Release v1101 created by user pprime@live.com.au 2022-02-21T04:40
+ - Production Code Release v22
 - [x] Dependabot security patching - EJS update from 3.1.6 to 3.1.7
 - [x] Dependabot security patching - GOT update from 11.8.2 to 11.8.5
 - [x] Dependabot security patching - minimist update from 1.2.5 to 1.2.6
+- [x] OAuth connector to Heroku reconnected after Github OAuth security issue
+
 
 **PRODUCTION RELEASE v1.1.21**
  - committed 21 February 2022
