@@ -10,7 +10,6 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] Can I create a poserror, workaround or a helpful message?
  - [x] OAuth connector to Heroku reconnected after Github OAuth security issue
  - [ ] Shrewsbury Park'n'Ride ASM cache for Mega?
- - [ ] AL field puzzle
  
 
 ## Key files ##
