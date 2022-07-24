@@ -9,6 +9,8 @@ The app requires multiple mobile devices, each connecting to the same source to 
   - [ ] Can I trap and log that - poserror perhaps?
   - [ ] Can I create a poserror, workaround or a helpful message?
  - [ ] Shrewsbury Park'n'Ride ASM cache for Mega?
+ - [ ] Limit mapping update logs to one per second per player
+ - [ ] Improver Geolocation error numbers for short name as well
  
 ## Versioning vN.G.PR ##
 Where:
