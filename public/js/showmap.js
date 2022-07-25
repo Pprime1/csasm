@@ -78,7 +78,7 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
    	for (var n=0; n<WPN.length; n++) { 
    	   if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
 	        let current_time = Date.now();
-  	        if(displaytable[i].updated_at > last_consolelog) {
+  	        if(displaytable[i].updated_at !== last_consolelog) {
   	  	   last_consolelog = displaytable[i].updated_at;   	
 	           socket.emit('LOGTX',`${socket.id} :-> Mapping ${displaytable[i].room_id}|${displaytable[i].name} at distance ${displaytable[i].distance}m. As at ${displaytable[i].updated_at}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 	        }
