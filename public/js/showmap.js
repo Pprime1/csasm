@@ -80,8 +80,8 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
 	        let current_time = Date.now();
   	        if(current_time - last_consolelog > 1000) {
   	  	   last_consolelog = current_time;   	
-	           socket.emit('LOGTX',`${socket.id} :-> Mapping ${displaytable[i].room_id}|${displaytable[i].name} at distance ${displaytable[i].distance}m. As at ${displaytable[i].updated_at}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
-                }
+	           socket.emit('LOGTX',`${socket.id} :-> Mapping ${displaytable[i].room_id}|${displaytable[i].name} at distance ${displaytable[i].distance}m. As at ${last_consolelog} or ${displaytable[i].updated_at}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
+	        }
 		if (displaytable[i].distance != null && displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
 			WPC[n]='green';
 			console.log("Circle in play by me:",n, WPN[n], WPC[n]);	
