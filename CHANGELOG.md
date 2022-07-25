@@ -1,5 +1,13 @@
 # HISTORY OF CODE DEVELOPMENT RELEASES #
 
+**PRODUCTION RELEASE v1.1.23**
+ - committed 25 July 2022
+ - Build Release v1115 created by user pprime@live.com.au 2022-25-06T02:52
+ - Production Code Release v23
+ - [ ] Limit mapping update logs to once each time postition changes
+ - [ ] Added Geolocation error short name primer into console when used
+ 
+
 **PRODUCTION RELEASE v1.1.22**
  - committed 06 July 2022
  - Build Release v1104 created by user pprime@live.com.au 2022-07-06T04:40
