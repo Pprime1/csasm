@@ -41,7 +41,7 @@ var WPY=[]; //define an array of all unique waypoint y longitude
 var WPR=[]; //define an array of all unique waypoint radius
 var currentAutoMove = false; // needed to check in `movestart` and 'touchmove' event-listeners if moved by user, or programmatically
 var pauseAutoMove = false; // if true -> Stops moving map to auto follow the player location
-var last_consolelog = 0;
+var last_consolelog = []; //define an array for each map update time to reduce console log entries
 
 var panbtn = L.easyButton({
   states: [{
@@ -77,9 +77,8 @@ function updatemap(latitude,longitude,displaytable) {  // Update the current pla
    for (var i=0; i<displaytable.length; i++) {  //check every line of the displaytable (multiple players mean each waypoint has more than one entry)
    	for (var n=0; n<WPN.length; n++) { 
    	   if (displaytable[i].name == WPN[n]) { // find matching WPN (waypoint name) and update it's WPC (colour) accordingly
-	        let current_time = Date.now();
-  	        if(displaytable[i].updated_at !== last_consolelog) {
-  	  	   last_consolelog = displaytable[i].updated_at;   	
+  	        if(displaytable[i].updated_at !== last_consolelog[i]) {
+  	  	   last_consolelog[i] = displaytable[i].updated_at;   	
 	           socket.emit('LOGTX',`${socket.id} :-> Mapping ${displaytable[i].room_id}|${displaytable[i].name} at distance ${displaytable[i].distance}m. As at ${displaytable[i].updated_at}`); //clientlogdata should always be in the format of `${socket.id} :-> log message`
 	        }
 		if (displaytable[i].distance != null && displaytable[i].distance <= displaytable[i].radius && displaytable[i].id == MYID) {
